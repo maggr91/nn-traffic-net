@@ -60,7 +60,7 @@ hacia atr\'{a}s}. Para realizar esto, se contemplan las siguientes actividades:
 	  neuronas de entrada, en forma de vector de valores generados por el o los
 	  sensores con los que disponga cada sem\'{a}foro agente dentro del sistema
 	  distribuido. Sumado a lo anterior, la red neuronal de cada sem\'{a}foro,
-	  recibir\'{a} un vector adicional de tamaño din\'{a}mico donde se obtenga el
+	  recibir\'{a} un vector adicional de tama\~{n}o din\'{a}mico donde se obtenga el
 	  estado actual o decisi\'{o}n tomada de los sem\'{a}foros adyacentes.
 	  
 	  \item \textbf{Salidas de la red:} una vez tomada la decisi\'{o}n, la red
@@ -70,7 +70,7 @@ hacia atr\'{a}s}. Para realizar esto, se contemplan las siguientes actividades:
 	  \item \textbf{Criterio de validaz para los resultados:} para validar los
 	  resultados obtenidos por la red, se tomar\'{a} como valor m\'{i}nimo esperado
 	  los resultados generados por el sistema actual. El valor real esperado
-	  ser\'{a} buscado por medio de\ldots
+	  ser\'{a} buscado por medio de de tiempos de espera de los vehículos
 	  
 	\end{enumerate}
 
@@ -88,19 +88,20 @@ referencias encontradas.
 	programa de simulaci\'{o}n el cual servir\'{a} para probar el algoritmo
 	empleado en la red y determinar las decisiones necesarias durante cada prueba.
 
-\subsection{Simulaci\'{o}n la red}
+\subsection{Simulaci\'{o}n y entrenamiento la red}
 
 	De la lista de factores seleccionada en puntos anteriores, se proceder\'{a} a
 simular cada uno de estos, tomando en cuenta una serie de niveles en los que
 estos se pueden presentar, cabe destacar que la zona a simular es limitada al
 rango de avenida: 2, 4 y 8,  y las calles: 12, 10, 8 y 6 de San Jos\'{e}.
 
-	Dicha simulaci\'{o}n se realizar\'{a} por medio del programa establecido
+	Dicha simulaci\'{o}n se va a realizar\'{a} por medio del programa establecido
 anteriormente, tomando como par\'{a}metros de medici\'{o}n los datos previamente
 recolectados. Dentro de cada prueba generada, los resultados se comparar\'{a}n
 con estos registros del actual sistema de control de tr\'{a}nsito de forma que
 se tenga un punto de referencia para saber si la red est\'{a} funcionando de la
-forma esperado o si requiere ajustes.
+forma esperado o si requiere ajustes logrando con esto entrenar a la red para
+que corrija de la mejor forma posible, los errores que haya cometido.
 
 \subsection{Iteraci\'{o}n de simulaciones}
 
