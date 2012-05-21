@@ -1,43 +1,47 @@
 \select@language {spanish}
 \select@language {spanish}
-\contentsline {chapter}{\numberline {1}Introducc\'{o}n}{1}
-\contentsline {section}{\numberline {1.1}Introducci\'{o}n}{1}
-\contentsline {chapter}{\numberline {2}Descripci\'{o}n del Proyecto}{3}
-\contentsline {section}{\numberline {2.1}Antecedentes}{3}
-\contentsline {section}{\numberline {2.2}Problem\'{a}tica a Resolver}{7}
-\contentsline {subsection}{\numberline {2.2.1}Planteamiento del Problema}{7}
-\contentsline {subsection}{\numberline {2.2.2}Problema a evaluar}{11}
-\contentsline {section}{\numberline {2.3}Justificaci\'{o}n}{13}
-\contentsline {subsection}{\numberline {2.3.1}Beneficios}{15}
-\contentsline {section}{\numberline {2.4}Hip\'{o}tesis}{16}
-\contentsline {section}{\numberline {2.5}Objetivos}{16}
-\contentsline {subsection}{\numberline {2.5.1}Objetivo General}{16}
-\contentsline {subsection}{\numberline {2.5.2}Objetivos Espec\'{i}ficos}{17}
-\contentsline {section}{\numberline {2.6}Alcance y Limitaciones}{18}
-\contentsline {section}{\numberline {2.7}Lista de Entregables}{20}
-\contentsline {chapter}{\numberline {3}Marco Te\'{o}rico}{21}
-\contentsline {section}{\numberline {3.1}Redes neuronales y la toma de decisiones}{21}
-\contentsline {subsection}{\numberline {3.1.1}El Modelo Biol\'{o}gico}{21}
-\contentsline {subsection}{\numberline {3.1.2}Sistemas Expersot vs Redes Neuronales}{23}
-\contentsline {section}{\numberline {3.2}Redes neuronales artificiales}{24}
-\contentsline {subsection}{\numberline {3.2.1}Componentes de una red neuronal}{26}
-\contentsline {subsection}{\numberline {3.2.2}Topolog\'{i}as}{29}
-\contentsline {subsection}{\numberline {3.2.3}Activaci\'{o}n de Neuronas}{30}
-\contentsline {subsection}{\numberline {3.2.4}Aprendizaje y entrenamiento}{32}
-\contentsline {subsection}{\numberline {3.2.5}Supervisi\'{o}n de un red neuronal}{35}
-\contentsline {subsection}{\numberline {3.2.6}Algoritmo de Backpropagation}{36}
-\contentsline {section}{\numberline {3.3}Sistemas de Transporte Inteligente}{37}
-\contentsline {subsection}{\numberline {3.3.1}Sistemas de Control de Sem\'{a}foros}{39}
-\contentsline {chapter}{\numberline {4}Marco Metodol\'{o}gico}{43}
-\contentsline {section}{\numberline {4.1}Asunci\'{o}n}{43}
-\contentsline {section}{\numberline {4.2}Enfoque de Investigac\'{o}n}{44}
-\contentsline {section}{\numberline {4.3}Tipo de Investigac\'{o}n}{44}
-\contentsline {section}{\numberline {4.4}Actividades Involucradas}{46}
-\contentsline {subsection}{\numberline {4.4.1}An\'{a}lisis de modelos actuales}{46}
-\contentsline {subsection}{\numberline {4.4.2}Dise\~{n}o la red}{48}
-\contentsline {subsubsection}{Definici\'{o}n de los elementos de la red}{48}
-\contentsline {subsubsection}{Creaci\'{o}n del modelo de red}{49}
-\contentsline {subsection}{\numberline {4.4.3}Creaci\'{o}n programa de simulaci\'{o}n}{49}
-\contentsline {subsection}{\numberline {4.4.4}Simulaci\'{o}n la red}{49}
-\contentsline {subsection}{\numberline {4.4.5}Iteraci\'{o}n de simulaciones}{50}
-\contentsline {subsection}{\numberline {4.4.6}Evaluaci\'{o}n de ambientes vividos y factores de San Jos\'{e}}{50}
+\contentsline {chapter}{\numberline {1}Introducc\'{o}n}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Introducci\'{o}n}{1}{section.1.1}
+\contentsline {chapter}{\numberline {2}Descripci\'{o}n del Proyecto}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Antecedentes}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Problem\'{a}tica a Resolver}{6}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Planteamiento del Problema}{6}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Problema a evaluar}{9}{subsection.2.2.2}
+\contentsline {section}{\numberline {2.3}Justificaci\'{o}n}{10}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Beneficios}{12}{subsection.2.3.1}
+\contentsline {section}{\numberline {2.4}Hip\'{o}tesis}{13}{section.2.4}
+\contentsline {section}{\numberline {2.5}Objetivos}{13}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Objetivo General}{13}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Objetivos Espec\'{i}ficos}{13}{subsection.2.5.2}
+\contentsline {section}{\numberline {2.6}Alcance y Limitaciones}{14}{section.2.6}
+\contentsline {section}{\numberline {2.7}Lista de Entregables}{15}{section.2.7}
+\contentsline {chapter}{\numberline {3}Marco Te\'{o}rico}{17}{chapter.3}
+\contentsline {section}{\numberline {3.1}Redes neuronales y la toma de decisiones}{17}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}El Modelo Biol\'{o}gico}{17}{subsection.3.1.1}
+\contentsline {section}{\numberline {3.2}Redes neuronales artificiales}{18}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Algoritmo de Backpropagation}{19}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Sistemas Expertos vs Redes Neuronales}{20}{subsection.3.2.2}
+\contentsline {section}{\numberline {3.3}Sistemas de Transporte Inteligente}{21}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Sistemas de Control de Sem\'{a}foros}{23}{subsection.3.3.1}
+\contentsline {chapter}{\numberline {4}Marco Metodol\'{o}gico}{25}{chapter.4}
+\contentsline {section}{\numberline {4.1}Asunci\'{o}n}{25}{section.4.1}
+\contentsline {section}{\numberline {4.2}Enfoque de Investigac\'{o}n}{25}{section.4.2}
+\contentsline {section}{\numberline {4.3}Tipo de Investigac\'{o}n}{26}{section.4.3}
+\contentsline {section}{\numberline {4.4}Actividades Involucradas}{27}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}An\'{a}lisis de modelos actuales}{27}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Dise\~{n}o la red}{28}{subsection.4.4.2}
+\contentsline {subsubsection}{Definici\'{o}n de los elementos de la red}{28}{subsection.4.4.2}
+\contentsline {subsubsection}{Creaci\'{o}n del modelo de red}{29}{Item.13}
+\contentsline {subsection}{\numberline {4.4.3}Creaci\'{o}n programa de simulaci\'{o}n}{29}{subsection.4.4.3}
+\contentsline {subsection}{\numberline {4.4.4}Simulaci\'{o}n y entrenamiento la red}{29}{subsection.4.4.4}
+\contentsline {subsection}{\numberline {4.4.5}Iteraci\'{o}n de simulaciones}{30}{subsection.4.4.5}
+\contentsline {subsection}{\numberline {4.4.6}Evaluaci\'{o}n de ambientes vividos y factores de San Jos\'{e}}{30}{subsection.4.4.6}
+\contentsline {chapter}{\numberline {5}Estudio de Factibilidad}{31}{chapter.5}
+\contentsline {section}{\numberline {5.1}Factibilidad T\'{e}nica}{31}{section.5.1}
+\contentsline {section}{\numberline {5.2}Factibilidad Financiera}{32}{section.5.2}
+\contentsline {section}{\numberline {5.3}Factibilidad Operativa}{33}{section.5.3}
+\contentsline {section}{\numberline {5.4}Factibilidad Legal}{34}{section.5.4}
+\contentsline {chapter}{\numberline {6}Plan de Trabajo}{35}{chapter.6}
+\contentsline {section}{\numberline {6.1}Resultados y Productos Esperados}{35}{section.6.1}
+\contentsline {section}{\numberline {6.2}Riesgos del proyecto}{36}{section.6.2}
+\contentsline {section}{\numberline {6.3}Proyecci\'{o}n o cronograma}{37}{section.6.3}
