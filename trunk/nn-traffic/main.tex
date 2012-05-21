@@ -1,0 +1,50 @@
+%%This is a very basic article template.
+%%There is just one section and two subsections.
+
+\documentclass[12pt,oneside]{book}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\usepackage[pdftex]{graphicx}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage[spanish]{babel}
+\usepackage{amssymb}
+\usepackage[letterpaper]{geometry}
+
+\usepackage{titlesec}
+\titlespacing{\chapter}{0pt}{-40pt}{10pt}
+\titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+% We define some strings that will use along
+\def\thesistitle{Dise\~{n}o de un modelo de red neuronal para un sistema de
+control de tr\'{a}nsito distribuido, utilizando el modelo de propagaci\'{o}n
+hacia atr\'{a}s para su entrenamiento.}
+
+
+\begin{document}
+
+\selectlanguage{spanish}
+\frontmatter
+\pagestyle{empty}
+
+\input{body/cover.tex}
+\input{body/presentation.tex}
+\tableofcontents
+
+
+\mainmatter
+% Use double space 
+\doublespacing
+% Now fancy style
+\pagestyle{fancy}
+% Left the right header clean
+\rhead{}
+	
+\input{body/introduction.tex}
+\input{body/description.tex}
+\input{body/theory.tex}
+\input{body/methodology.tex}
+
+\end{document}
