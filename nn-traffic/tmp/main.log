@@ -1,0 +1,638 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.5.3)  19 MAY 2012 11:28
+entering extended mode
+**main.tex
+(E:\Licenciatura\diseno_inv_1\latex\nn-traffic\main.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
+vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
+an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
+romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
+sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
+senglishmax, welsh, loaded.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\book.cls"
+Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\bk12.clo"
+File: bk12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count88
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\color.sty"
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\setspace\setspace.sty"
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.sty"
+\fancy@headwidth=\skip43
+\f@ncyO@elh=\skip44
+\f@ncyO@erh=\skip45
+\f@ncyO@olh=\skip46
+\f@ncyO@orh=\skip47
+\f@ncyO@elf=\skip48
+\f@ncyO@erf=\skip49
+\f@ncyO@olf=\skip50
+\f@ncyO@orf=\skip51
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.sty"
+Package: babel 2008/07/08 v3.8m The Babel package
+
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg"
+File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\spanish.ldf"
+Language: spanish.ldf 2009/01/02 v5.0h Spanish support from the babel system
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.def"
+File: babel.def 2008/07/08 v3.8m Babel common definitions
+\babel@savecnt=\count89
+\U@D=\dimen105
+)
+\es@datefmt=\count90
+\es@quottoks=\toks15
+\es@quotdepth=\count91
+Package babel Info: Making " an active character on input line 492.
+Package babel Info: Making . an active character on input line 585.
+Package babel Info: Making < an active character on input line 630.
+Package babel Info: Making > an active character on input line 630.
+))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+Package: amssymb 2009/06/22 v3.00
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\@emptytoks=\toks16
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.sty"
+Package: ifvtex 2010/03/01 v1.5 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count92
+\Gm@cntv=\count93
+\c@Gm@tempcnt=\count94
+\Gm@bindingoffset=\dimen106
+\Gm@wd@mp=\dimen107
+\Gm@odd@mp=\dimen108
+\Gm@even@mp=\dimen109
+\Gm@layoutwidth=\dimen110
+\Gm@layoutheight=\dimen111
+\Gm@layouthoffset=\dimen112
+\Gm@layoutvoffset=\dimen113
+\Gm@dimlist=\toks17
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\titlesec\titlesec.sty"
+Package: titlesec 2011/12/15 v2.10.0 Sectioning titles
+\ttl@box=\box26
+\beforetitleunit=\skip52
+\aftertitleunit=\skip53
+\ttl@plus=\dimen114
+\ttl@minus=\dimen115
+\ttl@toksa=\toks18
+\titlewidth=\dimen116
+\titlewidthlast=\dimen117
+\titlewidthfirst=\dimen118
+)
+(E:\Licenciatura\diseno_inv_1\latex\nn-traffic\main.aux
+
+LaTeX Warning: Label `chap:description' multiply defined.
+
+)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count95
+\scratchdimen=\dimen119
+\scratchbox=\box27
+\nofMPsegments=\count96
+\nofMParguments=\count97
+\everyMPshowfont=\toks19
+\MPscratchCnt=\count98
+\MPscratchDim=\dimen120
+\MPnumerator=\count99
+\makeMPintoPDFobject=\count100
+\everyMPtoPDFconversion=\toks20
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: letterpaper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(92.14519pt, 430.00462pt, 92.14519pt)
+* v-part:(T,H,B)=(95.39737pt, 556.47656pt, 143.09605pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=430.00462pt
+* \textheight=556.47656pt
+* \oddsidemargin=19.8752pt
+* \evensidemargin=19.8752pt
+* \topmargin=-8.74641pt
+* \headheight=12.0pt
+* \headsep=19.8738pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=47.0pt
+* \marginparsep=7.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/cover.tex
+<images/logoUNA.png, id=1, 510.90875pt x 265.99374pt>
+File: images/logoUNA.png Graphic file (type png)
+ <use images/logoUNA.png>
+Package pdftex.def Info: images/logoUNA.png used on input line 3.
+(pdftex.def)             Requested size: 255.45375pt x 132.99654pt.
+LaTeX Font Info:    Try loading font information for U+msa on input line 48.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 48.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+) [1
+
+
+
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <E:/Licenciatura/diseno_in
+v_1/latex/nn-traffic/images/logoUNA.png (PNG copy)>])
+(E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/presentation.tex
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--8
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
+
+ []
+
+) [1] (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\main.toc [2
+
+])
+\tf@toc=\write3
+ [3]
+(E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/introduction.tex
+Cap\'{\i }tulo 1.
+[1
+
+
+]
+Missing character: There is no ñ in font cmti12!
+Missing character: There is no ñ in font cmr12!
+) (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/description.tex
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 15.71667pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[2]
+Cap\'{\i }tulo 2.
+(E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/desc/background.tex
+Missing character: There is no ñ in font cmr12!
+
+[3
+
+] [4]
+Missing character: There is no ñ in font cmr12!
+ [5]
+Missing character: There is no ä in font cmr12!
+ [6])
+(E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/desc/problem.tex
+Missing character: There is no ñ in font cmr12!
+ [7]
+Missing character: There is no … in font cmti12!
+Missing character: There is no … in font cmti12!
+
+[8] [9] [10] <images/trafico1.png, id=52, 684.99391pt x 544.01044pt>
+File: images/trafico1.png Graphic file (type png)
+
+<use images/trafico1.png>
+Package pdftex.def Info: images/trafico1.png used on input line 77.
+(pdftex.def)             Requested size: 357.34862pt x 283.79999pt.
+ [11 <E:/Licenciatura/diseno_inv_1/latex/nn-traffic/images/trafico1.png (PNG co
+py)>] [12])
+(E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/desc/justification.tex
+Missing character: There is no ñ in font cmr12!
+
+[13] [14]
+Missing character: There is no “ in font cmr12!
+Missing character: There is no ” in font cmr12!
+ [15])
+(E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/desc/objectives.tex
+[16]
+Missing character: There is no ñ in font cmr12!
+ [17]) (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/desc/scope.tex
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 33--36
+
+ []
+
+[19])) (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/theory.tex [20]
+Cap\'{\i }tulo 3.
+
+(E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/theory/biologycal_model.tex
+<images/TesisYGR-neuron.png, id=84, 295.85532pt x 213.04594pt>
+File: images/TesisYGR-neuron.png Graphic file (type png)
+
+<use images/TesisYGR-neuron.png>
+Package pdftex.def Info: images/TesisYGR-neuron.png used on input line 17.
+(pdftex.def)             Requested size: 215.0023pt x 154.82655pt.
+Missing character: There is no ñ in font cmr12!
+Missing character: There is no ñ in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--26
+
+ []
+
+Missing character: There is no ñ in font cmr12!
+Missing character: There is no ñ in font cmr12!
+Missing character: There is no ñ in font cmr12!
+Missing character: There is no ñ in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 27--31
+
+ []
+
+[21
+
+]
+Missing character: There is no ñ in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--36
+
+ []
+
+[22 <E:/Licenciatura/diseno_inv_1/latex/nn-traffic/images/TesisYGR-neuron.png>]
+Missing character: There is no ñ in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--48
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 49--53
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--58
+
+ []
+
+[23]
+Underfull \hbox (badness 10000) in paragraph at lines 59--63
+
+ []
+
+) (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/theory/ann.tex [24]
+Underfull \hbox (badness 10000) in paragraph at lines 18--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--25
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 26--30
+
+ []
+
+[25]
+Underfull \hbox (badness 10000) in paragraph at lines 52--55
+
+ []
+
+[26]
+Missing character: There is no ó in font cmti12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 59--65
+
+ []
+
+[27]
+Underfull \hbox (badness 10000) in paragraph at lines 93--97
+
+ []
+
+[28]
+Underfull \hbox (badness 10000) in paragraph at lines 120--124
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--150
+
+ []
+
+[29]
+Underfull \hbox (badness 10000) in paragraph at lines 151--157
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 164--168
+
+ []
+
+[30]
+Missing character: There is no ñ in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 191--194
+
+ []
+
+[31]
+Underfull \hbox (badness 10000) in paragraph at lines 212--216
+
+ []
+
+[32]
+Underfull \hbox (badness 10000) in paragraph at lines 227--231
+
+ []
+
+[33]
+Underfull \hbox (badness 10000) in paragraph at lines 236--237
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 238--244
+
+ []
+
+Missing character: There is no ñ in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 245--250
+
+ []
+
+[34]
+Missing character: There is no ñ in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 261--265
+
+ []
+
+Missing character: There is no ñ in font cmr12!
+Missing character: There is no ñ in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 266--270
+
+ []
+
+[35]) (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/theory/atms.tex
+Missing character: There is no – in font cmr12!
+Missing character: There is no ñ in font cmr12!
+Missing character: There is no ñ in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--10
+
+ []
+
+[36]
+Missing character: There is no ñ in font cmr12!
+Missing character: There is no ñ in font cmr12!
+ [37]
+Missing character: There is no ú in font cmbx12!
+Missing character: There is no ñ in font cmr12!
+Missing character: There is no ñ in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--32
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 33--37
+
+ []
+
+[38]
+Missing character: There is no ñ in font cmr12!
+Missing character: There is no ñ in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 53--57
+
+ []
+
+Missing character: There is no ñ in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 58--62
+
+ []
+
+[39]
+Underfull \hbox (badness 10000) in paragraph at lines 63--67
+
+ []
+
+Missing character: There is no ú in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 68--72
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--77
+
+ []
+
+[40]
+Missing character: There is no ñ in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no ” in font cmr12!
+ [41])) (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/methodology.tex [42
+]
+Cap\'{\i }tulo 4.
+(E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/method/type.tex
+Underfull \hbox (badness 10000) in paragraph at lines 13--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--29
+
+ []
+
+[43
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 37--42
+
+ []
+
+[44]
+Missing character: There is no ú in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 57--62
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 63--71
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--80
+
+ []
+
+[45]) (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/method/phases.tex
+[46]
+Missing character: There is no á in font cmr12!
+
+Overfull \hbox (5.30339pt too wide) in paragraph at lines 33--41
+[][]\OT1/cmr/bx/n/12 Analizar el mo-de-lo de fun-cio-na-mien-to del sis-te-ma u
+sa-do por el MOPT:
+ []
+
+[47]
+Missing character: There is no ñ in font cmr12!
+ [48] [49])) [50] (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\main.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 3145 strings out of 494045
+ 43021 string characters out of 3145964
+ 107360 words of memory out of 3000000
+ 6351 multiletter control sequences out of 15000+200000
+ 12318 words of font info for 45 fonts, out of 3000000 for 9000
+ 715 hyphenation exceptions out of 8191
+ 33i,13n,43p,931b,444s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><
+C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:
+/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/P
+rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Prog
+ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program
+ Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Fi
+les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files 
+(x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (x86
+)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsl12.pfb><C:/Program Files (x86)/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files (x86)/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files (x86)/MiKTeX 
+2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (54 pages, 488208 bytes).
+PDF statistics:
+ 237 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+
