@@ -33,9 +33,10 @@
 \contentsline {subsubsection}{Definici\'{o}n de los elementos de la red}{28}{subsection.4.4.2}
 \contentsline {subsubsection}{Creaci\'{o}n del modelo de red}{29}{Item.13}
 \contentsline {subsection}{\numberline {4.4.3}Creaci\'{o}n programa de simulaci\'{o}n}{29}{subsection.4.4.3}
-\contentsline {subsection}{\numberline {4.4.4}Simulaci\'{o}n y entrenamiento la red}{29}{subsection.4.4.4}
-\contentsline {subsection}{\numberline {4.4.5}Iteraci\'{o}n de simulaciones}{30}{subsection.4.4.5}
-\contentsline {subsection}{\numberline {4.4.6}Evaluaci\'{o}n de ambientes vividos y factores de San Jos\'{e}}{30}{subsection.4.4.6}
+\contentsline {subsection}{\numberline {4.4.4}Simulaci\'{o}n de los tiempos de espera}{29}{subsection.4.4.4}
+\contentsline {subsection}{\numberline {4.4.5}Simulaci\'{o}n y entrenamiento la red}{30}{subsection.4.4.5}
+\contentsline {subsection}{\numberline {4.4.6}Iteraci\'{o}n de simulaciones}{30}{subsection.4.4.6}
+\contentsline {subsection}{\numberline {4.4.7}Evaluaci\'{o}n de ambientes vividos y factores de San Jos\'{e}}{30}{subsection.4.4.7}
 \contentsline {chapter}{\numberline {5}Estudio de Factibilidad}{31}{chapter.5}
 \contentsline {section}{\numberline {5.1}Factibilidad T\'{e}nica}{31}{section.5.1}
 \contentsline {section}{\numberline {5.2}Factibilidad Financiera}{32}{section.5.2}
@@ -45,3 +46,5 @@
 \contentsline {section}{\numberline {6.1}Resultados y Productos Esperados}{35}{section.6.1}
 \contentsline {section}{\numberline {6.2}Riesgos del proyecto}{36}{section.6.2}
 \contentsline {section}{\numberline {6.3}Proyecci\'{o}n o cronograma}{37}{section.6.3}
+\contentsline {chapter}{Bibliograf\'{i}a}{38}{chapter*.4}
+\contentsline {chapter}{Glosario de T\'{e}rminos}{41}{chapter*.5}

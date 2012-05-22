@@ -31,7 +31,7 @@ hacia atr\'{a}s}. Para realizar esto, se contemplan las siguientes actividades:
   
   \item \textbf{Analizar el modelo de funcionamiento del sistema usado por el
   MOPT:} de forma que se pueda entender las pol\'{i}ticas que se emplean para
-  administrar los tiempos de los sem\'{a}foros, as\'{i} como el an\'{a}lsis
+  administrar los tiempos de los sem\'{a}foros, as\'{i} como el an\'{a}lisis
   empleado en el centro de control para los ajustes o modificaciones del mismo.
   Como parte inicial se obtendr\'{a}n los registros de tiempos de duraci\'{o}n
   de las luces, con los ajustes que estos hayan realizado para poder visualizar
@@ -70,7 +70,7 @@ hacia atr\'{a}s}. Para realizar esto, se contemplan las siguientes actividades:
 	  \item \textbf{Criterio de validaz para los resultados:} para validar los
 	  resultados obtenidos por la red, se tomar\'{a} como valor m\'{i}nimo esperado
 	  los resultados generados por el sistema actual. El valor real esperado
-	  ser\'{a} buscado por medio de de tiempos de espera de los vehículos
+	  ser\'{a} buscado por medio de de tiempos de espera de los veh\'{i}culos
 	  
 	\end{enumerate}
 
@@ -88,6 +88,16 @@ referencias encontradas.
 	programa de simulaci\'{o}n el cual servir\'{a} para probar el algoritmo
 	empleado en la red y determinar las decisiones necesarias durante cada prueba.
 
+\subsection{Simulaci\'{o}n de los tiempos de espera}
+
+	Por motivos del funcionamiento del sistema de control de tr\'{a}fico del MOPT,
+este no genera o lleva registros sobre los tiempos de espera para los
+veh\'{i}culos de acuerdo a los ajustes que se hayan realizado. Por lo anterior,
+se requiere realizar simulaciones que permitan determinar estos tiempos haciendo
+uso de los tiempos de cambios de luces que proporcione el Centro de Control de
+Tr\'{a}fico del MOPT. Con esto, se simular\'{a} la llegada de los autos a los
+sem\'{a}foros y el tiempo que empleen estos para poder pasar.
+
 \subsection{Simulaci\'{o}n y entrenamiento la red}
 
 	De la lista de factores seleccionada en puntos anteriores, se proceder\'{a} a
@@ -98,9 +108,9 @@ rango de avenida: 2, 4 y 8,  y las calles: 12, 10, 8 y 6 de San Jos\'{e}.
 	Dicha simulaci\'{o}n se va a realizar\'{a} por medio del programa establecido
 anteriormente, tomando como par\'{a}metros de medici\'{o}n los datos previamente
 recolectados. Dentro de cada prueba generada, los resultados se comparar\'{a}n
-con estos registros del actual sistema de control de tr\'{a}nsito de forma que
-se tenga un punto de referencia para saber si la red est\'{a} funcionando de la
-forma esperado o si requiere ajustes logrando con esto entrenar a la red para
+con los registros del actual sistema de control de tr\'{a}nsito y de las
+simulaciones realizadas a los tiempos de espera, de forma que se tenga un punto
+de referencia para saber si la red est\'{a} funcionando de la forma esperada o si requiere ajustes logrando con esto entrenar a la red para
 que corrija de la mejor forma posible, los errores que haya cometido.
 
 \subsection{Iteraci\'{o}n de simulaciones}
@@ -116,7 +126,8 @@ que corrija de la mejor forma posible, los errores que haya cometido.
 	Por medio de an\'{a}lisis estad\'{i}stico se proceder\'{a} a contrastar los
 resultados obtenidos por el uso de la red contra los datos reales. De forma que
 se pueda obtener las diferencias a favor o en contra del uso de la red neuronal
-para la administraci\'{o}n de los tiempos de espera en sem\'{a}foros.
+para la administraci\'{o}n de los tiempos de espera en sem\'{a}foros y de los
+ajustes de tiempos para cambios de luces.
 
 
 
