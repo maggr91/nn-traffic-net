@@ -2,7 +2,7 @@
 %%There is just one section and two subsections.
 
 \documentclass[12pt,oneside]{book}
-
+\usepackage{apacite}
 \input{body/header.tex}
 \makeglossaries
 % We define some strings that will use along
@@ -38,7 +38,14 @@ hacia atr\'{a}s para su entrenamiento.}
 
 % Final pages
 \backmatter
+\singlespace
+%\bibliographystyle{apa}
+\refstepcounter{chapter}
+
+%\addcontentsline{toc}{chapter}{\bibname}
+%\bibliography{body/references}
 \input{body/bibl.tex}
+
 % \printglossaries
 \input{body/glossary.tex}
 
