@@ -8,43 +8,43 @@
 \contentsline {subsection}{\numberline {2.2.1}Planteamiento del Problema}{6}{subsection.2.2.1}
 \contentsline {subsection}{\numberline {2.2.2}Problema a evaluar}{9}{subsection.2.2.2}
 \contentsline {section}{\numberline {2.3}Justificaci\'{o}n}{10}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Beneficios}{12}{subsection.2.3.1}
-\contentsline {section}{\numberline {2.4}Hip\'{o}tesis}{13}{section.2.4}
-\contentsline {section}{\numberline {2.5}Objetivos}{13}{section.2.5}
-\contentsline {subsection}{\numberline {2.5.1}Objetivo General}{13}{subsection.2.5.1}
+\contentsline {section}{\numberline {2.4}Hip\'{o}tesis}{12}{section.2.4}
+\contentsline {section}{\numberline {2.5}Objetivos}{12}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Objetivo General}{12}{subsection.2.5.1}
 \contentsline {subsection}{\numberline {2.5.2}Objetivos Espec\'{i}ficos}{13}{subsection.2.5.2}
 \contentsline {section}{\numberline {2.6}Alcance y Limitaciones}{14}{section.2.6}
 \contentsline {section}{\numberline {2.7}Lista de Entregables}{15}{section.2.7}
-\contentsline {chapter}{\numberline {3}Marco Te\'{o}rico}{17}{chapter.3}
-\contentsline {section}{\numberline {3.1}Redes neuronales y la toma de decisiones}{17}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}El Modelo Biol\'{o}gico}{17}{subsection.3.1.1}
-\contentsline {section}{\numberline {3.2}Redes neuronales artificiales}{18}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Algoritmo de Backpropagation}{19}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Sistemas Expertos vs Redes Neuronales}{20}{subsection.3.2.2}
-\contentsline {section}{\numberline {3.3}Sistemas de Transporte Inteligente}{21}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Sistemas de Control de Sem\'{a}foros}{23}{subsection.3.3.1}
-\contentsline {chapter}{\numberline {4}Marco Metodol\'{o}gico}{25}{chapter.4}
-\contentsline {section}{\numberline {4.1}Asunci\'{o}n}{25}{section.4.1}
-\contentsline {section}{\numberline {4.2}Enfoque de Investigac\'{o}n}{25}{section.4.2}
-\contentsline {section}{\numberline {4.3}Tipo de Investigac\'{o}n}{26}{section.4.3}
-\contentsline {section}{\numberline {4.4}Actividades Involucradas}{27}{section.4.4}
-\contentsline {subsection}{\numberline {4.4.1}An\'{a}lisis de modelos actuales}{27}{subsection.4.4.1}
-\contentsline {subsection}{\numberline {4.4.2}Dise\~{n}o la red}{28}{subsection.4.4.2}
-\contentsline {subsubsection}{Definici\'{o}n de los elementos de la red}{28}{subsection.4.4.2}
-\contentsline {subsubsection}{Creaci\'{o}n del modelo de red}{29}{Item.13}
-\contentsline {subsection}{\numberline {4.4.3}Creaci\'{o}n programa de simulaci\'{o}n}{29}{subsection.4.4.3}
-\contentsline {subsection}{\numberline {4.4.4}Simulaci\'{o}n de los tiempos de espera}{29}{subsection.4.4.4}
-\contentsline {subsection}{\numberline {4.4.5}Simulaci\'{o}n y entrenamiento la red}{30}{subsection.4.4.5}
-\contentsline {subsection}{\numberline {4.4.6}Iteraci\'{o}n de simulaciones}{30}{subsection.4.4.6}
-\contentsline {subsection}{\numberline {4.4.7}Evaluaci\'{o}n de ambientes vividos y factores de San Jos\'{e}}{30}{subsection.4.4.7}
-\contentsline {chapter}{\numberline {5}Estudio de Factibilidad}{31}{chapter.5}
-\contentsline {section}{\numberline {5.1}Factibilidad T\'{e}nica}{31}{section.5.1}
-\contentsline {section}{\numberline {5.2}Factibilidad Financiera}{32}{section.5.2}
-\contentsline {section}{\numberline {5.3}Factibilidad Operativa}{33}{section.5.3}
-\contentsline {section}{\numberline {5.4}Factibilidad Legal}{34}{section.5.4}
-\contentsline {chapter}{\numberline {6}Plan de Trabajo}{35}{chapter.6}
-\contentsline {section}{\numberline {6.1}Resultados y Productos Esperados}{35}{section.6.1}
-\contentsline {section}{\numberline {6.2}Riesgos del proyecto}{36}{section.6.2}
-\contentsline {section}{\numberline {6.3}Proyecci\'{o}n o cronograma}{37}{section.6.3}
-\contentsline {chapter}{Bibliograf\'{i}a}{38}{chapter*.4}
-\contentsline {chapter}{Glosario de T\'{e}rminos}{41}{chapter*.5}
+\contentsline {section}{\numberline {2.8}Beneficios Esperados}{16}{section.2.8}
+\contentsline {chapter}{\numberline {3}Marco Te\'{o}rico}{18}{chapter.3}
+\contentsline {section}{\numberline {3.1}Redes neuronales y la toma de decisiones}{18}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}El Modelo Biol\'{o}gico}{18}{subsection.3.1.1}
+\contentsline {section}{\numberline {3.2}Redes neuronales artificiales}{19}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Algoritmo de Backpropagation}{20}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Sistemas Expertos vs Redes Neuronales}{21}{subsection.3.2.2}
+\contentsline {section}{\numberline {3.3}Sistemas de Transporte Inteligente}{22}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Sistemas de Control de Sem\'{a}foros}{24}{subsection.3.3.1}
+\contentsline {chapter}{\numberline {4}Marco Metodol\'{o}gico}{26}{chapter.4}
+\contentsline {section}{\numberline {4.1}Asunci\'{o}n}{26}{section.4.1}
+\contentsline {section}{\numberline {4.2}Enfoque de Investigac\'{o}n}{26}{section.4.2}
+\contentsline {section}{\numberline {4.3}Tipo de Investigac\'{o}n}{27}{section.4.3}
+\contentsline {section}{\numberline {4.4}Actividades Involucradas}{28}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}An\'{a}lisis de modelos actuales}{28}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Dise\~{n}o la red}{29}{subsection.4.4.2}
+\contentsline {subsubsection}{Definici\'{o}n de los elementos de la red}{29}{subsection.4.4.2}
+\contentsline {subsubsection}{Creaci\'{o}n del modelo de red}{30}{Item.13}
+\contentsline {subsection}{\numberline {4.4.3}Creaci\'{o}n programa de simulaci\'{o}n}{30}{subsection.4.4.3}
+\contentsline {subsection}{\numberline {4.4.4}Simulaci\'{o}n de los tiempos de espera}{30}{subsection.4.4.4}
+\contentsline {subsection}{\numberline {4.4.5}Simulaci\'{o}n y entrenamiento la red}{31}{subsection.4.4.5}
+\contentsline {subsection}{\numberline {4.4.6}Iteraci\'{o}n de simulaciones}{31}{subsection.4.4.6}
+\contentsline {subsection}{\numberline {4.4.7}Evaluaci\'{o}n de ambientes vividos y factores de San Jos\'{e}}{31}{subsection.4.4.7}
+\contentsline {chapter}{\numberline {5}Estudio de Factibilidad}{32}{chapter.5}
+\contentsline {section}{\numberline {5.1}Factibilidad T\'{e}nica}{32}{section.5.1}
+\contentsline {section}{\numberline {5.2}Factibilidad Financiera}{33}{section.5.2}
+\contentsline {section}{\numberline {5.3}Factibilidad Operativa}{34}{section.5.3}
+\contentsline {section}{\numberline {5.4}Factibilidad Legal}{35}{section.5.4}
+\contentsline {chapter}{\numberline {6}Plan de Trabajo}{36}{chapter.6}
+\contentsline {section}{\numberline {6.1}Resultados y Productos Esperados}{36}{section.6.1}
+\contentsline {section}{\numberline {6.2}Riesgos del proyecto}{37}{section.6.2}
+\contentsline {section}{\numberline {6.3}Proyecci\'{o}n o cronograma}{38}{section.6.3}
+\contentsline {chapter}{Bibliograf\'{i}a}{39}{chapter*.4}
+\contentsline {chapter}{Glosario de T\'{e}rminos}{42}{chapter*.5}
