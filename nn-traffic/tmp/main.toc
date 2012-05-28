@@ -1,5 +1,8 @@
 \select@language {spanish}
 \select@language {spanish}
+\contentsline {chapter}{\'Indice general}{\es@scroman {ii}}{chapter*.1}
+\contentsline {chapter}{\'{I}ndice de figuras}{\es@scroman {iv}}{chapter*.2}
+\contentsline {chapter}{\'{I}ndice de cuadros}{\es@scroman {v}}{chapter*.3}
 \contentsline {chapter}{\numberline {1}Introducc\'{o}n}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Introducci\'{o}n}{1}{section.1.1}
 \contentsline {chapter}{\numberline {2}Descripci\'{o}n del Proyecto}{3}{chapter.2}
@@ -7,10 +10,10 @@
 \contentsline {section}{\numberline {2.2}Problem\'{a}tica a Resolver}{6}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}Planteamiento del Problema}{6}{subsection.2.2.1}
 \contentsline {subsection}{\numberline {2.2.2}Problema a evaluar}{9}{subsection.2.2.2}
-\contentsline {section}{\numberline {2.3}Justificaci\'{o}n}{10}{section.2.3}
+\contentsline {section}{\numberline {2.3}Justificaci\'{o}n}{11}{section.2.3}
 \contentsline {section}{\numberline {2.4}Hip\'{o}tesis}{12}{section.2.4}
-\contentsline {section}{\numberline {2.5}Objetivos}{12}{section.2.5}
-\contentsline {subsection}{\numberline {2.5.1}Objetivo General}{12}{subsection.2.5.1}
+\contentsline {section}{\numberline {2.5}Objetivos}{13}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Objetivo General}{13}{subsection.2.5.1}
 \contentsline {subsection}{\numberline {2.5.2}Objetivos Espec\'{i}ficos}{13}{subsection.2.5.2}
 \contentsline {section}{\numberline {2.6}Alcance y Limitaciones}{14}{section.2.6}
 \contentsline {section}{\numberline {2.7}Lista de Entregables}{15}{section.2.7}
@@ -19,10 +22,9 @@
 \contentsline {section}{\numberline {3.1}Redes neuronales y la toma de decisiones}{18}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}El Modelo Biol\'{o}gico}{18}{subsection.3.1.1}
 \contentsline {section}{\numberline {3.2}Redes neuronales artificiales}{19}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Algoritmo de Backpropagation}{20}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Sistemas Expertos vs Redes Neuronales}{21}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.1}Sistemas Expertos vs Redes Neuronales}{21}{subsection.3.2.1}
 \contentsline {section}{\numberline {3.3}Sistemas de Transporte Inteligente}{22}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Sistemas de Control de Sem\'{a}foros}{24}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.1}Sistemas de Control de Sem\'{a}foros}{23}{subsection.3.3.1}
 \contentsline {chapter}{\numberline {4}Marco Metodol\'{o}gico}{26}{chapter.4}
 \contentsline {section}{\numberline {4.1}Asunci\'{o}n}{26}{section.4.1}
 \contentsline {section}{\numberline {4.2}Enfoque de Investigac\'{o}n}{26}{section.4.2}
@@ -46,5 +48,5 @@
 \contentsline {section}{\numberline {6.1}Resultados y Productos Esperados}{36}{section.6.1}
 \contentsline {section}{\numberline {6.2}Riesgos del proyecto}{37}{section.6.2}
 \contentsline {section}{\numberline {6.3}Proyecci\'{o}n o cronograma}{38}{section.6.3}
-\contentsline {chapter}{Bibliograf\'{i}a}{39}{chapter*.4}
+\contentsline {chapter}{Referencias}{39}{chapter*.4}
 \contentsline {chapter}{Glosario de T\'{e}rminos}{42}{chapter*.5}
