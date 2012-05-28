@@ -1,5 +1,11 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: main.aux
-The style file: apa.bst
+The style file: apacitex.bst
 Database file #1: body/references.bib
-Warning--I didn't find a database entry for "robles:2011"
-(There was 1 warning)
+apacitex.bst [2012/02/25 v6.01 APA bibl. style with author index info]
+Warning--No journal in Ayad
+ptr=1, stack=
+
+---the literal stack isn't empty for entry Ayad
+while executing---line 5228 of file apacitex.bst
+Warning--No journal in Rajendra2005
+(There was 1 error message)

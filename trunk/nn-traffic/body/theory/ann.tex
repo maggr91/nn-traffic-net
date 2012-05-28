@@ -9,16 +9,16 @@
 	\begin{itemize}
 	  \item Un modelo que surgi\'{o} para emular el proceso de aprendizaje es la red
 	  neuronal artificial. Las redes neuronales son modelos que intentan reproducir
-	  el comportamiento del cerebro humano. [19]
+	  el comportamiento del cerebro humano. \cite{Hilera1995}
 	  \item Las redes neuronales artificiales son, lo que su nombre indican,
 	  redes computacionales que intentan simular, las redes de c\'{e}lulas nerviosas o
-	  neuronas del sistema nervioso central del ser humano. [20]
+	  neuronas del sistema nervioso central del ser humano. \cite{Graupe2007}
 	\end{itemize}
 	
 		Como se puede observar, las redes neuronales han obtenido buenos resultados en
 	los procesos de aprendizaje y formando parte de procesos de an\'{a}lisis. De
-	acuerdo con Kumar [11], estas redes poseen la capacidad de generalizar y por lo
-	tanto pueden predecir nuevos resultados a partir de resultados previos, y de igual forma pueden procesar informaci\'{o}n en paralelo a altas velocidades y de forma distribuida.
+	acuerdo con Kumar \cite{Kumar2007}, estas redes poseen la capacidad de
+	generalizar y por lo tanto pueden predecir nuevos resultados a partir de resultados previos, y de igual forma pueden procesar informaci\'{o}n en paralelo a altas velocidades y de forma distribuida.
 	
 		Por las razones anteriores, se plantea la tesis entorno al uso de una red
 	neuronal para lograr una toma de decisiones en una red formada por sem\'{a}foros.
@@ -26,7 +26,11 @@
 		En este caso como se tiene un objetivo muy claro, por lo que resulta posible
 	utilizar un modelo de propagaci\'{o}n hacia atr\'{a}s (backpropagation), este es uno
 	de los m\'{a}s empleados para la implementaci\'{o}n de las redes neuronales, por lo
-	que ser\'{a} tomado como base para el entrenamiento de la red a implementar con el modelo propuesto para esta tesis. De igual forma se ver\'{a} el contraste que se pueda obtener con respecto al modelo de Hopfield mencionado por Gilmore y Elibiary [3], como una de las opciones m\'{a}s viables para la realizaci\'{o}n de este tipo de sistemas.	
+	que ser\'{a} tomado como base para el entrenamiento de la red a implementar con
+	el modelo propuesto para esta tesis. De igual forma se ver\'{a} el contraste
+	que se pueda obtener con respecto al modelo de Hopfield mencionado por Gilmore
+	y Elibiary \cite{Gilmore1993}, como una de las opciones m\'{a}s viables para la
+	realizaci\'{o}n de este tipo de sistemas.
 
 % 	\subsection{Componentes de una red neuronal}
 % 	
@@ -50,7 +54,7 @@
 % 
 % 		A pesar de las definiciones dadas sobre redes neuronales, no se ha dado una
 % 	que refleje la verdadera forma conceptual de la misma, por eso de  acuerdo con
-% 	[9]:
+% 	\cite{Kriesel2005}:
 % 	
 % 		\textit{Una red neuronal es una tripleta ordenada $(N,V,w)$ con dos conjuntos
 % 		N, V y una función w.}
@@ -160,7 +164,7 @@
 % 	neurona de entrada.
 % 	
 % 	\subsection{Activaci\'{o}n de Neuronas}
-% 		De acuerdo con Kriesel [9], resulta muy importante el orden en el que cada
+% 		De acuerdo con Kriesel \cite{Kriesel2005}, resulta muy importante el orden en el que cada
 % 	neurona de forma individual recibe y procesa las entradas y genera las salidas
 % 	en este se distinguen dos modelos la forma s\'{i}ncrona y la as\'{i}ncronas. Para el
 % 	caso del primero, todas las neuronas cambian sus valores de forma simult\'{a}nea calculando las entradas de la red, la activaci\'{o}n de las mismas y la salida generada adem\'{a}s de ir pasando estos resultados. Este modelo es el que m\'{a}s se asemeja a la contraparte biol\'{o}gica y es el m\'{a}s gen\'{e}rico.
@@ -234,8 +238,8 @@
 % permanecen estables o el margen de error es menor o igual al que se ha definido
 % como aceptable.''}\end{quote}(Ram\'{i}rez, 2012)
 % 	
-% De acuerdo con Rajendra [9], El objetivo principal es cambiar los valores de los
-% pesos de tal forma que la red no s\'{o}lo asocie los patrones para valores de
+% De acuerdo con Kriesel [\cite{Kriesel2005} El objetivo principal es cambiar los valores de
+% los pesos de tal forma que la red no s\'{o}lo asocie los patrones para valores de
 % entrada y salida aprendidos durante el entrenamiento, sino que tambi\'{e}n provea
 % resultados a patrones desconocidos o similares, otorg\'{a}ndole as\'{i} la
 % capacidad de \textit{generalizar} resultados. Es por estar raz\'{o}n que resulta
@@ -258,7 +262,7 @@
 % \subsection{Supervisi\'{o}n de un red neuronal}
 % 
 % 	Mientras una red no haya terminado su entrenamiento se hace uso de una
-% correcci\'{o}n de error para lograr obtener resultados adecuados. Rajendra [9]
+% correcci\'{o}n de error para lograr obtener resultados adecuados. Kriesel \cite{Kriesel2005}
 % brinda tres definiciones involucradas en el proceso, estas corresponden a los
 % patrones de entrenamiento (training pattern), entradas de ense\~{n}anza (teaching input) y el vector de error o vector de diferencia (error vector).
 % 
@@ -278,19 +282,26 @@
 %   salida esperada. Llevando a cabo el procedimiento mientras no se obtenga un error menor o igual al error aceptado.
 % \end{enumerate}	
 
-\subsection{Algoritmo de Backpropagation}
+%\subsection{Algoritmo de Backpropagation}
 
-	Es un m\'{e}todo de aprendizaje supervisado que consta de dos fases: en la primera
-se aplica un patr\'{o}n de entrada el cual se propaga por toda la red a trav\'{e}s de
+	El algoritmo que se mencion\'{o} anteriormente (backpropagation), corresponde a
+	una de las diferentes t\'{e}cnicas de aprendizaje que se pueden utilizar en una
+	red neuronal. M\'{a}s detalladamente, es un m\'{e}todo de aprendizaje
+	supervisado que consta de dos fases: en la primera se aplica un patr\'{o}n de entrada el cual se propaga por toda la red a trav\'{e}s de
 las distintas capas de esta generando de esta forma una salida. Una vez obtenido
-el resultado, se compara contra la salida deseada y se calcula el error cometido por cada una de las neuronas de salida. Luego se transmite el conjunto de errores hacia atr\'{a}s en este caso tomando como punto de partida la capa de salida hacia el resto de neuronas localizadas en las capas intermedias [25]. Cabe destacar que el error recibido por cada neurona es proporcional a su contribuci\'{o}n sobre el error total causado en la red. Por lo que tom\'{a}ndose dicho error como base se realizan ajustes a los pesos de las conexiones o pesos sin\'{a}pticos de cada neurona.
+el resultado, se compara contra la salida deseada y se calcula el error cometido
+por cada una de las neuronas de salida. Luego se transmite el conjunto de
+errores hacia atr\'{a}s en este caso tomando como punto de partida la capa de
+salida hacia el resto de neuronas localizadas en las capas intermedias
+\cite{Fritsch1996}. Cabe destacar que el error recibido por cada neurona es
+proporcional a su contribuci\'{o}n sobre el error total causado en la red. Por lo que tom\'{a}ndose dicho error como base se realizan ajustes a los pesos de las conexiones o pesos sin\'{a}pticos de cada neurona.
 
 \subsection{Sistemas Expertos vs Redes Neuronales}
  
  		Como alternativa para la toma de decisiones se encuentran los sistemas
  	expertos, estos se caracterizan por contar con una base de conocimiento que
  	se encuentra separada del sistema original, permitiendo agregar nuevo
- 	conocimiento a este sin requerirse realizar cambios al sistema. No obstante, se necesita una persona experta en un \'{a}rea para que se puedan crear las reglas que codifiquen el conocimiento [22].
+ 	conocimiento a este sin requerirse realizar cambios al sistema. No obstante, se necesita una persona experta en un \'{a}rea para que se puedan crear las reglas que codifiquen el conocimiento \cite{Basogain}.
  	
  		Basogain en su escrito resalta las ventajas de las redes neuronales sobre
  	estos sistemas al resaltar que el desarrollo de una red neuronal no se

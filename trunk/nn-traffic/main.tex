@@ -2,20 +2,20 @@
 %%There is just one section and two subsections.
 
 \documentclass[12pt,oneside]{book}
-\usepackage{apacite}
+
 \input{body/header.tex}
 \makeglossaries
 % We define some strings that will use along
 \def\thesistitle{Dise\~{n}o de un modelo de red neuronal para un sistema de
-control de tr\'{a}nsito distribuido, utilizando el modelo de propagaci\'{o}n
-hacia atr\'{a}s para su entrenamiento.}
+control de tr\'{a}nsito distribuido}%, utilizando el modelo de propagaci\'{o}n
+% hacia atr\'{a}s para su entrenamiento.}
 
 
 \begin{document}
 \frontmatter
 \pagestyle{empty}
 
-\input{body/cover.tex}
+\input{body/cover2.tex}
 \input{body/presentation.tex}
 \tableofcontents
 \listoffigures
@@ -39,12 +39,14 @@ hacia atr\'{a}s para su entrenamiento.}
 % Final pages
 \backmatter
 \singlespace
-%\bibliographystyle{apa}
-\refstepcounter{chapter}
-
+%====================================================
+%-----------------references-------------------------
+%====================================================
+\bibliographystyle{apacitex}
+%\refstepcounter{chapter}
 %\addcontentsline{toc}{chapter}{\bibname}
-%\bibliography{body/references}
-\input{body/bibl.tex}
+\bibliography{body/references}
+%\input{body/bibl.tex}
 
 % \printglossaries
 \input{body/glossary.tex}
