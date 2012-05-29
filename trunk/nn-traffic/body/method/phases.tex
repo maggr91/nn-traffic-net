@@ -5,21 +5,23 @@
 
 	Como parte inicial, es necesario analizar modelos que se han implementado
 hasta la fecha sobre la realizaci\'{o}n de sistemas de control de tr\'{a}nsito
-basados en redes neuronales. Cabe destacar que si bien existen diferntes
-modelos, \'{u}nicamente se abarcar\'{a}n los que se relacionen con el algoritmo
-de entrenamiento denominado \textit{Backpropagation} o \textit{propaganci\'{o}n
-hacia atr\'{a}s}. Para realizar esto, se contemplan las siguientes actividades:
+basados en redes neuronales. Cabe destacar que si bien existen diferentes
+modelos,  se buscar\'{a} abarcar los que se
+relacionen con el algoritmo de entrenamiento denominado \textit{Backpropagation} o \textit{propagaci\'{o}n
+hacia atr\'{a}s} o el modelo Hopfield, empleando los otros como referencias
+para tomar ideas de implementaci\'{o}n. Para realizar esto, se contemplan las
+siguientes actividades:
 
 \begin{enumerate}
   \item \textbf{Analizar las t\'{e}cnicas empleadas para implementar la red:}
   corresponde a entender la forma que otros investigadores han desarrollado
-  la red, es decir, qu\'{e} acciones fueron consideredas para obtener un
-  desempe\~{n}o {o}ptimo para la red. Siendo importante la forma en
+  la red, es decir, qu\'{e} acciones fueron consideradas para obtener un
+  desempe\~{n}o {o}ptimo para la red, siendo importante la forma en
   que han logrado la toma de decisiones dentro de una red de
   sem\'{a}foros.
   
   \item \textbf{Buscar y listar factores considerados:} como se mencion\'{o}
-  anteriormente, los factores y sus respectivos niveles afectan el desem\~{n}o
+  anteriormente, los factores y sus respectivos niveles afectan el desempe\~{n}o
   de la red, por lo cual es necesario obtener una lista adicional a la
   estipulada en los objetivos, las cual servir\'{a} de gu\'{i}a para descartar o
   si es posible agregar otros factores o las condiciones bajo las cuales se
@@ -39,10 +41,10 @@ hacia atr\'{a}s}. Para realizar esto, se contemplan las siguientes actividades:
   determinar el grado de variaci\'{o}n seg\'{u}n los cambios realizados por los
   operadores del sistema.
   
-  \item \textbf{Obtener un dise\~{n}o base de la red:} una vez analizado los
+  \item \textbf{Obtener un dise\~{n}o base de la red:} una vez analizados los
   factores y la forma en que fueron dise\~{n}adas las redes en otros casos, se
   proceder\'{a} a definir un modelo base para la red donde se pueda sintetizar
-  aspectos abacados en los puntos anteriores.
+  aspectos abarcados en los puntos anteriores.
 \end{enumerate}
 
 \subsection{Dise\~{n}o la red}
@@ -67,10 +69,10 @@ hacia atr\'{a}s}. Para realizar esto, se contemplan las siguientes actividades:
 	  neuronal de cada sem\'{a}foro, generar\'{a} un vector indicando el estado al
 	  que pas\'{o} el sem\'{a}foro y el tiempo seleccionado para el cambio de luz.
 	  
-	  \item \textbf{Criterio de validaz para los resultados:} para validar los
+	  \item \textbf{Criterio de validez para los resultados:} para validar los
 	  resultados obtenidos por la red, se tomar\'{a} como valor m\'{i}nimo esperado
 	  los resultados generados por el sistema actual. El valor real esperado
-	  ser\'{a} buscado por medio de de tiempos de espera de los veh\'{i}culos
+	  ser\'{a} buscado por medio de tiempos de espera de los veh\'{i}culos
 	  
 	\end{enumerate}
 
