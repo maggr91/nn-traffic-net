@@ -1,55 +1,6 @@
 \begin{thebibliography}{}
 
 \bibitem [\protect \citeauthoryear {%
-Ayad%
-\AX{ayad  m
-@Ayad, M.}%
-, Ahmad%
-\AX{ahmad  m
-@Ahmad, M.}%
-, Yusoff%
-\AX{yusoff  m
-@Yusoff, M.}%
-\BCBL {}\ \BBA {} Hammad%
-\AX{hammad  b
-@Hammad, B.}%
-}{%
-Ayad%
-\AX{ayad  m
-@Ayad, M.}%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {{\protect \bibnodate {}}}}%
-}]{%
-Ayad}
-\APACinsertmetastar {%
-Ayad}%
-\begin{APACrefauthors}%
-Ayad, M.%
-\AX{ayad  m
-@Ayad, M.}%
-, Ahmad, M.%
-\AX{ahmad  m
-@Ahmad, M.}%
-, Yusoff, M.%
-\AX{yusoff  m
-@Yusoff, M.}%
-\BCBL {}\ \BBA {} Hammad, B.%
-\AX{hammad  b
-@Hammad, B.}%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{{\protect \bibnodate {}}}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {{Using Genetic Algorithm for Traffic Light Control
-  System with a Pedestrian Crossing}} {{Using Genetic Algorithm for Traffic
-  Light Control System with a Pedestrian Crossing}}.{\BBCQ}
-\newblock
-\begin{APACrefURL} \url{http://paper.ijcsns.org/07\_book/200902/20090212.pdf}
-  \end{APACrefURL}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
 Basogain%
 \AX{basogain  x
 @Basogain, X.}%
@@ -131,7 +82,7 @@ Brinckerhoff, P.%
 \AX{conferencia europea de ministros de transporte
 @{Conferencia Europea de Ministros de Transporte}}%
 }{%
-{\protect \APACyear {206}}%
+{\protect \APACyear {2006}}%
 }]{%
 ConferenciaEuropeadeMinistrosdeTransporte206}
 \APACinsertmetastar {%
@@ -143,7 +94,7 @@ ConferenciaEuropeadeMinistrosdeTransporte206}%
 \end{APACrefauthors}%
 \unskip\
 \newblock
-\APACrefYear{206}.
+\APACrefYear{2006}.
 \newblock
 \APACrefbtitle {{Gesti\'{o}n de Velocidad}} {{Gesti\'{o}n de Velocidad}}.
 \newblock
@@ -595,6 +546,52 @@ Longo, J\BPBI e\BPBI a., Kasper.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Mashaan%
+\AX{mashaan  a
+@Mashaan, A.}%
+, Sharifuddin%
+\AX{sharifuddin  m
+@Sharifuddin, M.}%
+\BCBL {}\ \BBA {} Yusoff%
+\AX{yusoff  m
+@Yusoff, M.}%
+}{%
+Mashaan%
+\AX{mashaan  a
+@Mashaan, A.}%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2009}}%
+}]{%
+Ayad}
+\APACinsertmetastar {%
+Ayad}%
+\begin{APACrefauthors}%
+Mashaan, A.%
+\AX{mashaan  a
+@Mashaan, A.}%
+, Sharifuddin, M.%
+\AX{sharifuddin  m
+@Sharifuddin, M.}%
+\BCBL {}\ \BBA {} Yusoff, M.%
+\AX{yusoff  m
+@Yusoff, M.}%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{The Use of Genetic Algorithm for Traffic Light and
+  Pedestrian Crossing Control}} {{The Use of Genetic Algorithm for Traffic
+  Light and Pedestrian Crossing Control}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{IJCSNS International Journal of Computer Science and
+  Network Security}{9}{2}{88--96}.
+\newblock
+\begin{APACrefURL} \url{http://paper.ijcsns.org/07\_book/200902/20090212.pdf}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Mata%
 \AX{mata  a
 @Mata, A.}%
@@ -778,7 +775,7 @@ Turnbull%
 \AX{turnbull  k
 @Turnbull, K.}%
 }{%
-{\protect \APACyear {{\protect \bibnodate {}}}}%
+{\protect \APACyear {1998}}%
 }]{%
 Turnbull}
 \APACinsertmetastar {%
@@ -790,7 +787,7 @@ Turnbull, K.%
 \end{APACrefauthors}%
 \unskip\
 \newblock
-\APACrefYearMonthDay{{\protect \bibnodate {}}}{}{}.
+\APACrefYearMonthDay{1998}{}{}.
 \newblock
 \APACrefbtitle {{Transit benefits from advanced transportation management
   centers}} {{Transit benefits from advanced transportation management
