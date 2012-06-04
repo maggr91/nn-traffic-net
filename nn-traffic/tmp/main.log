@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.5.3)  4 JUN 2012 01:01
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.5.3)  4 JUN 2012 14:49
 entering extended mode
 **main.tex
 (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\main.tex
@@ -400,7 +400,7 @@ Package tocbibind Info: The document has chapter divisions on input line 50.
 
 Package tocbibind Note: Using chapter style headings, unless overridden.
 
-)) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\textcomp.sty"
+) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\textcomp.sty"
 Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
 Package textcomp Info: Sub-encoding information:
 (textcomp)               5 = only ISO-Adobe without \textcurrency
@@ -481,7 +481,24 @@ Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 338.
 Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 339.
 Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 340.
 )
-\glo@main@file=\write4
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\fancybox\fancybox.sty"
+Package: fancybox 2010/05/15 1.4
+
+Style option: `fancybox' v1.4 <2010/05/15> (tvz)
+\@fancybox=\box32
+\shadowsize=\dimen135
+\@Sbox=\box33
+\do@VerbBox=\toks30
+\the@fancyput=\toks31
+\this@fancyput=\toks32
+\EndVerbatimTokens=\toks33
+\Verbatim@Outfile=\write4
+\Verbatim@Infile=\read1
+)) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lipsum\lipsum.sty"
+Package: lipsum 2011/04/14 v1.2 150 paragraphs of Lorem Ipsum dummy text
+\c@lips@count=\count116
+)
+\glo@main@file=\write5
 Package glossaries Info: Writing glossary file main.glo on input line 7.
 
 (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\main.aux
@@ -512,17 +529,17 @@ LaTeX Font Info:    ... okay on input line 14.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count116
-\scratchdimen=\dimen135
-\scratchbox=\box32
-\nofMPsegments=\count117
-\nofMParguments=\count118
-\everyMPshowfont=\toks30
-\MPscratchCnt=\count119
-\MPscratchDim=\dimen136
-\MPnumerator=\count120
-\makeMPintoPDFobject=\count121
-\everyMPtoPDFconversion=\toks31
+\scratchcounter=\count117
+\scratchdimen=\dimen136
+\scratchbox=\box34
+\nofMPsegments=\count118
+\nofMParguments=\count119
+\everyMPshowfont=\toks34
+\MPscratchCnt=\count120
+\MPscratchDim=\dimen137
+\MPnumerator=\count121
+\makeMPintoPDFobject=\count122
+\everyMPtoPDFconversion=\toks35
 )
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -558,7 +575,7 @@ LaTeX Font Info:    ... okay on input line 14.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\AtBeginShipoutBox=\box33
+\AtBeginShipoutBox=\box35
 Package hyperref Info: Link coloring ON on input line 14.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
@@ -566,7 +583,7 @@ Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count122
+\c@section@level=\count123
 )
 LaTeX Info: Redefining \ref on input line 14.
 LaTeX Info: Redefining \pageref on input line 14.
@@ -574,13 +591,13 @@ LaTeX Info: Redefining \nameref on input line 14.
 
 (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\main.out)
 (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\main.out)
-\@outlinefile=\write5
+\@outlinefile=\write6
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\glossaries\dict\glossaries-dictio
 nary-English.dict"
 Dictionary: glossaries-dictionary, Language: English 
 )
-\c@maskedRefs=\count123
+\c@maskedRefs=\count124
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\apacite\spanish.apc"
 File: spanish.apc 2012/02/25 v6.01 apacite language file
@@ -591,23 +608,26 @@ LaTeX Info: Redefining \BHBI on input line 139.
 <images/escudo.png, id=207, 267.24844pt x 268.00125pt>
 File: images/escudo.png Graphic file (type png)
  <use images/escudo.png>
-Package pdftex.def Info: images/escudo.png used on input line 13.
+Package pdftex.def Info: images/escudo.png used on input line 15.
 (pdftex.def)             Requested size: 133.62389pt x 134.00029pt.
-LaTeX Font Info:    Try loading font information for U+msa on input line 51.
+LaTeX Font Info:    Try loading font information for U+msa on input line 53.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 51.
+LaTeX Font Info:    Try loading font information for U+msb on input line 53.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
-) [1
+)
+
+LaTeX Warning: \oval, \circle, or \line size unavailable on input line 70.
+
+[1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <E:/Licenciatura/diseno_in
-v_1/latex/nn-traffic/images/escudo.png>])
+ <E:/Licenciatura/diseno_inv_1/latex/nn-traffic/images/escudo.png>])
 (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/presentation.tex
 Underfull \hbox (badness 10000) in paragraph at lines 1--2
 
@@ -619,22 +639,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 1--2
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 6--8
+Underfull \hbox (badness 10000) in paragraph at lines 12--13
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 11--12
+Underfull \hbox (badness 10000) in paragraph at lines 16--17
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 15--16
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 20--21
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
 
  []
 
@@ -664,14 +679,14 @@ Package spanish Warning: Replacing `OT1/cmr/bx/sc' by
 [2
 
 ])
-\tf@toc=\write6
+\tf@toc=\write7
  [3] (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\main.lof)
-\tf@lof=\write7
+\tf@lof=\write8
  [4
 
 ]
 (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\main.lot)
-\tf@lot=\write8
+\tf@lot=\write9
  [5
 
 ]
@@ -701,7 +716,7 @@ Package Fancyhdr Warning: \headheight is too small (14.49998pt):
 
 [6]
 Missing character: There is no … in font cmti12!
- [7] [8] <images/trafico1.png, id=390, 684.99391pt x 544.01044pt>
+ [7] [8] <images/trafico1.png, id=391, 684.99391pt x 544.01044pt>
 File: images/trafico1.png Graphic file (type png)
 
 <use images/trafico1.png>
@@ -714,7 +729,7 @@ y)>])
 (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/desc/objectives.tex
 [12] [13]) (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/desc/scope.tex
 [14]
-Underfull \hbox (badness 10000) in paragraph at lines 38--41
+Underfull \hbox (badness 10000) in paragraph at lines 39--42
 
  []
 
@@ -726,7 +741,7 @@ Missing character: There is no ” in font cmr12!
  2.
 
 (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\body/theory/biologycal_model.tex
-<images/TesisYGR-neuron.png, id=443, 295.85532pt x 213.04594pt>
+<images/TesisYGR-neuron.png, id=444, 295.85532pt x 213.04594pt>
 File: images/TesisYGR-neuron.png Graphic file (type png)
 
 <use images/TesisYGR-neuron.png>
@@ -769,9 +784,7 @@ Overfull \hbox (43.549pt too wide) in paragraph at lines 66--81
  [][][] 
  []
 
-[22] [23]
-Missing character: There is no ú in font cmr12!
- [24]
+[22] [23] [24]
 Missing character: There is no “ in font cmr12!
 Missing character: There is no ” in font cmr12!
 ))
@@ -940,7 +953,7 @@ Overfull \hbox (60.25119pt too wide) in paragraph at lines 40--69
 
 [36
 
-] [37] <images/cronoMIN.png, id=582, 630.85687pt x 378.66469pt>
+] [37] <images/cronoMIN.png, id=583, 630.85687pt x 378.66469pt>
 File: images/cronoMIN.png Graphic file (type png)
 
 <use images/cronoMIN.png>
@@ -952,7 +965,7 @@ Overfull \hbox (43.01173pt too wide) in paragraph at lines 77--78
  []
 
 [38 <E:/Licenciatura/diseno_inv_1/latex/nn-traffic/images/cronoMIN.png>]
-<images/ganttMIN2.png, id=587, 978.65625pt x 379.4175pt>
+<images/ganttMIN2.png, id=588, 978.65625pt x 379.4175pt>
 File: images/ganttMIN2.png Graphic file (type png)
 
 <use images/ganttMIN2.png>
@@ -976,93 +989,93 @@ LaTeX Warning: Float too large for page by 23.626pt on input line 88.
 (E:\Licenciatura\diseno_inv_1\latex\nn-traffic\main.bbl [41
 
 ]
-Underfull \hbox (badness 3260) in paragraph at lines 67--84
+Underfull \hbox (badness 3260) in paragraph at lines 18--35
 [][]\OT1/cmr/m/n/12 Basogain, X.  (s.f.[]).  \OT1/cmr/m/it/12 RE-DES NEU-RO-NA-
 LES AR-TI-FI-CIA-LES Y SUS
  []
 
 
-Underfull \hbox (badness 6910) in paragraph at lines 67--84
+Underfull \hbox (badness 6910) in paragraph at lines 18--35
 \OT1/cmr/m/it/12 APLI-CA-CIO-NES.  \OT1/cmr/m/n/12 Bil-bao: Es-cue-la Su-pe-rio
 r de In-ge-niera de Bil-bao.
  []
 
 
-Underfull \hbox (badness 3199) in paragraph at lines 67--84
+Underfull \hbox (badness 3199) in paragraph at lines 18--35
 \OT1/cmr/m/n/12 Des-car-ga-do de [][]$\OT1/cmtt/m/n/12 http :// ocw [] .ehu [] 
 .es / ensenanzas [] -tecnicas / redes [] -neuronales []$
  []
 
 
-Underfull \hbox (badness 7451) in paragraph at lines 140--154
-[][]\OT1/cmr/m/n/12 Conferencia Eu-ro-pea de Mi-nis-tros de Trans-por-te.  (206
-).  \OT1/cmr/m/it/12 Ges-tion
+Underfull \hbox (badness 10000) in paragraph at lines 91--105
+[][]\OT1/cmr/m/n/12 Conferencia Eu-ro-pea de Mi-nis-tros de Trans-por-te.  (200
+6).  \OT1/cmr/m/it/12 Ges-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 140--154
-\OT1/cmr/m/it/12 de Ve-lo-ci-dad\OT1/cmr/m/n/12 .  Des-car-ga-do de [][]$\OT1/c
-mtt/m/n/12 http :// books [] .google [] .co [] .cr / books []$
+Underfull \hbox (badness 7963) in paragraph at lines 91--105
+\OT1/cmr/m/it/12 tion de Ve-lo-ci-dad\OT1/cmr/m/n/12 .  Des-car-ga-do de [][]$
+\OT1/cmtt/m/n/12 http :// books [] .google [] .co [] .cr / books []$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 140--154
+Underfull \hbox (badness 10000) in paragraph at lines 91--105
 $\OT1/cmtt/m/n/12 ?id = n1fiGOhmF68C&pg = PT42&dq = Consumo + de + combustible 
 + en + marchas +$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 140--154
+Underfull \hbox (badness 10000) in paragraph at lines 91--105
 $\OT1/cmtt/m/n/12 inferiores&hl = en&sa = X&ei = v6iCT5SKHsi [] -twfJsYifBg&ved
  = 0CEAQ6AEwAg #$
  []
 
-[42
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 473--496
+Underfull \hbox (badness 10000) in paragraph at lines 424--447
 $\OT1/cmtt/m/n/12 j&q = &esrc = s&source = web&cd = 2&ved = 0CD8QFjAB&url = htt
 p :// citeseerx [] .ist []$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 473--496
+Underfull \hbox (badness 10000) in paragraph at lines 424--447
 $\OT1/cmtt/m/n/12 .psu [] .edu / viewdoc / download [] ?doi = 10 [] .1 [] .1 []
  .172 [] .1950&rep = rep1&type = pdf&ei =$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 473--496
+Underfull \hbox (badness 10000) in paragraph at lines 424--447
 $\OT1/cmtt/m/n/12 vNJ8T5zeNIaK8QSsuZjjDA&usg = AFQjCNGPdc6mHU0snW8qDiB5LZYpBpg7
 VQ&sig2 =$
  []
 
+[42
 
-Underfull \hbox (badness 5504) in paragraph at lines 512--529
+]
+Underfull \hbox (badness 5504) in paragraph at lines 463--480
 [][]\OT1/cmr/m/n/12 Kumar, G.  (2007).  \OT1/cmr/m/it/12 Ar-ti-fi-cial Neu-ral 
 Net-work and Its Ap-pli-ca-tion.
  []
 
 
-Underfull \hbox (badness 7344) in paragraph at lines 512--529
+Underfull \hbox (badness 7344) in paragraph at lines 463--480
 \OT1/cmr/m/n/12 New Del-hi.  Des-car-ga-do de [][]$\OT1/cmtt/m/n/12 http :// ww
 w [] .iasri [] .res [] .in / ebook / EBADAT / 5 []$
  []
 
 
-Underfull \hbox (badness 1635) in paragraph at lines 579--596
+Underfull \hbox (badness 1635) in paragraph at lines 530--547
 [][]\OT1/cmr/m/n/12 Longo, J. e. a., Kas-per.  (2011).  \OT1/cmr/m/it/12 Ha-rri
 -son's Prin-ci-ples of in-ter-nal me-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 579--596
+Underfull \hbox (badness 10000) in paragraph at lines 530--547
 \OT1/cmr/m/it/12 di-ci-ne\OT1/cmr/m/n/12 .  Mc-Graw Hill.  Des-car-ga-do de [][
 ]$\OT1/cmtt/m/n/12 URLhttp :// www [] .amazon [] .com /$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 579--596
+Underfull \hbox (badness 10000) in paragraph at lines 530--547
 $\OT1/cmtt/m/n/12 Harrisons [] -Principles [] -Internal [] -Medicine [] -Volume
 s / dp / 007174889X /$
  []
@@ -1095,13 +1108,13 @@ LaTeX Warning: There were multiply-defined labels.
 ### semi simple group (level 1) entered at line 26 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 10179 strings out of 494045
- 149265 string characters out of 3145964
- 262722 words of memory out of 3000000
- 13073 multiletter control sequences out of 15000+200000
+ 10537 strings out of 494045
+ 153604 string characters out of 3145964
+ 357707 words of memory out of 3000000
+ 13423 multiletter control sequences out of 15000+200000
  13434 words of font info for 49 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 34i,13n,43p,1324b,859s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 34i,11n,43p,1324b,828s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/cm-super/cm-
 super-ts1.enc}<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
@@ -1110,10 +1123,12 @@ c10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12
 .pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsl12.p
 fb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb
 ><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb><
-C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on main.pdf (51 pages, 561488 bytes).
+C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/latxfont/lcircle1
+.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/cm-super/sfrm1200.pf
+b>
+Output written on main.pdf (51 pages, 563758 bytes).
 PDF statistics:
- 721 PDF objects out of 1000 (max. 8388607)
+ 725 PDF objects out of 1000 (max. 8388607)
  148 named destinations out of 1000 (max. 500000)
  434 words of extra memory for PDF output out of 10000 (max. 10000000)
 

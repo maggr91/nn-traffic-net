@@ -18,11 +18,6 @@ Too many commas in name 1 of "Longo, Kasper, Jameson, et al" for entry Longo2011
 while executing---line 5217 of file apacitex.bst
 Too many commas in name 1 of "Longo, Kasper, Jameson, et al" for entry Longo2011
 while executing---line 5220 of file apacitex.bst
-Warning--No journal in Ayad
-ptr=1, stack=
-
----the literal stack isn't empty for entry Ayad
-while executing---line 5228 of file apacitex.bst
 Too many commas in name 1 of "Longo, Kasper, Jameson, et al" for entry Longo2011
 while executing---line 5228 of file apacitex.bst
 Too many commas in name 1 of "Longo, Kasper, Jameson, et al" for entry Longo2011
@@ -42,4 +37,4 @@ while executing---line 5228 of file apacitex.bst
 Too many commas in name 1 of "Longo, Kasper, Jameson, et al" for entry Longo2011
 while executing---line 5228 of file apacitex.bst
 Warning--No journal in Rajendra2005
-(There were 18 error messages)
+(There were 17 error messages)
