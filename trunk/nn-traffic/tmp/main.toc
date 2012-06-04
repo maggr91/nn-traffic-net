@@ -42,7 +42,7 @@
 \contentsline {subsection}{\numberline {3.4.6}Iteraci\'{o}n de simulaciones}{31}{subsection.3.4.6}
 \contentsline {subsection}{\numberline {3.4.7}Evaluaci\'{o}n de ambientes vividos y factores de San Jos\'{e}}{31}{subsection.3.4.7}
 \contentsline {chapter}{\numberline {4}Estudio de Factibilidad}{32}{chapter.4}
-\contentsline {section}{\numberline {4.1}Factibilidad T\'{e}nica}{32}{section.4.1}
+\contentsline {section}{\numberline {4.1}Factibilidad T\'{e}cnica}{32}{section.4.1}
 \contentsline {section}{\numberline {4.2}Factibilidad Financiera}{33}{section.4.2}
 \contentsline {section}{\numberline {4.3}Factibilidad Operativa}{34}{section.4.3}
 \contentsline {section}{\numberline {4.4}Factibilidad Legal}{35}{section.4.4}

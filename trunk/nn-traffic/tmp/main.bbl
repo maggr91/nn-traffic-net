@@ -185,39 +185,6 @@ Coxworth, B.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
-et~al Longo%
-\AX{etallongo  j
-@et~al Longo, J.}%
-}{%
-et~al Longo%
-\AX{etallongo  j
-@et~al Longo, J.}%
-}{%
-{\protect \APACyear {2011}}%
-}]{%
-Longo2011}
-\APACinsertmetastar {%
-Longo2011}%
-\begin{APACrefauthors}%
-et~al Longo, J.%
-\AX{etallongo  j
-@et~al Longo, J.}%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYear{2011}.
-\newblock
-\APACrefbtitle {{Harrison's Principles of internal medicine}} {{Harrison's
-  Principles of internal medicine}}.
-\newblock
-\APACaddressPublisher{}{McGraw Hill}.
-\newblock
-\begin{APACrefURL} \url{URL
-  http://www.amazon.com/Harrisons-Principles-Internal-Medicine-Volumes/dp/007174889X/ref=sr\_1\_1?ie=UTF8\&qid=1329942776\&sr=8-1.}
-  \end{APACrefURL}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
 Ezell%
 \AX{ezell  s
 @Ezell, S.}%
@@ -595,6 +562,39 @@ Loaiza, V.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Longo%
+\AX{longo  jea  kasper
+@Longo, J\BPBI e\BPBI a., Kasper}%
+}{%
+Longo%
+\AX{longo  jea  kasper
+@Longo, J\BPBI e\BPBI a., Kasper}%
+}{%
+{\protect \APACyear {2011}}%
+}]{%
+Longo2011}
+\APACinsertmetastar {%
+Longo2011}%
+\begin{APACrefauthors}%
+Longo, J\BPBI e\BPBI a., Kasper.%
+\AX{longo  jea  kasper
+@Longo, J\BPBI e\BPBI a., Kasper}%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2011}.
+\newblock
+\APACrefbtitle {{Harrison's Principles of internal medicine}} {{Harrison's
+  Principles of internal medicine}}.
+\newblock
+\APACaddressPublisher{}{McGraw Hill}.
+\newblock
+\begin{APACrefURL} \url{URL
+  http://www.amazon.com/Harrisons-Principles-Internal-Medicine-Volumes/dp/007174889X/ref=sr\_1\_1?ie=UTF8\&qid=1329942776\&sr=8-1.}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Mata%
 \AX{mata  a
 @Mata, A.}%
@@ -655,6 +655,39 @@ Rajendra, A.%
   Prentice-Hall OF India Private Limited}}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{}{}{}{1--4}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+{RITA}%
+\AX{rita
+@{RITA}}%
+}{%
+{RITA}%
+\AX{rita
+@{RITA}}%
+}{%
+{\protect \APACyear {{\protect \bibnodate {}}}}%
+}]{%
+ResearchAndInnovativeTechnologyAdministration}
+\APACinsertmetastar {%
+ResearchAndInnovativeTechnologyAdministration}%
+\begin{APACrefauthors}%
+{RITA}.%
+\AX{rita
+@{RITA}}%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{{\protect \bibnodate {}}}{}{}.
+\newblock
+\APACrefbtitle {{Traffic Signal Control Systems}.} {{Traffic Signal Control
+  Systems}.}
+\newblock
+\APACaddressPublisher{New Jersey}{Research And Innovative Technology
+  Administration. National Transportation Library}.
+\newblock
+\begin{APACrefURL} \url{http://ntl.bts.gov/lib/jpodocs/edldocs1/13480/ch3.pdf}
+  \end{APACrefURL}
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
