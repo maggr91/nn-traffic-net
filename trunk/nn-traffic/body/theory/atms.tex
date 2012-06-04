@@ -63,7 +63,7 @@ Algunas de las t\'{e}cnicas empleadas para esto se muestran en el cuadro
 
 \begin{table}[tb!h]
 			\centering
-			\begin{tabular}{|p{4cm}|p{11cm}|}
+			\begin{tabular}{|p{4cm}|p{11.80cm}|}
 				\hline
 				\textbf{Sistema} & \textbf{Descripci\'{o}n}\\ \hline
 				Armonizaci\'{o}n de velocidad & Consistiendo de ajustes
@@ -111,7 +111,7 @@ medida adicional, se cuenta con varios mecanismos de detecci\'{o}n o visualizaci
 	\textit{actuated operation (operaci\'{o}n accionada)}. Debido a las grandes
 	cantidades de veh\'{i}culos que circulan por las calles y a su flujo variable se obtiene un mejor funcionamiento cuando se utiliza el segundo tipo de operaci\'{o}n.
 
-	\textit{Pretimed Operation (Operaci\'{o}n con tiempos pre configurados ))}
+	\textit{Pretimed Operation (Operaci\'{o}n con tiempos pre configurados)}
 	corresponde a la forma de operaci\'{o}n en la cual las luces roja, amarilla y verde son temporizadas
 en intervalos fijos, debido a que se toman consideraciones sobre los patrones de
 tr\'{a}fico al tratar de predecirlos de acuerdo a estimaciones de la hora del d\'{i}a. No obstante la cantidad de veh\'{i}culos que circulan es muy variable causando que las predicciones a realizar no sean muy precisas. Por otro lado, resulta m\'{a}s econ\'{o}mico llevar a cabo estas implementaciones ya que no requieren de sensores o detectores de tr\'{a}fico en las intersecciones donde se localice algún sem\'{a}foro de la red controlada.
@@ -137,3 +137,7 @@ Para este caso, todos los sem\'{a}foros poseer\'{a}n un intervalo m\'{i}nimo de 
 para la luz verde, y el tr\'{a}fico en movimiento ser\'{a} atendido mientras se obtengan
 registros de los sensores indicando la detecci\'{o}n de veh\'{i}culos acerc\'{a}ndose, es importante notar que estas aproximaciones deben de ser lo suficientemente frecuentes para no exceder el limite o umbral establece que causa el cambio de la luz. En caso de no de no suceder esto, los intervalos de luz verdes seguir\'{a}n extendi\'{e}ndose hasta que todos los veh\'{i}culos hayan pasado o hasta que se alcance el l\'{i}mite establecido, lo que ocurra primero.
 
+	Las formas de operaci\'{o}n mencionadas en este apartado son un factor
+importante de entender, ya que estas conforman la base que diferencia el sistema
+actual del Centro de Control de Tr\'{a}nsito del  MOPT (Pretimed Operation)
+contra un funcionamiento del mismo empleando redes neuronales (similar al Actuated Operation) y a partir de las cuales es posible notar los beneficios que posee una sobre la otra.
