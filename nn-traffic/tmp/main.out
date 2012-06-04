@@ -1,48 +1,51 @@
 \BOOKMARK [0][-]{chapter*.1}{\315ndice general}{}% 1
 \BOOKMARK [0][-]{chapter*.2}{\315ndice de figuras}{}% 2
 \BOOKMARK [0][-]{chapter*.3}{\315ndice de cuadros}{}% 3
-\BOOKMARK [0][-]{chapter.1}{Introducc\363n}{}% 4
-\BOOKMARK [1][-]{section.1.1}{Introducci\363n}{chapter.1}% 5
-\BOOKMARK [0][-]{chapter.2}{Descripci\363n del Proyecto}{}% 6
-\BOOKMARK [1][-]{section.2.1}{Antecedentes}{chapter.2}% 7
-\BOOKMARK [1][-]{section.2.2}{Problem\341tica a Resolver}{chapter.2}% 8
-\BOOKMARK [2][-]{subsection.2.2.1}{Planteamiento del Problema}{section.2.2}% 9
-\BOOKMARK [2][-]{subsection.2.2.2}{Problema a evaluar}{section.2.2}% 10
-\BOOKMARK [1][-]{section.2.3}{Justificaci\363n}{chapter.2}% 11
-\BOOKMARK [1][-]{section.2.4}{Hip\363tesis}{chapter.2}% 12
-\BOOKMARK [1][-]{section.2.5}{Objetivos}{chapter.2}% 13
-\BOOKMARK [2][-]{subsection.2.5.1}{Objetivo General}{section.2.5}% 14
-\BOOKMARK [2][-]{subsection.2.5.2}{Objetivos Espec\355ficos}{section.2.5}% 15
-\BOOKMARK [1][-]{section.2.6}{Alcance y Limitaciones}{chapter.2}% 16
-\BOOKMARK [1][-]{section.2.7}{Lista de Entregables}{chapter.2}% 17
-\BOOKMARK [1][-]{section.2.8}{Beneficios Esperados}{chapter.2}% 18
-\BOOKMARK [0][-]{chapter.3}{Marco Te\363rico}{}% 19
-\BOOKMARK [1][-]{section.3.1}{Redes neuronales y la toma de decisiones}{chapter.3}% 20
-\BOOKMARK [2][-]{subsection.3.1.1}{El Modelo Biol\363gico}{section.3.1}% 21
-\BOOKMARK [1][-]{section.3.2}{Redes neuronales artificiales}{chapter.3}% 22
-\BOOKMARK [2][-]{subsection.3.2.1}{Sistemas Expertos vs Redes Neuronales}{section.3.2}% 23
-\BOOKMARK [1][-]{section.3.3}{Sistemas de Transporte Inteligente}{chapter.3}% 24
-\BOOKMARK [2][-]{subsection.3.3.1}{Sistemas de Control de Sem\341foros}{section.3.3}% 25
-\BOOKMARK [0][-]{chapter.4}{Marco Metodol\363gico}{}% 26
-\BOOKMARK [1][-]{section.4.1}{Asunci\363n}{chapter.4}% 27
-\BOOKMARK [1][-]{section.4.2}{Enfoque de Investigac\363n}{chapter.4}% 28
-\BOOKMARK [1][-]{section.4.3}{Tipo de Investigac\363n}{chapter.4}% 29
-\BOOKMARK [1][-]{section.4.4}{Actividades Involucradas}{chapter.4}% 30
-\BOOKMARK [2][-]{subsection.4.4.1}{An\341lisis de modelos actuales}{section.4.4}% 31
-\BOOKMARK [2][-]{subsection.4.4.2}{Dise\361o la red}{section.4.4}% 32
-\BOOKMARK [2][-]{subsection.4.4.3}{Creaci\363n programa de simulaci\363n}{section.4.4}% 33
-\BOOKMARK [2][-]{subsection.4.4.4}{Simulaci\363n de los tiempos de espera}{section.4.4}% 34
-\BOOKMARK [2][-]{subsection.4.4.5}{Simulaci\363n y entrenamiento la red}{section.4.4}% 35
-\BOOKMARK [2][-]{subsection.4.4.6}{Iteraci\363n de simulaciones}{section.4.4}% 36
-\BOOKMARK [2][-]{subsection.4.4.7}{Evaluaci\363n de ambientes vividos y factores de San Jos\351}{section.4.4}% 37
-\BOOKMARK [0][-]{chapter.5}{Estudio de Factibilidad}{}% 38
-\BOOKMARK [1][-]{section.5.1}{Factibilidad T\351nica}{chapter.5}% 39
-\BOOKMARK [1][-]{section.5.2}{Factibilidad Financiera}{chapter.5}% 40
-\BOOKMARK [1][-]{section.5.3}{Factibilidad Operativa}{chapter.5}% 41
-\BOOKMARK [1][-]{section.5.4}{Factibilidad Legal}{chapter.5}% 42
-\BOOKMARK [0][-]{chapter.6}{Plan de Trabajo}{}% 43
-\BOOKMARK [1][-]{section.6.1}{Resultados y Productos Esperados}{chapter.6}% 44
-\BOOKMARK [1][-]{section.6.2}{Riesgos del proyecto}{chapter.6}% 45
-\BOOKMARK [1][-]{section.6.3}{Proyecci\363n o cronograma}{chapter.6}% 46
-\BOOKMARK [0][-]{chapter*.4}{Referencias}{}% 47
-\BOOKMARK [0][-]{chapter*.5}{Glosario de T\351rminos}{}% 48
+\BOOKMARK [0][-]{chapter*.4}{Introducci\363n}{}% 4
+\BOOKMARK [0][-]{chapter.1}{Descripci\363n del Proyecto}{}% 5
+\BOOKMARK [1][-]{section.1.1}{Antecedentes}{chapter.1}% 6
+\BOOKMARK [1][-]{section.1.2}{Problem\341tica a Resolver}{chapter.1}% 7
+\BOOKMARK [2][-]{subsection.1.2.1}{Planteamiento del Problema}{section.1.2}% 8
+\BOOKMARK [2][-]{subsection.1.2.2}{Problema a evaluar}{section.1.2}% 9
+\BOOKMARK [1][-]{section.1.3}{Justificaci\363n}{chapter.1}% 10
+\BOOKMARK [1][-]{section.1.4}{Hip\363tesis}{chapter.1}% 11
+\BOOKMARK [1][-]{section.1.5}{Objetivos}{chapter.1}% 12
+\BOOKMARK [2][-]{subsection.1.5.1}{Objetivo General}{section.1.5}% 13
+\BOOKMARK [2][-]{subsection.1.5.2}{Objetivos Espec\355ficos}{section.1.5}% 14
+\BOOKMARK [1][-]{section.1.6}{Alcance y Limitaciones}{chapter.1}% 15
+\BOOKMARK [1][-]{section.1.7}{Lista de Entregables}{chapter.1}% 16
+\BOOKMARK [1][-]{section.1.8}{Beneficios Esperados}{chapter.1}% 17
+\BOOKMARK [2][-]{subsection.1.8.1}{La organizaci\363n}{section.1.8}% 18
+\BOOKMARK [2][-]{subsection.1.8.2}{El estudiante}{section.1.8}% 19
+\BOOKMARK [2][-]{subsection.1.8.3}{La Universidad}{section.1.8}% 20
+\BOOKMARK [0][-]{chapter.2}{Marco Te\363rico}{}% 21
+\BOOKMARK [1][-]{section.2.1}{Redes neuronales y la toma de decisiones}{chapter.2}% 22
+\BOOKMARK [2][-]{subsection.2.1.1}{El Modelo Biol\363gico}{section.2.1}% 23
+\BOOKMARK [1][-]{section.2.2}{Redes neuronales artificiales}{chapter.2}% 24
+\BOOKMARK [2][-]{subsection.2.2.1}{Sistemas Expertos vs Redes Neuronales}{section.2.2}% 25
+\BOOKMARK [1][-]{section.2.3}{Sistemas de Transporte Inteligente}{chapter.2}% 26
+\BOOKMARK [2][-]{subsection.2.3.1}{Sistemas de Control de Sem\341foros}{section.2.3}% 27
+\BOOKMARK [0][-]{chapter.3}{Marco Metodol\363gico}{}% 28
+\BOOKMARK [1][-]{section.3.1}{Asunci\363n}{chapter.3}% 29
+\BOOKMARK [1][-]{section.3.2}{Enfoque de Investigac\363n}{chapter.3}% 30
+\BOOKMARK [1][-]{section.3.3}{Tipo de Investigac\363n}{chapter.3}% 31
+\BOOKMARK [1][-]{section.3.4}{Actividades Involucradas}{chapter.3}% 32
+\BOOKMARK [2][-]{subsection.3.4.1}{An\341lisis de modelos actuales}{section.3.4}% 33
+\BOOKMARK [2][-]{subsection.3.4.2}{Dise\361o de la red}{section.3.4}% 34
+\BOOKMARK [2][-]{subsection.3.4.3}{Creaci\363n programa de simulaci\363n}{section.3.4}% 35
+\BOOKMARK [2][-]{subsection.3.4.4}{Simulaci\363n de los tiempos de espera}{section.3.4}% 36
+\BOOKMARK [2][-]{subsection.3.4.5}{Simulaci\363n y entrenamiento de la red}{section.3.4}% 37
+\BOOKMARK [2][-]{subsection.3.4.6}{Iteraci\363n de simulaciones}{section.3.4}% 38
+\BOOKMARK [2][-]{subsection.3.4.7}{Evaluaci\363n de ambientes vividos y factores de San Jos\351}{section.3.4}% 39
+\BOOKMARK [0][-]{chapter.4}{Estudio de Factibilidad}{}% 40
+\BOOKMARK [1][-]{section.4.1}{Factibilidad T\351nica}{chapter.4}% 41
+\BOOKMARK [1][-]{section.4.2}{Factibilidad Financiera}{chapter.4}% 42
+\BOOKMARK [1][-]{section.4.3}{Factibilidad Operativa}{chapter.4}% 43
+\BOOKMARK [1][-]{section.4.4}{Factibilidad Legal}{chapter.4}% 44
+\BOOKMARK [0][-]{chapter.5}{Plan de Trabajo}{}% 45
+\BOOKMARK [1][-]{section.5.1}{Resultados y Productos Esperados}{chapter.5}% 46
+\BOOKMARK [1][-]{section.5.2}{Riesgos del proyecto}{chapter.5}% 47
+\BOOKMARK [1][-]{section.5.3}{Proyecci\363n o cronograma}{chapter.5}% 48
+\BOOKMARK [0][-]{figure.5.2}{Anexos}{}% 49
+\BOOKMARK [0][-]{chapter*.5}{Referencias}{}% 50
+\BOOKMARK [0][-]{chapter*.6}{Glosario de T\351rminos}{}% 51
