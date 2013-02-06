@@ -24,9 +24,9 @@ init() ->
 set_map() ->
   Axis = get_lights(),
   Roads = get_lanes(),
-  lists:foreach(fun ({light, Location, State, On_time, Go_time}) ->
-  		    lists:filter( fun ({lane, Connection, Value, Cars}) ->
-  		    			Location =:= Connection
+  lists:foreach(fun ({LightId,AvLanes,CaLanes, State, On_time, Go_time}) ->
+  		    lists:filter( fun ({_lane, Connection,Dir, Type, Cars}) ->
+  		    			LightId =:= Connection
   		    		  end,
   		    		  Roads
   		    		)
