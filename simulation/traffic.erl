@@ -16,7 +16,7 @@ call(Message) ->
  end.
   
 init() ->
-  Ligths = set_map(),
+  Ligths = set_map(), 
   loop(Ligths, 0).
 
 %% cargar todos los procesos
