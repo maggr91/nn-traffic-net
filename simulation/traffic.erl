@@ -32,7 +32,7 @@ set_map() ->
   		end,
   		Axis
   	       ),
-  Axis.
+  Axis. 
                    
 %%Hard coded initialization of map
 get_lights() -> 
