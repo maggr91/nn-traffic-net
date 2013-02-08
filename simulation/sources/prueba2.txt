@@ -1,5 +1,4 @@
-{light212,[],[],idle, 45, 0}
-{light210,[],[],idle, 45, 0}
-{light208,[],[],idle, 45, 0}
-{light206,[],[],idle, 45, 0}
-
+{light212,{[],[]},idle, 45, 0}
+{light210,{[],[]},idle, 45, 0}
+{light208,{[],[]},idle, 45, 0}
+{light206,{[],[]},idle, 45, 0}
