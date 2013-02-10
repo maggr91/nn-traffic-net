@@ -1,5 +1,6 @@
 -module(traffic).
--export([start/0, stop/0, light/4, lane/3, connect/2, get_lights/0,get_lanes/0, set_map/0]).
+-export([start/0, stop/0, light/4, lane/3, get_lights/0,get_lanes/0, set_map/0, connect/1]).
+-export([init/0]).
 
 %% This module is used to run the simulation
 %% of normal traffic, with no modification of ANN
@@ -19,7 +20,7 @@ init() ->
   Ligths = set_map(), 
   loop(Ligths, 0).
 
-%% cargar todos los procesos
+%% set the network of traffic
 set_map() ->
   Axis = get_lights(),
   Roads = get_lanes(),
@@ -34,9 +35,13 @@ set_map() ->
   %%		end,
   %%		Axis
   %%	       ), 
-  {Origin, Allocated} = allocate_lights({Axis,[]}),
-  Allocated.
+  {Origin, AllocatedLights} = allocate_lights({Axis,[]}),
+  {_OrigLanes, AllocatedLanes} = allocate_lanes({Roads,[]}),
+  
+  {AllocatedLights, AllocatedLanes}.
+  
 
+%% Spawn every intersection and lane on the map
 allocate_lights({[],Spawned})->
 	{[],Spawned};
 allocate_lights({[{LightId,ManagedLanes, State, On_time, Go_time}|Tail], Spawned}) ->
@@ -47,8 +52,26 @@ allocate_lanes({[], Spawned}) ->
 	{[],Spawned};
 allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes, CarsQueque}|Tail], Spawned}) ->
 	Pid = spawn(traffic,lane, [Type, ConnectedLanes, CarsQueque]),
-	allocate_lanes({Tail, [{LaneId,Pid, LightController} | Spawned]}).
-	
+	allocate_lanes({Tail, [{LaneId,Pid, LightController,Type} | Spawned]}).
+
+%%connect lights with its lanes
+connect({[], AllocatedLanes}) -> {[],{ok, ready}};
+connect({[{LightId,Pid} | TailLight], LaneList}) -> 
+  find_lanes({LightId,Pid}, LaneList),
+  connect({TailLight, LaneList}).
+
+find_lanes({LightId,LightPid}, []) -> [];
+find_lanes({LightId,LightPid}, [{LaneId,LanePid, LightId,Type}| Tail]) ->
+  %%HeadAdd = {LaneId,LanePid, LightId},
+  LightPid ! {connect_lane, LanePid, self(),Type},
+  receive
+  	{reply, error} -> error;
+  	{reply, ok} -> find_lanes({LightId,LightPid},Tail)
+  end;
+  
+find_lanes({LightId, LightPid}, [LHead | LTail]) ->
+	find_lanes({LightId, LightPid}, LTail).
+  
 	          
 %%Hard coded initialization of map
 get_lights() -> 
@@ -63,11 +86,10 @@ get_lanes() ->
   readlines(Path).
 
 
-%% Leer los archivos para configuración de las calles
+%% Read files to get lanes/ lights config
 readlines(FileName) ->
    {ok, Device} =  file:open(FileName, [read]),
    Result = get_all_lines(Device, []),
-%%   io:format("Resultado de archivo: ",[]),
    lists:map(fun(X) -> 
    		Stripped = string:strip(X, right, $\n),
    		{ok, ItemsTokens, _} = erl_scan:string(Stripped ++ "."),
@@ -94,10 +116,6 @@ write_result(Data, Path) ->
 add_car(Position, Speed, Acc, Wait, Delay) ->
  {car,Position, Speed, Acc, Wait, Delay}.
 
-connect(Light_Pid, Lane_Pid) ->
-  Light_Pid ! {connect_lane, Lane_Pid},
-  Lane_Pid  ! {connect_light, Light_Pid}.
-  
 loop(Intersections, Time) ->
   %% Para cada interseccion en el sistema
   %% saco cada semaforo que la forma y corro las simulaciones en estos
@@ -133,19 +151,23 @@ light(ManagedLanes, State, Go_time, On_time) ->
     {connection, Pid, Idle}   ->
 		update_onIdle(ManagedLanes, Go_time, On_time, self(), State),
     		light(ManagedLanes, Idle, Go_time, On_time + 1);
-    {connect_lane, Lane_Pid, Type}  -> 
+    {connect_lane, Lane_Pid, Pid, Type}  -> 
     		{Av, Ca} = ManagedLanes,
     		if
     		  Type =:= av -> 
     		  	NewManaged = {[Lane_Pid| Av], Ca},
+    		  	reply(Pid,ok),
     		  	light(NewManaged, State, Go_time, On_time);
     		  Type =:= ca ->
     			NewManaged = {Av, [Lane_Pid| Ca]},
+    			reply(Pid,ok),
     		  	light(NewManaged, State, Go_time, On_time);
-     	  	  true -> light(ManagedLanes, State, Go_time, On_time)
+     	  	  true ->
+     	  	  	reply(Pid,ok), 
+     	  	  	light(ManagedLanes, State, Go_time, On_time)
      	  	end;
     stop ->	      
-    		{ok, idle}
+    		{ok, normal}
   end.
   
 update_onActive(Lanes, Go_time, On_time, Pid, State) ->  
@@ -187,7 +209,9 @@ lane(Type, ConnectedLanes, CarsQueque) ->
 		lane(Type, ConnectedLanes, NewCarsQueque);
 	{waiting, LightController, Time} ->
 		NewCarsQueque = waiting(CarsQueque,Time),
-		lane(Type, ConnectedLanes, NewCarsQueque)
+		lane(Type, ConnectedLanes, NewCarsQueque);
+		
+	stop -> {ok, normal}
 	%%{connect_light, Light_Pid} ->
 	%%	lanes(Light_Pid, Type, ConnectedLanes, CarsQueque)	
   end.  
