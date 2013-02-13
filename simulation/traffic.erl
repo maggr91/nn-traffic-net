@@ -52,25 +52,34 @@ allocate_lanes({[], Spawned}) ->
 	{[],Spawned};
 allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes, CarsQueque}|Tail], Spawned}) ->
 	Pid = spawn(traffic,lane, [Type, ConnectedLanes, CarsQueque]),
-	allocate_lanes({Tail, [{LaneId,Pid, LightController,Type} | Spawned]}).
+	allocate_lanes({Tail, [{LaneId,Pid, LightController,Dir} | Spawned]}).
 
 %%connect lights with its lanes
-connect({[], AllocatedLanes}) -> {[],{ok, ready}};
+connect({[], LaneList}) -> {[],{ok, ready}};
 connect({[{LightId,Pid} | TailLight], LaneList}) -> 
-  find_lanes({LightId,Pid}, LaneList),
-  connect({TailLight, LaneList}).
+  io:format("Luz: ~w / lineas: ~w.~n",[{LightId,Pid}, LaneList]),
+  RemLanes = find_lanes({LightId,Pid}, LaneList, []),
+  io:format("RemLanes: ~w.~n~n",[RemLanes]),
+  connect({TailLight, RemLanes}).
 
-find_lanes({LightId,LightPid}, []) -> [];
-find_lanes({LightId,LightPid}, [{LaneId,LanePid, LightId,Type}| Tail]) ->
+find_lanes({LightId,LightPid}, [], RemLanes) -> 
+  io:format("Exit ~w / sin lineas. Rem Lanes: ~w~n~n",[{LightId,LightPid},RemLanes]),
+  RemLanes;
+find_lanes({LightId,LightPid}, [{LaneId,LanePid, LightId,Dir}| Tail], RemLanes) ->
   %%HeadAdd = {LaneId,LanePid, LightId},
-  LightPid ! {connect_lane, LanePid, self(),Type},
+  io:format("Coincidencia: ~w envio de mensaje.~n",[{LightId,LightPid}]),
+  LightPid ! {connect_lane, LanePid, self(),Dir},
+  io:format("Coincidencia: mensaje enviado.~n",[]),
   receive
   	{reply, error} -> error;
-  	{reply, ok} -> find_lanes({LightId,LightPid},Tail)
+  	{reply, ok} -> 
+          io:format("Coincidencia: mensaje recibido.~n~n",[]),
+  	  find_lanes({LightId,LightPid},Tail, RemLanes)
   end;
   
-find_lanes({LightId, LightPid}, [LHead | LTail]) ->
-	find_lanes({LightId, LightPid}, LTail).
+find_lanes({LightId, LightPid}, [LHead | LTail], RemLanes) ->
+  io:format("No Coincidencia: ~w continue.~n",[{LightId,LightPid}]),
+  find_lanes({LightId, LightPid}, LTail, [LHead|RemLanes]).
   
 	          
 %%Hard coded initialization of map
@@ -104,9 +113,9 @@ readlines(FileName) ->
 
 get_all_lines(Device, Accum) ->
    case io:get_line(Device, "") of
+      {error, Reason} -> Reason;
       eof  	      -> file:close(Device), lists:reverse (Accum);
-      Line 	      -> get_all_lines(Device, [Line|Accum]);
-      {error, Reason} -> Reason
+      Line 	      -> get_all_lines(Device, [Line|Accum])      
    end.
    
 %% Escribir resultados
@@ -145,26 +154,30 @@ reply (Pid, Reply) ->
 
 light(ManagedLanes, State, Go_time, On_time) ->
   receive
-    {connection, Pid, Active} -> 
+    {connection, Pid, active} -> 
     		NewState = update_onActive(ManagedLanes, Go_time, On_time, self(), State),
     		light(ManagedLanes, NewState, Go_time, On_time + 1);
-    {connection, Pid, Idle}   ->
+    {connection, Pid, idle}   ->
 		update_onIdle(ManagedLanes, Go_time, On_time, self(), State),
-    		light(ManagedLanes, Idle, Go_time, On_time + 1);
-    {connect_lane, Lane_Pid, Pid, Type}  -> 
+    		light(ManagedLanes, idle, Go_time, On_time + 1);
+    {connect_lane, Lane_Pid, Pid, Dir}  -> 
     		{Av, Ca} = ManagedLanes,
+    		io:format("{Av ~w, Ca: ~w.~n",[Av, Ca]),
     		if
-    		  Type =:= av -> 
+    		  Dir =:= av -> 
     		  	NewManaged = {[Lane_Pid| Av], Ca},
     		  	reply(Pid,ok),
+    		  	io:format("light ~w, lanes: ~w.Dir:~w~n",[self(), NewManaged, Dir]),
     		  	light(NewManaged, State, Go_time, On_time);
-    		  Type =:= ca ->
+    		  Dir =:= ca ->
     			NewManaged = {Av, [Lane_Pid| Ca]},
     			reply(Pid,ok),
+    			io:format("light ~w, lanes: ~w. Dir:~w~n ",[self(), NewManaged,Dir]),
     		  	light(NewManaged, State, Go_time, On_time);
      	  	  true ->
+     	  	  	io:format("NO TYPE MATCH",[]),
      	  	  	reply(Pid,ok), 
-     	  	  	light(ManagedLanes, State, Go_time, On_time)
+     	  	  	light(ManagedLanes, State, Go_time, On_time)     	  	  	
      	  	end;
     stop ->	      
     		{ok, normal}
