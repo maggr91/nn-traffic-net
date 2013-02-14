@@ -1,5 +1,5 @@
 -module(traffic).
--export([start/0, stop/0, light/4, lane/3, get_lights/0,get_lanes/0, set_map/0, connect/1]).
+-export([start/0, stop/0, light/4, lane/3, get_lights/0,get_lanes/0, set_map/0, connect/1, connect_lanes/1]).
 -export([init/0]).
 
 %% This module is used to run the simulation
@@ -24,18 +24,7 @@ init() ->
 set_map() ->
   Axis = get_lights(),
   Roads = get_lanes(),
-  %%lists:foreach(fun ({LightId,ManagedLanes, State, On_time, Go_time}) ->
-  %%		    lists:filter( fun ({_lane, Connection,Dir, Type, Cars}) ->
-  %%		    			LightId =:= Connection
-  %%		    			if
-  %%		    			  Dir =:= 
-  %%		    		  end,
-  %%		    		  Roads
-  %%		    		)
-  %%		end,
-  %%		Axis
-  %%	       ), 
-  {Origin, AllocatedLights} = allocate_lights({Axis,[]}),
+  {_Origin, AllocatedLights} = allocate_lights({Axis,[]}),
   {_OrigLanes, AllocatedLanes} = allocate_lanes({Roads,[]}),
   
   {AllocatedLights, AllocatedLanes}.
@@ -51,8 +40,8 @@ allocate_lights({[{LightId,ManagedLanes, State, On_time, Go_time}|Tail], Spawned
 allocate_lanes({[], Spawned}) ->
 	{[],Spawned};
 allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes, CarsQueque}|Tail], Spawned}) ->
-	Pid = spawn(traffic,lane, [Type, ConnectedLanes, CarsQueque]),
-	allocate_lanes({Tail, [{LaneId,Pid, LightController,Dir} | Spawned]}).
+	Pid = spawn(traffic,lane, [Type, [], CarsQueque]),
+	allocate_lanes({Tail, [{LaneId,Pid, LightController,Dir,ConnectedLanes} | Spawned]}).
 
 %%connect lights with its lanes
 connect({[], LaneList}) -> {[],{ok, ready}};
@@ -65,7 +54,7 @@ connect({[{LightId,Pid} | TailLight], LaneList}) ->
 find_lanes({LightId,LightPid}, [], RemLanes) -> 
   io:format("Exit ~w / sin lineas. Rem Lanes: ~w~n~n",[{LightId,LightPid},RemLanes]),
   RemLanes;
-find_lanes({LightId,LightPid}, [{LaneId,LanePid, LightId,Dir}| Tail], RemLanes) ->
+find_lanes({LightId,LightPid}, [{_LaneId,LanePid, LightId,Dir,_AdjLanes}| Tail], RemLanes) ->
   %%HeadAdd = {LaneId,LanePid, LightId},
   io:format("Coincidencia: ~w envio de mensaje.~n",[{LightId,LightPid}]),
   LightPid ! {connect_lane, LanePid, self(),Dir},
@@ -80,7 +69,40 @@ find_lanes({LightId,LightPid}, [{LaneId,LanePid, LightId,Dir}| Tail], RemLanes) 
 find_lanes({LightId, LightPid}, [LHead | LTail], RemLanes) ->
   io:format("No Coincidencia: ~w continue.~n",[{LightId,LightPid}]),
   find_lanes({LightId, LightPid}, LTail, [LHead|RemLanes]).
+
+
+%%% Connect each lane with other near lanes
+connect_lanes({[], LaneList}) -> {[],{ok, ready}};
+connect_lanes({[{LaneId,Pid, _Light,_Dir, AdjLanes} | TailLane], LaneList}) -> 
+  io:format("Carril: ~w / lineas adj: ~w.~n",[{LaneId,Pid}, AdjLanes]),
+  set_connection_to_lane({LaneId,Pid}, AdjLanes, LaneList),
+  connect_lanes({TailLane, LaneList}).
   
+set_connection_to_lane({LaneId,Pid}, [], LanesList) -> 
+  io:format("Exit ~w / sin lineas. List of Lanes: ~w~n~n",[{LaneId,Pid},LanesList]),
+  [];
+set_connection_to_lane({LaneId,Pid}, [AdjLane | AdjLanesTail], LaneList) ->
+  find_adjLanes({LaneId,Pid},AdjLane,LaneList),
+  set_connection_to_lane({LaneId,Pid},AdjLanesTail, LaneList).
+  
+find_adjLanes({LaneId,LanePid}, AdjLaneId, []) -> 
+  io:format("Exit ~w / sin lineas. lineaBuscada: ~w~n~n",[{LaneId,LanePid},AdjLaneId]),
+  {[],{ok, nolanes}};
+find_adjLanes({LaneId,LanePid}, AdjLaneId, [{AdjLaneId,AdjLanePid, _Light,_Dir, _AdjLanes}|_Tail]) ->
+  io:format("Coincidencia: ~w envio de mensaje.~n",[{LaneId,LanePid}]),
+  LanePid ! {connect_lane, AdjLanePid, self()},
+  io:format("Coincidencia: mensaje enviado.~n",[]),
+  receive
+  	{reply, error} -> error;
+  	{reply, ok} -> 
+          io:format("Coincidencia: mensaje recibido. Linea agregada~n~n",[]),
+  	  {ok, added}
+  end;
+  
+find_adjLanes({LaneId, LanePid}, AdjLaneId, [_LHead | LTail]) ->
+  io:format("No Coincidencia: ~w continue.~n",[{LaneId, LanePid}]),
+  find_adjLanes({LaneId, LanePid}, AdjLaneId, LTail).
+
 	          
 %%Hard coded initialization of map
 get_lights() -> 
@@ -223,6 +245,13 @@ lane(Type, ConnectedLanes, CarsQueque) ->
 	{waiting, LightController, Time} ->
 		NewCarsQueque = waiting(CarsQueque,Time),
 		lane(Type, ConnectedLanes, NewCarsQueque);
+	
+	{connect_lane, AdjLane_Pid, Pid}  ->     		
+    		io:format("{Connected Lanes ~w.~n",[ConnectedLanes]),
+    		NewConnectedLanes = [AdjLane_Pid| ConnectedLanes],
+     		io:format("{new Connected Lanes ~w.~n",[NewConnectedLanes]),
+    		reply(Pid,ok),
+    		lane(Type, NewConnectedLanes, CarsQueque);  	  	
 		
 	stop -> {ok, normal}
 	%%{connect_light, Light_Pid} ->

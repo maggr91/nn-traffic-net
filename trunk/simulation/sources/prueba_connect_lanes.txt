@@ -1,0 +1,50 @@
+
+
+{lane212av1,light212,av, 1, [],[]}
+{lane212av2,light212,av, 1, [],[]}
+{lane212av3,light212,av, 1, [],[]}
+{lane212ca1,light212,ca, 1, [],[]}
+{lane212ca2,light212,ca, 2, [],[]}
+{lane210av1,light210,av, 1, [],[]}
+{lane210av2,light210,av, 1, [],[]}
+{lane210av3,light212,av, 1, [],[]}
+{lane210av4,light212,av, 1, [],[]}
+{lane210av5,light212,av, 2, [],[]}
+
+{lane208av1,light212,av, 1, [],[]}
+{lane208av2,light212,av, 1, [],[]}
+{lane208av3,light212,av, 1, [],[]}
+{lane208av4,light212,av, 1, [],[]}
+{lane208ca1,light212,ca, 1, [],[]}
+{lane208ca2,light212,ca, 2, [],[]}
+
+{lane206av1,light212,av, 1, [],[]}
+{lane206av2,light212,av, 1, [],[]}
+{lane206av3,light212,av, 1, [],[]}
+{lane206av4,light212,av, 1, [],[]}
+{lane206av5,light212,av, 2, [],[]}
+
+{lane412ca1,light412,ca, 1, [],[]}
+{lane412ca2,light412,ca, 1, [],[]}
+{lane410ca1,light412,ca, 1, [],[]}
+{lane408ca1,light412,ca, 1, [],[]}
+{lane406ca1,light412,ca, 1, [],[]}
+{lane406ca2,light412,ca, 1, [],[]}
+
+
+
+{lane612av1,light612,av, 1, [],[]}
+{lane612av2,light612,av, 1, [],[]}
+{lane612av3,light612,av, 1, [],[]}
+{lane612av4,light612,av, 1, [],[]}
+{lane612ca1,light612,ca, 1, [],[]}
+{lane612ca2,light612,ca, 1, [],[]}
+
+
+
+{lane208av2,light212,av, 1, [],[]}
+{lane208av3,light212,av, 1, [],[]}
+{lane208av4,light212,av, 1, [],[]}
+{lane208ca1,light212,ca, 1, [],[]}
+{lane208ca2,light212,ca, 2, [],[]}
+
