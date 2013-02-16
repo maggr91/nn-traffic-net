@@ -2,3 +2,15 @@
 {light210,{[],[]},idle, 45, 0}
 {light208,{[],[]},idle, 45, 0}
 {light206,{[],[]},idle, 45, 0}
+{light412,{[],[]},idle, 45, 0}
+{light410,{[],[]},idle, 45, 0}
+{light408,{[],[]},idle, 45, 0}
+{light406,{[],[]},idle, 45, 0}
+{light612,{[],[]},idle, 45, 0}
+{light610,{[],[]},idle, 45, 0}
+{light608,{[],[]},idle, 45, 0}
+{light606,{[],[]},idle, 45, 0}
+{light812,{[],[]},idle, 45, 0}
+{light810,{[],[]},idle, 45, 0}
+{light808,{[],[]},idle, 45, 0}
+{light806,{[],[]},idle, 45, 0}

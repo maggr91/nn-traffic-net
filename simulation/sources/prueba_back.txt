@@ -1,48 +1,61 @@
-{lane212av1,light212,av, 1, [],[]}
-{lane212av2,light212,av, 1, [],[]}
-{lane212av3,light212,av, 1, [],[]}
-{lane212ca1,light212,ca, 1, [],[]}
-{lane212ca2,light212,ca, 2, [],[]}
-{lane210av1,light210,av, 1, [],[]}
-{lane210av2,light210,av, 1, [],[]}
-{lane210av3,light212,av, 1, [],[]}
-{lane210av4,light212,av, 1, [],[]}
-{lane210av5,light212,av, 2, [],[]}
-
-{lane208av1,light212,av, 1, [],[]}
-{lane208av2,light212,av, 1, [],[]}
-{lane208av3,light212,av, 1, [],[]}
-{lane208av4,light212,av, 1, [],[]}
-{lane208ca1,light212,ca, 1, [],[]}
-{lane208ca2,light212,ca, 2, [],[]}
-
-{lane206av1,light212,av, 1, [],[]}
-{lane206av2,light212,av, 1, [],[]}
-{lane206av3,light212,av, 1, [],[]}
-{lane206av4,light212,av, 1, [],[]}
-{lane206av5,light212,av, 2, [],[]}
-
-{lane412ca1,light412,ca, 1, [],[]}
-{lane412ca2,light412,ca, 1, [],[]}
-{lane410ca1,light412,ca, 1, [],[]}
-{lane408ca1,light412,ca, 1, [],[]}
-{lane406ca1,light412,ca, 1, [],[]}
-{lane406ca2,light412,ca, 1, [],[]}
-
-
-
-{lane612av1,light612,av, 1, [],[]}
-{lane612av2,light612,av, 1, [],[]}
-{lane612av3,light612,av, 1, [],[]}
-{lane612av4,light612,av, 1, [],[]}
-{lane612ca1,light612,ca, 1, [],[]}
-{lane612ca2,light612,ca, 1, [],[]}
-
-
-
-{lane208av2,light212,av, 1, [],[]}
-{lane208av3,light212,av, 1, [],[]}
-{lane208av4,light212,av, 1, [],[]}
-{lane208ca1,light212,ca, 1, [],[]}
-{lane208ca2,light212,ca, 2, [],[]}
-
+{lane212av1,light212,av, 1, [lane210av1,lane210av2],[]}
+{lane212av2,light212,av, 1, [lane210av2lane210av3],[]}
+{lane212av3,light212,av, 1, [lane210av4],[]}
+{lane212av4,light212,av, 1, [lane210av5,NULL],[]}
+{lane212ca1,light212,ca, 2, [NULL,lane210av1],[]}
+{lane212ca2,light212,ca, 1, [NULL],[]}
+{lane210av1,light210,av, 2, [lane208av1,lane208ca1],[]}
+{lane210av2,light210,av, 1, [lane208av2],[]}
+{lane210av3,light210,av, 1, [lane208av3],[]}
+{lane210av4,light210,av, 1, [lane208av4],[]}
+{lane210av5,light210,av, 1, [lane208av5],[]}
+{lane208av1,light208,av, 1, [lane206av1],[]}
+{lane208av2,light208,av, 1, [lane206av2],[]}
+{lane208av3,light208,av, 1, [lane206av3],[]}
+{lane208av4,light208,av, 1, [lane206av4],[]}
+{lane208av5,light208,av, 2, [lane206av5,NULL],[]}
+{lane208ca1,light208,ca, 2, [lane206av1,NULL],[]}
+{lane208ca2,light208,ca, 1, [NULL],[]}
+{lane206av1,light206,av, 2, [lane406ca2,NULL],[]}
+{lane206av2,light206,av, 1, [NULL],[]}
+{lane206av3,light206,av, 1, [NULL],[]}
+{lane206av4,light206,av, 1, [NULL],[]}
+{lane206av5,light206,av, 2, [NULL],[]}
+{lane412ca1,light412,ca, 1, [lane212ca1],[]}
+{lane412ca2,light412,ca, 1, [lane212ca2],[]}
+{lane410ca1,light410,ca, 1, [lane610ca2],[]}
+{lane408ca2,light408,ca, 1, [lane208ca1,lane208ca2],[]}
+{lane406ca1,light406,ca, 1, [lane606ca1],[]}
+{lane406ca2,light406,ca, 1, [lane606ca2],[]}
+{lane612av1,light612,av, 1, [lane412ca1],[]}
+{lane612av2,light612,av, 1, [lane412ca2],[]}
+{lane612av3,light612,av, 1, [lane412ca1],[]}
+{lane612av4,light612,av, 1, [lane412ca2],[]}
+{lane612ca1,light612,ca, 1, [lane412ca1],[]}
+{lane612ca2,light612,ca, 1, [lane412ca2],[]}
+{lane610ca1,light610,ca, 2, [lane810ca1,lane612av1],[]}
+{lane610av1,light610,av, 1, [lane612av1],[]}
+{lane610av2,light610,av, 2, [lane612av2,lane810ca2],[]}
+{lane608av1,light608,av, 2, [lane610av1,lane408ca2],[]}
+{lane608av2,light608,av, 1, [lane610av2],[]}
+{lane608ca1,light608,ca, 1, [lane408ca2],[]}
+{lane608ca2,light608,ca, 2, [lane408ca2,lane610av2],[]}
+{lane606av1,light606,av, 1, [lane608av1],[]}
+{lane606av2,light606,av, 2, [lane608av2,lane806ca2],[]}
+{lane606ca1,light606,ca, 2, [lane608av1,lane806ca1],[]}
+{lane606ca2,light606,ca, 1, [lane806ca2],[]}
+{lane812av1,light812,av, 2, [NULL,lane612ca3],[]}
+{lane812av2,light812,av, 1, [NULL],[]}
+{lane812ca1,light812,ca, 1, [lane612ca3],[]}
+{lane812ca2,light812,ca, 2, [lane612ca4,NULL],[]}
+{lane810av1,light810,av, 1, [lane812av1],[]}
+{lane810av2,light810,av, 2, [lane812av2,NULL],[]}
+{lane810ca1,light810,ca, 2, [NULL,lane812av1],[]}
+{lane810ca2,light810,ca, 1, [NULL],[]}
+{lane808av1,light808,av, 2, [lane810av1,lane608ca1],[]}
+{lane808av2,light808,av, 1, [lane810av2],[]}
+{lane808ca2,light808,ca, 2, [lane608ca2,lane810av2],[]}
+{lane806av1,light806,av, 1, [lane808av1],[]}
+{lane806av2,light806,av, 2, [lane808av2,NULL],[]}
+{lane806ca1,light806,ca, 2, [NULL,lane808av1],[]}
+{lane806ca2,light806,ca, 1, [NULL],[]}
