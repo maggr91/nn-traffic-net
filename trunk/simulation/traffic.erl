@@ -27,7 +27,8 @@ set_map() ->
   {_Origin, AllocatedLights} = allocate_lights({Axis,[]}),
   {_OrigLanes, AllocatedLanes} = allocate_lanes({Roads,[]}),
   
-  {AllocatedLights, AllocatedLanes}.
+  connect({AllocatedLights, AllocatedLanes}),
+  connect_lanes({AllocatedLanes,AllocatedLanes}).
   
 
 %% Spawn every intersection and lane on the map
