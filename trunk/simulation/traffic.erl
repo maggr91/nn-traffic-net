@@ -1,9 +1,30 @@
 -module(traffic).
--export([start/0, stop/0, light/4, lane/3, get_lights/0,get_lanes/0, set_map/0, connect/1, connect_lanes/1]).
+
+-export([start/0, stop/0, light/4, lane/3, set_map/0, connect/1, connect_lanes/1, test/0]).
+
 -export([init/0]).
+
+-export([test_move_av/1,test_move_ca/1]).
+
+%-import(light_fsm,[init/1, handle_event/3,handle_sync_event/4, handle_info/3, terminate/3, code_change/4]).
+
+%states
+%-import(light_fsm,[redred/2, greenred/2, redgreen/2]).
+
+%client calls
+-import(light_fsm,[start_link/0,move_avenue/1, move_street/1, idle/1]).
+
 
 %% This module is used to run the simulation
 %% of normal traffic, with no modification of ANN
+test() ->
+    light_fsm:start_link().
+    
+test_move_av(LightId) ->
+    light_fsm:move_avenue(LightId).
+    
+test_move_ca(LightId) ->
+    light_fsm:move_street(LightId).
 
 start() ->
     register(traffic, spawn(traffic, init, [])).
@@ -29,7 +50,7 @@ set_map() ->
     {_OrigLanes, AllocatedLanes} = allocate_lanes({Roads,[]}),
   
     connect({AllocatedLights, AllocatedLanes}),
-    connect_lanes({AllocatedLanes,AllocatedLanes})
+    connect_lanes({AllocatedLanes,AllocatedLanes}),
     AllocatedLights.
     
     
