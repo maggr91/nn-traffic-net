@@ -52,8 +52,9 @@ set_map() ->
     {_Origin, AllocatedLights} = allocate_lights({Axis,[]}),
     {_OrigLanes, AllocatedLanes} = allocate_lanes({Roads,[]}),
   
-    connect_lanes({AllocatedLanes,AllocatedLanes}),
+    %connect_lanes({AllocatedLanes,AllocatedLanes}),
     LightsFSM = connect({AllocatedLights, AllocatedLanes, []}),    
+    %{AllocatedLights, LightsFSM}.
     LightsFSM.
     
     
