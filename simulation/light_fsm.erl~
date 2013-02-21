@@ -32,8 +32,7 @@ start_link(Args) ->
 
 init(Args) ->
     io:fwrite("gen_fsm called ~w:init(~w)~n", [?MODULE, Args]),
-    %{ok, redred,#state{}}.
-    {ok, redred,Args}.
+    {ok, redred,#state{}}.
 
 handle_event(shutdown, _StateName, StateData) ->
     {stop, normal, StateData};
