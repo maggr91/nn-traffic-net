@@ -8,8 +8,6 @@
 
 %-import(light_fsm,[init/1, handle_event/3,handle_sync_event/4, handle_info/3, terminate/3, code_change/4]).
 
-%states
-%-import(light_fsm,[redred/2, greenred/2, redgreen/2]).
 
 %client calls
 -import(light_fsm,[start_link/0,move_avenue/1, move_street/1, idle/1]).
@@ -143,7 +141,7 @@ find_adjLanes({LaneId, LanePid}, AdjLaneId, [_LHead | LTail]) ->
     io:format("No Coincidencia: ~w continue.~n",[{LaneId, LanePid}]),
     find_adjLanes({LaneId, LanePid}, AdjLaneId, LTail).
         
-%%Hard coded initialization of map
+%%text file initialization of map
 get_lights() -> 
     {ok, Cwd} = file:get_cwd(),
     %%io:format("Directorio: ",Cwd),
@@ -167,9 +165,6 @@ readlines(FileName) ->
    	      end,
    	      Result
    	    ).
-   %%try get_all_lines(Device)
-   %%   after file:colse(Device)
-   %% end.
 
 get_all_lines(Device, Accum) ->
     case io:get_line(Device, "") of
@@ -178,7 +173,7 @@ get_all_lines(Device, Accum) ->
         Line 	      -> get_all_lines(Device, [Line|Accum])      
     end.
    
-%% Escribir resultados
+%% Write down the results
 write_result(Data, Path) ->
     file:write_file(Path, io_lib:fwrite("~p.\n", [Data])).
     
@@ -186,24 +181,35 @@ add_car(Position, Speed, Acc, Wait, Delay) ->
     {car,Position, Speed, Acc, Wait, Delay}.
 
 loop(Intersections, Time) ->
-  %% Para cada interseccion en el sistema
-  %% saco cada semaforo que la forma y corro las simulaciones en estos
-  %% sin importar si estan en ocupado o libre tiene que correrse algo
+  %% On EVERY intersection in the system
+  %% get the light_fsm and run each simulation for it
+  %% according to the state of the FSM it will or will not move  the cars
   
   receive
-    {call, Pid, continue} ->    	  
-	  UpdateIntersections = 
-	  	lists:foreach(fun(Intersection)->
-		 		 {IntersectionId,_Av, _Ca, Lights} = Intersection,
-		 		 lists:foreach(fun(Light)->
-		 		 		  {LightId,ManagedLanes, State, Go_time, On_time} = Light,	 		 		    
-		 		 		  LightId ! {connection, self(), State}
-		 		 	       end,
-		 		 	       Lights
-		 		 	      )
-			      end,
-			      Intersections
-			     ),
+      {call, Pid, continue} ->    	  
+          UpdateIntersections = 
+              lists:foreach
+              (
+                  fun(Intersection)->          				      
+	  	      {State, On_time, Go_time} = light_fsm:get_state(Intersection),
+	  	      if
+	  	          On_time > Go_time ->
+	  	              light_fsm:idle(Intersection),
+			      case State of
+			          greenred -> light_fsm:move_street(Intersection);
+				  redgreen -> light_fsm:move_avenue(Intersection)
+			      end;
+			  On_time < Go_time ->
+			      case State of
+			          greenred -> light_fsm:move_avenue(Intersection);
+				  redgreen -> light_fsm:move_street(Intersection)
+			      end;
+	  	          true ->
+	  	              light_fsm:idle(Intersection)
+	  	      end
+	   	  end,
+	   	  Intersections
+	      ),
 	  reply(Pid, {iteration, ok}),
 	  loop(UpdateIntersections, Time + 1);
     {call,Pid, stop} -> {finish, Time}
@@ -212,6 +218,14 @@ loop(Intersections, Time) ->
 reply (Pid, Reply) ->
     Pid ! {reply, Reply}.
 
+changeState(Intersection,State) ->
+    light_fsm:idle(Intersection),
+    case State of
+        greenred -> light_fsm:move_street(Intersection);
+        redgreen -> light_fsm:move_avenue(Intersection)
+    end.
+
+%%% DEPRECATED AFTER USE OF FSM, FUNCTIONS MOVED TO LIGHT_FSM.ERL
 light(ManagedLanes, State, Go_time, On_time) ->
     receive
         {connection, Pid, active} -> 
@@ -290,7 +304,9 @@ lane(Type, ConnectedLanes, CarsQueque) ->
      		io:format("{new Connected Lanes ~w.~n",[NewConnectedLanes]),
     		reply(Pid,ok),
     		lane(Type, NewConnectedLanes, CarsQueque);  	  	
-		
+	{test, Pid, Msg} ->
+	        io:format("Message received from light ~w. ~w~n",[Pid, Msg]),
+	        reply(Pid, copiado);	
 	stop -> {ok, normal}
 	%%{connect_light, Light_Pid} ->
 	%%	lanes(Light_Pid, Type, ConnectedLanes, CarsQueque)	
