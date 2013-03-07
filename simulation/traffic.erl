@@ -1,6 +1,6 @@
 -module(traffic).
 
--export([start/1, stop/0, lane/3, set_map/0, connect/1, connect_lanes/1, test/0]).
+-export([start/1, stop/0, lane/3, set_map/0, connect/1, connect_lanes/1, test/0, write_result/2]).
 
 -export([init/0]).
 
@@ -59,7 +59,12 @@ set_map() ->
     {_OrigLanes, AllocatedLanes} = allocate_lanes({Roads,[]}),
   
     connect_lanes({AllocatedLanes,AllocatedLanes}),
-    LightsFSM = connect({AllocatedLights, AllocatedLanes, []}), 
+    
+    {ok, Cwd} = file:get_cwd(),
+    Path = Cwd ++ "/logs/",
+    
+    io:format("PATH ~s.~n",[Path]),
+    LightsFSM = connect({AllocatedLights, AllocatedLanes, [],Path}), 
     set_connection_to_light_siblings(LightsFSM,LightsFSM),
     LightsFSM.
     
@@ -78,14 +83,15 @@ allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes, CarsQueque}|
     allocate_lanes({Tail, [{LaneId,Pid, LightController,Dir,ConnectedLanes} | Spawned]}).
 
 %%connect lights with its lanes
-connect({[], _LaneList, LightsFSM}) -> 
+connect({[], _LaneList, LightsFSM,_LogData}) -> 
     LightsFSM;
-connect({[{LightId,Siblings, Cycle_time, Go_time} | TailLight], LaneList,LightsFSM}) -> 
+connect({[{LightId,Siblings, Cycle_time, Go_time} | TailLight], LaneList,LightsFSM, LogData}) -> 
     io:format("Luz: ~w / lineas: ~w.~n",[LightId, LaneList]),
     {ManagedLanes, RemLanes} = find_lanes({LightId, {[],[]}}, LaneList, []),
     io:format("Managed Lanes: ~w.~n~n",[ManagedLanes]),
-    {ok, LightPid} = light_fsm:start_link({ManagedLanes,Siblings, Cycle_time, Go_time}),
-    connect({TailLight, RemLanes, [{LightId,LightPid}|LightsFSM]}).
+    PathLog = (LogData ++ lists:flatten(io_lib:format("~p",[LightId]))) ++ ".txt",
+    {ok, LightPid} = light_fsm:start_link({LightId, ManagedLanes,Siblings, Cycle_time, Go_time, PathLog}),
+    connect({TailLight, RemLanes, [{LightId,LightPid}|LightsFSM], LogData}).
 
 find_lanes({LightId,ManagedLanes}, [], RemLanes) -> 
     io:format("Exit ~w / sin lineas. Rem Lanes: ~w~n~n",[{LightId,ManagedLanes},RemLanes]),
@@ -97,13 +103,13 @@ find_lanes({LightId,{Av, Ca}}, [{LaneId,LanePid, LightId,Dir,_AdjLanes}| Tail], 
     io:format("{Av ~w, Ca: ~w.~n",[Av, Ca]),
     if
         Dir =:= av -> 
-    	    NewManaged = {[LanePid| Av], Ca},    	    
+    	    NewManaged = {[{LaneId,LanePid}| Av], Ca},    	    
     	    io:format("light ~w, lanes: ~w.Dir:~w~n",[self(), NewManaged, Dir]),
     	    io:format("Coincidencia: mensaje enviado.~n",[]),
             io:format("Coincidencia: mensaje recibido.~n~n",[]),
             find_lanes({LightId,NewManaged},Tail, RemLanes);
     	Dir =:= ca ->
-    	    NewManaged = {Av, [LanePid| Ca]},
+    	    NewManaged = {Av, [{LaneId,LanePid}| Ca]},
     	    io:format("light ~w, lanes: ~w. Dir:~w~n ",[self(), NewManaged,Dir]),
     	    io:format("Coincidencia: mensaje enviado.~n",[]),
             io:format("Coincidencia: mensaje recibido.~n~n",[]),
@@ -137,7 +143,7 @@ find_adjLanes({LaneId,LanePid}, AdjLaneId, []) ->
     {[],{ok, nolanes}};
 find_adjLanes({LaneId,LanePid}, AdjLaneId, [{AdjLaneId,AdjLanePid, _Light,_Dir, _AdjLanes}|_Tail]) ->
     io:format("Coincidencia: ~w envio de mensaje.~n",[{LaneId,LanePid}]),
-    LanePid ! {connect_lane, AdjLanePid, self()},
+    LanePid ! {connect_lane, {AdjLaneId,AdjLanePid}, self()},
     io:format("Coincidencia: mensaje enviado.~n",[]),
     receive
         {reply, error} -> error;
@@ -153,7 +159,7 @@ find_adjLanes({LaneId, LanePid}, AdjLaneId, [_LHead | LTail]) ->
 %% Connect traffic lights with siblings
 set_connection_to_light_siblings([], _LightsList) -> [];
 set_connection_to_light_siblings([{Id, Pid}|LightsRem], LightsList) ->
-    {State, Cycle_time, Go_time, Siblings} = light_fsm:get_state(Pid),
+    {_State, _Cycle_time, _Go_time, Siblings, _CSU} = light_fsm:get_state(Pid),
     io:format("Buscando hermanos de: ~w en ~w.~n",[{Id,Pid},Siblings]),
     CompleteSiblings = find_siblings(Siblings,LightsList,[]),
     io:format("Hermanos encontrados ~w.~n",[CompleteSiblings]),
@@ -203,7 +209,7 @@ get_all_lines(Device, Accum) ->
    
 %% Write down the results
 write_result(Data, Path) ->
-    file:write_file(Path, io_lib:fwrite("~p.\n", [Data])).
+    file:write_file(Path, io_lib:fwrite("~p.\n", [Data]),[append]).
     
 add_car(Position, Speed, Acc, Wait, Delay) ->
     {car,Position, Speed, Acc, Wait, Delay}.
@@ -317,9 +323,9 @@ lane(Type, ConnectedLanes, CarsQueque) ->
 		reply(LightController, updatedWaiting),
 		lane(Type, ConnectedLanes, NewCarsQueque);
 	
-	{connect_lane, AdjLane_Pid, Pid}  ->     		
+	{connect_lane, AdjLane, Pid}  ->     		
     		io:format("{Connected Lanes ~w.~n",[ConnectedLanes]),
-    		NewConnectedLanes = [AdjLane_Pid| ConnectedLanes],
+    		NewConnectedLanes = [AdjLane| ConnectedLanes],
      		io:format("{new Connected Lanes ~w.~n",[NewConnectedLanes]),
     		reply(Pid,ok),
     		lane(Type, NewConnectedLanes, CarsQueque);  	  	
