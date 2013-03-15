@@ -1,6 +1,6 @@
 -module(traffic).
 
--export([start/1, stop/0, lane/4, set_map/0, connect/1, connect_lanes/1, test/0, write_result/2]).
+-export([start/1, stop/0, lane/5, set_map/0, connect/1, connect_lanes/1, test/0, write_result/2]).
 
 -export([init/0]).
 
@@ -83,7 +83,7 @@ allocate_lanes({[], Spawned}) ->
     {[],Spawned};
 allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes, 
                   CarsQueque, IsSource, Capacity}|Tail], Spawned}) ->
-    Pid = spawn(traffic,lane, [Type, [], CarsQueque, Capacity]),
+    Pid = spawn(traffic,lane, [Type, [], CarsQueque, Capacity, []]),
     allocate_lanes({Tail, [{LaneId,Pid, LightController,Dir,ConnectedLanes, IsSource} | Spawned]}).
 
 %%connect lights with its lanes
@@ -230,39 +230,11 @@ loop({Intersections, SourceLanes}, Time) ->
       {call, Pid, continue} ->
          io:format("Running simulation iteration: ~w continue. Intersections ~w~n",[Time, Intersections]),
          traverse_network(Intersections, Time),
-         estimate_new_arrival(SourceLanes, 0,[]),
-         %lists:foreach
-         %    (
-                 %fun({InterId, Intersection})->                     
-                 %    io:format("Evaluating state for light_fsm: ~w continue.~n",[InterId]),
-                 %    UpdatedSources = estimate_new_arrival(SourceLanes, random:uniform(100),[]),
-                 %    light_fsm:evaluate_state({InterId, Intersection, Time})
-                     %%Send to light_fsm          				      
-	             %%{State, Cycle_time, Go_time} = light_fsm:get_state(Intersection),
-	 	     %%Next_time = Go_time + 1,
-	 	     %%if
-	  	     %%    Next_time >= Cycle_time ->
-	  	     %%        light_fsm:idle(Intersection),
-		     %%        case State of
-		     %%            greenred -> light_fsm:move_street(Intersection);
-		     %%            redgreen -> light_fsm:move_avenue(Intersection)
-		     %%        end;
-		     %%    Next_time < Cycle_time ->
-		     %%        case State of
-		     %%          redred   -> light_fsm:estimate_after_idle(Intersection);
-		     %%          greenred -> light_fsm:move_avenue(Intersection);
-		     %%	  redgreen -> light_fsm:move_street(Intersection)
-		     %%        end;
-	  	     %%    true ->
-	  	     %%        light_fsm:idle(Intersection)
-	  	     %%end
-	  %	 end,
-	  %	 Intersections
-	  %  ),
+         UpdatedSources = estimate_new_arrival(SourceLanes, 0,[]),             
 	 reply(Pid, {iteration, ok}),
 	 io:format("Finishing simulation iteration: ~w continue. Intersections~n",[Time]),
 	 io:format("----------------------------------------------------------~n~n"),
-	 loop({Intersections, SourceLanes}, Time + 1);
+	 loop({Intersections, UpdatedSources}, Time + 1);
     {call,Pid, stop} -> 
          reply(Pid, {normal, Time})
   end.
@@ -277,54 +249,56 @@ traverse_network([{InterId, Intersection}|Intersections], Time) ->
 reply (Pid, Reply) ->
     Pid ! {reply, Reply}.
 
-lane(Type, ConnectedLanes, CarsQueque, Capacity) ->
+lane(Type, ConnectedLanes, CarsQueque, Capacity, Obstruction) ->
   %% For each lane on every street in the system, 
   %% get the move acording to the ligth state passed 
   %% and run the complete simulation
     receive
         {go, LightController, _TimeCycle, _Time, LogData} -> %% if a go message is received it tells all cars to start to move
-            io:format("GO msj~n. CarsQueque: ~w~n",[{Type, ConnectedLanes, CarsQueque}]),
+            io:format("GO msj~n. CarsQueque: ~w~n",[{Type, ConnectedLanes, CarsQueque, Obstruction}]),
 	    NewCarsQueque = move_cars(CarsQueque, []),
 	    io:format("Moving msj received from ~w. CarsQueque: ~w ~n",[LightController,NewCarsQueque]),
 	    write_result(LogData, io_lib:format("Moving msj received from ~w",[LightController])),
 	    reply(LightController, updated),
-	    lane(Type, ConnectedLanes, NewCarsQueque, Capacity);
+	    lane(Type, ConnectedLanes, NewCarsQueque, Capacity, Obstruction);
         {stop, LightController, LogData} ->  
 	%% send a message to all cars to start to stop preventing them to pass the red ligth
 	    NewCarsQueque = stop_cars(CarsQueque,LightController),
 	    io:format("Stop msj received from ~w.~n",[LightController]),
 	    write_result(LogData, io_lib:format("Stop msj received from ~w",[LightController])),
 	    reply(LightController, updatedStop),
-	    lane(Type, ConnectedLanes, NewCarsQueque, Capacity);
+	    lane(Type, ConnectedLanes, NewCarsQueque, Capacity, Obstruction);
       	{dispatch, LightController, Time, _LogData} ->		
 	%% In case that the car reaches the end of the lane it has to be changed to 
 	%% a new lane.
 	    NewCarsQueque = dispatch_cars(CarsQueque, ConnectedLanes, Time, LightController),
-	    lane(Type, ConnectedLanes, NewCarsQueque, Capacity);
+	    lane(Type, ConnectedLanes, NewCarsQueque, Capacity, Obstruction);
 	{waiting, LightController, Time, LogData} ->
 %	    io:format("Waiting msj~n. CarsQueque: ~w~n",[{Type, ConnectedLanes, CarsQueque}]),
 	    NewCarsQueque = waiting(CarsQueque,[]),
 	    io:format("Waiting msj received from ~w. LogData~p~n",[LightController,LogData]),
 	    write_result(LogData, io_lib:format("Waiting msj received from ~w",[LightController])),
 	    reply(LightController, updatedWaiting),
-	    lane(Type, ConnectedLanes, NewCarsQueque, Capacity);
+	    lane(Type, ConnectedLanes, NewCarsQueque, Capacity, Obstruction);
 	{connect_lane, AdjLane, Pid}  ->     		
     	    io:format("{Connected Lanes ~w.~n",[ConnectedLanes]),
     	    NewConnectedLanes = [AdjLane| ConnectedLanes],
      	    io:format("{new Connected Lanes ~w.~n",[NewConnectedLanes]),
     	    reply(Pid,ok),
-    	    lane(Type, NewConnectedLanes, CarsQueque, Capacity);
+    	    lane(Type, NewConnectedLanes, CarsQueque, Capacity, Obstruction);
 	{incoming, Pid, Car} ->
 	    io:format("Car incoming ~w.~n",[Car]),
 	    case length(CarsQueque) < Capacity of
 	        true  ->
-	            NewCarsQueque = lists:reverse([Car,lists:reverse(CarsQueque)]),
+	            NewCarsQueque = lists:reverse([Car|lists:reverse(CarsQueque)]),
 	            reply(Pid, ok),
-	            lane(Type, ConnectedLanes, NewCarsQueque, Capacity);
+	            lane(Type, ConnectedLanes, NewCarsQueque, Capacity, Obstruction);
 	        false ->
 	            reply(Pid, full),
-	            lane(Type, ConnectedLanes, CarsQueque, Capacity)
-	    end;    	        	
+	            lane(Type, ConnectedLanes, CarsQueque, Capacity, Obstruction)
+	    end;
+	{transfer, Pid} ->
+	    reply(Pid, ok);     	        	
 	stop -> {ok, normal}
     end.  
 
@@ -356,23 +330,24 @@ add_car({LaneId, LanePid, WaitingOutside}, Car, SourcesLane) ->
             [{LaneId, LanePid, WaitingUpdated} | SourcesLane];
         {reply, ok}    -> 
             WaitingUpdated = waiting(WaitingOutside,[]), 
-            [{LaneId, LanePid, WaitingOutside} | SourcesLane]
+            [{LaneId, LanePid, WaitingUpdated} | SourcesLane]
     end.
 
 %% Estimate arrival for new cars to the zone    
 estimate_new_arrival([], _Prob,SourcesLane) ->
     io:format("Ending ~w ~n",[SourcesLane]),
     SourcesLane;
-estimate_new_arrival([{LaneId, LanePid, []}| Tail], Prob, SourcesLane) when Prob > 1  ->
+estimate_new_arrival([{LaneId, LanePid, []}| Tail], Prob, SourcesLane) when Prob > 50  ->
     io:format("ADDING CAR TO LANE ~n",[]),
     Car = {car,{0,0}},
     UpdatedSources = add_car({LaneId, LanePid, []}, Car, SourcesLane),
     estimate_new_arrival(Tail,random:uniform(100), UpdatedSources);
-estimate_new_arrival([{LaneId, LanePid, [WaitingCar|WaitingOutside]}| Tail], Prob, SourcesLane) when Prob > 1  ->
+estimate_new_arrival([{LaneId, LanePid, [WaitingCar|WaitingOutside]}| Tail], Prob, SourcesLane) when Prob > 50  ->
     io:format("ADDING CAR TO LANE ~n",[]),
     NewWaiting = lists:reverse([{car,{0,0}} | lists:reverse(WaitingOutside)]),
     UpdatedSources = add_car({LaneId, LanePid, NewWaiting}, WaitingCar, SourcesLane),
     estimate_new_arrival(Tail,random:uniform(100), UpdatedSources);
-estimate_new_arrival([{LaneId, LanePid, _WaitingOutside}| Tail], Prob, SourcesLane) when Prob =< 0  ->
+estimate_new_arrival([{LaneId, LanePid, WaitingOutside}| Tail], Prob, SourcesLane) when Prob =< 50  ->
     io:format("NOT ADDING CAR TO LANE ~n",[]),
-    estimate_new_arrival(Tail,random:uniform(100), SourcesLane).
+    WaitingUpdated = waiting(WaitingOutside,[]), 
+    estimate_new_arrival(Tail,random:uniform(100), [{LaneId, LanePid, WaitingUpdated}|SourcesLane]).
