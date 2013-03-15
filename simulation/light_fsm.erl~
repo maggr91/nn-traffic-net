@@ -204,7 +204,6 @@ evaluate_state({LightId, LightPid, Time}) ->
    write_result(LogData, io_lib:format("Evaluating state for light_fsm: ~w continue",[LightId])),
    
    Next_time = Go_time + 1,
-   update_csu(LightPid,false),
    if
        Next_time >= Cycle_time ->
            io:format("Finishing ~w way cycle moving to idle~n",[State]),
