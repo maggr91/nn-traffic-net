@@ -247,6 +247,7 @@ loop({Intersections, SourceLanes, LogPath}, Time) ->
       {call, Pid, continue} ->
          io:format("Running simulation iteration: ~w continue. Intersections ~w~n",[Time, Intersections]),
          traverse_network(Intersections, Time),
+         write_result(LogPath, io_lib:format("Running simulation iteration: ~w continue. SourcesLanes ~w~n",[Time, SourceLanes])),
          UpdatedSources = estimate_new_arrival(SourceLanes, LogPath),             
 	 reply(Pid, {iteration, ok}),
 	 io:format("Finishing simulation iteration: ~w continue. Intersections~n",[Time]),
@@ -475,15 +476,17 @@ stop_moving([{car,{Wait,Delay, Position}}|Waiting], LastPosition, UpdatedCars) w
 %%stop_cars([{car,{Wait,Delay, Position}}|Waiting], Pid) -> 
 %%    stop_cars([].
 
-add_car({LaneId, LanePid, WaitingOutside, ProbData}, Car, SourcesLane) ->    
+add_car({LaneId, LanePid, WaitingOutside, ProbData}, Car, SourcesLane, LogPath) ->    
     LanePid ! {incoming, self(), Car},
     receive
         {reply, full}  ->
-            io:format("Lane ~w its full. Adding to wait list~n",[LaneId]), 
+            io:format("Lane ~w its full. Adding to wait list~n",[LaneId]),
+            write_result(LogPath, io_lib:format("Lane ~w its full. Adding to wait list",[LaneId])), 
             WaitingUpdated = waiting([Car|WaitingOutside]),
             [{LaneId, LanePid, WaitingUpdated, ProbData} | SourcesLane];
         {reply, ok}    ->
-            io:format("Card Added to lane ~w~n",[LaneId]),  
+            io:format("Card Added to lane ~w~n",[LaneId]),
+            write_result(LogPath, io_lib:format("Card Added to lane ~w",[LaneId])),   
             WaitingUpdated = waiting(WaitingOutside), 
             [{LaneId, LanePid, WaitingUpdated, ProbData} | SourcesLane]
     end.
@@ -497,15 +500,20 @@ estimate_new_arrival([], _Prob,SourcesLane, _LogPath) ->
     SourcesLane;
 estimate_new_arrival([{LaneId, LanePid, [], {Fprob, Mprob, Eprob}}| Tail], Prob, SourcesLane, LogPath) when Prob >= Mprob, Prob =< Eprob  ->
     io:format("ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE ~n",[]),
+    write_result(LogPath, io_lib:format("ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE ~w ~n",[LaneId])),
     Car = {car,{0,0,-1}},
-    UpdatedSources = add_car({LaneId, LanePid, [], {Fprob, Mprob, Eprob}}, Car, SourcesLane),
+    UpdatedSources = add_car({LaneId, LanePid, [], {Fprob, Mprob, Eprob}}, Car, SourcesLane, LogPath),
     estimate_new_arrival(Tail,random:uniform(), UpdatedSources, LogPath);
 estimate_new_arrival([{LaneId, LanePid, [WaitingCar|WaitingOutside], {Fprob, Mprob, Eprob}}| Tail], Prob, SourcesLane, LogPath) when Prob >= Mprob, Prob =< Eprob  ->
     io:format("ADDING CAR TO LANE FROM OCCUPIED OUTSIDE SOURCE ~n",[]),
+    write_result(LogPath, io_lib:format("ADDING CAR TO LANE FROM OCCUPIED OUTSIDE SOURCE. LANE ~w ~n",[LaneId])),
     NewWaiting = lists:reverse([{car,{0,0,-1}} | lists:reverse(WaitingOutside)]),
-    UpdatedSources = add_car({LaneId, LanePid, NewWaiting, {Fprob, Mprob, Eprob}}, WaitingCar, SourcesLane),
+    UpdatedSources = add_car({LaneId, LanePid, NewWaiting, {Fprob, Mprob, Eprob}}, WaitingCar, SourcesLane, LogPath),
     estimate_new_arrival(Tail,random:uniform(), UpdatedSources, LogPath);
 estimate_new_arrival([{LaneId, LanePid, WaitingOutside, {Fprob, Mprob, Eprob}}| Tail], Prob, SourcesLane, LogPath) when Prob >= Fprob, Prob < Mprob  ->
     io:format("NOT ADDING CAR TO LANE ~n",[]),
+    write_result(LogPath, io_lib:format("NOT ADDING CAR TO LANE. LANE ~w ~n",[LaneId])),
     WaitingUpdated = waiting(WaitingOutside), 
     estimate_new_arrival(Tail,random:uniform(), [{LaneId, LanePid, WaitingUpdated, {Fprob, Mprob, Eprob}}|SourcesLane], LogPath).
+    
+
