@@ -1,6 +1,6 @@
 -module(lane).
 
--export([start/1, estimate_new_arrival/2]).
+-export([start/1, estimate_new_arrival/2, init_poisson/1, lane_geometric/2]).
 
 -export([init/1]).
 
@@ -330,62 +330,124 @@ stop_moving([{car,{Wait,Delay, Position}}|Waiting], LastPosition, UpdatedCars) w
 %% function used in estimate arrival if car entered goes to respective lane, 
 %% if not enters the waiting list of the respective source lane
 %% at any case, update times for cars lists
-add_car({LaneId, LanePid, WaitingOutside, ProbData}, Car, SourcesLane, LogPath) ->    
+add_car({LaneId, LanePid, WaitingOutside, ProbData, {0, _Time}}, _Car, SourcesLane, _LogPath) ->
+    Arrival  =  new_arrival({LaneId, LanePid,ProbData}),
+    [ {LaneId, LanePid, WaitingOutside, ProbData, Arrival} | SourcesLane ];
+add_car({LaneId, LanePid, WaitingOutside, ProbData, {CarNum, Time}}, Car, SourcesLane, LogPath) when CarNum > 0 ->    
     LanePid ! {incoming, self(), Car},
     receive
         {reply, full}  ->
             io:format("Lane ~w its full. Adding to wait list~n",[LaneId]),
             write_result(LogPath, io_lib:format("Lane ~w its full. Adding to wait list",[LaneId])), 
-            WaitingUpdated = waiting([Car|WaitingOutside]),
-            [{LaneId, LanePid, WaitingUpdated, ProbData} | SourcesLane];
+            WaitingUpdated = waiting([Car|WaitingOutside]);
+            %%[{LaneId, LanePid, WaitingUpdated, ProbData} | SourcesLane];
         {reply, ok}    ->
             io:format("Card Added to lane ~w~n",[LaneId]),
             write_result(LogPath, io_lib:format("Card Added to lane ~w",[LaneId])),   
-            WaitingUpdated = waiting(WaitingOutside), 
-            [{LaneId, LanePid, WaitingUpdated, ProbData} | SourcesLane]
-    end.
+            WaitingUpdated = waiting(WaitingOutside)
+           %% [{LaneId, LanePid, WaitingUpdated, ProbData} | SourcesLane]
+    end,
+    add_car({LaneId, LanePid, WaitingUpdated, ProbData, {CarNum -1, Time}}, Car, SourcesLane, LogPath).
+
+%%=================================================================================================================================
+%%=================================================================================================================================
 
 %% Estimate arrival for new cars to the zone
 estimate_new_arrival(SourcesLane, LogPath) ->
-    Prob = random:uniform(),
-    estimate_new_arrival(SourcesLane, Prob,[], LogPath).
-estimate_new_arrival([], _Prob,SourcesLane, _LogPath) ->
+    %%_Prob = random:uniform(),
+    estimate_new_arrival(SourcesLane,[], LogPath).
+estimate_new_arrival([], SourcesLane, _LogPath) ->
     io:format("Ending ~w ~n",[SourcesLane]),
     SourcesLane;
 %% when the waiting list of the source lane is empty, check for the probability 
 %% if the current time is when a car hast to arrive then try to add it to the lane with add_car function
 %% as a result we get UpdatedSources to pass it ass a parameter
-estimate_new_arrival([{LaneId, LanePid, [], {Fprob, Mprob, Eprob}}| Tail], Prob, SourcesLane, LogPath) when Prob >= Mprob, Prob =< Eprob  ->
+estimate_new_arrival([{LaneId, LanePid, [], ProbData, {CarsNum, 0}}| Tail], SourcesLane, LogPath) ->
     io:format("ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE ~n",[]),
     write_result(LogPath, io_lib:format("ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE ~w ~n",[LaneId])),
     Car = {car,{0,0,-1}},
-    UpdatedSources = add_car({LaneId, LanePid, [], {Fprob, Mprob, Eprob}}, Car, SourcesLane, LogPath),
-    estimate_new_arrival(Tail,random:uniform(), UpdatedSources, LogPath);
+    UpdatedSources = add_car({LaneId, LanePid, [],  ProbData, {CarsNum, 0}}, Car, SourcesLane, LogPath),
+    estimate_new_arrival(Tail, UpdatedSources, LogPath);
 %% In the case that an arrival is expected and there are cars waiting outside, get the first car waiting in the queque
 %% try to send it to the source lane if succeded remove it from waiting list and add a new car to the same
-estimate_new_arrival([{LaneId, LanePid, [WaitingCar|WaitingOutside], {Fprob, Mprob, Eprob}}| Tail], Prob, SourcesLane, LogPath) when Prob >= Mprob, Prob =< Eprob  ->
+estimate_new_arrival([{LaneId, LanePid, [WaitingCar|WaitingOutside], ProbData, {CarsNum, 0}}| Tail], SourcesLane, LogPath) ->
     io:format("ADDING CAR TO LANE FROM OCCUPIED OUTSIDE SOURCE ~n",[]),
     write_result(LogPath, io_lib:format("ADDING CAR TO LANE FROM OCCUPIED OUTSIDE SOURCE. LANE ~w ~n",[LaneId])),
     NewWaiting = lists:reverse([{car,{0,0,-1}} | lists:reverse(WaitingOutside)]),
-    UpdatedSources = add_car({LaneId, LanePid, NewWaiting, {Fprob, Mprob, Eprob}}, WaitingCar, SourcesLane, LogPath),
-    estimate_new_arrival(Tail,random:uniform(), UpdatedSources, LogPath);
+    UpdatedSources = add_car({LaneId, LanePid, NewWaiting, ProbData, {CarsNum, 0}}, WaitingCar, SourcesLane, LogPath),
+    estimate_new_arrival(Tail, UpdatedSources, LogPath);
 %% If there is still missing time for a car to arrive, just update times for all cars on waiting lists
-estimate_new_arrival([{LaneId, LanePid, WaitingOutside, {Fprob, Mprob, Eprob}}| Tail], Prob, SourcesLane, LogPath) when Prob >= Fprob, Prob < Mprob  ->
+estimate_new_arrival([{LaneId, LanePid, WaitingOutside, ProbData, {CarsNum, Timer}}| Tail], SourcesLane, LogPath) ->
     io:format("NOT ADDING CAR TO LANE ~n",[]),
     write_result(LogPath, io_lib:format("NOT ADDING CAR TO LANE. LANE ~w ~n",[LaneId])),
     WaitingUpdated = waiting(WaitingOutside), 
-    estimate_new_arrival(Tail,random:uniform(), [{LaneId, LanePid, WaitingUpdated, {Fprob, Mprob, Eprob}}|SourcesLane], LogPath).
+    estimate_new_arrival(Tail, [{LaneId, LanePid, WaitingUpdated, ProbData, {CarsNum, Timer}}|SourcesLane], LogPath).
+
+%%=================================================================================================================================
+%%=================================================================================================================================
+
+%% Estimate arrival for new cars to the zone
+%%estimate_new_arrival(SourcesLane, LogPath) ->
+%%    Prob = random:uniform(),
+%%    estimate_new_arrival(SourcesLane, Prob,[], LogPath).
+%%estimate_new_arrival([], _Prob,SourcesLane, _LogPath) ->
+%%    io:format("Ending ~w ~n",[SourcesLane]),
+%%    SourcesLane;
+%% when the waiting list of the source lane is empty, check for the probability 
+%% if the current time is when a car hast to arrive then try to add it to the lane with add_car function
+%% as a result we get UpdatedSources to pass it ass a parameter
+%%estimate_new_arrival([{LaneId, LanePid, [], {Fprob, Mprob, Eprob}}| Tail], Prob, SourcesLane, LogPath) when Prob >= Mprob, Prob =< Eprob  ->
+%%    io:format("ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE ~n",[]),
+%%    write_result(LogPath, io_lib:format("ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE ~w ~n",[LaneId])),
+%%    Car = {car,{0,0,-1}},
+%%    UpdatedSources = add_car({LaneId, LanePid, [], {Fprob, Mprob, Eprob}}, Car, SourcesLane, LogPath),
+%%    estimate_new_arrival(Tail,random:uniform(), UpdatedSources, LogPath);
+%% In the case that an arrival is expected and there are cars waiting outside, get the first car waiting in the queque
+%% try to send it to the source lane if succeded remove it from waiting list and add a new car to the same
+%%estimate_new_arrival([{LaneId, LanePid, [WaitingCar|WaitingOutside], {Fprob, Mprob, Eprob}}| Tail], Prob, SourcesLane, LogPath) when Prob >= Mprob, Prob =< Eprob  ->
+%%    io:format("ADDING CAR TO LANE FROM OCCUPIED OUTSIDE SOURCE ~n",[]),
+%%    write_result(LogPath, io_lib:format("ADDING CAR TO LANE FROM OCCUPIED OUTSIDE SOURCE. LANE ~w ~n",[LaneId])),
+%%    NewWaiting = lists:reverse([{car,{0,0,-1}} | lists:reverse(WaitingOutside)]),
+%%    UpdatedSources = add_car({LaneId, LanePid, NewWaiting, {Fprob, Mprob, Eprob}}, WaitingCar, SourcesLane, LogPath),
+%%    estimate_new_arrival(Tail,random:uniform(), UpdatedSources, LogPath);
+%% If there is still missing time for a car to arrive, just update times for all cars on waiting lists
+%%estimate_new_arrival([{LaneId, LanePid, WaitingOutside, {Fprob, Mprob, Eprob}}| Tail], Prob, SourcesLane, LogPath) when Prob >= Fprob, Prob < Mprob  ->
+%%    io:format("NOT ADDING CAR TO LANE ~n",[]),
+%%    write_result(LogPath, io_lib:format("NOT ADDING CAR TO LANE. LANE ~w ~n",[LaneId])),
+%%    WaitingUpdated = waiting(WaitingOutside), 
+%%    estimate_new_arrival(Tail,random:uniform(), [{LaneId, LanePid, WaitingUpdated, {Fprob, Mprob, Eprob}}|SourcesLane], LogPath).
     
 %% Write down the results
 write_result(Path, Data) ->
     file:write_file(Path, io_lib:fwrite("~p.\n", [lists:flatten(Data)]),[append]).
-    
+
+%% Estimate initial Cars arrival for all sources lanes
+init_poisson(SourcesLanes) ->
+    io:format("LOOKING FOR POISSON ~n",[]),
+    init_poisson(SourcesLanes, []).
+init_poisson([],SourceUpdated) ->
+    SourceUpdated;
+init_poisson([{LaneId, LanePid, [], ProbData}| Tail], SourceUpdated) ->
+    Arrival = data_distribution(ProbData),
+    io:format("Arrival data ~w~n",[Arrival]),
+    NewLane = {LaneId, LanePid, [],ProbData, Arrival},
+    init_poisson(Tail, [NewLane | SourceUpdated]).
     
 %% Calculate statistics
 %% use the module statistics to calculate cars arrival and other scenaries
+data_distribution(_ProbData) ->
+    N = random:uniform(12),
+    Lambda= 6,
+    {N, lanes_poisson(N, Lambda)}.
+
 lanes_poisson(N, Lambda) ->
-    statistic:poisson(N, Lambda).
+    Value = statistic:poisson(N, Lambda),
+    erlang:round(Value).
     
 lane_geometric(N, P) ->
-    statistic:poisson(N, Lambda).
+    statistic:geometric(N, P).
 
+
+%% Determine new car arrival for lane
+new_arrival({_LaneId, _LanePid, ProbData}) ->
+ data_distribution(_ProbData).
