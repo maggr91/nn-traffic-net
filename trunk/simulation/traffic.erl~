@@ -41,7 +41,7 @@ call(Message) ->
     end.
 
 init() ->
-    MapData = set_map(), 
+    MapData = set_map(). 
     loop(MapData, 0).
 
 %% Function to load the map by reading files located in
@@ -66,7 +66,10 @@ set_map() ->
     LightsFSM = connect({AllocatedLights, AllocatedLanes, [],Path}), 
     set_connection_to_light_siblings(LightsFSM,LightsFSM),
     io:format("SourceLanes ~w.~n",[SourceLanes]),
-    {LightsFSM, SourceLanes, NewPath}.
+
+%%Get poisson dist for each source lane
+    NewSources = lane:init_poisson(SourceLanes),    
+    {LightsFSM, NewSources, NewPath}.
 
 
 %% DEPRECATED: Spawn every intersection and lane on the map
@@ -249,7 +252,7 @@ loop({Intersections, SourceLanes, LogPath}, Time) ->
   %% according to the state of the FSM it will or will not move  the cars
   %% in case of a continue message run simulation, if stop abort program.
   receive
-      {call, Pid, continue} ->
+     {call, Pid, continue} ->
          io:format("Running simulation iteration: ~w continue. Intersections ~w~n",[Time, Intersections]),
   %% Iterate intersection list and for each of them run evaluate state funciton
          traverse_network(Intersections, Time),

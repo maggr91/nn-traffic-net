@@ -1,4 +1,4 @@
--module(statistic).
+-module(prob).
 
 -define(Euler, 2.7182818284590452353602874713527).
 -compile(export_all).
@@ -27,7 +27,7 @@ tablaPoisson(Lambda, Tope, Tabla, X)->tablaPoisson(Lambda, Tope, [{X,poisson(X,L
 % SALIDAS: Tabla de probabilidades de la geométrica
 % Restricciones: P debe de estar entre 0 y 1
 
-tablaGeometrica(P) -> lists:reverse(tablaGeometrica(1-P,[{0,P}],10*round(-1*math:log10(P)), 1)).
+tablaGeometrica(P) -> lists:reverse(tablaGeometrica(1-P,[{0,P}],15+10*round(-1*math:log10(P)), 1)).
 
 tablaGeometrica(Q, [{X,Px}|Resto], N, N) -> [{N, Px * Q} |[{X,Px}|Resto] ];
 tablaGeometrica(Q, [{X,Px}|Resto],N,X1) ->tablaGeometrica(Q,[{X1, Px * Q} |[{X,Px}|Resto]], N, X1+1).
@@ -49,11 +49,12 @@ tablaGeometrica(Q, [{X,Px}|Resto],N,X1) ->tablaGeometrica(Q,[{X1, Px * Q} |[{X,P
 %%
 
 
-%%  ____    _____          _____  ___
-%% |       |      |\   |  |      |   |     /\    |
-%% |  __   |__    | \  |  |___   |___|    /__\   |
-%% |    |  |      |  \ |  |      |  \    /    \  |
-%% |____|  |_____ |   \|  |_____ |   \  /      \ |____
+%%  ____   _____          _____  ___
+%% |      |      |\   |  |      |   |     /\    |
+%% |  __  |__    | \  |  |___   |___|    /__\   |
+%% |    | |      |  \ |  |      |  \    /    \  |
+%% |____| |_____ |   \|  |_____ |   \  /      \ |____
+%%
 
 %Entradas: Tablas de distribucion 
 %Salidas: Tabla acumulada
@@ -63,3 +64,17 @@ tablaAcumulada([{MaxVal,PMV}|Resto],[])->[{MaxVal+1,1}|[{MaxVal,PMV}|Resto]];
 tablaAcumulada([], [Elem|Resto])->tablaAcumulada([Elem], Resto);
 tablaAcumulada([{Val, PVal}|RestoAcum], [{ValEle,PValElem}|Resto])->
 	tablaAcumulada([{ValEle,PValElem+PVal}|[{Val, PVal}|RestoAcum]], Resto).
+	
+valorExponencial(Media)->-1*Media*math:log(random:uniform()).
+
+serverTabla(TablaAcum)->
+	receive
+		{valor, Cliente} -> Cliente ! encuentraValorTabla(TablaAcum, random:uniform()),
+					serverTabla(TablaAcum);
+		killyou->io:format("Saliendo... mi tabla era: ~p~n",[TablaAcum]);
+		_X -> serverTabla(TablaAcum)
+	end.
+	
+encuentraValorTabla([{X,Px}|_Resto], ValAleatorio) when ValAleatorio > Px ->X;
+encuentraValorTabla([{_X,_Px}|Resto], ValAleatorio)->encuentraValorTabla(Resto,ValAleatorio).
+	
