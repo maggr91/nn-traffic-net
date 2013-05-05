@@ -737,7 +737,7 @@ Como parte de las medidas para mitigar problemas de embotellamientos, el
 	acuerdo con las estimaciones que realicen, aumentan o disminuyen el tiempo de duraci\'{o}n de la luz verde de un sem\'{a}foro particular, utilizando datos brindados por los contadores o c\'{a}maras localizados dentro de la red de sem\'{a}foros. Los datos de los contadores se emplean para determinar como aumenta o disminuye la cantidad de autom\'{o}viles de una determinada intersecci\'{o}n, mientras que las c\'{a}maras se emplean para poder visualizar la posible existencia de congestiones en las calles.
 
 	\subsection{Infraestructura Vial}
-	Quiz\'{a}s uno de los principales causantes o factores que propician los embotellamientos a nivel nacional, corresponde a la forma en que fueron dise\~{n}adas las calles sobre todo en la capital. Un recorrido por \'{e}stas muestra aspectos el ancho de las calles que por lo general poseen dos carriles, alguno de los cuales puede ser utilizado como zona de parqueo, de carga y descarga o simplemente para permitir que los autobuses, taxis o similares puedan dejar o llevar pasajeros. Present\'{a}ndose alguno de los casos mencionados, la capacidad de cada calle o avenida se reduce considerablemente y en algunos casos puede pasar de poseer dos carriles disponibles a s\'{o}lo uno. 	
+	Quiz\'{a}s uno de los principales causantes o factores que propician los embotellamientos a nivel nacional, corresponde a la forma en que fueron dise\~{n}adas las calles sobre todo en la capital. Un recorrido por \'{e}stas muestra aspectos el ancho de las calles que por lo general poseen dos carriles, alguno de los cuales puede ser utilizado como zona de parqueo, de carga y descarga o simplemente para permitir que autom\'oviles del transporte p\'ublico puedan cargar o descargar pasajeros. Present\'{a}ndose alguno de los casos mencionados, la capacidad de v\'ia  de cada calle o avenida se reduce en un 50\%. 	
 	
 	\subsection{Cultura y Sociedad en las V\'{i}as P\'{u}blicas}
 		El no disponer de una flu\'{i}da circulaci\'{o}n dentro de estas \'{a}reas
@@ -748,15 +748,15 @@ Como parte de las medidas para mitigar problemas de embotellamientos, el
 	tiene paciencia y todo eso va perjudicando.''}
 	\cite{Villegas2012}
 	
-		A pesar de la existencia de legislaciones que buscan mejorar las condiciones dentro de las zonas m\'{a}s congestionadas de la capital, se han presentado en ciertas ocasiones en el que problemas en esta materia causando cambios por decisiones gubernamentales, tal y como ocurri\'{o} en junio del 2009 periodo durante el cual se dio la eliminaci\'{o}n, temporal, de la restricci\'{o}n vehicular para
+		Una de las medidas que se han tomado es aplicar una restricción para circular por la capital basada en el n\'umero placa de cada automotor (salvo para el transporte p\'ublico) de modo que se restringe a  $\frac{1}{5}$ de los autos que hay en Costa Rica, su ingreso a la capital. A pesar de la existencia de legislaciones que buscan mejorar las condiciones dentro de las zonas m\'{a}s congestionadas de la capital, se han presentado en ciertas ocasiones en el que problemas en esta materia causando cambios por decisiones gubernamentales, tal y como ocurri\'{o} en junio del 2009 periodo durante el cual se dio la eliminaci\'{o}n, temporal, de la restricci\'{o}n vehicular para
 	ingresar a San Jos\'{e} causando un aumento, para ese tiempo, del 25\% de
-	veh\'{i}culos con personas que trataban de llegar a sus destinos dentro de la
+	veh\'{i}culos que trataban de llegar a sus destinos atravesando la
 	capital. Con eso no s\'{o}lo se dio incremento de automotores, sino que
 	tambi\'{e}n se dieron aumentos en la duraci\'{o}n de las horas de mayor
 	concentraci\'{o}n de los autom\'{o}viles y que de acuerdo con datos de
-	ingenier\'{i}a de tr\'{a}nsito se estaban perdiendo entre un 10\% y 30\% en la
-	disminuci\'{o}n del tiempo empleado por los autom\'{o}viles, as\'{i} como
-	dejarse de obtener un ahorro de \$3 millones anuales en combustible.\cite{Mata2009}
+	ingenier\'{i}a de tr\'{a}nsito se estaban aumentando entre un 10\% y 30\% 
+	del tiempo empleado por los autom\'{o}viles para llegar a su destino, as\'{i} como
+	producir un gasto de tres millones de d\'olares anuales en combustible.\cite{Mata2009}
 		
 		Si bien la restricci\'{o}n vehicular fue implementada como una forma de disminuir la cantidad de veh\'{i}culos automoteres, no todas las personas toman esto como un incentivo para hacer uso del transporte p\'{u}blico, si no que m\'{a}s bien lo ven como un obst\'{a}culo que los obliga a buscar una ruta alterna a la tradicional.
 		
@@ -767,24 +767,24 @@ Como parte de las medidas para mitigar problemas de embotellamientos, el
 	cambiante, por lo cual al momento de realizar los ajustes mencionados, \'{e}sta puede estar variando de forma que se torna ineficiente la regulaci\'{o}n de dichos tiempos.
 
 \section{El Modelo de Simulaci\'{o}n}
-Como parte del trabajo a realizar se plantearon dos etapas importantes. La primera corresponde a un la realizaci\'{o}n del modelo de simulaci\'{o}n mencionado a continuaci\'{o}n, mientras que la segunda parte (no contemplada en el documento) presenta al combinaci\'{o}n de dicho modelo junto con la implemnetaci\'{o}n del modelo de red neuronal para que esta pueda ser evaluada mediante simulaciones de eventos.
+Cualquier soluci\'on que busque mejorar el flujo del tr\'ansito en San Jos\'e, necesita poder demostrar su efectividad en un ambiente controlado, antes de su implementaci\'on en el ambiente real. Por lo tanto, es importante realizar un del modelo de simulaci\'{o}n que pueda ser suficientemente flexible y puntual para las necesidades particulares de nuestra capital.
 
 \subsection{Detalle del Experimiento}
-Dado la falta de un dato importante como lo son los tiempos de espera de los veh\'{i}culos, cuando circulan por las calles de San Jos\'{e}, resulta necesario llevar a cabo una simulaci\'{o}n de los cambios de luces para los sem\'{a}foros y del flujo de veh\'{i}culos presentes en el \'{a}rea. 
+Dado la falta de datos como lo son los tiempos de espera promedio de los veh\'{i}culos, cuando circulan por las calles de San Jos\'{e}, resulta necesario llevar a cabo una simulaci\'{o}n de los cambios de luces para los sem\'{a}foros y del flujo de veh\'{i}culos presentes en el \'{a}rea. 
 
-Existen diferentes escenarios por los cuales se puedan dar los problemas planteados anteriormente, para este trabajo se utilizar\'{a} como zona de estudio la representada en la figura \ref{fig:traficoSJ} 
+Existen diferentes escenarios por los cuales se puedan dar los problemas planteados anteriormente, para este trabajo se utilizar\'{a} como zona de estudio la representada en la figura \ref{fig:traficoSJ}, sin embargo, el programa será lo suficientemente flexible para poder modelar diferentes zonas de tr\'ansito.
 	
 	\begin{figure}[htp]
 \centering
 \includegraphics[scale=0.37]{images/trafico1.png}
-\caption{Diagrama de Calles, San Jose Costa Rica (Google Maps)}
+\caption{Diagrama de Calles, San Jos\'e Costa Rica (Google Maps)}
 \label{fig:traficoSJ}
 \end{figure}
 
 		Basado en dicha imagen, se plantea el problema de cambio de las luces de los
 	sem\'{a}foros tomando como referencia la \textbf{avenida:} 2, 4, 6 y 8,  y las
 	\textbf{calles:}
-	12, 10, 8 y 6. Para este caso la avenida segunda se ve afectada fuertemente por los veh\'{i}culos automotores que quedan en medio de las intersecciones, si bien este es un problema m\'{a}s cultural, se ver\'{i}a mitigado al contar con una red de sem\'{a}foros inteligentes que tomen decisiones basados en su entorno.
+	12, 10, 8 y 6. Para este caso la avenida segunda (Juan Rafael Mora Porras) se ve afectada fuertemente por los veh\'{i}culos automotores que quedan en medio de las intersecciones, si bien es ilegal, este se mantiene como un problema m\'{a}s cultural.
 	
 		As\'{i} por ejemplo, al presentarse una disminuci\'{o}n del flujo de veh\'{i}culos
 	automotores desde la intersecci\'{o}n de la avenida 6 y calle 10 hasta la avenida
