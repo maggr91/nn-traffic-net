@@ -524,7 +524,7 @@ E-mail: see http://www.michaelshell.org/contact.html
 \IEEEcompsoctitleabstractindextext{%
 \begin{abstract}
 %\boldmath
-The abstract goes here.
+One of the most common problems in Costa Rica's capital, San Jose, is the heavy traffic jams we are usually exposed to. Any possible solutions is often applied and after a rate os success or failure, it is kept or discharched. It is mandatory to have a system available in the Ministery encharged of this issue a simulation model that envolves all the characteristics of the local situations. This paper shows how this simulations system is developed and the initial results of it.
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
 % This preserves the distinction between vectors and scalars. However,
@@ -813,17 +813,47 @@ La idea de este  factor corresponde a un hecho caracter\'{i}stico como lo son pa
 \subsubsection{Eventos Meteorol\'{o}gicos}
 Este factor var\'{i}a mucho pero igual se encuentra presente dentro de los factores que afectan y resulta necesario ser considerado. Para este caso, la presencia de lluvia en San Jos\'{e} ser\'{a} la principal circunstancia a evaluar tomando como punto de partida el hecho de que al presentarse, los conductores tienden a reducir la velocidad con el fin de evitar accidentes por las dificultades para manejar que se presentan con la calle mojada o la poca visibilidad en caso de una lluvia fuerte.
 
-\subsection{Distribuciones a Emplear}
+\subsubsection{Condiciones de los sem\'aforos}
+Uno de los principales factores que deben de considerarse es el estado de los semáforos, indicando qu\'e calles y avenidas est\'an avanzando y cu\'ales est\'an detenidas. Este factor debe de poder ser controlado de manera din\'amica, para poder buscar mejoras posteriores, al ser el \'unico sobre el cual se tiene control externo, a diferencia de los mencionados anteriormente.
 
+
+\section{Distribuciones de probabilidad a Emplear}
+Al entrevistar a expertos del Consejo Nacional de Vialidad (CONAVI), Consejo de Seguridad Vial (COSEVI) y del MOPT, se lograron obtener registros del comportamiento muestral de los veh\'iculos en los \'ultimos a\~nos en nuestra capital. 
+
+\subsection{Entrada de veh\'iculos}
+La hora (con segundos) de llegada de veh\'iculos se obtiene a partir de una distribuci\'on de Poisson, cuya media var\'ia de acuerdo con las horas del d\'ia. Donde la media de menor valor corresponde con el per\'iodo comprendido entre las cuatro de la tarde y las siente de la noche, con una media de 5. Esto quiere decir que en promedio, entra un autom\'ovil cada cinco segundos por cada una de las posibles entradas. Es interesante como una muestra similar se puede apreciar entre las siete y ocho de la ma\~nana, sin embargo, en este evento, los autos transitan con mayor premura, debido a que muchos van a hacer su ingreso a su lugar de trabajo lo que agiliza significativamente el tr\'ansito.
+
+\subsection{Velocidad de los vehcíulos}
+Los veh\'iculos mantienen una velocidad normal con media de 44 km/h y una desviaci\'on est\'andar de 3 km/h. 
+
+\subsection{Ceder el paso}
+En caso de alg\'un bloqueo u obstrucci\'on en la carretera, tal como pueden ser autobuses estacionados, accidentes de tr\'ansito o cualquier otro tipo de evento, es importante encontrar cuál es la cantidad de veh\'iculos que van a pasar antes de que uno le ceda el paso a otro veh\'iculo que ve impedido su avance por el evento obstaculizador. Este número de vehículos que pasan sin ceder el campo está dado por una distribuci\'on geom\'etrica y la probabilidad P, var\'ia muy poco a pesar del n\'umero de veh\'iculos o de la hora. Siendo la menor $0.1$ y la mayor $0.2$ 
+
+\subsection{Giro en las intersecciones}
+En cada intersecci\'on la probabilidad de giro de un veh\'iculo particular en una intersecci\'on cualquiera var\'ia muy poco, dado que los usuarios normalmente utilizan la misma ruta siempre. Una vez m\'as, para agilizar la ejecuci\'on de la simulaci\'on, se utiliz\'o una distribuci\'on geom\'etrica para indicar el n\'umero de veh\'iculos que iban a continuar directamente sobre una intersecci\'on antes de que uno gire. Naturalmente esta probabilidad se ve afectada por eventos como obras en la v\'ia, marchas de protesta o accidentes de tr\'ansito, lo que debe de ser considerado por el sistema.
+
+
+\section{Resultados}
+En esta secci\'on se muestran tabulados, resultados de correr el programa de simulación en el sector determinado por la figura \ref{fig:traficoSJ}.
 
 \section{Trabajo Futuro}
-Posterior a la realizaci\'{o}n del modelo de simulaci\'{o}n, en el proceso pretende lograr un modelo de red neuronal artificial que pueda ser implementada dentro de este red de sem\'{a}foros y el cual permita que cada sem\'{a}foro se comunique con otros (hermanos) localizados dentro de un rango de \'{a}rea considerable de forma que cada uno pueda tener una idea lo que ocurre en su entorno y no \'{u}nicamente la informaci\'{o}n que puede ser recolectada por medio de los sensores en la intersecci\'{o}n administrada por cada sem\'{a}foro.
+Posterior a la realizaci\'{o}n del modelo de simulaci\'{o}n, es importante encontrar un mecanismo que agilice el control del tr\'ansito. En el proceso pretende lograr un modelo de red neuronal artificial que pueda ser implementada dentro de este red de sem\'{a}foros y el cual permita que cada sem\'{a}foro se comunique con otros (hermanos) localizados dentro de un rango de \'{a}rea considerable de forma que cada uno pueda tener una idea lo que ocurre en su entorno y no \'{u}nicamente la informaci\'{o}n que puede ser recolectada por medio de los sensores en la intersecci\'{o}n administrada por cada sem\'{a}foro.
 
 \subsection{Uso de Redes Neuronales}
-La idea de usar redes neuronales, se basa en el hecho de que actualmente los sem\'{a}foros no son realmente inteligentes a como fueron promocionados en un principio. Dado que hacen uso de tiempos fijos, preprogramados, las tendencias cambias del flujo puede no siempre lograr satisfacerse de forma adecuada. Si bien los flujos de veh\'{i}culos siguien ciertas tendencias, de alzas o bajas, esto no se presenta siempre y en algunos momentos puede requerirse de ajustes inmediatos seg\'{u}n datos que se hayan analizado.
+La idea de usar redes neuronales, se basa en el hecho de que actualmente los sem\'{a}foros no son realmente inteligentes a como fueron promocionados en un principio. Dado que hacen uso de tiempos fijos, preprogramados, las tendencias cambiantes del flujo puede no siempre lograr satisfacer de forma adecuada la demanda real. Si bien los flujos de veh\'{i}culos siguien ciertas tendencias, de alzas o bajas, esto suele ser de constante cambio y en algunos momentos puede requerirse de ajustes inmediatos seg\'{u}n datos que se hayan analizado.
 
 Dato que las redes neuronales se entrenan para aprender a generalizar resultados, lo que se busca es lograr que esta luego de un entrenamiento pueda conocer los momentos en los que de se debe aumentar o disminuir el tiempo de la luz verde, basado en su conocimiento actual tanto de la informaci\'{o}n recopilada por sensores como el insumo brindado por otros sem\'{a}foros cercanos.
 
+\subsection{Algoritmos alternativos}
+Otro algoritmos posible para contrastar el rendimiento pueden ser:
+\begin{enumerate}
+\item Cadenas de Markov
+\item Redes Bayesianas
+\item Modelo MM1 de colas
+\item Modelo MMc de colas
+\item Modelo MG1 de colas
+\item Redes Causales
+\end{enumerate}
 		
 \section{Conclusion}
 The conclusion goes here.
@@ -919,22 +949,21 @@ H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
 %\begin{biography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
 % or if you just want to reserve a space for a photo:
 
-\begin{IEEEbiography}{Michael Shell}
-Biography text here.
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{images/FOTO-EDDY.JPG}}]{Eddy Ram\'irez-Jim\'enez}
+
+Eddy naci\'o en 1984 en San Jos\'e, Costa Rica. Ingresó al Insituto Tecnológico de Costa Rica donde se grad\'ua en el a\~no de 2007 como Bachiller en Ingenier\'ia en Computaci\'on. En ese mismo a\~no recibe el premio Reto a la Excelencia otorgado por P\&G. En ese mismo per\'iodo tambi\'en labor\'o por un a\~no como web developer y administrador de base de datos para el Institio Nacional de Biodivirsidad INBio. En el 2012 recibe el Título de M\'aster en Ciencias de la Computaci\'on en el mismo Instituto Tecnol\'ogico de Costa Rica.
+Actualmente labora en la Universidad Nacional de Costa Rica y en el Instituto Tecnol\'ogico de Costa Rica donde ejerce como profesor e investigador y cuenta con m\'as de siete a\~nos de experiencia en la docencia universitaria. 
+
 \end{IEEEbiography}
 
-% if you will not have a photo at all:
-\begin{IEEEbiographynophoto}{John Doe}
+% MAG SOLO CAMBIE EL NOMBRE DEL ARCHIVO...
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{images/FOTO-EDDY.JPG}}]{Mag Guevara-Rivera}
 Biography text here.
-\end{IEEEbiographynophoto}
+\end{IEEEbiography}
 
 % insert where needed to balance the two columns on the last page with
 % biographies
 %\newpage
-
-\begin{IEEEbiographynophoto}{Jane Doe}
-Biography text here.
-\end{IEEEbiographynophoto}
 
 % You can push biographies down or up by placing
 % a \vfill before or after them. The appropriate
