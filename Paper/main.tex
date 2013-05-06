@@ -109,10 +109,10 @@
 \ifCLASSOPTIONcompsoc
   % IEEE Computer Society needs nocompress option
   % requires cite.sty v4.0 or later (November 2003)
-  % \usepackage[nocompress]{cite}
+   \usepackage[nocompress]{cite}
 \else
   % normal IEEE
-  % \usepackage{cite}
+   \usepackage{cite}
 \fi
 % cite.sty was written by Donald Arseneau
 % V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
@@ -316,7 +316,7 @@
 
 
 
-
+ 
 % *** FLOAT PACKAGES ***
 %
 %\usepackage{fixltx2e}
@@ -937,11 +937,34 @@ Los autores les gustaría agradecer muy profundamente al COSEVI, CONAVI y MOPT p
 % <OR> manually copy in the resultant .bbl file
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
+
+%\bibliographystyle{IEEEtran}
+%\bibliography{IEEEabrv, IEEEreferences}
 \begin{thebibliography}{1}
 
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+\bibitem{HPerros}
+H.Perros, \emph{Computer Simulation Techniques:
+The definitive introduction!}, 2009. Computer Science Department. NC State University. Raleigh, NC. http://www4.ncsu.edu/~hp/simulation.pdf
+
+\bibitem{SWeppner}
+S.Weppner, \emph{Computational methods with depth and Flair}, September/October 2008. IEEE CS and the AIP. http://www2.computer.org/cms/Computer.org/
+ComputingNow/bookreviews/archive/CiSE\%204.pdf 
+
+\bibitem{NDaneshjo}
+N.Daneshjo, \emph{Computer Modeling and Simulation},2011. Sinaia, Romania.
+http://www.ipcsit.com/vol8/12-S3.3.pdf
+
+\bibitem{Villegas2012}
+J. Villegas and L.Herrera, \emph{260.000 autos y 19.000 buses atascan San Jos\'{e} cada d\'{\i}a}, 2012, La Naci\'{o}n. San Jos\'{e}, Costa Rica. http://www.nacion.com/2012-03-17/ElPais/260-000-autos-y-19-000-buses-atascan-san-jose-cada-dia.aspx
+
+\bibitem{Loaiza2007}
+ V.Loaiza, \emph{Capital estrena sem\'{a}foros inteligentes en 180 intersecciones}, 2007. La Naci\'{o}n. San Jos\'{e}, Costa Rica. 
+http://wvw.nacion.com/ln\_ee/2007/noviembre/28
+/pais1332560.html
+
+\bibitem{Mata2009}
+A.Mata, \emph{Acceso libre a San Jos\'{e} provoca colapso vial}, 2009. La Naci\'{o}n. San Jos\'{e}, Costa Rica. 
+http://wvw.nacion.com/ln\_ee/2009/junio/16/pais1997637.html
 
 \end{thebibliography}
 
@@ -963,7 +986,7 @@ Actualmente labora en la Universidad Nacional de Costa Rica y en el Instituto Te
 
 \end{IEEEbiography}
 
-% MAG SOLO CAMBIE EL NOMBRE DEL ARCHIVO...
+
 \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{images/FOTO-MAG.JPG}}]{Mag Guevara-Rivera}
 Mag naci\'o en 1991 en Managua, Nicaragua. Ingres\'o a la Universidad Nacional de Costa Rica donde se gradu\'o, en el 2011, como Bachiller en Ingenier\'ia de Sistemas de Informac\'ion y en el 2012 inici\'o sus estudios de Licenciatura en la misma Universidad. Actualmente, labora en una empresa de desarrollo de software para casas de apuestas y adicionalmente trabaja en conjunto con el COSEVI, y el MOPT en la realizaci\'on de un proyecto de investigaci\'on para poder usarse en sistemas de tr\'ansito. 
 \end{IEEEbiography}
