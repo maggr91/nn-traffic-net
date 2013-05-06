@@ -823,18 +823,31 @@ Al entrevistar a expertos del Consejo Nacional de Vialidad (CONAVI), Consejo de 
 \subsection{Entrada de veh\'iculos}
 La hora (con segundos) de llegada de veh\'iculos se obtiene a partir de una distribuci\'on de Poisson, cuya media var\'ia de acuerdo con las horas del d\'ia. Donde la media de menor valor corresponde con el per\'iodo comprendido entre las cuatro de la tarde y las siente de la noche, con una media de 5. Esto quiere decir que en promedio, entra un autom\'ovil cada cinco segundos por cada una de las posibles entradas. Es interesante como una muestra similar se puede apreciar entre las siete y ocho de la ma\~nana, sin embargo, en este evento, los autos transitan con mayor premura, debido a que muchos van a hacer su ingreso a su lugar de trabajo lo que agiliza significativamente el tr\'ansito.
 
-\subsection{Velocidad de los vehcíulos}
+\subsection{Velocidad de los veh\'iculos}
 Los veh\'iculos mantienen una velocidad normal con media de 44 km/h y una desviaci\'on est\'andar de 3 km/h. 
 
 \subsection{Ceder el paso}
-En caso de alg\'un bloqueo u obstrucci\'on en la carretera, tal como pueden ser autobuses estacionados, accidentes de tr\'ansito o cualquier otro tipo de evento, es importante encontrar cuál es la cantidad de veh\'iculos que van a pasar antes de que uno le ceda el paso a otro veh\'iculo que ve impedido su avance por el evento obstaculizador. Este número de vehículos que pasan sin ceder el campo está dado por una distribuci\'on geom\'etrica y la probabilidad P, var\'ia muy poco a pesar del n\'umero de veh\'iculos o de la hora. Siendo la menor $0.1$ y la mayor $0.2$ 
+En caso de alg\'un bloqueo u obstrucci\'on en la carretera, tal como pueden ser autobuses estacionados, accidentes de tr\'ansito o cualquier otro tipo de evento, es importante encontrar cu\'al es la cantidad de veh\'iculos que van a pasar antes de que uno le ceda el paso a otro veh\'iculo que ve impedido su avance por el evento obstaculizador. Este n\'umero de veh\'iculos que pasan sin ceder el campo est\'a dado por una distribuci\'on geom\'etrica y la probabilidad P, var\'ia muy poco a pesar del n\'umero de veh\'iculos o de la hora. Siendo la menor $0.1$ y la mayor $0.2$ 
 
 \subsection{Giro en las intersecciones}
 En cada intersecci\'on la probabilidad de giro de un veh\'iculo particular en una intersecci\'on cualquiera var\'ia muy poco, dado que los usuarios normalmente utilizan la misma ruta siempre. Una vez m\'as, para agilizar la ejecuci\'on de la simulaci\'on, se utiliz\'o una distribuci\'on geom\'etrica para indicar el n\'umero de veh\'iculos que iban a continuar directamente sobre una intersecci\'on antes de que uno gire. Naturalmente esta probabilidad se ve afectada por eventos como obras en la v\'ia, marchas de protesta o accidentes de tr\'ansito, lo que debe de ser considerado por el sistema.
 
 
 \section{Resultados}
-En esta secci\'on se muestran tabulados, resultados de correr el programa de simulación en el sector determinado por la figura \ref{fig:traficoSJ}.
+
+Como parte de los resultados que se pueden obtener del simulador en las siguientes secciones se mencionan en detalles los m\'as importantes.
+
+\subsection{Informaci\'on de los carros}
+
+Para cada uno de los carros, se almacenan diferentes datos relativos a su permanencia dentro de la zona de evaluaci\'on, a saber: Tiempo de espera total, demora total, posici\'on dentro de la l\'inea actual. Para el caso del tiempo de espera, este corresponde a un valor acumulado que se incrementa en cada iteraci\'on de la simulaci\'on y cuyo valor final corresponde a la suma de los tiempos de espera acumulados por cada calle o avenida que el veh\'iculo tuvo que circular hasta llegar a su destino fuera del area. 
+
+	Por otro lado, la demora total corresponde a los tiempos acumulados para los carros, que se generen por eventos que causen atrasos a estos como el caso de obstrucciones en las vía o que las calles han llegado al máximo de su capacidad y por lo tanto tienen que esperar fuera de estas para poder ingresar y continuar con la ruta. Finalmente se cuenta con la posici\'on de los automotores en cada calle, para este caso debe tenerse en cuenta que la posici\'on es \'unica para cada calle y al momento de que se pase a una nueva la misma ser\'a reiniciada al valor m\'aximo posible dependiendo de la capacidad de la calle.
+
+	Como \'ultimo dato y a modo de referencia, al iniciar su ingreso al \'area, cada veh\'iculo contar\'a con una decisi\'on que tomar para determinar la ruta a seguir, esto basado en las distribuciones mencionadas anteriormente. A modo de evaluaci\'on posterior, se contar\'a con un registro de las avenidas y calles recorridas de forma que pueda determinarse si la ruta tomada se vio afectada por alg\'un evento o si esta puede corresponder a una ruta adecuada considerando el tiempo invertido por veh\'iculo y el destino de \'este. 
+
+\subsection{Informaci\'on de los sem\'aforos}
+
+A modo de registro, y como una forma de control y an\'alisis de las decisiones tomas, cada sem\'aforo contar\'a con un archivo de log o registro el cual permita en etapas posteriores, hacer revisiones de los movimientos realizados por esto. Dicha informaci\'on se tiene en fin de poder hacer revisiones manuales en casos de buscar mejoras en comportamientos del sem\'aforo cuando sea empleado en las etapas posteriores del proyecto.  
 
 \section{Trabajo Futuro}
 Posterior a la realizaci\'{o}n del modelo de simulaci\'{o}n, es importante encontrar un mecanismo que agilice el control del tr\'ansito. En el proceso pretende lograr un modelo de red neuronal artificial que pueda ser implementada dentro de este red de sem\'{a}foros y el cual permita que cada sem\'{a}foro se comunique con otros (hermanos) localizados dentro de un rango de \'{a}rea considerable de forma que cada uno pueda tener una idea lo que ocurre en su entorno y no \'{u}nicamente la informaci\'{o}n que puede ser recolectada por medio de los sensores en la intersecci\'{o}n administrada por cada sem\'{a}foro.
@@ -945,14 +958,14 @@ H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
 
 \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{images/FOTO-EDDY.JPG}}]{Eddy Ram\'irez-Jim\'enez}
 
-Eddy naci\'o en 1984 en San Jos\'e, Costa Rica. Ingresó al Insituto Tecnológico de Costa Rica donde se grad\'ua en el a\~no de 2007 como Bachiller en Ingenier\'ia en Computaci\'on. En ese mismo a\~no recibe el premio Reto a la Excelencia otorgado por P\&G. En ese mismo per\'iodo tambi\'en labor\'o por un a\~no como web developer y administrador de base de datos para el Institio Nacional de Biodivirsidad INBio. En el 2012 recibe el Título de M\'aster en Ciencias de la Computaci\'on en el mismo Instituto Tecnol\'ogico de Costa Rica.
+Eddy naci\'o en 1984 en San Jos\'e, Costa Rica. Ingres\'o al Insituto Tecnológico de Costa Rica donde se grad\'ua en el a\~no de 2007 como Bachiller en Ingenier\'ia en Computaci\'on. En ese mismo a\~no recibe el premio Reto a la Excelencia otorgado por P\&G. En ese mismo per\'iodo tambi\'en labor\'o por un a\~no como web developer y administrador de base de datos para el Institio Nacional de Biodivirsidad INBio. En el 2012 recibe el Título de M\'aster en Ciencias de la Computaci\'on en el mismo Instituto Tecnol\'ogico de Costa Rica.
 Actualmente labora en la Universidad Nacional de Costa Rica y en el Instituto Tecnol\'ogico de Costa Rica donde ejerce como profesor e investigador y cuenta con m\'as de siete a\~nos de experiencia en la docencia universitaria. 
 
 \end{IEEEbiography}
 
 % MAG SOLO CAMBIE EL NOMBRE DEL ARCHIVO...
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{images/FOTO-EDDY.JPG}}]{Mag Guevara-Rivera}
-Biography text here.
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{images/FOTO-MAG.JPG}}]{Mag Guevara-Rivera}
+Mag naci\'o en 1991 en Managua, Nicaragua. Ingres\'o a la Universidad Nacional de Costa Rica donde se gradu\'o, en el 2011, como Bachiller en Ingenier\'ia de Sistemas de Informac\'ion y en el 2012 inici\'o sus estudios de Licenciatura en la misma Universidad. Actualmente, labora en una empresa de desarrollo de software para casas de apuestas y adicionalmente trabaja en conjunto con el COSEVI, y el MOPT en la realizaci\'on de un proyecto de investigaci\'on para poder usarse en sistemas de tr\'ansito. 
 \end{IEEEbiography}
 
 % insert where needed to balance the two columns on the last page with
