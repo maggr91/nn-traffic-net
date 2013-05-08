@@ -1,6 +1,6 @@
 -module(traffic).
 
--export([start/1, stop/0, set_map/0, connect/1, connect_lanes/1]).
+-export([start/1, stop/0, set_map/0, connect/1, connect_lanes/1, run_simulation/1]).
 
 -export([init/0]).
 
@@ -17,12 +17,19 @@
 %% of normal traffic, with no modification of ANN
 
 %% Start method, USE this to run simulation
-start(Lapse) ->
+start(Lapse) ->    
+    register(poissonServer,prob:start({poisson,6})),    
     register(traffic, spawn(traffic, init, [])),
+    timer:apply_after(900, traffic, run_simulation, [Lapse]).
+    %%run_simulation(Lapse).
+
+%%run aux
+run_simulation(Lapse) ->    
     run_simulation(Lapse, 0).
 
 %% Loop used to run each iteration of the simulation
 run_simulation(Lapse, Current) when Current < Lapse ->
+    io:format("CONTINUING with run.~n",[]),
     call(continue),   
     run_simulation(Lapse, Current + 1);
 run_simulation(Lapse, Current) when Current >= Lapse ->
@@ -35,18 +42,22 @@ reply (Pid, Reply) ->
     Pid ! {reply, Reply}.
 
 call(Message) ->
+    io:format("CALLING PROCESS LOOP.~n",[]),
     traffic ! {call, self(), Message},
     receive
        {reply, Reply} -> Reply
     end.
 
 init() ->
-    MapData = set_map(). 
+    MapData = set_map(), 
     loop(MapData, 0).
 
 %% Function to load the map by reading files located in
 %% ~/sources folder
 set_map() ->
+%% set table for poisson dist
+    %%PoissonServer = prob:start({poisson,6}),
+    %%io:format("PoissonServer ~w.~n",[PoissonServer]),
 %%Read data from files
     Axis = get_lights(),
     Roads = get_lanes(),
@@ -58,18 +69,21 @@ set_map() ->
     Path = Cwd ++ "/logs/",
     io:format("PATH ~s.~n",[Path]),
     NewPath = Path ++ "arrival_log.txt",
+    DataPath = Path ++ "data_log.txt",
 %%Connect each lane with siblings or any other connected lane
 %%after that get sources lanes (lanes where cars will arrive to the area)    
     connect_lanes({AllocatedLanes,AllocatedLanes}),
     SourceLanes = get_source_lanes(AllocatedLanes),
+
+%%Get poisson dist for each source lane
+    NewSources = init_poisson(SourceLanes),    
+    %%io:format("SOURCES With poisson ~w.~n",[NewSources]),    
+
 %%Spawn FSM for traffic lights on each intersection and then connect them    
     LightsFSM = connect({AllocatedLights, AllocatedLanes, [],Path}), 
     set_connection_to_light_siblings(LightsFSM,LightsFSM),
-    io:format("SourceLanes ~w.~n",[SourceLanes]),
 
-%%Get poisson dist for each source lane
-    NewSources = lane:init_poisson(SourceLanes),    
-    {LightsFSM, NewSources, NewPath}.
+    {LightsFSM, NewSources, {NewPath,DataPath}}.
 
 
 %% DEPRECATED: Spawn every intersection and lane on the map
@@ -96,39 +110,39 @@ allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes,
 connect({[], _LaneList, LightsFSM,_LogData}) -> 
     LightsFSM;
 connect({[{LightId,Siblings, Cycle_time, Go_time} | TailLight], LaneList,LightsFSM, LogData}) -> 
-    io:format("Luz: ~w / lineas: ~w.~n",[LightId, LaneList]),
+    %%io:format("Luz: ~w / lineas: ~w.~n",[LightId, LaneList]),
     {ManagedLanes, RemLanes} = find_lanes({LightId, {[],[]}}, LaneList, []),
-    io:format("Managed Lanes: ~w.~n~n",[ManagedLanes]),
+    %%io:format("Managed Lanes: ~w.~n~n",[ManagedLanes]),
     PathLog = (LogData ++ lists:flatten(io_lib:format("~p",[LightId]))) ++ ".txt",
     {ok, LightPid} = light_fsm:start_link({LightId, ManagedLanes,Siblings, Cycle_time, Go_time, PathLog}),
     connect({TailLight, RemLanes, [{LightId,LightPid}|LightsFSM], LogData}).
 
 
 %% Find all lanes that are connected to the LIght passed as param
-find_lanes({LightId,ManagedLanes}, [], RemLanes) -> 
-    io:format("Exit ~w / sin lineas. Rem Lanes: ~w~n~n",[{LightId,ManagedLanes},RemLanes]),
+find_lanes({_LightId,ManagedLanes}, [], RemLanes) -> 
+    %%io:format("Exit ~w / sin lineas. Rem Lanes: ~w~n~n",[{LightId,ManagedLanes},RemLanes]),
     {ManagedLanes, RemLanes};
 find_lanes({LightId,{Av, Ca}}, [{LaneId,LanePid, LightId,Dir,_AdjLanes, _IsSource, _ProbData}| Tail], RemLanes) ->
-    io:format("Coincidencia: ~w envio de mensaje.~n",[{LightId,LaneId}]),
-    io:format("{Av ~w, Ca: ~w.~n",[Av, Ca]),
+    %%io:format("Coincidencia: ~w envio de mensaje.~n",[{LightId,LaneId}]),
+    %%io:format("{Av ~w, Ca: ~w.~n",[Av, Ca]),
     if  %%Determine lane type if its either a street or an avenue and locate it in the corresponding list
         Dir =:= av -> 
     	    NewManaged = {[{LaneId,LanePid}| Av], Ca},    	    
-    	    io:format("light ~w, lanes: ~w.Dir:~w~n",[self(), NewManaged, Dir]),
-    	    io:format("Coincidencia: mensaje enviado.~n",[]),
-            io:format("Coincidencia: mensaje recibido.~n~n",[]),
+    %%	    io:format("light ~w, lanes: ~w.Dir:~w~n",[self(), NewManaged, Dir]),
+    %%	    io:format("Coincidencia: mensaje enviado.~n",[]),
+    %%      io:format("Coincidencia: mensaje recibido.~n~n",[]),
             find_lanes({LightId,NewManaged},Tail, RemLanes);
     	Dir =:= ca ->
     	    NewManaged = {Av, [{LaneId,LanePid}| Ca]},
-    	    io:format("light ~w, lanes: ~w. Dir:~w~n ",[self(), NewManaged,Dir]),
-    	    io:format("Coincidencia: mensaje enviado.~n",[]),
-            io:format("Coincidencia: mensaje recibido.~n~n",[]),
+   %% 	    io:format("light ~w, lanes: ~w. Dir:~w~n ",[self(), NewManaged,Dir]),
+   %% 	    io:format("Coincidencia: mensaje enviado.~n",[]),
+   %%       io:format("Coincidencia: mensaje recibido.~n~n",[]),
             find_lanes({LightId,NewManaged},Tail, RemLanes);
         true ->
      	    io:format("NO TYPE MATCH",[])     	    
     end; 
 find_lanes({LightId, ManagedLanes}, [LHead | LTail], RemLanes) ->
-    io:format("No Coincidencia: ~w continue.~n",[{LightId,ManagedLanes}]),
+    %%io:format("No Coincidencia: ~w continue.~n",[{LightId,ManagedLanes}]),
     find_lanes({LightId, ManagedLanes}, LTail, [LHead|RemLanes]).
 
 
@@ -137,24 +151,24 @@ find_lanes({LightId, ManagedLanes}, [LHead | LTail], RemLanes) ->
 connect_lanes({[], _LaneList}) -> 
     {[],{ok, ready}};
 connect_lanes({[{LaneId,Pid, _Light,_Dir, AdjLanes, _IsSource, _ProbData} | TailLane], LaneList}) -> 
-    io:format("Carril: ~w / lineas adj: ~w.~n",[{LaneId,Pid}, AdjLanes]),
+    %%io:format("Carril: ~w / lineas adj: ~w.~n",[{LaneId,Pid}, AdjLanes]),
     set_connection_to_lane({LaneId,Pid}, AdjLanes, LaneList),
     connect_lanes({TailLane, LaneList}).
   
 %% For each type of adjLane (Main, secondary, or sibling) get the corresponding list
 %% and look for the proccess for the especified ID.
-set_connection_to_lane({LaneId,LanePid}, [], _LanesList) -> 
-    io:format("Exit ~w / sin lineas.~n~n",[{LaneId,LanePid}]),
+set_connection_to_lane({_LaneId, _LanePid}, [], _LanesList) -> 
+    %%io:format("Exit ~w / sin lineas.~n~n",[{LaneId,LanePid}]),
     [];
 set_connection_to_lane({LaneId,LanePid}, [{Type, AdjLaneTypeList} | AdjLanesTypeTail], LaneList) ->    
     AdjLaneTypeData = iterate_Adj_lane_types(AdjLaneTypeList,LaneList,[]),
-    io:format("Coincidencia: ~w envio de mensaje.~n",[{LaneId,LanePid}]),
+    %%io:format("Coincidencia: ~w envio de mensaje.~n",[{LaneId,LanePid}]),
     LanePid ! {connect_lane, {Type, AdjLaneTypeData}, self()},
-    io:format("Coincidencia: mensaje enviado.~n",[]),
+    %%io:format("Coincidencia: mensaje enviado.~n",[]),
     receive
         {reply, error} -> error;
   	{reply, ok} -> 
-            io:format("Coincidencia: mensaje recibido. Linea agregada~n~n",[]),
+            %%io:format("Coincidencia: mensaje recibido. Linea agregada~n~n",[]),
             set_connection_to_lane({LaneId,LanePid},AdjLanesTypeTail, LaneList)
     end.   
 
@@ -165,8 +179,8 @@ iterate_Adj_lane_types([AdjLane | AdjLanesTail],LaneList, TypeAdjList) ->
     iterate_Adj_lane_types(AdjLanesTail, LaneList, [AdjLaneData | TypeAdjList]).    
     
 %% Find all corresponding lane PID, for the indicated AdjLaneId  
-find_adjLanes(AdjLaneId, []) -> 
-    io:format("No Coincidencia: ~w continue.~n",[AdjLaneId]),
+find_adjLanes(_AdjLaneId, []) -> 
+    %%io:format("No Coincidencia: ~w continue.~n",[AdjLaneId]),
     {};
 find_adjLanes(AdjLaneId, [{AdjLaneId,AdjLanePid, _Light,_Dir, _AdjLanes, _IsSource, _ProbData}|_Tail]) ->
     {AdjLaneId,AdjLanePid};  
@@ -246,7 +260,7 @@ get_all_lines(Device, Accum) ->
 write_result(Path, Data) ->
     file:write_file(Path, io_lib:fwrite("~p.\n", [lists:flatten(Data)]),[append]).
 
-loop({Intersections, SourceLanes, LogPath}, Time) ->
+loop({Intersections, SourceLanes, {LogPath, DataLogPath}}, Time) ->
   %% On EVERY intersection in the system
   %% get the light_fsm and run each simulation for it
   %% according to the state of the FSM it will or will not move  the cars
@@ -264,7 +278,7 @@ loop({Intersections, SourceLanes, LogPath}, Time) ->
 	 io:format("----------------------------------------------------------~n~n"),
 	 write_result(LogPath, io_lib:format("Finishing simulation iteration: ~w continue. Intersections~n",[Time])),
 	 write_result(LogPath, io_lib:format("----------------------------------------------------------",[])),
-	 loop({Intersections, UpdatedSources, LogPath}, Time + 1);
+	 loop({Intersections, UpdatedSources, {LogPath, DataLogPath}}, Time + 1);
     {call,Pid, stop} -> 
          reply(Pid, {normal, Time})
   end.
@@ -274,6 +288,32 @@ loop({Intersections, SourceLanes, LogPath}, Time) ->
 traverse_network([], _Time) ->
     [];
 traverse_network([{InterId, Intersection}|Intersections], Time) ->
-    io:format("Evaluating state for light_fsm: ~w continue.~n",[InterId]),
+    %%io:format("Evaluating state for light_fsm: ~w continue.~n",[InterId]),
     light_fsm:evaluate_state({InterId, Intersection, Time}),
     traverse_network(Intersections, Time).
+    
+%% Estimate initial Cars arrival for all sources lanes
+init_poisson(SourcesLanes) ->
+    io:format("LOOKING FOR POISSON ~n",[]),
+    init_poisson(SourcesLanes, []).
+init_poisson([],SourceUpdated) ->
+    io:format("POISSON ENDED ~n",[]),
+    SourceUpdated;
+init_poisson([{LaneId, LanePid, [], ProbData}| Tail], SourceUpdated) ->
+    Arrival = data_distribution(),
+    io:format("Arrival time ~w~n",[Arrival]),
+    NewLane = {LaneId, LanePid, [],ProbData, Arrival},
+    init_poisson(Tail, [NewLane | SourceUpdated]).
+    
+%% Calculate statistics
+%% use the module statistics to calculate cars arrival and other scenaries
+data_distribution() ->
+    %N = random:uniform(12),
+    %Lambda= 6,
+    %{N, lanes_poisson(N, Lambda)}.
+    poissonServer ! {valor, self()},
+    receive
+  	{reply, Arrival} -> io:format("Valor recibido ~w~n",[Arrival]),
+    		   	 Arrival;
+    	Other	      -> io:format("Error calling the server: ~w~n",[Other])
+    end.

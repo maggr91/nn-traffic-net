@@ -3,7 +3,7 @@
 
 %gen_fsm behavior implementation
 -export([init/1, handle_event/3,handle_sync_event/4, handle_info/3, terminate/3, code_change/4,
-         get_state/1]).
+         get_state/1, tabulate_data/2]).
 
 %states
 -export([ redred/2, redred/3, greenred/2, greenred/3, redgreen/2, redgreen/3]).
@@ -28,14 +28,16 @@ idle(Pid) ->
 
 update_siblings(Pid, Siblings) ->
     gen_fsm:sync_send_event(Pid,{update_siblings, Siblings}).
-    
+
+tabulate_data(Pid, DataLog) ->
+    gen_fsm:sync_send_event(Pid,{tabulate_data, DataLog}).
 %% gen_fsm functions
 
 start_link(Args) ->
     gen_fsm:start_link(?MODULE,Args,[]).
 
 init(Args) ->
-    io:fwrite("gen_fsm called ~w:init(~w)~n", [?MODULE, Args]),
+    %io:fwrite("gen_fsm called ~w:init(~w)~n", [?MODULE, Args]),
     %{ok, redred,#state{}}.
     {LightId, {Av, Ca},Siblings, Cycle_time, Go_time, LogData} = Args,
     file:delete(LogData), %% delete old log
@@ -43,7 +45,7 @@ init(Args) ->
 
 get_state(LightPid) ->
     try
-        io:fwrite("Getting state ~w~n", [LightPid]),
+        %io:fwrite("Getting state ~w~n", [LightPid]),
         gen_fsm:sync_send_event(LightPid, get_state)
     catch 
 	exit : { noproc, _ } -> closed
@@ -99,9 +101,14 @@ redred(Event, StateData) ->
 redred(get_state, _From, StateData = {_LightId, _ManagedLanes,Siblings, Cycle_time, Go_time, LogData}) ->
     {reply, {redred,Cycle_time, Go_time,Siblings, LogData},redred, StateData};
 redred({update_siblings, Siblings},_From, StateData) ->
-    io:format("Updating StateData: ~w~n",[Siblings]),
+    %io:format("Updating StateData: ~w~n",[Siblings]),
     {LightId,{Av, Ca},_Siblings, Cycle_time, Go_time, LogData} = StateData,
     {reply, {redred,Siblings},redred, {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData}};
+redred({tabulate_data, DataLog},_From, StateData) ->
+    io:format("Writing down data results: ~p~n",[DataLog]),
+    {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData} = StateData,
+    write_final_data({Av, Ca}, DataLog),
+    {reply, {redred,DataLog},redred, {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData}};
 redred(move_avenue,_From, StateData) ->
     io:format("Moving avenue lanes. Data: ~w~n",[StateData]),
     {LightId,{Av, Ca},Siblings, Cycle_time, Go_time, LogData} = StateData,
@@ -138,6 +145,11 @@ greenred(Event, StateData) ->
 %%Synch calls
 greenred(get_state, _From, StateData = {_LightId,_ManagedLanes,Siblings, Cycle_time, Go_time, LogData}) ->
     {reply, {greenred,Cycle_time, Go_time, Siblings,LogData},greenred, StateData};
+greenred({tabulate_data, DataLog},_From, StateData) ->
+    io:format("Writing down data results: ~p~n",[DataLog]),
+    {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData} = StateData,
+    write_final_data({Av, Ca}, DataLog),
+    {reply, {greenred,DataLog},greenred, {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData}};
 greenred(move_avenue, _From, StateData) ->
     io:format("continue moving avenue lanes. Data: ~w~n",[StateData]),
     {LightId,{Av, Ca},Siblings, Cycle_time, Go_time, LogData} = StateData,
@@ -173,6 +185,11 @@ redgreen(Event, StateData) ->
     {next_state, redgreen, StateData}.      
 redgreen(get_state, _From, StateData = {_LightId,_ManagedLanes,Siblings, Cycle_time, Go_time, LogData}) ->
     {reply, {redgreen,Cycle_time, Go_time,Siblings, LogData},redgreen, StateData};
+redgreen({tabulate_data, DataLog},_From, StateData) ->
+    io:format("Writing down data results: ~p~n",[DataLog]),
+    {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData} = StateData,
+    write_final_data({Av, Ca}, DataLog),
+    {reply, {redgreen,DataLog},redgreen, {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData}};
 redgreen(move_street,_From, StateData) ->
     io:format("continue moving street lanes. Data: ~w~n",[StateData]),
     {LightId,{Av, Ca},Siblings, Cycle_time, Go_time, LogData} = StateData,
@@ -266,4 +283,23 @@ estimate_after_idle(LightPid, LogData) ->
     
 %% Write down results
 write_result(Path, Data) ->
-    file:write_file(Path, io_lib:fwrite("~p.\n", [lists:flatten(Data)]),[append]).   
+    file:write_file(Path, io_lib:fwrite("~p.\n", [lists:flatten(Data)]),[append]).
+    
+write_final_data({Av, Ca}, Path) ->
+    write_final_data(Av, Path),
+    write_final_data(Ca, Path);
+    
+write_final_data([], Path) ->
+    write_result(Path, io_lib:format("FINISH WRITEDOWN FOR LANE",[])),
+    write_result(Path, io_lib:format("=======================================",[]));
+write_final_data([{LaneId,LanePid}|Tail], Path) ->
+    write_result(Path, io_lib:format("=======================================",[])),
+    write_result(Path, io_lib:format("START WRITEDOWN FOR LANE: ~w",[LaneId])),
+    
+    LanePid ! {write_down, self(), Path,LaneId},
+    receive
+        {reply, _Reply} -> 
+            io:format("reply recieve after writedown lane ~w.~n",[LaneId])            
+    end,
+    write_final_data(Tail, Path).
+

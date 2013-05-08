@@ -1,8 +1,29 @@
 -module(prob).
 
 -define(Euler, 2.7182818284590452353602874713527).
--compile(export_all).
-%-export ([poisson/2]).
+%-compile(export_all).
+-export ([poisson/2,start/1, reply/2, valorExponencial/1,fixedTable/0]).
+
+-export ([init/1]).
+
+
+
+%%INICIO DEL PROCESO
+start(Args) ->
+    spawn(prob,init, [Args]).
+    
+init({Distribution, ProbData}) ->
+    {A1,A2,A3} = now(), 
+    random:seed(A1, A2, A3),
+    io:format("Invocando prob para poisson: ~p~n",[{Distribution, ProbData}]),
+    case Distribution of
+        poisson    -> serverTabla(tablaAcumulada(tablaPoisson(ProbData)));
+        geometrica -> serverTabla(tablaAcumulada(tablaGeometrica(ProbData)))
+    end.
+
+reply (Pid, Reply) ->
+    Pid ! {reply, Reply}.
+
 
 poisson(X, Lambda) when X > -1 ->
     math:pow(?Euler, -Lambda) * math:pow(Lambda, X) / factorial(X);
@@ -67,14 +88,23 @@ tablaAcumulada([{Val, PVal}|RestoAcum], [{ValEle,PValElem}|Resto])->
 	
 valorExponencial(Media)->-1*Media*math:log(random:uniform()).
 
-serverTabla(TablaAcum)->
+fixedTable() ->
+    [random:uniform(60) || _ <- lists:seq(1, 1000)].
+
+serverTabla(TablaAcum)->	
 	receive
-		{valor, Cliente} -> Cliente ! encuentraValorTabla(TablaAcum, random:uniform()),
-					serverTabla(TablaAcum);
-		killyou->io:format("Saliendo... mi tabla era: ~p~n",[TablaAcum]);
-		_X -> serverTabla(TablaAcum)
+		{valor, Cliente} ->
+		    io:format("Saliendo... mi tabla era: ~p~n",[TablaAcum]),
+		    NewVal = encuentraValorTabla(TablaAcum, random:uniform()),
+		    io:format("Nuevo vALOR...~p~n",[NewVal]),
+		    reply(Cliente, NewVal), 	
+		    serverTabla(TablaAcum);
+		killyou -> 
+		    io:format("Saliendo... mi tabla era: ~p~n",[TablaAcum]);
+		X -> 
+		    io:format("Llamado no esperado... ~p~n",[X]),
+		    serverTabla(TablaAcum)
 	end.
-	
+
 encuentraValorTabla([{X,Px}|_Resto], ValAleatorio) when ValAleatorio > Px ->X;
 encuentraValorTabla([{_X,_Px}|Resto], ValAleatorio)->encuentraValorTabla(Resto,ValAleatorio).
-	
