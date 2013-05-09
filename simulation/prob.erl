@@ -93,11 +93,9 @@ fixedTable() ->
 
 serverTabla(TablaAcum)->	
 	receive
-		{valor, Cliente} ->
-		    io:format("Saliendo... mi tabla era: ~p~n",[TablaAcum]),
-		    NewVal = encuentraValorTabla(TablaAcum, random:uniform()),
-		    io:format("Nuevo vALOR...~p~n",[NewVal]),
-		    reply(Cliente, NewVal), 	
+		{valor, Cliente} ->		    
+		    io:format("Buscando valor... mi tabla era: ~p~n",[TablaAcum]),
+		    reply(Cliente, encuentraValorTabla(TablaAcum, random:uniform())), 	
 		    serverTabla(TablaAcum);
 		killyou -> 
 		    io:format("Saliendo... mi tabla era: ~p~n",[TablaAcum]);

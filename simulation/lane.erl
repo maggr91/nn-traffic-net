@@ -1,6 +1,6 @@
 -module(lane).
 
--export([start/1, estimate_new_arrival/2, init_poisson/2, lane_geometric/2, data_distribution/1]).
+-export([start/1, estimate_new_arrival/2, init_poisson/1, lane_geometric/2]).
 
 -export([init/1]).
 
@@ -336,8 +336,8 @@ stop_moving([{car,{Wait,Delay, Position}}|Waiting], LastPosition, UpdatedCars) w
 %% if not enters the waiting list of the respective source lane
 %% at any case, update times for cars lists
 add_car({LaneId, LanePid, WaitingOutside, ProbData, _Timer}, Car, SourcesLane, LogPath) ->    
-    LanePid ! {incoming, self(), Car},
     NewArrival  =  new_arrival({LaneId, LanePid,ProbData}),
+    LanePid ! {incoming, self(), Car},    
     receive
         {reply, full}  ->
             io:format("Lane ~w its full. Adding to wait list~n",[LaneId]),
@@ -439,21 +439,21 @@ estimate_new_arrival([{LaneId, LanePid, WaitingOutside, ProbData, Timer}| Tail],
     
 
 %% Estimate initial Cars arrival for all sources lanes
-init_poisson(SourcesLanes, PoissonServer) ->
+init_poisson(SourcesLanes) ->
     io:format("LOOKING FOR POISSON ~n",[]),
-    init_poisson(SourcesLanes, [], PoissonServer).
-init_poisson([],SourceUpdated, _PoissonServer) ->
+    init_poisson(SourcesLanes, []).
+init_poisson([],SourceUpdated) ->
     io:format("POISSON ENDED ~n",[]),
     SourceUpdated;
-init_poisson([{LaneId, LanePid, [], ProbData}| Tail], SourceUpdated, PoissonServer) ->
-    Arrival = data_distribution(PoissonServer),
+init_poisson([{LaneId, LanePid, [], ProbData}| Tail], SourceUpdated) ->
+    Arrival = data_distribution(),
     io:format("Arrival time ~w~n",[Arrival]),
     NewLane = {LaneId, LanePid, [],ProbData, Arrival},
-    init_poisson(Tail, [NewLane | SourceUpdated],PoissonServer).
+    init_poisson(Tail, [NewLane | SourceUpdated]).
     
 %% Calculate statistics
 %% use the module statistics to calculate cars arrival and other scenaries
-data_distribution(PoissonServer) ->
+data_distribution() ->
     %N = random:uniform(12),
     %Lambda= 6,
     %{N, lanes_poisson(N, Lambda)}.
@@ -475,7 +475,7 @@ lane_geometric(N, P) ->
 %% Determine new car arrival for lane
 new_arrival({_LaneId, _LanePid, _ProbData}) ->
  io:format("New Arrival search~n",[]),
- data_distribution(self()).
+ data_distribution().
  
  
 %% Write down the results
