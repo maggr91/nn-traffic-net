@@ -20,7 +20,7 @@
 start(Lapse) ->    
     register(poissonServer,prob:start({poisson,6})),    
     register(traffic, spawn(traffic, init, [])),
-    timer:apply_after(900, traffic, run_simulation, [Lapse]).
+    timer:apply_after(400, traffic, run_simulation, [Lapse]).
     %%run_simulation(Lapse).
 
 %%run aux
@@ -76,7 +76,7 @@ set_map() ->
     SourceLanes = get_source_lanes(AllocatedLanes),
 
 %%Get poisson dist for each source lane
-    NewSources = init_poisson(SourceLanes),    
+    NewSources = lane:init_poisson(SourceLanes),    
     %%io:format("SOURCES With poisson ~w.~n",[NewSources]),    
 
 %%Spawn FSM for traffic lights on each intersection and then connect them    
@@ -268,11 +268,12 @@ loop({Intersections, SourceLanes, {LogPath, DataLogPath}}, Time) ->
   receive
      {call, Pid, continue} ->
          io:format("Running simulation iteration: ~w continue. Intersections ~w~n",[Time, Intersections]),
+         %% Evaluate arrival of new cars to the lane
+         UpdatedSources = lane:estimate_new_arrival(SourceLanes, LogPath),
+         
   %% Iterate intersection list and for each of them run evaluate state funciton
          traverse_network(Intersections, Time),
-         write_result(LogPath, io_lib:format("Running simulation iteration: ~w continue. SourcesLanes ~w~n",[Time, SourceLanes])),
-  %% Evaluate arrival of new cars to the lane
-         UpdatedSources = lane:estimate_new_arrival(SourceLanes, LogPath),             
+         write_result(LogPath, io_lib:format("Running simulation iteration: ~w continue. SourcesLanes ~w~n",[Time, SourceLanes])),               
 	 reply(Pid, {iteration, ok}),
 	 io:format("Finishing simulation iteration: ~w continue. Intersections~n",[Time]),
 	 io:format("----------------------------------------------------------~n~n"),
@@ -280,6 +281,7 @@ loop({Intersections, SourceLanes, {LogPath, DataLogPath}}, Time) ->
 	 write_result(LogPath, io_lib:format("----------------------------------------------------------",[])),
 	 loop({Intersections, UpdatedSources, {LogPath, DataLogPath}}, Time + 1);
     {call,Pid, stop} -> 
+         tabulate_network(Intersections,DataLogPath),
          reply(Pid, {normal, Time})
   end.
 
@@ -292,28 +294,38 @@ traverse_network([{InterId, Intersection}|Intersections], Time) ->
     light_fsm:evaluate_state({InterId, Intersection, Time}),
     traverse_network(Intersections, Time).
     
+%% Receive traffic light list as param and tabulates the results for ech one
+tabulate_network([], _DataLog) ->
+    [];
+tabulate_network([{InterId, Intersection}|Intersections],DataLog) ->
+    %%io:format("Evaluating state for light_fsm: ~w continue.~n",[InterId]),
+    light_fsm:tabulate_data(Intersection, DataLog),
+    traverse_network(Intersections, DataLog).    
+
+
+    
 %% Estimate initial Cars arrival for all sources lanes
-init_poisson(SourcesLanes) ->
-    io:format("LOOKING FOR POISSON ~n",[]),
-    init_poisson(SourcesLanes, []).
-init_poisson([],SourceUpdated) ->
-    io:format("POISSON ENDED ~n",[]),
-    SourceUpdated;
-init_poisson([{LaneId, LanePid, [], ProbData}| Tail], SourceUpdated) ->
-    Arrival = data_distribution(),
-    io:format("Arrival time ~w~n",[Arrival]),
-    NewLane = {LaneId, LanePid, [],ProbData, Arrival},
-    init_poisson(Tail, [NewLane | SourceUpdated]).
+%%init_poisson(SourcesLanes) ->
+%%    io:format("LOOKING FOR POISSON ~n",[]),
+%%    init_poisson(SourcesLanes, []).
+%%init_poisson([],SourceUpdated) ->
+%%    io:format("POISSON ENDED ~n",[]),
+%%    SourceUpdated;
+%%init_poisson([{LaneId, LanePid, [], ProbData}| Tail], SourceUpdated) ->
+%%    Arrival = data_distribution(),
+%%    io:format("Arrival time ~w~n",[Arrival]),
+%%    NewLane = {LaneId, LanePid, [],ProbData, Arrival},
+%%    init_poisson(Tail, [NewLane | SourceUpdated]).
     
 %% Calculate statistics
 %% use the module statistics to calculate cars arrival and other scenaries
-data_distribution() ->
+%%data_distribution() ->
     %N = random:uniform(12),
     %Lambda= 6,
     %{N, lanes_poisson(N, Lambda)}.
-    poissonServer ! {valor, self()},
-    receive
-  	{reply, Arrival} -> io:format("Valor recibido ~w~n",[Arrival]),
-    		   	 Arrival;
-    	Other	      -> io:format("Error calling the server: ~w~n",[Other])
-    end.
+%%    poissonServer ! {valor, self()},
+%%    receive
+%%  	{reply, Arrival} -> io:format("Valor recibido ~w~n",[Arrival]),
+%%    		   	 Arrival;
+%%    	Other	      -> io:format("Error calling the server: ~w~n",[Other])
+%%    end.
