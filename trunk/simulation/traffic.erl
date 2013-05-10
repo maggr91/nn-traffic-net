@@ -1,6 +1,6 @@
 -module(traffic).
 
--export([start/1, stop/0, set_map/0, connect/1, connect_lanes/1, run_simulation/1]).
+-export([start/0, set_map/0, connect/1, connect_lanes/1]).
 
 -export([init/0]).
 
@@ -17,36 +17,37 @@
 %% of normal traffic, with no modification of ANN
 
 %% Start method, USE this to run simulation
-start(Lapse) ->    
-    register(poissonServer,prob:start({poisson,6})),    
-    register(traffic, spawn(traffic, init, [])),
-    timer:apply_after(400, traffic, run_simulation, [Lapse]).
+start() ->    
+%%    register(poissonServer,prob:start({poisson,6})),    
+%%    register(traffic, spawn(traffic, init, [])),
+      spawn(traffic, init, []).
+%%    timer:apply_after(400, traffic, run_simulation, [Lapse]).
     %%run_simulation(Lapse).
 
 %%run aux
-run_simulation(Lapse) ->    
-    run_simulation(Lapse, 0).
+%%run_simulation(Lapse) ->    
+%%    run_simulation(Lapse, 0).
 
 %% Loop used to run each iteration of the simulation
-run_simulation(Lapse, Current) when Current < Lapse ->
-    io:format("CONTINUING with run.~n",[]),
-    call(continue),   
-    run_simulation(Lapse, Current + 1);
-run_simulation(Lapse, Current) when Current >= Lapse ->
-    stop().
+%%run_simulation(Lapse, Current) when Current < Lapse ->
+%%    io:format("CONTINUING with run.~n",[]),
+%%    call(continue),   
+%%    run_simulation(Lapse, Current + 1);
+%%run_simulation(Lapse, Current) when Current >= Lapse ->
+%%    stop().
  
-stop() -> 
-    call(stop).
+%%stop() -> 
+%%    call(stop).
 
 reply (Pid, Reply) ->
     Pid ! {reply, Reply}.
 
-call(Message) ->
-    io:format("CALLING PROCESS LOOP.~n",[]),
-    traffic ! {call, self(), Message},
-    receive
-       {reply, Reply} -> Reply
-    end.
+%%call(Message) ->
+%%    io:format("CALLING PROCESS LOOP.~n",[]),
+%%    traffic ! {call, self(), Message},
+%%    receive
+%%       {reply, Reply} -> Reply
+%%    end.
 
 init() ->
     MapData = set_map(), 
@@ -300,7 +301,7 @@ tabulate_network([], _DataLog) ->
 tabulate_network([{_InterId, Intersection}|Intersections],DataLog) ->
     %%io:format("Evaluating state for light_fsm: ~w continue.~n",[InterId]),
     light_fsm:tabulate_data(Intersection, DataLog),
-    traverse_network(Intersections, DataLog).    
+    tabulate_network(Intersections, DataLog).    
 
 
     

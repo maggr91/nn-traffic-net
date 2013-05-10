@@ -90,6 +90,8 @@ lane(Type, ConnectedLanes, CarsQueque, Capacity, Obstruction, ProbData) ->
 	    %%end;
 	    
 	{write_down, Pid, Path,LaneId} ->
+	    write_result(Path, io_lib:format("=======================================",[])),
+	    write_result(Path, io_lib:format("START WRITEDOWN CARS INFO FOR LANE: ~w",[LaneId])),
 	    write_final_data(CarsQueque, Path, LaneId),
 	    reply(Pid, finished);
 	    	    
@@ -485,9 +487,7 @@ write_result(Path, Data) ->
 write_final_data([], Path, LaneId) ->
     write_result(Path, io_lib:format("FINISH WRITEDOWN CARS INFO FOR LANE: ~w",[LaneId])),
     write_result(Path, io_lib:format("=======================================",[]));
-write_final_data([Car|Tail], Path, LaneId) ->
-    write_result(Path, io_lib:format("=======================================",[])),
-    write_result(Path, io_lib:format("START WRITEDOWN CARS INFO FOR LANE: ~w",[LaneId])),
+write_final_data([Car|Tail], Path, LaneId) ->    
     write_result(Path, io_lib:format(" ~w",[Car])),
     write_final_data(Tail, Path, LaneId).
     
