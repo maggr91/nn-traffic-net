@@ -15,322 +15,12 @@
 "NOT ADDING CAR TO LANE. LANE lane212av3 \n".
 "NOT ADDING CAR TO LANE. LANE lane212av2 \n".
 "NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"Running simulation iteration: 0 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},7},{lane806av1,<0.100.0>,[],{0,0.6,1},5},{lane808ca2,<0.99.0>,[],{0,0.6,1},6},{lane606av2,<0.86.0>,[],{0,0.6,1},9},{lane606av1,<0.85.0>,[],{0,0.6,1},2},{lane612av4,<0.75.0>,[],{0,0.6,1},8},{lane612av3,<0.74.0>,[],{0,0.6,1},5},{lane406ca2,<0.71.0>,[],{0,0.6,1},2},{lane406ca1,<0.70.0>,[],{0,0.6,1},11},{lane410ca1,<0.68.0>,[],{0,0.6,1},4},{lane206ca2,<0.65.0>,[],{0,0.6,1},5},{lane206ca1,<0.64.0>,[],{0,1,2},3},{lane210ca1,<0.51.0>,[],{0,0.6,1},7},{lane212av4,<0.43.0>,[],{0,0.6,1},1},{lane212av3,<0.42.0>,[],{0,0.6,1},2},{lane212av2,<0.41.0>,[],{0,0.6,1},7},{lane212av1,<0.40.0>,[],{0,0.6,1},6}]\n".
+"Running simulation iteration: 0 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},5},{lane806av1,<0.100.0>,[],{0,0.6,1},9},{lane808ca2,<0.99.0>,[],{0,0.6,1},9},{lane606av2,<0.86.0>,[],{0,0.6,1},1},{lane606av1,<0.85.0>,[],{0,0.6,1},6},{lane612av4,<0.75.0>,[],{0,0.6,1},3},{lane612av3,<0.74.0>,[],{0,0.6,1},8},{lane406ca2,<0.71.0>,[],{0,0.6,1},5},{lane406ca1,<0.70.0>,[],{0,0.6,1},5},{lane410ca1,<0.68.0>,[],{0,0.6,1},3},{lane206ca2,<0.65.0>,[],{0,0.6,1},4},{lane206ca1,<0.64.0>,[],{0,1,2},9},{lane210ca1,<0.51.0>,[],{0,0.6,1},1},{lane212av4,<0.43.0>,[],{0,0.6,1},2},{lane212av3,<0.42.0>,[],{0,0.6,1},2},{lane212av2,<0.41.0>,[],{0,0.6,1},5},{lane212av1,<0.40.0>,[],{0,0.6,1},3}]\n".
 "Finishing simulation iteration: 0 continue. Intersections\n".
 "----------------------------------------------------------".
 "NOT ADDING CAR TO LANE. LANE lane212av1 \n".
 "NOT ADDING CAR TO LANE. LANE lane212av2 \n".
 "NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av4 \n".
-"Card Added to lane lane212av4".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"Running simulation iteration: 1 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},5},{lane212av2,<0.41.0>,[],{0,0.6,1},6},{lane212av3,<0.42.0>,[],{0,0.6,1},1},{lane212av4,<0.43.0>,[],{0,0.6,1},0},{lane210ca1,<0.51.0>,[],{0,0.6,1},6},{lane206ca1,<0.64.0>,[],{0,1,2},2},{lane206ca2,<0.65.0>,[],{0,0.6,1},4},{lane410ca1,<0.68.0>,[],{0,0.6,1},3},{lane406ca1,<0.70.0>,[],{0,0.6,1},10},{lane406ca2,<0.71.0>,[],{0,0.6,1},1},{lane612av3,<0.74.0>,[],{0,0.6,1},4},{lane612av4,<0.75.0>,[],{0,0.6,1},7},{lane606av1,<0.85.0>,[],{0,0.6,1},1},{lane606av2,<0.86.0>,[],{0,0.6,1},8},{lane808ca2,<0.99.0>,[],{0,0.6,1},5},{lane806av1,<0.100.0>,[],{0,0.6,1},4},{lane806av2,<0.101.0>,[],{0,0.6,1},6}]\n".
-"Finishing simulation iteration: 1 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane606av1 \n".
-"Card Added to lane lane606av1".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane406ca2 \n".
-"Card Added to lane lane406ca2".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av3 \n".
-"Card Added to lane lane212av3".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"Running simulation iteration: 2 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},5},{lane806av1,<0.100.0>,[],{0,0.6,1},3},{lane808ca2,<0.99.0>,[],{0,0.6,1},4},{lane606av2,<0.86.0>,[],{0,0.6,1},7},{lane606av1,<0.85.0>,[],{0,0.6,1},0},{lane612av4,<0.75.0>,[],{0,0.6,1},6},{lane612av3,<0.74.0>,[],{0,0.6,1},3},{lane406ca2,<0.71.0>,[],{0,0.6,1},0},{lane406ca1,<0.70.0>,[],{0,0.6,1},9},{lane410ca1,<0.68.0>,[],{0,0.6,1},2},{lane206ca2,<0.65.0>,[],{0,0.6,1},3},{lane206ca1,<0.64.0>,[],{0,1,2},1},{lane210ca1,<0.51.0>,[],{0,0.6,1},5},{lane212av4,<0.43.0>,[],{0,0.6,1},7},{lane212av3,<0.42.0>,[],{0,0.6,1},0},{lane212av2,<0.41.0>,[],{0,0.6,1},5},{lane212av1,<0.40.0>,[],{0,0.6,1},4}]\n".
-"Finishing simulation iteration: 2 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane206ca1 \n".
-"Card Added to lane lane206ca1".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"Running simulation iteration: 3 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},3},{lane212av2,<0.41.0>,[],{0,0.6,1},4},{lane212av3,<0.42.0>,[],{0,0.6,1},4},{lane212av4,<0.43.0>,[],{0,0.6,1},6},{lane210ca1,<0.51.0>,[],{0,0.6,1},4},{lane206ca1,<0.64.0>,[],{0,1,2},0},{lane206ca2,<0.65.0>,[],{0,0.6,1},2},{lane410ca1,<0.68.0>,[],{0,0.6,1},1},{lane406ca1,<0.70.0>,[],{0,0.6,1},8},{lane406ca2,<0.71.0>,[],{0,0.6,1},4},{lane612av3,<0.74.0>,[],{0,0.6,1},2},{lane612av4,<0.75.0>,[],{0,0.6,1},5},{lane606av1,<0.85.0>,[],{0,0.6,1},7},{lane606av2,<0.86.0>,[],{0,0.6,1},6},{lane808ca2,<0.99.0>,[],{0,0.6,1},3},{lane806av1,<0.100.0>,[],{0,0.6,1},2},{lane806av2,<0.101.0>,[],{0,0.6,1},4}]\n".
-"Finishing simulation iteration: 3 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane410ca1 \n".
-"Card Added to lane lane410ca1".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"Running simulation iteration: 4 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},3},{lane806av1,<0.100.0>,[],{0,0.6,1},1},{lane808ca2,<0.99.0>,[],{0,0.6,1},2},{lane606av2,<0.86.0>,[],{0,0.6,1},5},{lane606av1,<0.85.0>,[],{0,0.6,1},6},{lane612av4,<0.75.0>,[],{0,0.6,1},4},{lane612av3,<0.74.0>,[],{0,0.6,1},1},{lane406ca2,<0.71.0>,[],{0,0.6,1},3},{lane406ca1,<0.70.0>,[],{0,0.6,1},7},{lane410ca1,<0.68.0>,[],{0,0.6,1},0},{lane206ca2,<0.65.0>,[],{0,0.6,1},1},{lane206ca1,<0.64.0>,[],{0,1,2},4},{lane210ca1,<0.51.0>,[],{0,0.6,1},3},{lane212av4,<0.43.0>,[],{0,0.6,1},5},{lane212av3,<0.42.0>,[],{0,0.6,1},3},{lane212av2,<0.41.0>,[],{0,0.6,1},3},{lane212av1,<0.40.0>,[],{0,0.6,1},2}]\n".
-"Finishing simulation iteration: 4 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane206ca2 \n".
-"Card Added to lane lane206ca2".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane612av3 \n".
-"Card Added to lane lane612av3".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane806av1 \n".
-"Card Added to lane lane806av1".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"Running simulation iteration: 5 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},1},{lane212av2,<0.41.0>,[],{0,0.6,1},2},{lane212av3,<0.42.0>,[],{0,0.6,1},2},{lane212av4,<0.43.0>,[],{0,0.6,1},4},{lane210ca1,<0.51.0>,[],{0,0.6,1},2},{lane206ca1,<0.64.0>,[],{0,1,2},3},{lane206ca2,<0.65.0>,[],{0,0.6,1},0},{lane410ca1,<0.68.0>,[],{0,0.6,1},5},{lane406ca1,<0.70.0>,[],{0,0.6,1},6},{lane406ca2,<0.71.0>,[],{0,0.6,1},2},{lane612av3,<0.74.0>,[],{0,0.6,1},0},{lane612av4,<0.75.0>,[],{0,0.6,1},3},{lane606av1,<0.85.0>,[],{0,0.6,1},5},{lane606av2,<0.86.0>,[],{0,0.6,1},4},{lane808ca2,<0.99.0>,[],{0,0.6,1},1},{lane806av1,<0.100.0>,[],{0,0.6,1},0},{lane806av2,<0.101.0>,[],{0,0.6,1},2}]\n".
-"Finishing simulation iteration: 5 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane808ca2 \n".
-"Card Added to lane lane808ca2".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av1 \n".
-"Card Added to lane lane212av1".
-"Running simulation iteration: 6 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},1},{lane806av1,<0.100.0>,[],{0,0.6,1},1},{lane808ca2,<0.99.0>,[],{0,0.6,1},0},{lane606av2,<0.86.0>,[],{0,0.6,1},3},{lane606av1,<0.85.0>,[],{0,0.6,1},4},{lane612av4,<0.75.0>,[],{0,0.6,1},2},{lane612av3,<0.74.0>,[],{0,0.6,1},4},{lane406ca2,<0.71.0>,[],{0,0.6,1},1},{lane406ca1,<0.70.0>,[],{0,0.6,1},5},{lane410ca1,<0.68.0>,[],{0,0.6,1},4},{lane206ca2,<0.65.0>,[],{0,0.6,1},4},{lane206ca1,<0.64.0>,[],{0,1,2},2},{lane210ca1,<0.51.0>,[],{0,0.6,1},1},{lane212av4,<0.43.0>,[],{0,0.6,1},3},{lane212av3,<0.42.0>,[],{0,0.6,1},1},{lane212av2,<0.41.0>,[],{0,0.6,1},1},{lane212av1,<0.40.0>,[],{0,0.6,1},0}]\n".
-"Finishing simulation iteration: 6 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av2 \n".
-"Card Added to lane lane212av2".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av3 \n".
-"Card Added to lane lane212av3".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane210ca1 \n".
-"Card Added to lane lane210ca1".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane406ca2 \n".
-"Card Added to lane lane406ca2".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane806av1 \n".
-"Card Added to lane lane806av1".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane806av2 \n".
-"Card Added to lane lane806av2".
-"Running simulation iteration: 7 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},5},{lane212av2,<0.41.0>,[],{0,0.6,1},0},{lane212av3,<0.42.0>,[],{0,0.6,1},0},{lane212av4,<0.43.0>,[],{0,0.6,1},2},{lane210ca1,<0.51.0>,[],{0,0.6,1},0},{lane206ca1,<0.64.0>,[],{0,1,2},1},{lane206ca2,<0.65.0>,[],{0,0.6,1},3},{lane410ca1,<0.68.0>,[],{0,0.6,1},3},{lane406ca1,<0.70.0>,[],{0,0.6,1},4},{lane406ca2,<0.71.0>,[],{0,0.6,1},0},{lane612av3,<0.74.0>,[],{0,0.6,1},3},{lane612av4,<0.75.0>,[],{0,0.6,1},1},{lane606av1,<0.85.0>,[],{0,0.6,1},3},{lane606av2,<0.86.0>,[],{0,0.6,1},2},{lane808ca2,<0.99.0>,[],{0,0.6,1},6},{lane806av1,<0.100.0>,[],{0,0.6,1},0},{lane806av2,<0.101.0>,[],{0,0.6,1},0}]\n".
-"Finishing simulation iteration: 7 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane612av4 \n".
-"Card Added to lane lane612av4".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane206ca1 \n".
-"Card Added to lane lane206ca1".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"Running simulation iteration: 8 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},3},{lane806av1,<0.100.0>,[],{0,0.6,1},5},{lane808ca2,<0.99.0>,[],{0,0.6,1},5},{lane606av2,<0.86.0>,[],{0,0.6,1},1},{lane606av1,<0.85.0>,[],{0,0.6,1},2},{lane612av4,<0.75.0>,[],{0,0.6,1},0},{lane612av3,<0.74.0>,[],{0,0.6,1},2},{lane406ca2,<0.71.0>,[],{0,0.6,1},6},{lane406ca1,<0.70.0>,[],{0,0.6,1},3},{lane410ca1,<0.68.0>,[],{0,0.6,1},2},{lane206ca2,<0.65.0>,[],{0,0.6,1},2},{lane206ca1,<0.64.0>,[],{0,1,2},0},{lane210ca1,<0.51.0>,[],{0,0.6,1},7},{lane212av4,<0.43.0>,[],{0,0.6,1},1},{lane212av3,<0.42.0>,[],{0,0.6,1},4},{lane212av2,<0.41.0>,[],{0,0.6,1},5},{lane212av1,<0.40.0>,[],{0,0.6,1},4}]\n".
-"Finishing simulation iteration: 8 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av4 \n".
-"Card Added to lane lane212av4".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane606av2 \n".
-"Card Added to lane lane606av2".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"Running simulation iteration: 9 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},3},{lane212av2,<0.41.0>,[],{0,0.6,1},4},{lane212av3,<0.42.0>,[],{0,0.6,1},3},{lane212av4,<0.43.0>,[],{0,0.6,1},0},{lane210ca1,<0.51.0>,[],{0,0.6,1},6},{lane206ca1,<0.64.0>,[],{0,1,2},5},{lane206ca2,<0.65.0>,[],{0,0.6,1},1},{lane410ca1,<0.68.0>,[],{0,0.6,1},1},{lane406ca1,<0.70.0>,[],{0,0.6,1},2},{lane406ca2,<0.71.0>,[],{0,0.6,1},5},{lane612av3,<0.74.0>,[],{0,0.6,1},1},{lane612av4,<0.75.0>,[],{0,0.6,1},3},{lane606av1,<0.85.0>,[],{0,0.6,1},1},{lane606av2,<0.86.0>,[],{0,0.6,1},0},{lane808ca2,<0.99.0>,[],{0,0.6,1},4},{lane806av1,<0.100.0>,[],{0,0.6,1},4},{lane806av2,<0.101.0>,[],{0,0.6,1},2}]\n".
-"Finishing simulation iteration: 9 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"Running simulation iteration: 0 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},5},{lane806av1,<0.100.0>,[],{0,0.6,1},2},{lane808ca2,<0.99.0>,[],{0,0.6,1},4},{lane606av2,<0.86.0>,[],{0,0.6,1},3},{lane606av1,<0.85.0>,[],{0,0.6,1},5},{lane612av4,<0.75.0>,[],{0,0.6,1},2},{lane612av3,<0.74.0>,[],{0,0.6,1},7},{lane406ca2,<0.71.0>,[],{0,0.6,1},7},{lane406ca1,<0.70.0>,[],{0,0.6,1},9},{lane410ca1,<0.68.0>,[],{0,0.6,1},6},{lane206ca2,<0.65.0>,[],{0,0.6,1},3},{lane206ca1,<0.64.0>,[],{0,1,2},3},{lane210ca1,<0.51.0>,[],{0,0.6,1},5},{lane212av4,<0.43.0>,[],{0,0.6,1},6},{lane212av3,<0.42.0>,[],{0,0.6,1},5},{lane212av2,<0.41.0>,[],{0,0.6,1},4},{lane212av1,<0.40.0>,[],{0,0.6,1},2}]\n".
-"Finishing simulation iteration: 0 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"Running simulation iteration: 1 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},1},{lane212av2,<0.41.0>,[],{0,0.6,1},3},{lane212av3,<0.42.0>,[],{0,0.6,1},4},{lane212av4,<0.43.0>,[],{0,0.6,1},5},{lane210ca1,<0.51.0>,[],{0,0.6,1},4},{lane206ca1,<0.64.0>,[],{0,1,2},2},{lane206ca2,<0.65.0>,[],{0,0.6,1},2},{lane410ca1,<0.68.0>,[],{0,0.6,1},5},{lane406ca1,<0.70.0>,[],{0,0.6,1},8},{lane406ca2,<0.71.0>,[],{0,0.6,1},6},{lane612av3,<0.74.0>,[],{0,0.6,1},6},{lane612av4,<0.75.0>,[],{0,0.6,1},1},{lane606av1,<0.85.0>,[],{0,0.6,1},4},{lane606av2,<0.86.0>,[],{0,0.6,1},2},{lane808ca2,<0.99.0>,[],{0,0.6,1},3},{lane806av1,<0.100.0>,[],{0,0.6,1},1},{lane806av2,<0.101.0>,[],{0,0.6,1},4}]\n".
-"Finishing simulation iteration: 1 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane806av1 \n".
-"Card Added to lane lane806av1".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane612av4 \n".
-"Card Added to lane lane612av4".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av1 \n".
-"Card Added to lane lane212av1".
-"Running simulation iteration: 2 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},3},{lane806av1,<0.100.0>,[],{0,0.6,1},0},{lane808ca2,<0.99.0>,[],{0,0.6,1},2},{lane606av2,<0.86.0>,[],{0,0.6,1},1},{lane606av1,<0.85.0>,[],{0,0.6,1},3},{lane612av4,<0.75.0>,[],{0,0.6,1},0},{lane612av3,<0.74.0>,[],{0,0.6,1},5},{lane406ca2,<0.71.0>,[],{0,0.6,1},5},{lane406ca1,<0.70.0>,[],{0,0.6,1},7},{lane410ca1,<0.68.0>,[],{0,0.6,1},4},{lane206ca2,<0.65.0>,[],{0,0.6,1},1},{lane206ca1,<0.64.0>,[],{0,1,2},1},{lane210ca1,<0.51.0>,[],{0,0.6,1},3},{lane212av4,<0.43.0>,[],{0,0.6,1},4},{lane212av3,<0.42.0>,[],{0,0.6,1},3},{lane212av2,<0.41.0>,[],{0,0.6,1},2},{lane212av1,<0.40.0>,[],{0,0.6,1},0}]\n".
-"Finishing simulation iteration: 2 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane206ca1 \n".
-"Card Added to lane lane206ca1".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane206ca2 \n".
-"Card Added to lane lane206ca2".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane606av2 \n".
-"Card Added to lane lane606av2".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"Running simulation iteration: 3 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},4},{lane212av2,<0.41.0>,[],{0,0.6,1},1},{lane212av3,<0.42.0>,[],{0,0.6,1},2},{lane212av4,<0.43.0>,[],{0,0.6,1},3},{lane210ca1,<0.51.0>,[],{0,0.6,1},2},{lane206ca1,<0.64.0>,[],{0,1,2},0},{lane206ca2,<0.65.0>,[],{0,0.6,1},0},{lane410ca1,<0.68.0>,[],{0,0.6,1},3},{lane406ca1,<0.70.0>,[],{0,0.6,1},6},{lane406ca2,<0.71.0>,[],{0,0.6,1},4},{lane612av3,<0.74.0>,[],{0,0.6,1},4},{lane612av4,<0.75.0>,[],{0,0.6,1},2},{lane606av1,<0.85.0>,[],{0,0.6,1},2},{lane606av2,<0.86.0>,[],{0,0.6,1},0},{lane808ca2,<0.99.0>,[],{0,0.6,1},1},{lane806av1,<0.100.0>,[],{0,0.6,1},5},{lane806av2,<0.101.0>,[],{0,0.6,1},2}]\n".
-"Finishing simulation iteration: 3 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane808ca2 \n".
-"Card Added to lane lane808ca2".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av2 \n".
-"Card Added to lane lane212av2".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"Running simulation iteration: 4 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},1},{lane806av1,<0.100.0>,[],{0,0.6,1},4},{lane808ca2,<0.99.0>,[],{0,0.6,1},0},{lane606av2,<0.86.0>,[],{0,0.6,1},5},{lane606av1,<0.85.0>,[],{0,0.6,1},1},{lane612av4,<0.75.0>,[],{0,0.6,1},1},{lane612av3,<0.74.0>,[],{0,0.6,1},3},{lane406ca2,<0.71.0>,[],{0,0.6,1},3},{lane406ca1,<0.70.0>,[],{0,0.6,1},5},{lane410ca1,<0.68.0>,[],{0,0.6,1},2},{lane206ca2,<0.65.0>,[],{0,0.6,1},6},{lane206ca1,<0.64.0>,[],{0,1,2},8},{lane210ca1,<0.51.0>,[],{0,0.6,1},1},{lane212av4,<0.43.0>,[],{0,0.6,1},2},{lane212av3,<0.42.0>,[],{0,0.6,1},1},{lane212av2,<0.41.0>,[],{0,0.6,1},0},{lane212av1,<0.40.0>,[],{0,0.6,1},3}]\n".
-"Finishing simulation iteration: 4 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av3 \n".
-"Card Added to lane lane212av3".
 "NOT ADDING CAR TO LANE. LANE lane212av4 \n".
 "ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane210ca1 \n".
 "Card Added to lane lane210ca1".
@@ -340,17 +30,15 @@
 "NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
 "NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
 "NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane612av4 \n".
-"Card Added to lane lane612av4".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane606av1 \n".
-"Card Added to lane lane606av1".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
+"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
+"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
+"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane606av2 \n".
+"Card Added to lane lane606av2".
 "NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
 "NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane806av2 \n".
-"Card Added to lane lane806av2".
-"Running simulation iteration: 5 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},2},{lane212av2,<0.41.0>,[],{0,0.6,1},6},{lane212av3,<0.42.0>,[],{0,0.6,1},0},{lane212av4,<0.43.0>,[],{0,0.6,1},1},{lane210ca1,<0.51.0>,[],{0,0.6,1},0},{lane206ca1,<0.64.0>,[],{0,1,2},7},{lane206ca2,<0.65.0>,[],{0,0.6,1},5},{lane410ca1,<0.68.0>,[],{0,0.6,1},1},{lane406ca1,<0.70.0>,[],{0,0.6,1},4},{lane406ca2,<0.71.0>,[],{0,0.6,1},2},{lane612av3,<0.74.0>,[],{0,0.6,1},2},{lane612av4,<0.75.0>,[],{0,0.6,1},0},{lane606av1,<0.85.0>,[],{0,0.6,1},0},{lane606av2,<0.86.0>,[],{0,0.6,1},4},{lane808ca2,<0.99.0>,[],{0,0.6,1},4},{lane806av1,<0.100.0>,[],{0,0.6,1},3},{lane806av2,<0.101.0>,[],{0,0.6,1},0}]\n".
-"Finishing simulation iteration: 5 continue. Intersections\n".
+"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
+"Running simulation iteration: 1 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},2},{lane212av2,<0.41.0>,[],{0,0.6,1},4},{lane212av3,<0.42.0>,[],{0,0.6,1},1},{lane212av4,<0.43.0>,[],{0,0.6,1},1},{lane210ca1,<0.51.0>,[],{0,0.6,1},0},{lane206ca1,<0.64.0>,[],{0,1,2},8},{lane206ca2,<0.65.0>,[],{0,0.6,1},3},{lane410ca1,<0.68.0>,[],{0,0.6,1},2},{lane406ca1,<0.70.0>,[],{0,0.6,1},4},{lane406ca2,<0.71.0>,[],{0,0.6,1},4},{lane612av3,<0.74.0>,[],{0,0.6,1},7},{lane612av4,<0.75.0>,[],{0,0.6,1},2},{lane606av1,<0.85.0>,[],{0,0.6,1},5},{lane606av2,<0.86.0>,[],{0,0.6,1},0},{lane808ca2,<0.99.0>,[],{0,0.6,1},8},{lane806av1,<0.100.0>,[],{0,0.6,1},8},{lane806av2,<0.101.0>,[],{0,0.6,1},4}]\n".
+"Finishing simulation iteration: 1 continue. Intersections\n".
 "----------------------------------------------------------".
 "NOT ADDING CAR TO LANE. LANE lane806av2 \n".
 "NOT ADDING CAR TO LANE. LANE lane806av1 \n".
@@ -361,18 +49,18 @@
 "NOT ADDING CAR TO LANE. LANE lane612av3 \n".
 "NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
 "NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane410ca1 \n".
-"Card Added to lane lane410ca1".
+"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
 "NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
 "NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
 "NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
 "ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av4 \n".
 "Card Added to lane lane212av4".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
+"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av3 \n".
+"Card Added to lane lane212av3".
 "NOT ADDING CAR TO LANE. LANE lane212av2 \n".
 "NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"Running simulation iteration: 6 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},9},{lane806av1,<0.100.0>,[],{0,0.6,1},2},{lane808ca2,<0.99.0>,[],{0,0.6,1},3},{lane606av2,<0.86.0>,[],{0,0.6,1},3},{lane606av1,<0.85.0>,[],{0,0.6,1},5},{lane612av4,<0.75.0>,[],{0,0.6,1},6},{lane612av3,<0.74.0>,[],{0,0.6,1},1},{lane406ca2,<0.71.0>,[],{0,0.6,1},1},{lane406ca1,<0.70.0>,[],{0,0.6,1},3},{lane410ca1,<0.68.0>,[],{0,0.6,1},0},{lane206ca2,<0.65.0>,[],{0,0.6,1},4},{lane206ca1,<0.64.0>,[],{0,1,2},6},{lane210ca1,<0.51.0>,[],{0,0.6,1},8},{lane212av4,<0.43.0>,[],{0,0.6,1},0},{lane212av3,<0.42.0>,[],{0,0.6,1},3},{lane212av2,<0.41.0>,[],{0,0.6,1},5},{lane212av1,<0.40.0>,[],{0,0.6,1},1}]\n".
-"Finishing simulation iteration: 6 continue. Intersections\n".
+"Running simulation iteration: 2 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},3},{lane806av1,<0.100.0>,[],{0,0.6,1},7},{lane808ca2,<0.99.0>,[],{0,0.6,1},7},{lane606av2,<0.86.0>,[],{0,0.6,1},5},{lane606av1,<0.85.0>,[],{0,0.6,1},4},{lane612av4,<0.75.0>,[],{0,0.6,1},1},{lane612av3,<0.74.0>,[],{0,0.6,1},6},{lane406ca2,<0.71.0>,[],{0,0.6,1},3},{lane406ca1,<0.70.0>,[],{0,0.6,1},3},{lane410ca1,<0.68.0>,[],{0,0.6,1},1},{lane206ca2,<0.65.0>,[],{0,0.6,1},2},{lane206ca1,<0.64.0>,[],{0,1,2},7},{lane210ca1,<0.51.0>,[],{0,0.6,1},5},{lane212av4,<0.43.0>,[],{0,0.6,1},0},{lane212av3,<0.42.0>,[],{0,0.6,1},0},{lane212av2,<0.41.0>,[],{0,0.6,1},3},{lane212av1,<0.40.0>,[],{0,0.6,1},1}]\n".
+"Finishing simulation iteration: 2 continue. Intersections\n".
 "----------------------------------------------------------".
 "ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av1 \n".
 "Card Added to lane lane212av1".
@@ -382,106 +70,20 @@
 "NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
 "NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
 "NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane406ca2 \n".
-"Card Added to lane lane406ca2".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane612av3 \n".
-"Card Added to lane lane612av3".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"Running simulation iteration: 7 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},0},{lane212av2,<0.41.0>,[],{0,0.6,1},4},{lane212av3,<0.42.0>,[],{0,0.6,1},2},{lane212av4,<0.43.0>,[],{0,0.6,1},5},{lane210ca1,<0.51.0>,[],{0,0.6,1},7},{lane206ca1,<0.64.0>,[],{0,1,2},5},{lane206ca2,<0.65.0>,[],{0,0.6,1},3},{lane410ca1,<0.68.0>,[],{0,0.6,1},4},{lane406ca1,<0.70.0>,[],{0,0.6,1},2},{lane406ca2,<0.71.0>,[],{0,0.6,1},0},{lane612av3,<0.74.0>,[],{0,0.6,1},0},{lane612av4,<0.75.0>,[],{0,0.6,1},5},{lane606av1,<0.85.0>,[],{0,0.6,1},4},{lane606av2,<0.86.0>,[],{0,0.6,1},2},{lane808ca2,<0.99.0>,[],{0,0.6,1},2},{lane806av1,<0.100.0>,[],{0,0.6,1},1},{lane806av2,<0.101.0>,[],{0,0.6,1},8}]\n".
-"Finishing simulation iteration: 7 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane806av1 \n".
-"Card Added to lane lane806av1".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"Running simulation iteration: 8 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},7},{lane806av1,<0.100.0>,[],{0,0.6,1},0},{lane808ca2,<0.99.0>,[],{0,0.6,1},1},{lane606av2,<0.86.0>,[],{0,0.6,1},1},{lane606av1,<0.85.0>,[],{0,0.6,1},3},{lane612av4,<0.75.0>,[],{0,0.6,1},4},{lane612av3,<0.74.0>,[],{0,0.6,1},2},{lane406ca2,<0.71.0>,[],{0,0.6,1},1},{lane406ca1,<0.70.0>,[],{0,0.6,1},1},{lane410ca1,<0.68.0>,[],{0,0.6,1},3},{lane206ca2,<0.65.0>,[],{0,0.6,1},2},{lane206ca1,<0.64.0>,[],{0,1,2},4},{lane210ca1,<0.51.0>,[],{0,0.6,1},6},{lane212av4,<0.43.0>,[],{0,0.6,1},4},{lane212av3,<0.42.0>,[],{0,0.6,1},1},{lane212av2,<0.41.0>,[],{0,0.6,1},3},{lane212av1,<0.40.0>,[],{0,0.6,1},4}]\n".
-"Finishing simulation iteration: 8 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av3 \n".
-"Card Added to lane lane212av3".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane406ca1 \n".
-"Card Added to lane lane406ca1".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane406ca2 \n".
-"Card Added to lane lane406ca2".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane606av2 \n".
-"Card Added to lane lane606av2".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane808ca2 \n".
-"Card Added to lane lane808ca2".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"Running simulation iteration: 9 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},3},{lane212av2,<0.41.0>,[],{0,0.6,1},2},{lane212av3,<0.42.0>,[],{0,0.6,1},0},{lane212av4,<0.43.0>,[],{0,0.6,1},3},{lane210ca1,<0.51.0>,[],{0,0.6,1},5},{lane206ca1,<0.64.0>,[],{0,1,2},3},{lane206ca2,<0.65.0>,[],{0,0.6,1},1},{lane410ca1,<0.68.0>,[],{0,0.6,1},2},{lane406ca1,<0.70.0>,[],{0,0.6,1},0},{lane406ca2,<0.71.0>,[],{0,0.6,1},0},{lane612av3,<0.74.0>,[],{0,0.6,1},1},{lane612av4,<0.75.0>,[],{0,0.6,1},3},{lane606av1,<0.85.0>,[],{0,0.6,1},2},{lane606av2,<0.86.0>,[],{0,0.6,1},0},{lane808ca2,<0.99.0>,[],{0,0.6,1},0},{lane806av1,<0.100.0>,[],{0,0.6,1},7},{lane806av2,<0.101.0>,[],{0,0.6,1},6}]\n".
-"Finishing simulation iteration: 9 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"Running simulation iteration: 0 continue. SourcesLanes [{lane806av2,<0.106.0>,[],{0,0.6,1},12},{lane806av1,<0.105.0>,[],{0,0.6,1},5},{lane808ca2,<0.104.0>,[],{0,0.6,1},9},{lane606av2,<0.91.0>,[],{0,0.6,1},4},{lane606av1,<0.90.0>,[],{0,0.6,1},5},{lane612av4,<0.80.0>,[],{0,0.6,1},4},{lane612av3,<0.79.0>,[],{0,0.6,1},4},{lane406ca2,<0.76.0>,[],{0,0.6,1},5},{lane406ca1,<0.75.0>,[],{0,0.6,1},5},{lane410ca1,<0.73.0>,[],{0,0.6,1},3},{lane206ca2,<0.70.0>,[],{0,0.6,1},2},{lane206ca1,<0.69.0>,[],{0,1,2},2},{lane210ca1,<0.56.0>,[],{0,0.6,1},10},{lane212av4,<0.48.0>,[],{0,0.6,1},4},{lane212av3,<0.47.0>,[],{0,0.6,1},7},{lane212av2,<0.46.0>,[],{0,0.6,1},5},{lane212av1,<0.45.0>,[],{0,0.6,1},6}]\n".
-"Finishing simulation iteration: 0 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
+"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane410ca1 \n".
+"Card Added to lane lane410ca1".
 "NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
 "NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
 "NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
+"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane612av4 \n".
+"Card Added to lane lane612av4".
 "NOT ADDING CAR TO LANE. LANE lane606av1 \n".
 "NOT ADDING CAR TO LANE. LANE lane606av2 \n".
 "NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
 "NOT ADDING CAR TO LANE. LANE lane806av1 \n".
 "NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"Running simulation iteration: 1 continue. SourcesLanes [{lane212av1,<0.45.0>,[],{0,0.6,1},5},{lane212av2,<0.46.0>,[],{0,0.6,1},4},{lane212av3,<0.47.0>,[],{0,0.6,1},6},{lane212av4,<0.48.0>,[],{0,0.6,1},3},{lane210ca1,<0.56.0>,[],{0,0.6,1},9},{lane206ca1,<0.69.0>,[],{0,1,2},1},{lane206ca2,<0.70.0>,[],{0,0.6,1},1},{lane410ca1,<0.73.0>,[],{0,0.6,1},2},{lane406ca1,<0.75.0>,[],{0,0.6,1},4},{lane406ca2,<0.76.0>,[],{0,0.6,1},4},{lane612av3,<0.79.0>,[],{0,0.6,1},3},{lane612av4,<0.80.0>,[],{0,0.6,1},3},{lane606av1,<0.90.0>,[],{0,0.6,1},4},{lane606av2,<0.91.0>,[],{0,0.6,1},3},{lane808ca2,<0.104.0>,[],{0,0.6,1},8},{lane806av1,<0.105.0>,[],{0,0.6,1},4},{lane806av2,<0.106.0>,[],{0,0.6,1},11}]\n".
-"Finishing simulation iteration: 1 continue. Intersections\n".
+"Running simulation iteration: 3 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},0},{lane212av2,<0.41.0>,[],{0,0.6,1},2},{lane212av3,<0.42.0>,[],{0,0.6,1},4},{lane212av4,<0.43.0>,[],{0,0.6,1},3},{lane210ca1,<0.51.0>,[],{0,0.6,1},4},{lane206ca1,<0.64.0>,[],{0,1,2},6},{lane206ca2,<0.65.0>,[],{0,0.6,1},1},{lane410ca1,<0.68.0>,[],{0,0.6,1},0},{lane406ca1,<0.70.0>,[],{0,0.6,1},2},{lane406ca2,<0.71.0>,[],{0,0.6,1},2},{lane612av3,<0.74.0>,[],{0,0.6,1},5},{lane612av4,<0.75.0>,[],{0,0.6,1},0},{lane606av1,<0.85.0>,[],{0,0.6,1},3},{lane606av2,<0.86.0>,[],{0,0.6,1},4},{lane808ca2,<0.99.0>,[],{0,0.6,1},6},{lane806av1,<0.100.0>,[],{0,0.6,1},6},{lane806av2,<0.101.0>,[],{0,0.6,1},2}]\n".
+"Finishing simulation iteration: 3 continue. Intersections\n".
 "----------------------------------------------------------".
 "NOT ADDING CAR TO LANE. LANE lane806av2 \n".
 "NOT ADDING CAR TO LANE. LANE lane806av1 \n".
@@ -495,59 +97,13 @@
 "NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
 "ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane206ca2 \n".
 "Card Added to lane lane206ca2".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane206ca1 \n".
-"Card Added to lane lane206ca1".
+"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
 "NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
 "NOT ADDING CAR TO LANE. LANE lane212av4 \n".
 "NOT ADDING CAR TO LANE. LANE lane212av3 \n".
 "NOT ADDING CAR TO LANE. LANE lane212av2 \n".
 "NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"Running simulation iteration: 2 continue. SourcesLanes [{lane806av2,<0.106.0>,[],{0,0.6,1},10},{lane806av1,<0.105.0>,[],{0,0.6,1},3},{lane808ca2,<0.104.0>,[],{0,0.6,1},7},{lane606av2,<0.91.0>,[],{0,0.6,1},2},{lane606av1,<0.90.0>,[],{0,0.6,1},3},{lane612av4,<0.80.0>,[],{0,0.6,1},2},{lane612av3,<0.79.0>,[],{0,0.6,1},2},{lane406ca2,<0.76.0>,[],{0,0.6,1},3},{lane406ca1,<0.75.0>,[],{0,0.6,1},3},{lane410ca1,<0.73.0>,[],{0,0.6,1},1},{lane206ca2,<0.70.0>,[],{0,0.6,1},0},{lane206ca1,<0.69.0>,[],{0,1,2},0},{lane210ca1,<0.56.0>,[],{0,0.6,1},8},{lane212av4,<0.48.0>,[],{0,0.6,1},2},{lane212av3,<0.47.0>,[],{0,0.6,1},5},{lane212av2,<0.46.0>,[],{0,0.6,1},3},{lane212av1,<0.45.0>,[],{0,0.6,1},4}]\n".
-"Finishing simulation iteration: 2 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane410ca1 \n".
-"Card Added to lane lane410ca1".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"Running simulation iteration: 3 continue. SourcesLanes [{lane212av1,<0.45.0>,[],{0,0.6,1},3},{lane212av2,<0.46.0>,[],{0,0.6,1},2},{lane212av3,<0.47.0>,[],{0,0.6,1},4},{lane212av4,<0.48.0>,[],{0,0.6,1},1},{lane210ca1,<0.56.0>,[],{0,0.6,1},7},{lane206ca1,<0.69.0>,[],{0,1,2},4},{lane206ca2,<0.70.0>,[],{0,0.6,1},6},{lane410ca1,<0.73.0>,[],{0,0.6,1},0},{lane406ca1,<0.75.0>,[],{0,0.6,1},2},{lane406ca2,<0.76.0>,[],{0,0.6,1},2},{lane612av3,<0.79.0>,[],{0,0.6,1},1},{lane612av4,<0.80.0>,[],{0,0.6,1},1},{lane606av1,<0.90.0>,[],{0,0.6,1},2},{lane606av2,<0.91.0>,[],{0,0.6,1},1},{lane808ca2,<0.104.0>,[],{0,0.6,1},6},{lane806av1,<0.105.0>,[],{0,0.6,1},2},{lane806av2,<0.106.0>,[],{0,0.6,1},9}]\n".
-"Finishing simulation iteration: 3 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane606av2 \n".
-"Card Added to lane lane606av2".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane612av4 \n".
-"Card Added to lane lane612av4".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane612av3 \n".
-"Card Added to lane lane612av3".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av4 \n".
-"Card Added to lane lane212av4".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"Running simulation iteration: 4 continue. SourcesLanes [{lane806av2,<0.106.0>,[],{0,0.6,1},8},{lane806av1,<0.105.0>,[],{0,0.6,1},1},{lane808ca2,<0.104.0>,[],{0,0.6,1},5},{lane606av2,<0.91.0>,[],{0,0.6,1},0},{lane606av1,<0.90.0>,[],{0,0.6,1},1},{lane612av4,<0.80.0>,[],{0,0.6,1},0},{lane612av3,<0.79.0>,[],{0,0.6,1},0},{lane406ca2,<0.76.0>,[],{0,0.6,1},1},{lane406ca1,<0.75.0>,[],{0,0.6,1},1},{lane410ca1,<0.73.0>,[],{0,0.6,1},4},{lane206ca2,<0.70.0>,[],{0,0.6,1},5},{lane206ca1,<0.69.0>,[],{0,1,2},3},{lane210ca1,<0.56.0>,[],{0,0.6,1},6},{lane212av4,<0.48.0>,[],{0,0.6,1},0},{lane212av3,<0.47.0>,[],{0,0.6,1},3},{lane212av2,<0.46.0>,[],{0,0.6,1},1},{lane212av1,<0.45.0>,[],{0,0.6,1},2}]\n".
+"Running simulation iteration: 4 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},1},{lane806av1,<0.100.0>,[],{0,0.6,1},5},{lane808ca2,<0.99.0>,[],{0,0.6,1},5},{lane606av2,<0.86.0>,[],{0,0.6,1},3},{lane606av1,<0.85.0>,[],{0,0.6,1},2},{lane612av4,<0.75.0>,[],{0,0.6,1},1},{lane612av3,<0.74.0>,[],{0,0.6,1},4},{lane406ca2,<0.71.0>,[],{0,0.6,1},1},{lane406ca1,<0.70.0>,[],{0,0.6,1},1},{lane410ca1,<0.68.0>,[],{0,0.6,1},11},{lane206ca2,<0.65.0>,[],{0,0.6,1},0},{lane206ca1,<0.64.0>,[],{0,1,2},5},{lane210ca1,<0.51.0>,[],{0,0.6,1},3},{lane212av4,<0.43.0>,[],{0,0.6,1},2},{lane212av3,<0.42.0>,[],{0,0.6,1},3},{lane212av2,<0.41.0>,[],{0,0.6,1},1},{lane212av1,<0.40.0>,[],{0,0.6,1},5}]\n".
 "Finishing simulation iteration: 4 continue. Intersections\n".
 "----------------------------------------------------------".
 "NOT ADDING CAR TO LANE. LANE lane212av1 \n".
@@ -564,149 +120,16 @@
 "ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane406ca2 \n".
 "Card Added to lane lane406ca2".
 "NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane606av1 \n".
-"Card Added to lane lane606av1".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane806av1 \n".
-"Card Added to lane lane806av1".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"Running simulation iteration: 5 continue. SourcesLanes [{lane212av1,<0.45.0>,[],{0,0.6,1},1},{lane212av2,<0.46.0>,[],{0,0.6,1},0},{lane212av3,<0.47.0>,[],{0,0.6,1},2},{lane212av4,<0.48.0>,[],{0,0.6,1},5},{lane210ca1,<0.56.0>,[],{0,0.6,1},5},{lane206ca1,<0.69.0>,[],{0,1,2},2},{lane206ca2,<0.70.0>,[],{0,0.6,1},4},{lane410ca1,<0.73.0>,[],{0,0.6,1},3},{lane406ca1,<0.75.0>,[],{0,0.6,1},0},{lane406ca2,<0.76.0>,[],{0,0.6,1},0},{lane612av3,<0.79.0>,[],{0,0.6,1},3},{lane612av4,<0.80.0>,[],{0,0.6,1},3},{lane606av1,<0.90.0>,[],{0,0.6,1},0},{lane606av2,<0.91.0>,[],{0,0.6,1},4},{lane808ca2,<0.104.0>,[],{0,0.6,1},4},{lane806av1,<0.105.0>,[],{0,0.6,1},0},{lane806av2,<0.106.0>,[],{0,0.6,1},7}]\n".
-"Finishing simulation iteration: 5 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av1 \n".
-"Card Added to lane lane212av1".
-"Running simulation iteration: 6 continue. SourcesLanes [{lane806av2,<0.106.0>,[],{0,0.6,1},6},{lane806av1,<0.105.0>,[],{0,0.6,1},4},{lane808ca2,<0.104.0>,[],{0,0.6,1},3},{lane606av2,<0.91.0>,[],{0,0.6,1},3},{lane606av1,<0.90.0>,[],{0,0.6,1},2},{lane612av4,<0.80.0>,[],{0,0.6,1},2},{lane612av3,<0.79.0>,[],{0,0.6,1},2},{lane406ca2,<0.76.0>,[],{0,0.6,1},7},{lane406ca1,<0.75.0>,[],{0,0.6,1},4},{lane410ca1,<0.73.0>,[],{0,0.6,1},2},{lane206ca2,<0.70.0>,[],{0,0.6,1},3},{lane206ca1,<0.69.0>,[],{0,1,2},1},{lane210ca1,<0.56.0>,[],{0,0.6,1},4},{lane212av4,<0.48.0>,[],{0,0.6,1},4},{lane212av3,<0.47.0>,[],{0,0.6,1},1},{lane212av2,<0.46.0>,[],{0,0.6,1},5},{lane212av1,<0.45.0>,[],{0,0.6,1},0}]\n".
-"Finishing simulation iteration: 6 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av3 \n".
-"Card Added to lane lane212av3".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane206ca1 \n".
-"Card Added to lane lane206ca1".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"Running simulation iteration: 7 continue. SourcesLanes [{lane212av1,<0.45.0>,[],{0,0.6,1},8},{lane212av2,<0.46.0>,[],{0,0.6,1},4},{lane212av3,<0.47.0>,[],{0,0.6,1},0},{lane212av4,<0.48.0>,[],{0,0.6,1},3},{lane210ca1,<0.56.0>,[],{0,0.6,1},3},{lane206ca1,<0.69.0>,[],{0,1,2},0},{lane206ca2,<0.70.0>,[],{0,0.6,1},2},{lane410ca1,<0.73.0>,[],{0,0.6,1},1},{lane406ca1,<0.75.0>,[],{0,0.6,1},3},{lane406ca2,<0.76.0>,[],{0,0.6,1},6},{lane612av3,<0.79.0>,[],{0,0.6,1},1},{lane612av4,<0.80.0>,[],{0,0.6,1},1},{lane606av1,<0.90.0>,[],{0,0.6,1},1},{lane606av2,<0.91.0>,[],{0,0.6,1},2},{lane808ca2,<0.104.0>,[],{0,0.6,1},2},{lane806av1,<0.105.0>,[],{0,0.6,1},3},{lane806av2,<0.106.0>,[],{0,0.6,1},5}]\n".
-"Finishing simulation iteration: 7 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane606av1 \n".
-"Card Added to lane lane606av1".
 "ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane612av4 \n".
-"Lane lane612av4 its full. Adding to wait list".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane612av3 \n".
-"Card Added to lane lane612av3".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane410ca1 \n".
-"Card Added to lane lane410ca1".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"Running simulation iteration: 8 continue. SourcesLanes [{lane806av2,<0.106.0>,[],{0,0.6,1},4},{lane806av1,<0.105.0>,[],{0,0.6,1},2},{lane808ca2,<0.104.0>,[],{0,0.6,1},1},{lane606av2,<0.91.0>,[],{0,0.6,1},1},{lane606av1,<0.90.0>,[],{0,0.6,1},0},{lane612av4,<0.80.0>,[],{0,0.6,1},0},{lane612av3,<0.79.0>,[],{0,0.6,1},0},{lane406ca2,<0.76.0>,[],{0,0.6,1},5},{lane406ca1,<0.75.0>,[],{0,0.6,1},2},{lane410ca1,<0.73.0>,[],{0,0.6,1},0},{lane206ca2,<0.70.0>,[],{0,0.6,1},1},{lane206ca1,<0.69.0>,[],{0,1,2},1},{lane210ca1,<0.56.0>,[],{0,0.6,1},2},{lane212av4,<0.48.0>,[],{0,0.6,1},2},{lane212av3,<0.47.0>,[],{0,0.6,1},2},{lane212av2,<0.46.0>,[],{0,0.6,1},3},{lane212av1,<0.45.0>,[],{0,0.6,1},7}]\n".
-"Finishing simulation iteration: 8 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane206ca1 \n".
-"Card Added to lane lane206ca1".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane206ca2 \n".
-"Card Added to lane lane206ca2".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane606av2 \n".
-"Card Added to lane lane606av2".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane808ca2 \n".
-"Card Added to lane lane808ca2".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"Running simulation iteration: 9 continue. SourcesLanes [{lane212av1,<0.45.0>,[],{0,0.6,1},6},{lane212av2,<0.46.0>,[],{0,0.6,1},2},{lane212av3,<0.47.0>,[],{0,0.6,1},1},{lane212av4,<0.48.0>,[],{0,0.6,1},1},{lane210ca1,<0.56.0>,[],{0,0.6,1},1},{lane206ca1,<0.69.0>,[],{0,1,2},0},{lane206ca2,<0.70.0>,[],{0,0.6,1},0},{lane410ca1,<0.73.0>,[],{0,0.6,1},2},{lane406ca1,<0.75.0>,[],{0,0.6,1},1},{lane406ca2,<0.76.0>,[],{0,0.6,1},4},{lane612av3,<0.79.0>,[],{0,0.6,1},6},{lane612av4,<0.80.0>,[{car,{1,1,-1}}],{0,0.6,1},4},{lane606av1,<0.90.0>,[],{0,0.6,1},5},{lane606av2,<0.91.0>,[],{0,0.6,1},0},{lane808ca2,<0.104.0>,[],{0,0.6,1},0},{lane806av1,<0.105.0>,[],{0,0.6,1},1},{lane806av2,<0.106.0>,[],{0,0.6,1},3}]\n".
-"Finishing simulation iteration: 9 continue. Intersections\n".
-"----------------------------------------------------------".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"Running simulation iteration: 0 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},6},{lane806av1,<0.100.0>,[],{0,0.6,1},7},{lane808ca2,<0.99.0>,[],{0,0.6,1},11},{lane606av2,<0.86.0>,[],{0,0.6,1},7},{lane606av1,<0.85.0>,[],{0,0.6,1},2},{lane612av4,<0.75.0>,[],{0,0.6,1},4},{lane612av3,<0.74.0>,[],{0,0.6,1},3},{lane406ca2,<0.71.0>,[],{0,0.6,1},3},{lane406ca1,<0.70.0>,[],{0,0.6,1},4},{lane410ca1,<0.68.0>,[],{0,0.6,1},4},{lane206ca2,<0.65.0>,[],{0,0.6,1},7},{lane206ca1,<0.64.0>,[],{0,1,2},6},{lane210ca1,<0.51.0>,[],{0,0.6,1},7},{lane212av4,<0.43.0>,[],{0,0.6,1},2},{lane212av3,<0.42.0>,[],{0,0.6,1},1},{lane212av2,<0.41.0>,[],{0,0.6,1},11},{lane212av1,<0.40.0>,[],{0,0.6,1},1}]\n".
-"Finishing simulation iteration: 0 continue. Intersections\n".
-"----------------------------------------------------------".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av1 \n".
-"Card Added to lane lane212av1".
-"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
-"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av3 \n".
-"Card Added to lane lane212av3".
-"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
-"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
-"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
-"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
+"Card Added to lane lane612av4".
 "NOT ADDING CAR TO LANE. LANE lane606av1 \n".
 "NOT ADDING CAR TO LANE. LANE lane606av2 \n".
 "NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
 "NOT ADDING CAR TO LANE. LANE lane806av1 \n".
-"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
-"Running simulation iteration: 1 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},0},{lane212av2,<0.41.0>,[],{0,0.6,1},10},{lane212av3,<0.42.0>,[],{0,0.6,1},0},{lane212av4,<0.43.0>,[],{0,0.6,1},1},{lane210ca1,<0.51.0>,[],{0,0.6,1},6},{lane206ca1,<0.64.0>,[],{0,1,2},5},{lane206ca2,<0.65.0>,[],{0,0.6,1},6},{lane410ca1,<0.68.0>,[],{0,0.6,1},3},{lane406ca1,<0.70.0>,[],{0,0.6,1},3},{lane406ca2,<0.71.0>,[],{0,0.6,1},2},{lane612av3,<0.74.0>,[],{0,0.6,1},2},{lane612av4,<0.75.0>,[],{0,0.6,1},3},{lane606av1,<0.85.0>,[],{0,0.6,1},1},{lane606av2,<0.86.0>,[],{0,0.6,1},6},{lane808ca2,<0.99.0>,[],{0,0.6,1},10},{lane806av1,<0.100.0>,[],{0,0.6,1},6},{lane806av2,<0.101.0>,[],{0,0.6,1},5}]\n".
-"Finishing simulation iteration: 1 continue. Intersections\n".
+"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane806av2 \n".
+"Card Added to lane lane806av2".
+"Running simulation iteration: 5 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},4},{lane212av2,<0.41.0>,[],{0,0.6,1},0},{lane212av3,<0.42.0>,[],{0,0.6,1},2},{lane212av4,<0.43.0>,[],{0,0.6,1},1},{lane210ca1,<0.51.0>,[],{0,0.6,1},2},{lane206ca1,<0.64.0>,[],{0,1,2},4},{lane206ca2,<0.65.0>,[],{0,0.6,1},6},{lane410ca1,<0.68.0>,[],{0,0.6,1},10},{lane406ca1,<0.70.0>,[],{0,0.6,1},0},{lane406ca2,<0.71.0>,[],{0,0.6,1},0},{lane612av3,<0.74.0>,[],{0,0.6,1},3},{lane612av4,<0.75.0>,[],{0,0.6,1},0},{lane606av1,<0.85.0>,[],{0,0.6,1},1},{lane606av2,<0.86.0>,[],{0,0.6,1},2},{lane808ca2,<0.99.0>,[],{0,0.6,1},4},{lane806av1,<0.100.0>,[],{0,0.6,1},4},{lane806av2,<0.101.0>,[],{0,0.6,1},0}]\n".
+"Finishing simulation iteration: 5 continue. Intersections\n".
 "----------------------------------------------------------".
 "NOT ADDING CAR TO LANE. LANE lane806av2 \n".
 "NOT ADDING CAR TO LANE. LANE lane806av1 \n".
@@ -727,6 +150,76 @@
 "NOT ADDING CAR TO LANE. LANE lane212av3 \n".
 "NOT ADDING CAR TO LANE. LANE lane212av2 \n".
 "NOT ADDING CAR TO LANE. LANE lane212av1 \n".
-"Running simulation iteration: 2 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},4},{lane806av1,<0.100.0>,[],{0,0.6,1},5},{lane808ca2,<0.99.0>,[],{0,0.6,1},9},{lane606av2,<0.86.0>,[],{0,0.6,1},5},{lane606av1,<0.85.0>,[],{0,0.6,1},0},{lane612av4,<0.75.0>,[],{0,0.6,1},2},{lane612av3,<0.74.0>,[],{0,0.6,1},1},{lane406ca2,<0.71.0>,[],{0,0.6,1},1},{lane406ca1,<0.70.0>,[],{0,0.6,1},2},{lane410ca1,<0.68.0>,[],{0,0.6,1},2},{lane206ca2,<0.65.0>,[],{0,0.6,1},5},{lane206ca1,<0.64.0>,[],{0,1,2},4},{lane210ca1,<0.51.0>,[],{0,0.6,1},5},{lane212av4,<0.43.0>,[],{0,0.6,1},0},{lane212av3,<0.42.0>,[],{0,0.6,1},4},{lane212av2,<0.41.0>,[],{0,0.6,1},9},{lane212av1,<0.40.0>,[],{0,0.6,1},4}]\n".
-"Finishing simulation iteration: 2 continue. Intersections\n".
+"Running simulation iteration: 6 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},2},{lane806av1,<0.100.0>,[],{0,0.6,1},3},{lane808ca2,<0.99.0>,[],{0,0.6,1},3},{lane606av2,<0.86.0>,[],{0,0.6,1},1},{lane606av1,<0.85.0>,[],{0,0.6,1},0},{lane612av4,<0.75.0>,[],{0,0.6,1},6},{lane612av3,<0.74.0>,[],{0,0.6,1},2},{lane406ca2,<0.71.0>,[],{0,0.6,1},5},{lane406ca1,<0.70.0>,[],{0,0.6,1},3},{lane410ca1,<0.68.0>,[],{0,0.6,1},9},{lane206ca2,<0.65.0>,[],{0,0.6,1},5},{lane206ca1,<0.64.0>,[],{0,1,2},3},{lane210ca1,<0.51.0>,[],{0,0.6,1},1},{lane212av4,<0.43.0>,[],{0,0.6,1},0},{lane212av3,<0.42.0>,[],{0,0.6,1},1},{lane212av2,<0.41.0>,[],{0,0.6,1},8},{lane212av1,<0.40.0>,[],{0,0.6,1},3}]\n".
+"Finishing simulation iteration: 6 continue. Intersections\n".
+"----------------------------------------------------------".
+"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
+"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
+"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av3 \n".
+"Card Added to lane lane212av3".
+"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
+"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane210ca1 \n".
+"Card Added to lane lane210ca1".
+"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
+"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
+"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
+"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
+"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
+"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
+"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
+"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
+"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane606av2 \n".
+"Card Added to lane lane606av2".
+"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
+"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
+"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
+"Running simulation iteration: 7 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},2},{lane212av2,<0.41.0>,[],{0,0.6,1},7},{lane212av3,<0.42.0>,[],{0,0.6,1},0},{lane212av4,<0.43.0>,[],{0,0.6,1},9},{lane210ca1,<0.51.0>,[],{0,0.6,1},0},{lane206ca1,<0.64.0>,[],{0,1,2},2},{lane206ca2,<0.65.0>,[],{0,0.6,1},4},{lane410ca1,<0.68.0>,[],{0,0.6,1},8},{lane406ca1,<0.70.0>,[],{0,0.6,1},2},{lane406ca2,<0.71.0>,[],{0,0.6,1},4},{lane612av3,<0.74.0>,[],{0,0.6,1},1},{lane612av4,<0.75.0>,[],{0,0.6,1},5},{lane606av1,<0.85.0>,[],{0,0.6,1},4},{lane606av2,<0.86.0>,[],{0,0.6,1},0},{lane808ca2,<0.99.0>,[],{0,0.6,1},2},{lane806av1,<0.100.0>,[],{0,0.6,1},2},{lane806av2,<0.101.0>,[],{0,0.6,1},1}]\n".
+"Finishing simulation iteration: 7 continue. Intersections\n".
+"----------------------------------------------------------".
+"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane806av2 \n".
+"Card Added to lane lane806av2".
+"NOT ADDING CAR TO LANE. LANE lane806av1 \n".
+"NOT ADDING CAR TO LANE. LANE lane808ca2 \n".
+"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
+"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
+"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
+"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane612av3 \n".
+"Card Added to lane lane612av3".
+"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
+"NOT ADDING CAR TO LANE. LANE lane406ca1 \n".
+"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
+"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
+"NOT ADDING CAR TO LANE. LANE lane206ca1 \n".
+"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
+"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
+"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
+"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
+"NOT ADDING CAR TO LANE. LANE lane212av1 \n".
+"Running simulation iteration: 8 continue. SourcesLanes [{lane806av2,<0.101.0>,[],{0,0.6,1},0},{lane806av1,<0.100.0>,[],{0,0.6,1},1},{lane808ca2,<0.99.0>,[],{0,0.6,1},1},{lane606av2,<0.86.0>,[],{0,0.6,1},8},{lane606av1,<0.85.0>,[],{0,0.6,1},3},{lane612av4,<0.75.0>,[],{0,0.6,1},4},{lane612av3,<0.74.0>,[],{0,0.6,1},0},{lane406ca2,<0.71.0>,[],{0,0.6,1},3},{lane406ca1,<0.70.0>,[],{0,0.6,1},1},{lane410ca1,<0.68.0>,[],{0,0.6,1},7},{lane206ca2,<0.65.0>,[],{0,0.6,1},3},{lane206ca1,<0.64.0>,[],{0,1,2},1},{lane210ca1,<0.51.0>,[],{0,0.6,1},5},{lane212av4,<0.43.0>,[],{0,0.6,1},8},{lane212av3,<0.42.0>,[],{0,0.6,1},6},{lane212av2,<0.41.0>,[],{0,0.6,1},6},{lane212av1,<0.40.0>,[],{0,0.6,1},1}]\n".
+"Finishing simulation iteration: 8 continue. Intersections\n".
+"----------------------------------------------------------".
+"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane212av1 \n".
+"Card Added to lane lane212av1".
+"NOT ADDING CAR TO LANE. LANE lane212av2 \n".
+"NOT ADDING CAR TO LANE. LANE lane212av3 \n".
+"NOT ADDING CAR TO LANE. LANE lane212av4 \n".
+"NOT ADDING CAR TO LANE. LANE lane210ca1 \n".
+"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane206ca1 \n".
+"Card Added to lane lane206ca1".
+"NOT ADDING CAR TO LANE. LANE lane206ca2 \n".
+"NOT ADDING CAR TO LANE. LANE lane410ca1 \n".
+"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane406ca1 \n".
+"Card Added to lane lane406ca1".
+"NOT ADDING CAR TO LANE. LANE lane406ca2 \n".
+"NOT ADDING CAR TO LANE. LANE lane612av3 \n".
+"NOT ADDING CAR TO LANE. LANE lane612av4 \n".
+"NOT ADDING CAR TO LANE. LANE lane606av1 \n".
+"NOT ADDING CAR TO LANE. LANE lane606av2 \n".
+"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane808ca2 \n".
+"Card Added to lane lane808ca2".
+"ADDING CAR TO LANE FROM EMPTY OUTSIDE SOURCE. LANE lane806av1 \n".
+"Card Added to lane lane806av1".
+"NOT ADDING CAR TO LANE. LANE lane806av2 \n".
+"Running simulation iteration: 9 continue. SourcesLanes [{lane212av1,<0.40.0>,[],{0,0.6,1},0},{lane212av2,<0.41.0>,[],{0,0.6,1},5},{lane212av3,<0.42.0>,[],{0,0.6,1},5},{lane212av4,<0.43.0>,[],{0,0.6,1},7},{lane210ca1,<0.51.0>,[],{0,0.6,1},4},{lane206ca1,<0.64.0>,[],{0,1,2},0},{lane206ca2,<0.65.0>,[],{0,0.6,1},2},{lane410ca1,<0.68.0>,[],{0,0.6,1},6},{lane406ca1,<0.70.0>,[],{0,0.6,1},0},{lane406ca2,<0.71.0>,[],{0,0.6,1},2},{lane612av3,<0.74.0>,[],{0,0.6,1},2},{lane612av4,<0.75.0>,[],{0,0.6,1},3},{lane606av1,<0.85.0>,[],{0,0.6,1},2},{lane606av2,<0.86.0>,[],{0,0.6,1},7},{lane808ca2,<0.99.0>,[],{0,0.6,1},0},{lane806av1,<0.100.0>,[],{0,0.6,1},0},{lane806av2,<0.101.0>,[],{0,0.6,1},3}]\n".
+"Finishing simulation iteration: 9 continue. Intersections\n".
 "----------------------------------------------------------".

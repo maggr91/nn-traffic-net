@@ -336,8 +336,8 @@ stop_moving([{car,{Wait,Delay, Position}}|Waiting], LastPosition, UpdatedCars) w
 %% if not enters the waiting list of the respective source lane
 %% at any case, update times for cars lists
 add_car({LaneId, LanePid, WaitingOutside, ProbData, _Timer}, Car, SourcesLane, LogPath) ->    
-    LanePid ! {incoming, self(), Car},
     NewArrival  =  new_arrival({LaneId, LanePid,ProbData}),
+    LanePid ! {incoming, self(), Car},    
     receive
         {reply, full}  ->
             io:format("Lane ~w its full. Adding to wait list~n",[LaneId]),
@@ -485,9 +485,7 @@ write_result(Path, Data) ->
 write_final_data([], Path, LaneId) ->
     write_result(Path, io_lib:format("FINISH WRITEDOWN CARS INFO FOR LANE: ~w",[LaneId])),
     write_result(Path, io_lib:format("=======================================",[]));
-write_final_data([Car|Tail], Path, LaneId) ->
-    write_result(Path, io_lib:format("=======================================",[])),
-    write_result(Path, io_lib:format("START WRITEDOWN CARS INFO FOR LANE: ~w",[LaneId])),
+write_final_data([Car|Tail], Path, LaneId) ->    
     write_result(Path, io_lib:format(" ~w",[Car])),
     write_final_data(Tail, Path, LaneId).
     
