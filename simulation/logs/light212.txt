@@ -1,210 +1,406 @@
 "Running simulation iteration: 0 continue".
 "Evaluating state for light_fsm: light212 continue".
 "Continuing redred way cycle".
-"First moving avenues <0.119.0>".
-"Moving avenue lanes. Data: {light212,{[{lane212av4,<0.43.0>},{lane212av3,<0.42.0>},{lane212av2,<0.41.0>},{lane212av1,<0.40.0>}],[{lane212ca2,<0.45.0>},{lane212ca1,<0.44.0>}]},[{light210,<0.118.0>},{light412,<0.115.0>}],5,0,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av4".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av3".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av2".
-"Waiting msj received from <0.119.0>".
+"First moving avenues <0.106.0>".
+"Moving avenue lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,0,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212av1".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212ca2".
-"Waiting msj received from <0.119.0>".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212ca1".
-"continue moving avenue lanes. Data: {light212,{[{lane212av4,<0.43.0>},{lane212av3,<0.42.0>},{lane212av2,<0.41.0>},{lane212av1,<0.40.0>}],[{lane212ca2,<0.45.0>},{lane212ca1,<0.44.0>}]},[{light210,<0.118.0>},{light412,<0.115.0>}],5,0,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212av4".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212av3".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212av2".
-"Moving msj received from <0.119.0>".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
+"continue moving avenue lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,0,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
 "reply recieve after update on active lane lane212av1".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212ca2".
-"Waiting msj received from <0.119.0>".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av2".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av3".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av4".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212ca1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 1 continue".
 "Evaluating state for light_fsm: light212 continue".
 "Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light212,{[{lane212av4,<0.43.0>},{lane212av3,<0.42.0>},{lane212av2,<0.41.0>},{lane212av1,<0.40.0>}],[{lane212ca2,<0.45.0>},{lane212ca1,<0.44.0>}]},[{light210,<0.118.0>},{light412,<0.115.0>}],5,1,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212av4".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212av3".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212av2".
-"Moving msj received from <0.119.0>".
+"continue moving avenue lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,1,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
 "reply recieve after update on active lane lane212av1".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212ca2".
-"Waiting msj received from <0.119.0>".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av2".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av3".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av4".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212ca1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 2 continue".
 "Evaluating state for light_fsm: light212 continue".
 "Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light212,{[{lane212av4,<0.43.0>},{lane212av3,<0.42.0>},{lane212av2,<0.41.0>},{lane212av1,<0.40.0>}],[{lane212ca2,<0.45.0>},{lane212ca1,<0.44.0>}]},[{light210,<0.118.0>},{light412,<0.115.0>}],5,2,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212av4".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212av3".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212av2".
-"Moving msj received from <0.119.0>".
+"continue moving avenue lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,2,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
 "reply recieve after update on active lane lane212av1".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212ca2".
-"Waiting msj received from <0.119.0>".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av2".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av3".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av4".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212ca1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 3 continue".
 "Evaluating state for light_fsm: light212 continue".
 "Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light212,{[{lane212av4,<0.43.0>},{lane212av3,<0.42.0>},{lane212av2,<0.41.0>},{lane212av1,<0.40.0>}],[{lane212ca2,<0.45.0>},{lane212ca1,<0.44.0>}]},[{light210,<0.118.0>},{light412,<0.115.0>}],5,3,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212av4".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212av3".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212av2".
-"Moving msj received from <0.119.0>".
+"continue moving avenue lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,3,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
 "reply recieve after update on active lane lane212av1".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212ca2".
-"Waiting msj received from <0.119.0>".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av2".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av3".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av4".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212ca1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 4 continue".
 "Evaluating state for light_fsm: light212 continue".
 "Finishing greenred way cycle moving to idle".
-"stop moving avenue lanes. Data: {light212,{[{lane212av4,<0.43.0>},{lane212av3,<0.42.0>},{lane212av2,<0.41.0>},{lane212av1,<0.40.0>}],[{lane212ca2,<0.45.0>},{lane212ca1,<0.44.0>}]},[{light210,<0.118.0>},{light412,<0.115.0>}],5,4,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av4".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av3".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av2".
-"Waiting msj received from <0.119.0>".
+"stop moving avenue lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,4,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212av1".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212ca2".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212ca1".
-"Moving street lanes. Data: {light212,{[{lane212av4,<0.43.0>},{lane212av3,<0.42.0>},{lane212av2,<0.41.0>},{lane212av1,<0.40.0>}],[{lane212ca2,<0.45.0>},{lane212ca1,<0.44.0>}]},[{light210,<0.118.0>},{light412,<0.115.0>}],5,0,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212ca2".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212ca1".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av4".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av3".
-"Waiting msj received from <0.119.0>".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212av2".
-"Waiting msj received from <0.119.0>".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
+"Moving street lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,0,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212av1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
 "----------------------------------------------------".
 "Running simulation iteration: 5 continue".
 "Evaluating state for light_fsm: light212 continue".
 "Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light212,{[{lane212av4,<0.43.0>},{lane212av3,<0.42.0>},{lane212av2,<0.41.0>},{lane212av1,<0.40.0>}],[{lane212ca2,<0.45.0>},{lane212ca1,<0.44.0>}]},[{light210,<0.118.0>},{light412,<0.115.0>}],5,0,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212ca2".
-"Moving msj received from <0.119.0>".
+"continue moving street lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,0,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
 "reply recieve after update on active lane lane212ca1".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av4".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av3".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av2".
-"Waiting msj received from <0.119.0>".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212ca2".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212av1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
 "----------------------------------------------------".
 "Running simulation iteration: 6 continue".
 "Evaluating state for light_fsm: light212 continue".
 "Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light212,{[{lane212av4,<0.43.0>},{lane212av3,<0.42.0>},{lane212av2,<0.41.0>},{lane212av1,<0.40.0>}],[{lane212ca2,<0.45.0>},{lane212ca1,<0.44.0>}]},[{light210,<0.118.0>},{light412,<0.115.0>}],5,1,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212ca2".
-"Moving msj received from <0.119.0>".
+"continue moving street lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,1,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
 "reply recieve after update on active lane lane212ca1".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av4".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av3".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av2".
-"Waiting msj received from <0.119.0>".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212ca2".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212av1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
 "----------------------------------------------------".
 "Running simulation iteration: 7 continue".
 "Evaluating state for light_fsm: light212 continue".
 "Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light212,{[{lane212av4,<0.43.0>},{lane212av3,<0.42.0>},{lane212av2,<0.41.0>},{lane212av1,<0.40.0>}],[{lane212ca2,<0.45.0>},{lane212ca1,<0.44.0>}]},[{light210,<0.118.0>},{light412,<0.115.0>}],5,2,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212ca2".
-"Moving msj received from <0.119.0>".
+"continue moving street lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,2,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
 "reply recieve after update on active lane lane212ca1".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av4".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av3".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av2".
-"Waiting msj received from <0.119.0>".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212ca2".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212av1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
 "----------------------------------------------------".
 "Running simulation iteration: 8 continue".
 "Evaluating state for light_fsm: light212 continue".
 "Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light212,{[{lane212av4,<0.43.0>},{lane212av3,<0.42.0>},{lane212av2,<0.41.0>},{lane212av1,<0.40.0>}],[{lane212ca2,<0.45.0>},{lane212ca1,<0.44.0>}]},[{light210,<0.118.0>},{light412,<0.115.0>}],5,3,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
-"Moving msj received from <0.119.0>".
-"reply recieve after update on active lane lane212ca2".
-"Moving msj received from <0.119.0>".
+"continue moving street lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,3,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
 "reply recieve after update on active lane lane212ca1".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av4".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av3".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av2".
-"Waiting msj received from <0.119.0>".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212ca2".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212av1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
 "----------------------------------------------------".
 "Running simulation iteration: 9 continue".
 "Evaluating state for light_fsm: light212 continue".
 "Finishing redgreen way cycle moving to idle".
-"stop moving street lanes. Data: {light212,{[{lane212av4,<0.43.0>},{lane212av3,<0.42.0>},{lane212av2,<0.41.0>},{lane212av1,<0.40.0>}],[{lane212ca2,<0.45.0>},{lane212ca1,<0.44.0>}]},[{light210,<0.118.0>},{light412,<0.115.0>}],5,4,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212ca2".
-"Waiting msj received from <0.119.0>".
+"stop moving street lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,4,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212ca1".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av4".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av3".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av2".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av1".
-"Moving avenue lanes. Data: {light212,{[{lane212av4,<0.43.0>},{lane212av3,<0.42.0>},{lane212av2,<0.41.0>},{lane212av1,<0.40.0>}],[{lane212ca2,<0.45.0>},{lane212ca1,<0.44.0>}]},[{light210,<0.118.0>},{light412,<0.115.0>}],5,0,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av4".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av3".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av2".
-"Waiting msj received from <0.119.0>".
-"reply recieve after update on idle lane lane212av1".
-"Waiting msj received from <0.119.0>".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212ca2".
-"Waiting msj received from <0.119.0>".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
+"Moving avenue lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,0,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
+"Waiting msj received from <0.106.0>".
 "reply recieve after update on idle lane lane212ca1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
+"----------------------------------------------------".
+"Running simulation iteration: 10 continue".
+"Evaluating state for light_fsm: light212 continue".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,0,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av1".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av2".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av3".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av4".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
+"----------------------------------------------------".
+"Running simulation iteration: 11 continue".
+"Evaluating state for light_fsm: light212 continue".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,1,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av1".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av2".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av3".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av4".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
+"----------------------------------------------------".
+"Running simulation iteration: 12 continue".
+"Evaluating state for light_fsm: light212 continue".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,2,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av1".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av2".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av3".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av4".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
+"----------------------------------------------------".
+"Running simulation iteration: 13 continue".
+"Evaluating state for light_fsm: light212 continue".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,3,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av1".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av2".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av3".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212av4".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
+"----------------------------------------------------".
+"Running simulation iteration: 14 continue".
+"Evaluating state for light_fsm: light212 continue".
+"Finishing greenred way cycle moving to idle".
+"stop moving avenue lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,4,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
+"Moving street lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,0,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
+"----------------------------------------------------".
+"Running simulation iteration: 15 continue".
+"Evaluating state for light_fsm: light212 continue".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,0,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212ca1".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212ca2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
+"----------------------------------------------------".
+"Running simulation iteration: 16 continue".
+"Evaluating state for light_fsm: light212 continue".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,1,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212ca1".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212ca2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
+"----------------------------------------------------".
+"Running simulation iteration: 17 continue".
+"Evaluating state for light_fsm: light212 continue".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,2,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212ca1".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212ca2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
+"----------------------------------------------------".
+"Running simulation iteration: 18 continue".
+"Evaluating state for light_fsm: light212 continue".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,3,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212ca1".
+"Moving msj received from <0.106.0>".
+"reply recieve after update on active lane lane212ca2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
+"----------------------------------------------------".
+"Running simulation iteration: 19 continue".
+"Evaluating state for light_fsm: light212 continue".
+"Finishing redgreen way cycle moving to idle".
+"stop moving street lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,4,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
+"Moving avenue lanes. Data: {light212,{[{lane212av1,<0.104.0>},{lane212av2,<0.103.0>},{lane212av3,<0.102.0>},{lane212av4,<0.101.0>}],[{lane212ca1,<0.100.0>},{lane212ca2,<0.99.0>}]},[{light210,<0.105.0>},false],5,0,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]}".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av2".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av3".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212av4".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca1".
+"Waiting msj received from <0.106.0>".
+"reply recieve after update on idle lane lane212ca2".
 "----------------------------------------------------".

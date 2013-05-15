@@ -4,7 +4,8 @@
 
 
 start(Lapse) ->    
-    register(poissonServer,prob:start({poisson,6})),    
+    register(poissonServer,prob:start({poisson,6})),
+    register(geoServer,prob:start({geometrica,0.5})),    
     register(traffic, traffic:start()),
     timer:apply_after(200, simulation, run_simulation, [Lapse]).
     %%run_simulation(Lapse).
