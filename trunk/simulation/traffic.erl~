@@ -56,15 +56,17 @@ init() ->
 %% Function to load the map by reading files located in
 %% ~/sources folder
 set_map() ->
-%% set table for poisson dist
-    %%PoissonServer = prob:start({poisson,6}),
-    %%io:format("PoissonServer ~w.~n",[PoissonServer]),
 %%Read data from files
     Axis = get_lights(),
     Roads = get_lanes(),
-%%Spawn every lane as a proccess    
+
+
     {_Origin, AllocatedLights} = allocate_lights({Axis,[]}),
-    {_OrigLanes, AllocatedLanes} = allocate_lanes({Roads,[]}),
+%%Get geometric distribution for each lane that has a type 2 (2 directions)
+    NewRoads = lane:init_geometric(Roads),
+    io:format("FULL roads ~w.~n",[NewRoads]),
+%%Spawn every lane as a proccess    
+    {_OrigLanes, AllocatedLanes} = allocate_lanes({NewRoads,[]}),
 %%Set archive_log for cars arrival to sources_lanes  
     {ok, Cwd} = file:get_cwd(),
     Path = Cwd ++ "/logs/",
@@ -100,9 +102,10 @@ allocate_lights({[{LightId,_ManagedLanes, Siblings, Cycle_time, Go_time}|Tail], 
 allocate_lanes({[], Spawned}) ->
     {[],Spawned};
 allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes, 
-                  CarsQueque, IsSource, Capacity, {probList, ProbData}}|Tail], Spawned}) ->
+                  CarsQueque, IsSource, Capacity, {probList, ProbData}, GeoProb}|Tail], Spawned}) ->
 %%for each lane in the list spawn a proccess
-    Pid = lane:start({Type, [], CarsQueque, Capacity, [], ProbData}),
+    %%Pid = lane:start({Type, [], CarsQueque, Capacity, [], ProbData, GeoProb}),
+    Pid = lane:start({LaneIdType, [], CarsQueque, Capacity, [], GeoProb}),
     {arrival, ProbList} = lists:keyfind(arrival, 1, ProbData),
     ProbRanges = list_to_tuple(ProbList),
     allocate_lanes({Tail, [{LaneId,Pid, LightController,Dir,ConnectedLanes, IsSource, ProbRanges} | Spawned]}).
@@ -301,7 +304,7 @@ tabulate_network([], _DataLog) ->
 tabulate_network([{_InterId, Intersection}|Intersections],DataLog) ->
     %%io:format("Evaluating state for light_fsm: ~w continue.~n",[InterId]),
     light_fsm:tabulate_data(Intersection, DataLog),
-    traverse_network(Intersections, DataLog).    
+    tabulate_network(Intersections, DataLog).    
 
 
     

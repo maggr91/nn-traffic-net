@@ -81,7 +81,7 @@ tablaGeometrica(Q, [{X,Px}|Resto],N,X1) ->tablaGeometrica(Q,[{X1, Px * Q} |[{X,P
 %Salidas: Tabla acumulada
 %Restricciones: Las tuplas de la tabla de entrada debe de ser de la forma {Valor,P(Valor)}
 tablaAcumulada(TablaComun)->tablaAcumulada([],TablaComun).
-tablaAcumulada([{MaxVal,PMV}|Resto],[])->[{MaxVal+1,1}|[{MaxVal,PMV}|Resto]];
+tablaAcumulada([{MaxVal,PMV}|Resto],[])->lists:reverse([{MaxVal+1,1}|[{MaxVal,PMV}|Resto]]);
 tablaAcumulada([], [Elem|Resto])->tablaAcumulada([Elem], Resto);
 tablaAcumulada([{Val, PVal}|RestoAcum], [{ValEle,PValElem}|Resto])->
 	tablaAcumulada([{ValEle,PValElem+PVal}|[{Val, PVal}|RestoAcum]], Resto).
@@ -94,8 +94,9 @@ fixedTable() ->
 serverTabla(TablaAcum)->	
 	receive
 		{valor, Cliente} ->		    
-		    io:format("Buscando valor... mi tabla era: ~p~n",[TablaAcum]),
-		    reply(Cliente, encuentraValorTabla(TablaAcum, random:uniform())), 	
+		    %%io:format("Buscando valor... mi tabla era: ~p~n",[TablaAcum]),		    
+		    %%reply(Cliente, valorTabla(TablaAcum)), 	
+		    reply(Cliente, encuentraValorTabla(TablaAcum, random:uniform())),
 		    serverTabla(TablaAcum);
 		killyou -> 
 		    io:format("Saliendo... mi tabla era: ~p~n",[TablaAcum]);
@@ -104,5 +105,15 @@ serverTabla(TablaAcum)->
 		    serverTabla(TablaAcum)
 	end.
 
-encuentraValorTabla([{X,Px}|_Resto], ValAleatorio) when ValAleatorio > Px ->X;
+%valorTabla(TablaAcum) -> 
+%	Valor = encuentraValorTabla(TablaAcum, random:uniform()),
+%	case Valor of
+%		no_found -> 
+%			io:format("no se encontro el valor... buscando otro~n",[]),
+%			valorTabla(TablaAcum);
+%		_V -> Valor		    
+%	end.
+		    
+encuentraValorTabla([], _ValAleatorio) -> no_found;
+encuentraValorTabla([{X,Px}|_Resto], ValAleatorio) when ValAleatorio < Px ->X;
 encuentraValorTabla([{_X,_Px}|Resto], ValAleatorio)->encuentraValorTabla(Resto,ValAleatorio).

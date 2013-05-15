@@ -252,7 +252,7 @@ update_on_active([{LaneId,LanePid}|Tail], Go_time, Cycle_time, LogData) ->
     LanePid ! {go, self(), Cycle_time, Go_time, LogData},
     receive
         {reply, _Reply} -> 
-            io:format("reply recieve after update on active lane ~w.~n",[LaneId]),
+            %%io:format("reply recieve after update on active lane ~w.~n",[LaneId]),
             write_result(LogData, io_lib:format("reply recieve after update on active lane ~w",[LaneId]))
     end,
     update_on_active(Tail,Cycle_time, Go_time, LogData).
@@ -264,7 +264,7 @@ update_on_idle([{LaneId,LanePid}|Tail], Cycle_time, LogData) ->
     LanePid ! {waiting, self(), Cycle_time, LogData},
     receive
         {reply, _Reply} -> 
-            io:format("reply recieve after update on idle lane ~w.~n",[LaneId]),
+            %%io:format("reply recieve after update on idle lane ~w.~n",[LaneId]),
             write_result(LogData, io_lib:format("reply recieve after update on idle lane ~w",[LaneId]))
     end,
     update_on_idle(Tail, Cycle_time, LogData).
