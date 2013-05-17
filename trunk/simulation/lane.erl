@@ -251,12 +251,17 @@ prepare_car_dispatch(Car, ConnectedLanes, CarsQueque,TurnCarNum, LaneId) when Tu
 prepare_car_dispatch(Car, ConnectedLanes, CarsQueque,TurnCarNum, LaneId) when TurnCarNum > 0 ->
     {Type, List} = lists:keyfind(main, 1, ConnectedLanes),
     io:format("Prepare dispatch to straigth lane: ~w.~n",[{Type, List}]),
-    {car_dispatch(Car, List, CarsQueque, self(),LaneId), TurnCarNum - 1};
+    Res = car_dispatch(Car, List, CarsQueque, self(),LaneId),
+    io:format("return after prepare dispatch to straigth lane: ~w .  ~w ~n",[Res, TurnCarNum]),
+    {Res, TurnCarNum - 1};
 prepare_car_dispatch(Car, ConnectedLanes, CarsQueque, TurnCarNum, LaneId) when TurnCarNum == 0 ->
     {Type, List} = lists:keyfind(secondary, 1, ConnectedLanes),
     NewTurnCarNum = new_turn(),
     io:format("Prepare dispatch to alt lane: ~w.~n",[{Type, List}]),
-    {car_dispatch(Car, List, CarsQueque, self(),LaneId), NewTurnCarNum}.
+    Res = car_dispatch(Car, List, CarsQueque, self(),LaneId),
+    io:format("return after prepare dispatch to alt lane: ~w  ~w ~n",[Res, NewTurnCarNum]),
+    %%{car_dispatch(Car, List, CarsQueque, self(),LaneId), NewTurnCarNum}.
+    {Res, NewTurnCarNum}.
 
 
 %% GET the car and try to
@@ -542,7 +547,7 @@ init_geometric([{LaneId, LC,Dir, Type, ConnectedLanes,
 %% Determine new car turn for lane
 new_turn() ->
  io:format("New turn search~n",[]),
- {dispatch, data_distribution(geoServer)}.
+ data_distribution(geoServer).
 
 
 %%=======================================================================%%
