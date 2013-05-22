@@ -283,13 +283,17 @@ loop({Intersections, SourceLanes, {LogPath, DataLogPath}}, Time) ->
 	 io:format("----------------------------------------------------------~n~n"),
 	 write_result(LogPath, io_lib:format("Finishing simulation iteration: ~w continue. Intersections~n",[Time])),
 	 write_result(LogPath, io_lib:format("----------------------------------------------------------",[])),
-	 loop({Intersections, UpdatedSources, {LogPath, DataLogPath}}, Time + 1);
+	 loop({Intersections, UpdatedSources, {LogPath, DataLogPath}}, Time + 1);    
     {call,Pid, stop} -> 
          tabulate_network(Intersections,DataLogPath),
          reply(Pid, {normal, Time})
   end.
 
 
+%% Add to a final list all the cars that completed theier travel 
+add_to_outside(OutsideArea, Car) ->
+   [Car | OutsideArea].
+   
 %% Receive traffic light list as param and evaluate state for ech one
 traverse_network([], _Time) ->
     [];
