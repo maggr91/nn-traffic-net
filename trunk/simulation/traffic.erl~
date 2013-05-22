@@ -105,7 +105,7 @@ allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes,
                   CarsQueque, IsSource, Capacity, {probList, ProbData}, GeoProb}|Tail], Spawned}) ->
 %%for each lane in the list spawn a proccess
     %%Pid = lane:start({Type, [], CarsQueque, Capacity, [], ProbData, GeoProb}),
-    Pid = lane:start({LaneIdType, [], CarsQueque, Capacity, [], GeoProb}),
+    Pid = lane:start({LaneId, Type, [], CarsQueque, Capacity, [], GeoProb}),
     {arrival, ProbList} = lists:keyfind(arrival, 1, ProbData),
     ProbRanges = list_to_tuple(ProbList),
     allocate_lanes({Tail, [{LaneId,Pid, LightController,Dir,ConnectedLanes, IsSource, ProbRanges} | Spawned]}).
@@ -264,7 +264,7 @@ get_all_lines(Device, Accum) ->
 write_result(Path, Data) ->
     file:write_file(Path, io_lib:fwrite("~p.\n", [lists:flatten(Data)]),[append]).
 
-loop({Intersections, SourceLanes, {LogPath, DataLogPath}}, Time) ->
+loop({Intersections, SourceLanes, OutsideArea, {LogPath, DataLogPath}}, Time) ->
   %% On EVERY intersection in the system
   %% get the light_fsm and run each simulation for it
   %% according to the state of the FSM it will or will not move  the cars
@@ -283,13 +283,17 @@ loop({Intersections, SourceLanes, {LogPath, DataLogPath}}, Time) ->
 	 io:format("----------------------------------------------------------~n~n"),
 	 write_result(LogPath, io_lib:format("Finishing simulation iteration: ~w continue. Intersections~n",[Time])),
 	 write_result(LogPath, io_lib:format("----------------------------------------------------------",[])),
-	 loop({Intersections, UpdatedSources, {LogPath, DataLogPath}}, Time + 1);
+	 loop({Intersections, UpdatedSources, {LogPath, DataLogPath}}, Time + 1);    
     {call,Pid, stop} -> 
          tabulate_network(Intersections,DataLogPath),
          reply(Pid, {normal, Time})
   end.
 
 
+%% Add to a final list all the cars that completed theier travel 
+add_to_outside(OutsideArea, Car) ->
+   [Car | OutsideArea].
+   
 %% Receive traffic light list as param and evaluate state for ech one
 traverse_network([], _Time) ->
     [];
