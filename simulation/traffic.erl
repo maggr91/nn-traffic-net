@@ -66,7 +66,7 @@ set_map() ->
     NewRoads = lane:init_geometric(Roads),
     io:format("FULL roads ~w.~n",[NewRoads]),
 %%Spawn every lane as a proccess    
-    {_OrigLanes, AllocatedLanes} = allocate_lanes({NewRoads,[]}),
+    {origLanes, AllocatedLanes} = allocate_lanes({NewRoads,[]}),
 %%Set archive_log for cars arrival to sources_lanes  
     {ok, Cwd} = file:get_cwd(),
     Path = Cwd ++ "/logs/",
