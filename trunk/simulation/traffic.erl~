@@ -264,7 +264,7 @@ get_all_lines(Device, Accum) ->
 write_result(Path, Data) ->
     file:write_file(Path, io_lib:fwrite("~p.\n", [lists:flatten(Data)]),[append]).
 
-loop({Intersections, SourceLanes, OutsideArea, {LogPath, DataLogPath}}, Time) ->
+loop({Intersections, SourceLanes, {LogPath, DataLogPath}}, Time) ->
   %% On EVERY intersection in the system
   %% get the light_fsm and run each simulation for it
   %% according to the state of the FSM it will or will not move  the cars
