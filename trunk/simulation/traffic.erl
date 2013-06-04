@@ -60,13 +60,12 @@ set_map() ->
     Axis = get_lights(),
     Roads = get_lanes(),
 
-
     {_Origin, AllocatedLights} = allocate_lights({Axis,[]}),
 %%Get geometric distribution for each lane that has a type 2 (2 directions)
     NewRoads = lane:init_geometric(Roads),
     io:format("FULL roads ~w.~n",[NewRoads]),
 %%Spawn every lane as a proccess    
-    {origLanes, AllocatedLanes} = allocate_lanes({NewRoads,[]}),
+    {_OrigLanes, AllocatedLanes} = allocate_lanes({NewRoads,[]}),
 %%Set archive_log for cars arrival to sources_lanes  
     {ok, Cwd} = file:get_cwd(),
     Path = Cwd ++ "/logs/",
@@ -105,7 +104,8 @@ allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes,
                   CarsQueque, IsSource, Capacity, {probList, ProbData}, GeoProb}|Tail], Spawned}) ->
 %%for each lane in the list spawn a proccess
     %%Pid = lane:start({Type, [], CarsQueque, Capacity, [], ProbData, GeoProb}),
-    Pid = lane:start({LaneId, Type, [], CarsQueque, Capacity, [], GeoProb}),
+    Obstruction = [create_obstruction(Capacity)],
+    Pid = lane:start({LaneId, Type, [], CarsQueque, Capacity, Obstruction, GeoProb}),
     {arrival, ProbList} = lists:keyfind(arrival, 1, ProbData),
     ProbRanges = list_to_tuple(ProbList),
     allocate_lanes({Tail, [{LaneId,Pid, LightController,Dir,ConnectedLanes, IsSource, ProbRanges} | Spawned]}).
@@ -311,6 +311,15 @@ tabulate_network([{_InterId, Intersection}|Intersections],DataLog) ->
     tabulate_network(Intersections, DataLog).    
 
 
+
+%% Generate random obstrucctions on streets
+create_obstruction(LaneCap) ->
+    {A1,A2,A3} = now(), 
+    random:seed(A1, A2, A3),
+    Begin = random:uniform(LaneCap - 3),
+    End = Begin + random:uniform(3),
+    io:format("Generating Obstruction: ~w~n",[{test, Begin, End}]),
+    {test, Begin, End}.
     
 %% Estimate initial Cars arrival for all sources lanes
 %%init_poisson(SourcesLanes) ->
