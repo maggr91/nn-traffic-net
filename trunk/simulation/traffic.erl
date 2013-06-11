@@ -59,13 +59,14 @@ set_map() ->
 %%Read data from files
     Axis = get_lights(),
     Roads = get_lanes(),
+    Obs = get_obs(),
 
     {_Origin, AllocatedLights} = allocate_lights({Axis,[]}),
 %%Get geometric distribution for each lane that has a type 2 (2 directions)
     NewRoads = lane:init_geometric(Roads),
     io:format("FULL roads ~w.~n",[NewRoads]),
 %%Spawn every lane as a proccess    
-    {_OrigLanes, AllocatedLanes} = allocate_lanes({NewRoads,[]}),
+    {_OrigLanes, AllocatedLanes} = allocate_lanes({NewRoads,[],Obs}),
 %%Set archive_log for cars arrival to sources_lanes  
     {ok, Cwd} = file:get_cwd(),
     Path = Cwd ++ "/logs/",
@@ -98,17 +99,19 @@ allocate_lights({[{LightId,_ManagedLanes, Siblings, Cycle_time, Go_time}|Tail], 
  
  
 %% Spawn every lane on the area with the respective data         
-allocate_lanes({[], Spawned}) ->
+allocate_lanes({[], Spawned,_Obs}) ->
     {[],Spawned};
 allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes, 
-                  CarsQueque, IsSource, Capacity, {probList, ProbData}, GeoProb}|Tail], Spawned}) ->
+                  CarsQueque, IsSource, Capacity, {probList, ProbData}, GeoProb}|Tail], Spawned, Obs}) ->
 %%for each lane in the list spawn a proccess
     %%Pid = lane:start({Type, [], CarsQueque, Capacity, [], ProbData, GeoProb}),
-    Obstruction = [create_obstruction(Capacity)],
+    %%Obstruction = [create_obstruction(Capacity)],
+    io:format("Obstacules loaded: ~w",[Obs]),
+    Obstruction = allocate_obs(Obs, LaneId),  
     Pid = lane:start({LaneId, Type, [], CarsQueque, Capacity, Obstruction, GeoProb}),
     {arrival, ProbList} = lists:keyfind(arrival, 1, ProbData),
     ProbRanges = list_to_tuple(ProbList),
-    allocate_lanes({Tail, [{LaneId,Pid, LightController,Dir,ConnectedLanes, IsSource, ProbRanges} | Spawned]}).
+    allocate_lanes({Tail, [{LaneId,Pid, LightController,Dir,ConnectedLanes, IsSource, ProbRanges} | Spawned], Obs}).
 
 %%connect lights with its lanes
 connect({[], _LaneList, LightsFSM,_LogData}) -> 
@@ -224,6 +227,12 @@ get_lanes() ->
     Path = Cwd ++ "/sources/prueba.txt",
     readlines(Path).
 
+get_obs() ->
+%% Get the working directory, set complete path y read all lines
+    {ok, Cwd} = file:get_cwd(),
+    Path = Cwd ++ "/sources/obs.txt",
+    readlines(Path).
+
 %get_statistics() ->
 %    {ok, Cwd} = file:get_cwd(),
 %    Path = Cwd ++ "/sources/prob.txt",
@@ -313,13 +322,23 @@ tabulate_network([{_InterId, Intersection}|Intersections],DataLog) ->
 
 
 %% Generate random obstrucctions on streets
-create_obstruction(LaneCap) ->
-    {A1,A2,A3} = now(), 
-    random:seed(A1, A2, A3),
-    Begin = random:uniform(LaneCap - 3),
-    End = Begin + random:uniform(3),
-    io:format("Generating Obstruction: ~w~n",[{test, Begin, End}]),
-    {test, Begin, End}.
+%%create_obstruction(LaneCap) ->
+%%    {A1,A2,A3} = now(), 
+%%    random:seed(A1, A2, A3),
+%%    Begin = random:uniform(LaneCap - 3),
+%%    End = Begin + random:uniform(1),
+%%    io:format("Generating Obstruction: ~w~n",[{test, Begin, End}]),
+%%    {test, Begin, End}.
+    
+%%allocate obstructions on lanes
+allocate_obs(ObsRaw, TargetLaneId) ->
+   allocate_obs(ObsRaw, TargetLaneId, []).
+allocate_obs([], _TargetLaneId, ObsList) ->
+   lists:reverse(ObsList);
+allocate_obs([{Obs, TargetLaneId, BeginPos, EndPos} | Tail] , TargetLaneId, ObsList) ->
+   allocate_obs(Tail,TargetLaneId, [{Obs, BeginPos, EndPos} | ObsList]);
+allocate_obs([_NotMatchObs | Tail] , TargetLaneId, ObsList) ->
+   allocate_obs(Tail, TargetLaneId, ObsList).
     
 %% Estimate initial Cars arrival for all sources lanes
 %%init_poisson(SourcesLanes) ->

@@ -22,9 +22,9 @@ lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstructio
     %% if a go message is received it tells all cars to start to move
         {go, LightController, _TimeCycle, _Time, LogData} ->
             io:format("GO msj~n. CarsQueque LaneId ~w: ~w~n",[LaneId, {Type, ConnectedLanes, CarsQueque, Obstruction, ProbData}]),
-	    {NewCarsQueque, NewProbData, NewOutArea} = move_cars(CarsQueque, ConnectedLanes,Obstruction, [], Capacity,ProbData, LaneId, OutSideArea),
-	    io:format("Moving msj received from ~w. CarsQueque: ~w ~n",[LightController,NewCarsQueque]),
-	    write_result(LogData, io_lib:format("Moving msj received from ~w",[LightController])),
+            write_result(LogData, io_lib:format("GO msj~n. CarsQueque LaneId ~w: ~w~n",[LaneId, {Type, ConnectedLanes, CarsQueque, Obstruction, ProbData}])),            
+	    {NewCarsQueque, NewProbData, NewOutArea} = move_cars(CarsQueque, ConnectedLanes,Obstruction, [], Capacity,ProbData, LaneId, OutSideArea, LogData),
+            io:format("Moving msj received from ~w. NewCarsQueque: ~w ~n",[LightController,NewCarsQueque]),	    
 	    reply(LightController, updated),
 	    lane(LaneId, Type, ConnectedLanes, NewCarsQueque,NewOutArea, Capacity, Obstruction, NewProbData);
     %% send a message to all cars to start to stop preventing them to pass the red ligth
@@ -36,7 +36,7 @@ lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstructio
 	    lane(LaneId, Type, ConnectedLanes, NewCarsQueque, OutSideArea, Capacity, Obstruction, ProbData);
 	{waiting, LightController, _Time, LogData} ->
     %% When recieving a waiting message, update cars times if they can or cannot move
-	    NewCarsQueque = waiting(CarsQueque),
+	    NewCarsQueque = waiting(LaneId, CarsQueque, LogData, ConnectedLanes, Obstruction),
 	    %%io:format("Waiting msj received from ~w. LogData~p~n",[LightController,LogData]),
 	    write_result(LogData, io_lib:format("Waiting msj received from ~w",[LightController])),
 	    reply(LightController, updatedWaiting),
@@ -67,31 +67,38 @@ lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstructio
 	            reply(Pid, full),
 	            lane(LaneId, Type, ConnectedLanes, CarsQueque,OutSideArea, Capacity, Obstruction, ProbData)
 	    end;
-	{try_transfer,TransferTime, {CallerId, CallerLPid},TransferPosition, CarToTransfer} ->
+	{try_transfer,TransferTime, {CallerId, CallerLPid},TransferPosition, CarToTransfer, LogData} ->
 	    io:format("OutSchedule of cars incoming. ProbData: ~w ~n", [ProbData]),
+	    write_result(LogData, io_lib:format("OutSchedule of cars incoming. ProbData: ~w ~n", [ProbData])),
 	    %% Sacar probabilidad de que le den pasada al otro carril
             %% si no le dan pasada, dejarlo en el mismo carril si cambiar
             %% posiciones y aumentar contadores
             RemCap = length(CarsQueque) < Capacity,
             {transfer, List} = lists:keyfind(transfer, 1, ProbData),
             io:format("This: ~w ...Looking for callerPid Caller:~w, List: ~w~n",[LaneId, CallerId, List] ),
+            write_result(LogData, io_lib:format("This: ~w ...Looking for callerPid Caller:~w, List: ~w~n",[LaneId, CallerId, List])),
             {_, CedNumCar} = lists:keyfind(CallerId, 1, List),
-            io:format("Calling space between cars. RemCap ~w... CedNumCar ~w~n",[RemCap, CedNumCar] ),
-	    case space_between_cars(CarsQueque, TransferPosition, CedNumCar, CarToTransfer, Capacity - 1, TransferTime, RemCap) of
+            io:format("Calling space between cars. RemCap ~w... CedNumCar ~w~n",[RemCap, CedNumCar]),
+            write_result(LogData, io_lib:format("Calling space between cars. RemCap ~w... CedNumCar ~w~n",[RemCap, CedNumCar])),
+	    case space_between_cars(CarsQueque, TransferPosition, CedNumCar, CarToTransfer, Capacity - 1, TransferTime, RemCap, LogData) of
 	        {true, NewCarsQueque, NewCedNumCar} -> 
 	            %%NewCarsQueque = transfer_at(Car,ConnectedLanes),	            
 	            NewLaneCedList = lists:keyreplace(CallerId,1, List, {CallerId, NewCedNumCar}),
 	            NewProbData = lists:keyreplace(transfer,1, ProbData, {transfer, NewLaneCedList}),
 	            io:format("Car transfered. Answering to lane ProbData~w ... LaneCed: ~w... CedNum: ~w~n",[NewProbData,NewLaneCedList,NewCedNumCar] ),
-	            io:format("New CarQueque: ~w~n",[NewCarsQueque] ),  
+	            write_result(LogData, io_lib:format("Car transfered. Answering to lane ProbData~w ... LaneCed: ~w... CedNum: ~w~n",[NewProbData,NewLaneCedList,NewCedNumCar])),
+	            io:format("Lane ~w New CarQueque: ~w~n",[LaneId,NewCarsQueque] ),
+	            write_result(LogData, io_lib:format("Lane ~w New CarQueque: ~w~n",[LaneId, NewCarsQueque])),
 	            reply(CallerLPid, ok),
 	            lane(LaneId, Type, ConnectedLanes, NewCarsQueque,OutSideArea, Capacity, Obstruction, NewProbData);
 	        {false, _SameQueque, NewCedNumCar} ->
 	            NewLaneCedList = lists:keyreplace(CallerId,1, List, {CallerId, NewCedNumCar}),
 	            NewProbData = lists:keyreplace(transfer,1, ProbData, {transfer, NewLaneCedList}),
-	            io:format("New CarQueque: ~w~n",[CarsQueque] ),
+	            io:format("Lane ~w Same CarQueque: ~w~n",[LaneId, CarsQueque]),
+	            write_result(LogData, io_lib:format("Lane ~w Same CarQueque: ~w~n",[LaneId, CarsQueque])),
 	            reply(CallerLPid, no_space),
-	            io:format("Car NOT transfered. Answering to lane ~w ProbData~w ... LaneCed: ~w... CedNum: ~w~n",[{CallerId, CallerLPid}, NewProbData,NewLaneCedList,NewCedNumCar] ),	            
+	            io:format("Car NOT transfered. Answering to lane ~w ProbData~w ... LaneCed: ~w... CedNum: ~w~n",[{CallerId, CallerLPid}, NewProbData,NewLaneCedList,NewCedNumCar]),	            
+	            write_result(LogData, io_lib:format("Car NOT transfered. Answering to lane ~w ProbData~w ... LaneCed: ~w... CedNum: ~w~n",[{CallerId, CallerLPid}, NewProbData,NewLaneCedList,NewCedNumCar])),
 	            lane(LaneId, Type, ConnectedLanes, CarsQueque,OutSideArea, Capacity, Obstruction,NewProbData)
 	    end;
 	    %%case length(ExtraIncoming) < Capacity of
@@ -116,22 +123,53 @@ lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstructio
 
 %% When a waiting message is recieved, cars have to move until they
 %% reach the end of line
-waiting([]) ->
+
+%%USED FOR WAITING CARS OUTSIDE SOURCES LANES
+waiting([], _LogData) ->
     [];
-waiting([{car,{Wait,Delay,Position, Route}}|Tail]) -> 
-    waiting([{car,{Wait,Delay,Position, Route}}|Tail], [], Position).
-waiting([], UpdatedCars, _LastPosition) -> 
-    io:format("Updated waiting ~w, ~n",[UpdatedCars]),
-    lists:reverse(UpdatedCars);
+waiting([{car,{Wait,Delay,Position, Route}}|Tail], LogData) -> 
+    waiting([{car,{Wait,Delay,Position, Route}}|Tail], [], Position, LogData).
+waiting([], UpdatedCars, _LastPosition, LogData) -> 
+    NewUpdatedCars =  lists:reverse(UpdatedCars),
+    io:format("Updated waiting reversed ~w, ~n",[NewUpdatedCars]),    
+    write_result(LogData, io_lib:format("Updated waiting reversed ~w, ~n",[NewUpdatedCars])),
+    NewUpdatedCars;
 %% update cars that are waiting outsite of sources lanes
-waiting([{car,{Wait,Delay,Position, Route}}|Tail], UpdatedCars, _LastPosition) when Position == -1-> 
-    waiting(Tail, [{car,{Wait + 1, Delay + 1, Position, Route}} | UpdatedCars], Position);  
+waiting([{car,{Wait,Delay,Position, Route}}|Tail], UpdatedCars, _LastPosition, LogData) when Position == -1-> 
+    %%io:format("update cars that are waiting outsite of sources lanes~n",[]),    
+    waiting(Tail, [{car,{Wait + 1, Delay + 1, Position, Route}} | UpdatedCars], Position, LogData).
+
+
+%% for normal lanes
+waiting(_LaneId, [], _LogData, _ConnectedLanes, _Obstructions) ->
+    [];
+waiting(LaneId, [{car,{Wait,Delay,Position, Route}}|Tail], LogData, ConnectedLanes, Obstructions) ->
+    waiting(LaneId, [{car,{Wait,Delay,Position, Route}}|Tail], [], Position, LogData, ConnectedLanes, Obstructions).
+waiting(_LaneId, [], UpdatedCars, _LastPosition, LogData, _ConnectedLanes, []) -> 
+    NewUpdatedCars =  lists:reverse(UpdatedCars),
+    io:format("Updated waiting reversed ~w, ~n",[NewUpdatedCars]),    
+    write_result(LogData, io_lib:format("Updated waiting reversed ~w, ~n",[NewUpdatedCars])),
+    NewUpdatedCars;
+%% update cars that are waiting outsite of sources lanes
+waiting(LaneId, [{car,{Wait,Delay,Position, Route}}|Tail], UpdatedCars, _LastPosition, _LogData, 
+  ConnectedLanes, []) when Position == -1-> 
+    %%io:format("update cars that are waiting outsite of sources lanes~n",[]),    
+    waiting(LaneId, Tail, [{car,{Wait + 1, Delay + 1, Position, Route}} | UpdatedCars], Position, _LogData, ConnectedLanes, []);  
 %% in case that lass position has been reached or if theres a car ahead just update times and do not move the car
-waiting([{car,{Wait,Delay,Position, Route}}|Tail], UpdatedCars, LastPosition) when Position == 0; Position - 1 == LastPosition -> 
-    waiting(Tail, [{car,{Wait + 1, Delay + 1, Position, Route}} | UpdatedCars], Position); 
+waiting(LaneId, [{car,{Wait,Delay,Position, Route}}|Tail], UpdatedCars, LastPosition, _LogData, 
+  ConnectedLanes, []) when Position == 0; Position - 1 == LastPosition -> 
+    waiting(LaneId, Tail, [{car,{Wait + 1, Delay + 1, Position, Route}} | UpdatedCars], Position, _LogData, ConnectedLanes, []); 
 %% when the next position is greather or equal to 0 and if there is no car update times and move forward
-waiting([{car,{Wait,Delay,Position, Route}}|Tail], UpdatedCars, LastPosition) when Position - 1 >= 0, Position - 1 /= LastPosition -> 
-    waiting(Tail, [{car,{Wait + 1, Delay + 1, Position - 1, Route}} | UpdatedCars], Position - 1).
+waiting(LaneId, [{car,{Wait,Delay,Position, Route}}|Tail], UpdatedCars, LastPosition, _LogData, 
+  ConnectedLanes, []) when Position - 1 >= 0, Position - 1 /= LastPosition -> 
+    waiting(LaneId,Tail, [{car,{Wait + 1, Delay + 1, Position - 1, Route}} | UpdatedCars], Position - 1, _LogData, ConnectedLanes, []);
+
+waiting(LaneId, CarsQueque, _UpdatedCars, _LastPosition, LogData, ConnectedLanes, [ObsData | _Obstruction])-> 
+    {siblings, List} = lists:keyfind(siblings, 1, ConnectedLanes),
+%% try to move the cars to the a sibling lane
+    UpdatedCarsQueque = transfer_enabled(LaneId, List, length(List), CarsQueque, ObsData, LogData),
+    %%NewProbData = lists:keyreplace(transfer,1, ProbData, {transfer, NewCedCarNum}),
+    UpdatedCarsQueque.
     
 %%=================================================================================================================================
 %%=================================================================================================================================
@@ -141,18 +179,20 @@ waiting([{car,{Wait,Delay,Position, Route}}|Tail], UpdatedCars, LastPosition) wh
 %%=======================================================================%%
 
 %% When a move message is recieved
-move_cars([], _ConnectedLanes, _Obstruction, UpdatedCars, _LanCap, ProbData, _LaneId, NewOutArea) -> 
+move_cars([], _ConnectedLanes, _Obstruction, UpdatedCars, _LanCap, ProbData, _LaneId, NewOutArea, LogData) -> 
     io:format("No more cars to move: Moving carslist  ~w ~n",[UpdatedCars]),
+    write_result(LogData, io_lib:format("No more cars to move: Moving carslist  ~w ~n",[UpdatedCars])),
     {lists:reverse(UpdatedCars), ProbData, NewOutArea};
 %% if car is still on lane move it forward
 move_cars([{car,{Wait,Delay, Position, Route}}|Tail], ConnectedLanes, [], UpdatedCars, LanCap, 
-  ProbData, LaneId, NewOutArea) when Position - 1 >= 0 -> 
-    move_cars(Tail, ConnectedLanes,[], [{car,{Wait + 1,Delay, Position - 1, Route}} | UpdatedCars], LanCap, ProbData, LaneId, NewOutArea);
+  ProbData, LaneId, NewOutArea, LogData) when Position - 1 >= 0 -> 
+    move_cars(Tail, ConnectedLanes,[], [{car,{Wait + 1,Delay, Position - 1, Route}} | UpdatedCars], LanCap, ProbData, LaneId, NewOutArea, LogData);
 %% if car has reached the end of line, dispatch (send) car to one of connected lanes
 move_cars([{car,{Wait,Delay, Position, Route}}|Tail], ConnectedLanes, [], UpdatedCars, LanCap, 
-  ProbData, LaneId, NewOutArea) when Position - 1 < 0 -> 
+  ProbData, LaneId, NewOutArea, LogData) when Position - 1 < 0 -> 
     %%Dispatch Cars
     io:format("Prob dispatch: ~w.~n",[ProbData]),
+    write_result(LogData, io_lib:format("Prob dispatch: ~w.~n",[ProbData])),
     {dispatch, TurnCarNum} = lists:keyfind(dispatch, 1, ProbData),
     %%Get parent lane 
     S = atom_to_list(LaneId),
@@ -162,17 +202,19 @@ move_cars([{car,{Wait,Delay, Position, Route}}|Tail], ConnectedLanes, [], Update
     {Res, NewTurnCarNum} = prepare_car_dispatch({car,{Wait,Delay, Position, Route}}, ConnectedLanes, Tail,TurnCarNum, ParentLaneId),
     NewProbData = lists:keyreplace(dispatch,1, ProbData, {dispatch, NewTurnCarNum}),
     io:format("Dispatch result: ~w.~n",[Res]),
+    write_result(LogData, io_lib:format("Dispatch result: ~w.~n",[Res])),
     %% if car was able to move to the next lane, continue with remaining cars, if not stop moving the rest of
     %% the cars
     case Res of
-        {reply, transfered, Car}   -> move_cars(Tail, ConnectedLanes, [], UpdatedCars, LanCap,NewProbData, LaneId, [Car|NewOutArea]);
-        {reply, transfered}        -> move_cars(Tail, ConnectedLanes, [], UpdatedCars, LanCap,NewProbData, LaneId,NewOutArea);
+        {reply, transfered, Car}   -> move_cars(Tail, ConnectedLanes, [], UpdatedCars, LanCap,NewProbData, LaneId, [Car|NewOutArea], LogData);
+        {reply, transfered}        -> move_cars(Tail, ConnectedLanes, [], UpdatedCars, LanCap,NewProbData, LaneId,NewOutArea, LogData);
         {reply, error, NewUpdated} -> io:format("CALL STOP MOVING ~w  position ~w.~n",[NewUpdated, Position]),
+        			      write_result(LogData, io_lib:format("CALL STOP MOVING ~w  position ~w.~n",[NewUpdated, Position])),
            			      {stop_moving(NewUpdated, Position), NewProbData, NewOutArea}
     end;
 %% in case that thers and obstruction on the lane
-move_cars(CarsQueque, ConnectedLanes, 
-    		[ObsData | _Obstruction], _UpdatedCars, _LanCap, ProbData, LaneId, NewOutArea)-> 
+move_cars(CarsQueque, ConnectedLanes, [ObsData | _Obstruction], _UpdatedCars, 
+            _LanCap, ProbData, LaneId, NewOutArea, LogData)-> 
 %% get probability for the current car to see if its enable to 
 %% cross to a sibling lane
 %% if it was not able, leave it on the same lane and update times
@@ -180,7 +222,7 @@ move_cars(CarsQueque, ConnectedLanes,
     {siblings, List} = lists:keyfind(siblings, 1, ConnectedLanes),
     %%{transfer, CedCarNum} = lists:keyfind(transfer, 1, ProbData),
 %% try to move the cars to the a sibling lane
-    UpdatedCarsQueque = transfer_enabled(LaneId, List, length(List), CarsQueque, ObsData),
+    UpdatedCarsQueque = transfer_enabled(LaneId, List, length(List), CarsQueque, ObsData, LogData),
     %%NewProbData = lists:keyreplace(transfer,1, ProbData, {transfer, NewCedCarNum}),
     {UpdatedCarsQueque,ProbData,NewOutArea} .
 
@@ -188,24 +230,38 @@ move_cars(CarsQueque, ConnectedLanes,
 %%Get the probability that the car goes either straight or turn in the corner
 %%This calls car_dispatch and according to the prob gets the right lane to send the car
 prepare_car_dispatch(Car, ConnectedLanes, CarsQueque,TurnCarNum, LaneId) when TurnCarNum == -1 ->
-    {Type, List} = lists:keyfind(main, 1, ConnectedLanes),
+    %{Type, List} = lists:keyfind(main, 1, ConnectedLanes),
+    TargetLane = get_enabled_lane([main, secondary], ConnectedLanes, [{LaneId, self()}]),
+    {Type, List} = TargetLane,
     io:format("Prepare dispatch to straigth lane: ~w.~n",[{Type, List}]),
     {car_dispatch(Car, List, CarsQueque, self(), LaneId), TurnCarNum};
 prepare_car_dispatch(Car, ConnectedLanes, CarsQueque,TurnCarNum, LaneId) when TurnCarNum > 0 ->
-    {Type, List} = lists:keyfind(main, 1, ConnectedLanes),
+    %%{Type, List} = lists:keyfind(main, 1, ConnectedLanes),
+    TargetLane = get_enabled_lane([main, secondary], ConnectedLanes, [{LaneId, self()}]),
+    {Type, List} = TargetLane, 
     io:format("Prepare dispatch to straigth lane: ~w.~n",[{Type, List}]),
     Res = car_dispatch(Car, List, CarsQueque, self(),LaneId),
     io:format("return after prepare dispatch to straigth lane: ~w .  ~w ~n",[Res, TurnCarNum]),
     {Res, TurnCarNum - 1};
 prepare_car_dispatch(Car, ConnectedLanes, CarsQueque, TurnCarNum, LaneId) when TurnCarNum == 0 ->
-    {Type, List} = lists:keyfind(secondary, 1, ConnectedLanes),
-    NewTurnCarNum = new_turn(),
+    %%{Type, List} = lists:keyfind(secondary, 1, ConnectedLanes),
+    NewTurnCarNum = new_turn(),    
+    TargetLane = get_enabled_lane([secondary,main], ConnectedLanes, [{LaneId, self()}]),
+    {Type, List} = TargetLane,
     io:format("Prepare dispatch to alt lane: ~w.~n",[{Type, List}]),
     Res = car_dispatch(Car, List, CarsQueque, self(),LaneId),
     io:format("return after prepare dispatch to alt lane: ~w  ~w ~n",[Res, NewTurnCarNum]),
     %%{car_dispatch(Car, List, CarsQueque, self(),LaneId), NewTurnCarNum}.
     {Res, NewTurnCarNum}.
 
+get_enabled_lane([], _ConnectedLanes, AuxLane) ->
+    AuxLane;  
+get_enabled_lane([TargetItem | TargetOrder], ConnectedLanes, AuxLane) ->
+    {Type, List} = lists:keyfind(TargetItem, 1, ConnectedLanes),
+    case List of
+        [{}] -> get_enabled_lane(TargetOrder, ConnectedLanes, AuxLane);
+        _Ok  -> {Type, List}
+    end.
 
 %% GET the car and try to
 %% Send it to connected lane
@@ -239,38 +295,48 @@ car_dispatch(Car = {car,{Wait,Delay, Position, Route}}, [{LaneId, LanePid} | _Ta
 %% In case that there are obstructions on the road, cars will try to change lanes (siblings)
 %% and after that we get an updated list of remaining cars and move the others forward.
 %% a lane has a max of 2 siblings so we use SiblingsNum var to determine which one to get
-transfer_enabled(CurrentLaneId, List, SiblingsNum, CarsQueque, {_Obs, _Begin, End}) when SiblingsNum == 1 ->
+transfer_enabled(CurrentLaneId, List, SiblingsNum, CarsQueque, ObsData, LogData) when SiblingsNum == 1 ->
     [Sibling | _Tail] = List,
-    io:format("Attemp with just one sibling ~w~n",[{Sibling, CarsQueque, [], End}]),
+    io:format("Attemp with just one sibling ~w~n",[{Sibling, CarsQueque, [], ObsData}]),
+    write_result(LogData, io_lib:format("Attemp with just one sibling ~w~n",[{Sibling, CarsQueque, [], ObsData}])),
     %%attemp_transfer(Sibling, CarsQueque, [], End, CedCarNum);
-    attemp_transfer(CurrentLaneId, Sibling, CarsQueque, [], End);
-transfer_enabled(CurrentLaneId, List, SiblingsNum, CarsQueque, {_Obs, _Begin, End}) when SiblingsNum > 1 ->
+    attemp_transfer(CurrentLaneId, Sibling, CarsQueque, [], ObsData, LogData, -1);
+transfer_enabled(CurrentLaneId, List, SiblingsNum, CarsQueque, ObsData, LogData) when SiblingsNum > 1 ->
     TransferSibling = random:uniform(SiblingsNum),    
     Sibling = lists:nth(TransferSibling, List),
     io:format("Attemp with two sibling~n",[]),
-    attemp_transfer(CurrentLaneId, Sibling, CarsQueque, [], End);
-transfer_enabled(_CurrentLaneId, List, SiblingsNum, CarsQueque, {_Obs, _Begin, End}) ->
-    io:format("You're soo fucked up ~w~n",[{List,SiblingsNum, CarsQueque, [], End}]),
+    write_result(LogData, io_lib:format("Attemp with two sibling~n",[])),
+    attemp_transfer(CurrentLaneId, Sibling, CarsQueque, [], ObsData, LogData, -1);
+transfer_enabled(_CurrentLaneId, List, SiblingsNum, CarsQueque, ObsData, LogData) ->
+    io:format("You're soo fucked up ~w~n",[{List,SiblingsNum, CarsQueque, [], ObsData}]),
+    write_result(LogData, io_lib:format("You're soo fucked up ~w~n",[{List,SiblingsNum, CarsQueque, [], ObsData}])),
     CarsQueque.
 
 
 %% TODO:HACER que el carro trate de pasarse si puede cambia de linea si no, avanza siempre y cuando no haya obstrucion u otro carro
 %% Attemp to transfer each car on the lane to sibling line    
 %% REMOVED: CedNumCar, because sibling lane has the CedNumtransfer for this lane
-attemp_transfer(_CurrentLaneId, _Sibling, [], UpdatedCars, _ObsPosition) ->
+attemp_transfer(_CurrentLaneId, _Sibling, [], UpdatedCars, _ObsData, _LogData, _LastPosition) ->
     lists:reverse(UpdatedCars);
 %% if the car has reached the obstruction try to transfer, if "ok" move the rest of cars, if not test with other cars
-attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, [{car,{Wait,Delay, Position, Route}} | Tail], UpdatedCars, ObsPosition) when Position -1 == ObsPosition->
+attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, [{car,{Wait,Delay, Position, Route}} | Tail], 
+  UpdatedCars, {Obs,ObsBeginPosition, ObsEndPosition}, LogData, _LastPosition) when Position -1 == ObsEndPosition->
     %% When they reached the obstacule stop the cars on the lane and just update times
     io:format("CALLING SIBLING FOR TRANSFER when position reached on ~w to ~w ~n",[CurrentLaneId, {SiblingId, SiblingPid}]),
+    write_result(LogData, io_lib:format("CALLING SIBLING FOR TRANSFER when position reached on ~w to ~w ~n",[CurrentLaneId, {SiblingId, SiblingPid}])),
     %%SiblingPid ! {try_transfer,atpoint, self(), CedCarNum, {car,{Wait,Delay, Position, Route}}},
-    SiblingPid ! {try_transfer,atPoint, {CurrentLaneId, self()}, Position, {car,{Wait,Delay, Position, Route}}},
+    SiblingPid ! {try_transfer,atPoint, {CurrentLaneId, self()}, Position, {car,{Wait,Delay, Position, Route}}, LogData},
     receive
         {reply, ok}    -> io:format("transfer succeded with two sibling~n",[]),
+        		  write_result(LogData, io_lib:format("transfer succeded with two sibling~n",[])),
         	          %%move_on_transfer_succ(Tail,Position,ObsPosition);
-        	          keep_moving(Tail, ObsPosition);
-        {reply, no_space} -> io:format("transfer failed with two sibling~n",[]),
-        	           stop_moving(Tail, Position, [ {car,{Wait + 1,Delay + 1, Position, Route}} | UpdatedCars])
+        	          %%keep_moving(Tail, ObsEndPosition,LogData);
+        	          attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, Tail, UpdatedCars, {Obs, ObsBeginPosition, ObsEndPosition}, LogData, -1);
+        {reply, no_space} -> 
+        		  io:format("transfer failed with two sibling~n",[]),
+        		  write_result(LogData, io_lib:format("transfer failed with two sibling~n",[])),
+        	          %%stop_moving(Tail, Position, [ {car,{Wait + 1,Delay + 1, Position, Route}} | UpdatedCars])
+        	          attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, Tail, [{car,{Wait + 1,Delay + 1, Position, Route}} | UpdatedCars], {Obs, ObsBeginPosition, ObsEndPosition}, LogData,Position)
     end;
 
 %%attemp_transfer(Sibling, [{car,{Wait,Delay, Position, Route}} | Tail], UpdatedCars, ObsPosition, 
@@ -279,36 +345,74 @@ attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, [{car,{Wait,Delay, Posit
 %%   attemp_transfer(Sibling, Tail, [{car,{Wait + 1,Delay, Position - 1, Route}} | UpdatedCars], ObsPosition, CedCarNum).
 
 %%TODO: THIS SHOULD BE USED FOR TRANSFER AT ANY PLACE OF THE LANE
-attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, [{car,{Wait,Delay, Position, Route}} | Tail], UpdatedCars, ObsPosition) when Position -1 /= ObsPosition ->
+attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, [{car,{Wait,Delay, Position, Route}} | Tail], 
+  UpdatedCars, ObsData = {Obs, ObsBeginPosition, ObsEndPosition}, LogData, LastPosition) when Position - 1 > ObsEndPosition ->
     %% when they haven't reached the obstacule try to pass the car to the sibling lane if possible pass if not continue moving
     %% until it reaches the obstacle
     io:format("CALLING SIBLING FOR TRANSFER when position NOT reached on ~w to ~w ~n",[CurrentLaneId, {SiblingId, SiblingPid}]),
+    write_result(LogData, io_lib:format("CALLING SIBLING FOR TRANSFER when position NOT reached on ~w to ~w ~n",[CurrentLaneId, {SiblingId, SiblingPid}])),
     %%SiblingPid ! {try_transfer, before, self(), {car,{Wait,Delay, Position, Route}}},
-    SiblingPid ! {try_transfer,before, {CurrentLaneId, self()},Position, {car,{Wait,Delay, Position, Route}}},
+    SiblingPid ! {try_transfer,before, {CurrentLaneId, self()},Position, {car,{Wait,Delay, Position, Route}}, LogData},
     receive
-       {reply, ok}    -> io:format("transfer succeded with two sibling ~w~n",[{{SiblingId, SiblingPid}, Tail, UpdatedCars, ObsPosition}]),
-                         attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, Tail, UpdatedCars, ObsPosition);
-       {reply, no_space} when Position -1 >= 0, Position - 1 /= ObsPosition -> io:format("transfer failed with two sibling~n",[]),
-       		         attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, Tail, [{car,{Wait + 1,Delay, Position - 1, Route}} | UpdatedCars], ObsPosition);
-       {reply, no_space} when Position -1 > ObsPosition -> io:format("transfer failed with two sibling~n",[]),
-       		         attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, Tail, [{car,{Wait + 1,Delay, Position - 1, Route}} | UpdatedCars], ObsPosition);
+       {reply, ok}    -> io:format("transfer succeded with two sibling ~w~n",[{{SiblingId, SiblingPid}, Tail, UpdatedCars, ObsData}]),
+       			 write_result(LogData, io_lib:format("transfer succeded with two sibling ~w~n",[{{SiblingId, SiblingPid}, Tail, UpdatedCars, ObsData}])),
+                         attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, Tail, UpdatedCars, {Obs, ObsBeginPosition, ObsEndPosition}, LogData, -1);
+       {reply, no_space} when Position -1 >= 0, Position - 1 > LastPosition -> io:format("transfer failed with two sibling~n",[]),
+       			 write_result(LogData, io_lib:format("transfer failed with two sibling~n",[])),
+       			 NewPosition = Position - 1,
+       		         attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, Tail, [{car,{Wait + 1,Delay, NewPosition, Route}} | UpdatedCars], {Obs, ObsBeginPosition, ObsEndPosition}, LogData,NewPosition);       
        {reply, no_space} -> io:format("transfer failed with two sibling~n",[]),
-       		         attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, Tail, [{car,{Wait + 1,Delay + 1, Position, Route}} | UpdatedCars], ObsPosition)
-    end.
+       			 write_result(LogData, io_lib:format("transfer failed with two sibling",[])),
+       		         attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, Tail, [{car,{Wait + 1,Delay + 1, Position, Route}} | UpdatedCars], {Obs, ObsBeginPosition, ObsEndPosition}, LogData,Position)
+    end;
+    
+attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, [{car,{Wait,Delay, Position, Route}} | Tail], 
+  UpdatedCars, {Obs, ObsBeginPosition, ObsEndPosition}, LogData,LastPosition) when Position - 1 < ObsBeginPosition, Position - 1 >= 0, Position - 1 > LastPosition ->
+    %% when they aren't in the way of the obstacule do not try to pass the car to the sibling lane 
+    io:format("MOVING NORMAL, NOT CALLING SIBLING FOR TRANSFER On ~w ~n",[CurrentLaneId]),
+    write_result(LogData, io_lib:format("MOVING NORMAL, NOT CALLING SIBLING FOR TRANSFER On ~w ~n",[CurrentLaneId])),    
+    NewPosition = Position - 1,
+    attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, Tail, [{car,{Wait + 1,Delay, NewPosition, Route}} | UpdatedCars], {Obs, ObsBeginPosition, ObsEndPosition}, LogData,NewPosition);
+    
+attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, [{car,{Wait,Delay, Position, Route}} | Tail], 
+  UpdatedCars, {Obs, ObsBeginPosition, ObsEndPosition}, LogData,LastPosition) when Position - 1 < ObsBeginPosition, Position - 1 < 0; Position - 1 == LastPosition ->
+    %% when they aren't in the way of the obstacule do not try to pass the car to the sibling lane 
+    io:format("CANT MOVE NORMAL, NOT CALLING SIBLING FOR TRANSFER, NEXT POSITION: ~w IS OCCUPIEDED On ~w ~n",[{Position - 1, LastPosition}, CurrentLaneId]),
+    write_result(LogData, io_lib:format("CANT MOVE NORMAL, NOT CALLING SIBLING FOR TRANSFER, NEXT POSITION: ~w IS OCCUPIEDED On ~w ~n",[{Position - 1, LastPosition}, CurrentLaneId])),    
+    attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, Tail, [{car,{Wait + 1,Delay + 1, Position, Route}} | UpdatedCars], {Obs, ObsBeginPosition, ObsEndPosition}, LogData,Position);
+
+attemp_transfer(CurrentLaneId, {_SiblingId, _SiblingPid}, [{car,{Wait,Delay, Position, Route}} | Tail], 
+  _UpdatedCars, {Obs, ObsBeginPosition, ObsEndPosition}, LogData, _LastPosition) when Position >= ObsBeginPosition, Position  =< ObsEndPosition ->
+    %% when they aren't in the way of the obstacule do not try to pass the car to the sibling lane 
+    io:format("LOCATION ERROR CAR POSITION : ~w IS ON OBSTRUCTION LOCATION: ~w IS OCCUPIEDED On ~w ~n",[Position, {Obs, ObsBeginPosition, ObsEndPosition}, CurrentLaneId]),
+    write_result(LogData, io_lib:format("LOCATION ERROR CAR POSITION : ~w IS ON OBSTRUCTION LOCATION: ~w IS OCCUPIEDED On ~w ~n",[Position, {Obs, ObsBeginPosition, ObsEndPosition}, CurrentLaneId])),    
+    [{car,{Wait,Delay, Position, Route}} | Tail].
+
 
 %%TODO: Unir este metodo con attemp_transfer 
 %% move cars on transfer success
-keep_moving(CarsQueque, ObsPosition) ->
-    keep_moving(CarsQueque, ObsPosition, -1, []).
+keep_moving(CarsQueque, ObsPosition, LogData) ->
+    io:format("keep moving CarsQueque ~w, ObsPosition ~w~n",[CarsQueque, ObsPosition]),
+    write_result(LogData, io_lib:format("keep moving CarsQueque ~w, ObsPosition ~w~n",[CarsQueque, ObsPosition])),
+    keep_moving(CarsQueque, ObsPosition, -1, [], LogData).
 
-keep_moving([], _ObsPosition, _LastPosition, UpdatedCars)->
+keep_moving([], _ObsPosition, _LastPosition, UpdatedCars, LogData)->
+    io:format("STOP keep moving UpdatedCars ~w~n",[UpdatedCars]),
+    write_result(LogData, io_lib:format("STOP keep moving UpdatedCars ~w~n",[UpdatedCars])),
     lists:reverse(UpdatedCars);
 
-keep_moving([{car,{Wait,Delay, Position, Route}}|Tail], ObsPosition,LastPosition, UpdatedCars) when Position - 1 /= ObsPosition, Position - 1 > LastPosition ->
+keep_moving([{car,{Wait,Delay, Position, Route}}|Tail], ObsPosition,LastPosition, UpdatedCars, 
+  LogData) when Position - 1 /= ObsPosition, Position - 1 /= LastPosition ->
     NewPosition = Position - 1,
-    keep_moving(Tail, ObsPosition, NewPosition, [{car,{Wait + 1,Delay, NewPosition, Route}} |  UpdatedCars]);
-keep_moving([{car,{Wait,Delay, Position, Route}}|Tail], ObsPosition,LastPosition, UpdatedCars) when Position - 1 == ObsPosition; Position - 1 == LastPosition ->
-    keep_moving(Tail, ObsPosition, Position,[{car,{Wait + 1,Delay, Position, Route}} |  UpdatedCars]).
+    io:format("keep moving OK NewPosition ~w. Tail ~w~n",[NewPosition, Tail]),
+    write_result(LogData, io_lib:format("keep moving OK NewPosition ~w. Tail ~w~n",[NewPosition, Tail])),
+    keep_moving(Tail, ObsPosition, NewPosition, [{car,{Wait + 1,Delay, NewPosition, Route}} |  UpdatedCars],LogData);
+    
+keep_moving([{car,{Wait,Delay, Position, Route}}|Tail], ObsPosition,LastPosition, UpdatedCars,
+  LogData) when Position - 1 == ObsPosition; Position - 1 == LastPosition ->
+    io:format("keep moving NO MORE~n",[]),
+    write_result(LogData, io_lib:format("keep moving NO MORE~n",[])),
+    keep_moving(Tail, ObsPosition, Position,[{car,{Wait + 1,Delay, Position, Route}} |  UpdatedCars], LogData).
 
 
 %%Stop cars from moving after an obstacle has been found or when the red light has been given
@@ -346,16 +450,19 @@ get_lastPosition([]) -> {car, {0,0,-1,[]}};
 get_lastPosition(CarsQueque) -> lists:last(CarsQueque).
 
 %%check space between cars CarsQueque, Position,TransferTime,ProbData
-space_between_cars([], _TransferPosition,ProbData, CarToTransfer,_Capacity, _TransferTime, _RemCap) ->
+space_between_cars([], _TransferPosition,ProbData, CarToTransfer,_Capacity, _TransferTime, _RemCap, LogData) ->
     io:format("space between cars... No cars on lane ~n"),
+    write_result(LogData, io_lib:format("space between cars... No cars on lane ~n",[])),
     {true, [CarToTransfer|[]], ProbData};
-space_between_cars(CarsQueque, _TransferPosition,ProbData, CarToTransfer,_Capacity, _TransferTime, false) ->
+space_between_cars(CarsQueque, _TransferPosition,ProbData, _CarToTransfer,_Capacity, _TransferTime, false, LogData) ->
     io:format("NO MORE SPACE ON LANE~n"),
+    write_result(LogData, io_lib:format("NO MORE SPACE ON LANE~n",[])),
     {false, CarsQueque, ProbData};
-space_between_cars(CarsList, TransferPosition,ProbData, CarToTransfer, Capacity, TransferTime, true) ->
+space_between_cars(CarsList, TransferPosition,ProbData, CarToTransfer, Capacity, TransferTime, true, LogData) ->
    [Car | Tail] = CarsList,
    io:format("space between cars... More than 1 car on lane~n"),
-   is_space_enabled(Car, Tail, TransferPosition,ProbData, CarToTransfer, [],Capacity, TransferTime).
+   write_result(LogData, io_lib:format("space between cars... More than 1 car on lane~n",[])),
+   is_space_enabled(Car, Tail, TransferPosition,ProbData, CarToTransfer, [],Capacity, TransferTime, LogData).
 %%space_between_cars(CarsList, TransferPosition,ProbData, CaToTransfer,Capacity, _TransferTime) when length(CarsList) == 1 ->
 %%   [Car | _Tail] = CarsList,
 %%   io:format("space between cars... just 1 car on lane~n"),
@@ -363,41 +470,49 @@ space_between_cars(CarsList, TransferPosition,ProbData, CarToTransfer, Capacity,
 
 
 is_space_enabled({car,{WaitL, DelayL, PositionL, RouteL}}, [], TransferPosition,ProbData, 
-  CaToTransfer, UpdatedCars, Capacity, _TransferTime) when PositionL < TransferPosition, TransferPosition =< Capacity ->
+  CaToTransfer, UpdatedCars, Capacity, _TransferTime, LogData) when PositionL < TransferPosition, TransferPosition =< Capacity ->
     %%CUANDO EL UNICO CARRO EN LA LINEA o el ultimo carro SE ENCUENTRA ANTES DE LA POSICION A PASAR
     io:format("Transfer car after last or only remaining car on lane~n"),
+    write_result(LogData, io_lib:format("Transfer car after last or only remaining car on lane~n",[])),
     NewUpdated = [{car,{WaitL, DelayL, PositionL, RouteL}} | UpdatedCars],
     AddCarList = [CaToTransfer | NewUpdated],
     io:format("Transfer car after last. CarList and probdata ~w~n",[{AddCarList, ProbData}]),
+    write_result(LogData, io_lib:format("Transfer car after last. CarList and probdata ~w~n",[{AddCarList, ProbData}])),
     {true, lists:reverse(AddCarList), ProbData};
 
 is_space_enabled({car,{WaitL, DelayL, PositionL, RouteL}}, CarsQueque, TransferPosition,ProbData, 
-  CaToTransfer, UpdatedCars, _Capacity, TransferTime) when PositionL > TransferPosition ->
+  CaToTransfer, UpdatedCars, _Capacity, TransferTime, LogData) when PositionL > TransferPosition ->
     %%CUANDO EL PRIMER CARRO EN LA LINEA SE ENCUENTRA DESPUÉS DE LA POSICION A PASAR
     io:format("Transfer car before first car or only remaining car on lane~n"),
+    write_result(LogData, io_lib:format("Transfer car before first car or only remaining car on lane~n",[])),
     LocationRes = in_range(PositionL, TransferPosition),
     io:format("Car location: ~w result on in_range function: ~w~n",[{PositionL, TransferPosition}, LocationRes]),
+    write_result(LogData, io_lib:format("Car location: ~w result on in_range function: ~w~n",[{PositionL, TransferPosition}, LocationRes])),
     evaluate_location_result(LocationRes,{car,{WaitL, DelayL, PositionL, RouteL}},UpdatedCars, CaToTransfer,
         CarsQueque, ProbData,  TransferTime);
 
 is_space_enabled({car,{WaitL, DelayL, PositionL, RouteL}}, [], TransferPosition,ProbData, 
-  CaToTransfer, UpdatedCars, _Capacity, TransferTime) ->
+  CaToTransfer, UpdatedCars, _Capacity, TransferTime, LogData) ->
     io:format("Transfer car is on the same position of the other car on lane~n"),
+    write_result(LogData, io_lib:format("Transfer car is on the same position of the other car on lane~n",[])),
     LocationRes = in_range(PositionL, TransferPosition),
     io:format("Car location: ~w result on in_range function: ~w~n",[{PositionL, TransferPosition}, LocationRes]),
+    write_result(LogData, io_lib:format("Car location: ~w result on in_range function: ~w~n",[{PositionL, TransferPosition}, LocationRes])),
     evaluate_location_result(LocationRes,{car,{WaitL, DelayL, PositionL, RouteL}},UpdatedCars, CaToTransfer,
         [], ProbData,  TransferTime);
 
 is_space_enabled({car,{WaitL, DelayL, PositionL, RouteL}}, CarsQueque = [{car,{Wait,Delay, Position, Route}} | CarsTail], TransferPosition,ProbData, 
-  CaToTransfer, UpdatedCars, Capacity, TransferTime) ->
+  CaToTransfer, UpdatedCars, Capacity, TransferTime, LogData) ->
     %%CUANDO EL PRIMER CARRO EN LA LINEA SE ENCUENTRA DESPUÉS DE LA POSICION A PASAR
     io:format("Transfer car between two cars or to the end~n"),
+    write_result(LogData, io_lib:format("Transfer car between two cars or to the end~n",[])),
     LocationRes = in_range(PositionL,Position,  TransferPosition),
     io:format("Car location: ~w result on in_range function: ~w~n",[{PositionL, Position, TransferPosition}, LocationRes]),
+    write_result(LogData, io_lib:format("Car location: ~w result on in_range function: ~w~n",[{PositionL, Position, TransferPosition}, LocationRes])),
     case LocationRes of
         {false, no_in_range} ->
            is_space_enabled({car,{Wait,Delay, Position, Route}}, CarsTail, 
-              TransferPosition, ProbData, CaToTransfer, [{car,{WaitL, DelayL, PositionL, RouteL}}|UpdatedCars], Capacity, TransferTime);    
+              TransferPosition, ProbData, CaToTransfer, [{car,{WaitL, DelayL, PositionL, RouteL}}|UpdatedCars], Capacity, TransferTime, LogData);    
         Other -> 
            evaluate_location_result(Other,{car,{WaitL, DelayL, PositionL, RouteL}},UpdatedCars, CaToTransfer,
               CarsQueque, ProbData,  TransferTime)
@@ -459,6 +574,17 @@ in_range(Min, Match) when Match == Min->
     {false, no_space};
 in_range(_Min,_Match) -> 
     {false, -1}.
+    
+%% Entradas: Begin (posicion inicial de la obstruccion)
+%%	     End (Posicion final de la obstruccion)
+%%	     CarPos(Posicion que va a ocupar el carro
+%% Salidas:  {true, obs_in_way} cuando el carro caería en la obstruccion
+%%	     {false, obs_away} cuando el carro puede pasar si problemas
+obstacule_located(Begin, End, CarPos) when CarPos >= Begin, CarPos =< End ->
+    {true, obs_in_way};
+obstacule_located(_Begin, _End, _CarPos) ->
+    {false, obs_away}.
+    
 
 %%Update probData
 allow_pass_update(ProbData, Position) ->
@@ -487,13 +613,13 @@ add_car({LaneId, LanePid, WaitingOutside, _ProbData, _Timer}, Car, LogPath) ->
         {reply, full}  ->
             io:format("Lane ~w its full. Adding to wait list~n",[LaneId]),
             write_result(LogPath, io_lib:format("Lane ~w its full. Adding to wait list",[LaneId])), 
-            WaitingUpdated = waiting([Car|WaitingOutside]),
+            WaitingUpdated = waiting([Car|WaitingOutside], LogPath),
             WaitingUpdated;
             %%{[{LaneId, LanePid, WaitingUpdated, ProbData, NewArrival} | SourcesLane], NewArrival};
         {reply, ok}    ->
             io:format("Card Added to lane ~w~n",[LaneId]),
             write_result(LogPath, io_lib:format("Card Added to lane ~w",[LaneId])),   
-            WaitingUpdated = waiting(WaitingOutside),
+            WaitingUpdated = waiting(WaitingOutside, LogPath),
             WaitingUpdated
             %%{[{LaneId, LanePid, WaitingUpdated, ProbData, NewArrival} | SourcesLane], NewArrival}
     end.
