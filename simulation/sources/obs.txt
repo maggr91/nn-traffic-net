@@ -1,7 +1,7 @@
 {test,lane610av1,0,2}
-{test,lane608av2,0,2}
+{test,lane608av2,3,4}
 {test,lane608ca2,1,2}
-{test,lane606av2,0,2}
+{test,lane606av1,2,3}
 {test,lane606ca2,2,3}
 {test,lane812av2,2,3}
 {test,lane810av1,1,2}
