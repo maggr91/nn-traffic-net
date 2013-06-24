@@ -1,16 +1,6 @@
-{light212,{[],[]},[light210,light412], 5, 0}
-{light210,{[],[]},[light212,light410,light208], 5, 0}
-{light208,{[],[]},[light210,light408,light206], 5, 0}
-{light206,{[],[]},[light208,light406,light206], 5, 0}
-{light412,{[],[]},[light212,light612], 5, 0}
-{light410,{[],[]},[light210,light610], 5, 0}
-{light408,{[],[]},[light208,light608], 5, 0}
-{light406,{[],[]},[light206,light606], 5, 0}
-{light612,{[],[]},[light412,light812,light610], 5, 0}
 {light610,{[],[]},[light612,light410,light810,light608], 5, 0}
 {light608,{[],[]},[light610,light408,light808,light606], 5, 0}
 {light606,{[],[]},[light608,light406,light806], 5, 0}
-{light812,{[],[]},[light612,light810], 5, 0}
 {light810,{[],[]},[light812,light610,light808], 5, 0}
 {light808,{[],[]},[light810,light608,light806], 5, 0}
 {light806,{[],[]},[light808,light606], 5, 0}

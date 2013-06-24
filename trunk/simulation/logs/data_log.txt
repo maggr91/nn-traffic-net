@@ -8,8 +8,8 @@
 "START WRITEDOWN FOR LANE: lane610av2".
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane610av2".
-" {car,{26,21,0,[av608,av606],[]}}".
-" {car,{18,13,1,[av608,av606],[]}}".
+" {car,{24,21,0,[av608,av606],[]}}".
+" {car,{24,20,1,[av608,av606],[]}}".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane610av2".
 "=======================================".
 "FINISH WRITEDOWN FOR LANE".
@@ -26,7 +26,6 @@
 "START WRITEDOWN FOR LANE: lane608av1".
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane608av1".
-" {car,{10,9,0,[av606],[]}}".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane608av1".
 "=======================================".
 "FINISH WRITEDOWN FOR LANE".
@@ -41,9 +40,7 @@
 "START WRITEDOWN FOR LANE: lane608ca1".
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane608ca1".
-" {car,{31,30,0,[ca808],[]}}".
-" {car,{30,26,1,[av808,av806],[]}}".
-" {car,{23,19,2,[ca808],[]}}".
+" {car,{15,11,0,[av808,av806],[]}}".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane608ca1".
 "=======================================".
 "FINISH WRITEDOWN FOR LANE".
@@ -59,7 +56,7 @@
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane606av2".
 " {car,{5,2,0,[],[]}}".
-" {car,{2,2,2,[],[]}}".
+" {car,{3,2,1,[],[]}}".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane606av2".
 "=======================================".
 "FINISH WRITEDOWN FOR LANE".
@@ -82,7 +79,8 @@
 "START WRITEDOWN FOR LANE: lane810av2".
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane810av2".
-" {car,{20,14,0,[av808,av806],[]}}".
+" {car,{16,13,0,[ca808],[]}}".
+" {car,{29,20,1,[av808,ca806,av606],[]}}".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane810av2".
 "=======================================".
 "=======================================".
@@ -97,7 +95,7 @@
 "START WRITEDOWN FOR LANE: lane810ca2".
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane810ca2".
-" {car,{30,21,0,[av610,av608,av606],[]}}".
+" {car,{40,29,0,[av610,av608,av606],[]}}".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane810ca2".
 "=======================================".
 "=======================================".
@@ -126,8 +124,7 @@
 "START WRITEDOWN FOR LANE: lane808ca2".
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane808ca2".
-" {car,{12,8,0,[],[]}}".
-" {car,{6,6,1,[],[]}}".
+" {car,{10,8,0,[],[]}}".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane808ca2".
 "=======================================".
 "FINISH WRITEDOWN FOR LANE".
@@ -136,7 +133,10 @@
 "START WRITEDOWN FOR LANE: lane806av2".
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane806av2".
-" {car,{2,2,2,[],[]}}".
+" {car,{9,8,0,[],[]}}".
+" {car,{7,7,1,[],[]}}".
+" {car,{4,4,2,[],[]}}".
+" {car,{2,2,3,[],[]}}".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane806av2".
 "=======================================".
 "=======================================".
@@ -151,13 +151,14 @@
 "START WRITEDOWN FOR LANE: lane806ca2".
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane806ca2".
-" {car,{15,10,0,[av606],[]}}".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane806ca2".
 "=======================================".
 "=======================================".
 "START WRITEDOWN FOR LANE: lane806ca1".
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane806ca1".
+" {car,{14,10,0,[av606],[]}}".
+" {car,{10,6,1,[av606],[]}}".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane806ca1".
 "=======================================".
 "FINISH WRITEDOWN FOR LANE".

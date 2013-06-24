@@ -1,5 +1,5 @@
 {test,lane610av1,0,2}
-{test,lane608av2,3,4}
+{test,lane608av2,1,2}
 {test,lane608ca2,1,2}
 {test,lane606av1,2,3}
 {test,lane606ca2,2,3}
@@ -8,3 +8,4 @@
 {test,lane810ca1,2,3}
 {test,lane808av2,1,2}
 {test,lane806av1,0,2}
+{test,lane806ca2,3,4}
