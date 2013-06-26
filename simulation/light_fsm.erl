@@ -37,11 +37,10 @@ start_link(Args) ->
     gen_fsm:start_link(?MODULE,Args,[]).
 
 init(Args) ->
-    %io:fwrite("gen_fsm called ~w:init(~w)~n", [?MODULE, Args]),
-    %{ok, redred,#state{}}.
-    {LightId, {Av, Ca},Siblings, Cycle_time, Go_time, LogData} = Args,
+    %%{LightId, {Av, Ca},Siblings, Cycle_time, Go_time, LogData} = Args,
+    {LightId, {Av, Ca},Siblings, Times, LogData} = Args,
     file:delete(LogData), %% delete old log
-    {ok, redred,{LightId, {Av, Ca},Siblings, Cycle_time, Go_time, LogData}}.
+    {ok, redred,{LightId, {Av, Ca},Siblings, Times, LogData}}.
 
 get_state(LightPid) ->
     try
@@ -82,128 +81,152 @@ code_change(OldVsn, StateName, StateData, Extra) ->
 %% IDLE STATE
 redred(move_avenue, StateData) ->
     io:format("Moving avenue lanes. Data: ~w~n",[StateData]),
-    {LightId, {Av, Ca},Siblings, Cycle_time, Go_time, LogData} = StateData,
+    {LightId, {Av, Ca},Siblings, Times, LogData} = StateData,
+    {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
     write_result(LogData, io_lib:format("Moving avenue lanes. Data: ~w",[StateData])),
-    update_on_idle(Av, Cycle_time, LogData),
-    update_on_idle(Ca, Cycle_time, LogData),
-    {next_state, greenred, {LightId, {Av, Ca},Siblings, Cycle_time, Go_time, LogData}};
+    update_on_idle(Av, CTime, LogData),
+    update_on_idle(Ca, CTime, LogData),
+    {next_state, greenred, {LightId, {Av, Ca},Siblings, Times, LogData}};
 redred(move_street, StateData) ->
     io:format("Moving street lanes. Data: ~w~n",[StateData]),    
-    {LightId, {Av, Ca}, Siblings, Cycle_time, Go_time, LogData} = StateData,
+    {LightId, {Av, Ca}, Siblings, Times, LogData} = StateData,
+    {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
     write_result(LogData, io_lib:format("Moving street lanes. Data: ~w",[StateData])),
-    update_on_idle(Ca, Cycle_time, LogData),
-    update_on_idle(Av, Cycle_time, LogData),
-    {next_state, redgreen, {LightId, {Av, Ca}, Siblings, Cycle_time, Go_time, LogData}};
+    update_on_idle(Ca, CTime, LogData),
+    update_on_idle(Av, CTime, LogData),
+    {next_state, redgreen, {LightId, {Av, Ca}, Siblings, Times, LogData}};
 redred(Event, StateData) ->
     unexpected_event(redred, Event, StateData),
     {next_state, redred, StateData}.
 %%Synch calls
-redred(get_state, _From, StateData = {_LightId, _ManagedLanes,Siblings, Cycle_time, Go_time, LogData}) ->
-    {reply, {redred,Cycle_time, Go_time,Siblings, LogData},redred, StateData};
+redred(get_state, _From, StateData = {_LightId, _ManagedLanes,Siblings, Times, LogData}) ->
+    {reply, {redred,Times,Siblings, LogData},redred, StateData};
 redred({update_siblings, Siblings},_From, StateData) ->
     %io:format("Updating StateData: ~w~n",[Siblings]),
-    {LightId,{Av, Ca},_Siblings, Cycle_time, Go_time, LogData} = StateData,
-    {reply, {redred,Siblings},redred, {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData}};
+    {LightId,{Av, Ca},_Siblings, Times, LogData} = StateData,
+    {reply, {redred,Siblings},redred, {LightId,{Av, Ca}, Siblings, Times, LogData}};
 redred({tabulate_data, DataLog},_From, StateData) ->
     io:format("Writing down data results: ~p~n",[DataLog]),
-    {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData} = StateData,
+    {LightId,{Av, Ca}, Siblings, Times, LogData} = StateData,
     write_final_data({Av, Ca}, DataLog),
-    {reply, {redred,DataLog},redred, {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData}};
+    {reply, {redred,DataLog},redred, {LightId,{Av, Ca}, Siblings, Times, LogData}};
 redred(move_avenue,_From, StateData) ->
     io:format("Moving avenue lanes. Data: ~w~n",[StateData]),
-    {LightId,{Av, Ca},Siblings, Cycle_time, Go_time, LogData} = StateData,
+    {LightId,{Av, Ca},Siblings, Times, LogData} = StateData,
+    {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
     write_result(LogData, io_lib:format("Moving avenue lanes. Data: ~w",[StateData])),
-    update_on_idle(Av, Cycle_time, LogData),
-    update_on_idle(Ca, Cycle_time, LogData),
-    {reply, {redred,Siblings},greenred, {LightId,{Av, Ca},Siblings, Cycle_time, Go_time, LogData}};
+    update_on_idle(Av, CTime, LogData),
+    update_on_idle(Ca, CTime, LogData),
+    {reply, {redred,Siblings},greenred, {LightId,{Av, Ca},Siblings, Times, LogData}};
 redred(move_street,_From, StateData) ->
     io:format("Moving street lanes. Data: ~w~n",[StateData]),
-    {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData} = StateData,
+    {LightId,{Av, Ca}, Siblings, Times, LogData} = StateData,
+    {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
     write_result(LogData, io_lib:format("Moving street lanes. Data: ~w",[StateData])),
-    update_on_idle(Ca, Cycle_time, LogData),
-    update_on_idle(Av, Cycle_time, LogData),
-    {reply, {redred,Siblings},redgreen, {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData}}.
+    update_on_idle(Ca, CTime, LogData),
+    update_on_idle(Av, CTime, LogData),
+    {reply, {redred,Siblings},redgreen, {LightId,{Av, Ca}, Siblings, Times, LogData}}.
 
 %% Moving AVENUES       
 greenred(move_avenue, StateData) ->
     io:format("continue moving avenue lanes. Data: ~w~n",[StateData]),
-    {LightId,{Av, Ca},Siblings, Cycle_time, Go_time, LogData} = StateData,
+    {LightId,{Av, Ca},Siblings, Times, LogData} = StateData,
+    {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
+    {go_time, GTime} = lists:keyfind(go_time, 1, Times),
     write_result(LogData, io_lib:format("continue moving avenue lanes. Data: ~w",[StateData])),
-    update_on_active(Av, Cycle_time, Go_time, LogData), 
-    update_on_idle(Ca, Cycle_time, LogData),
-    {next_state, greenred, {LightId,{Av, Ca},Siblings, Cycle_time, Go_time + 1, LogData}};
+    update_on_active(Av, CTime, GTime, LogData), 
+    update_on_idle(Ca, CTime, LogData),
+    NewTimes = lists:keyreplace(go_time,1, Times, {go_time, GTime + 1}),
+    {next_state, greenred, {LightId,{Av, Ca},Siblings, NewTimes, LogData}};
 greenred(idle, StateData) ->
     io:format("stop moving avenue lanes. Data: ~w~n",[StateData]),
-    {LightId,{Av, Ca},Siblings, Cycle_time, _Go_time, LogData} = StateData,
+    {LightId,{Av, Ca},Siblings, Times, LogData} = StateData,
+    {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
     write_result(LogData, io_lib:format("stop moving avenue lanes. Data: ~w",[StateData])),
-    update_on_idle(Av, Cycle_time, LogData),
-    update_on_idle(Ca, Cycle_time, LogData),
-    {next_state, redred, {LightId,{Av, Ca},Siblings, Cycle_time, 0, LogData}};
+    update_on_idle(Av, CTime, LogData),
+    update_on_idle(Ca, CTime, LogData),
+    NewTimes = lists:keyreplace(go_time,1, Times, {go_time, 0}),
+    {next_state, redred, {LightId,{Av, Ca},Siblings, NewTimes, LogData}};
 greenred(Event, StateData) ->
     unexpected_event(greenred, Event, StateData),
     {next_state, greenred, StateData}.
 %%Synch calls
-greenred(get_state, _From, StateData = {_LightId,_ManagedLanes,Siblings, Cycle_time, Go_time, LogData}) ->
-    {reply, {greenred,Cycle_time, Go_time, Siblings,LogData},greenred, StateData};
+greenred(get_state, _From, StateData = {_LightId,_ManagedLanes,Siblings, Times, LogData}) ->
+    {reply, {greenred,Times, Siblings,LogData},greenred, StateData};
 greenred({tabulate_data, DataLog},_From, StateData) ->
     io:format("Writing down data results: ~p~n",[DataLog]),
-    {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData} = StateData,
+    {LightId,{Av, Ca}, Siblings, Times, LogData} = StateData,
     write_final_data({Av, Ca}, DataLog),
-    {reply, {greenred,DataLog},greenred, {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData}};
+    {reply, {greenred,DataLog},greenred, {LightId,{Av, Ca}, Siblings,Times, LogData}};
 greenred(move_avenue, _From, StateData) ->
     io:format("continue moving avenue lanes. Data: ~w~n",[StateData]),
-    {LightId,{Av, Ca},Siblings, Cycle_time, Go_time, LogData} = StateData,
+    {LightId,{Av, Ca},Siblings, Times, LogData} = StateData,
+    {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
+    {go_time, GTime} = lists:keyfind(go_time, 1, Times),
     write_result(LogData, io_lib:format("continue moving avenue lanes. Data: ~w",[StateData])),
-    update_on_active(Av, Cycle_time, Go_time, LogData), 
-    update_on_idle(Ca, Cycle_time, LogData),
-    {reply, {greenred,Siblings},greenred, {LightId,{Av, Ca},Siblings, Cycle_time, Go_time + 1, LogData}};
+    update_on_active(Av, CTime, GTime, LogData), 
+    update_on_idle(Ca, CTime, LogData),
+    NewTimes = lists:keyreplace(go_time,1, Times, {go_time, GTime + 1}),
+    {reply, {greenred,Siblings},greenred, {LightId,{Av, Ca},Siblings, NewTimes, LogData}};
 greenred(idle, _From, StateData) ->
     io:format("stop moving avenue lanes. Data: ~w~n",[StateData]),
-    {LightId,{Av, Ca},Siblings, Cycle_time, _Go_time, LogData} = StateData,
+    {LightId,{Av, Ca},Siblings, Times, LogData} = StateData,
+    {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
     write_result(LogData, io_lib:format("stop moving avenue lanes. Data: ~w",[StateData])),
-    update_on_idle(Av, Cycle_time, LogData),
-    update_on_idle(Ca, Cycle_time, LogData),
-    {reply, {greenred,Siblings},redred, {LightId,{Av, Ca},Siblings, Cycle_time, 0, LogData}}.
+    update_on_idle(Av, CTime, LogData),
+    update_on_idle(Ca, CTime, LogData),
+    NewTimes = lists:keyreplace(go_time,1, Times, {go_time, 0}),
+    {reply, {greenred,Siblings},redred, {LightId,{Av, Ca},Siblings, NewTimes, LogData}}.
 
 %% Moving STREETS    
 redgreen(move_street, StateData) ->
     io:format("continue moving street lanes. Data: ~w~n",[StateData]),
-    {LightId,{Av, Ca},Siblings, Cycle_time, Go_time, LogData} = StateData,
+    {LightId,{Av, Ca},Siblings, Times, LogData} = StateData,
+    {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
+    {go_time, GTime} = lists:keyfind(go_time, 1, Times),
     write_result(LogData, io_lib:format("continue moving street lanes. Data: ~w",[StateData])),
-    update_on_active(Ca, Cycle_time, Go_time, LogData),
-    update_on_idle(Av, Cycle_time, LogData),
-    {next_state, redgreen, {LightId,{Av, Ca},Siblings, Cycle_time, Go_time + 1, LogData}};
+    update_on_active(Ca, CTime, GTime, LogData),
+    update_on_idle(Av, CTime, LogData),
+    NewTimes = lists:keyreplace(go_time,1, Times, {go_time, GTime + 1}),
+    {next_state, redgreen, {LightId,{Av, Ca},Siblings, NewTimes, LogData}};
 redgreen(idle, StateData) ->
     io:format("stop moving street lanes. Data: ~w~n",[StateData]),
-    {LightId,{Av, Ca},Siblings, Cycle_time, _Go_time, LogData} = StateData,
+    {LightId,{Av, Ca},Siblings, Times, LogData} = StateData,
+    {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
     write_result(LogData, io_lib:format("stop moving street lanes. Data: ~w",[StateData])),
-    update_on_idle(Ca, Cycle_time, LogData),
-    update_on_idle(Av, Cycle_time, LogData),
-    {next_state, redred, {LightId,{Av, Ca},Siblings, Cycle_time, 0, LogData}};
+    update_on_idle(Ca, CTime, LogData),
+    update_on_idle(Av, CTime, LogData),
+    NewTimes = lists:keyreplace(go_time,1, Times, {go_time, 0}),
+    {next_state, redred, {LightId,{Av, Ca},Siblings, NewTimes, LogData}};
 redgreen(Event, StateData) ->
     unexpected_event(redgreen, Event, StateData),
     {next_state, redgreen, StateData}.      
-redgreen(get_state, _From, StateData = {_LightId,_ManagedLanes,Siblings, Cycle_time, Go_time, LogData}) ->
-    {reply, {redgreen,Cycle_time, Go_time,Siblings, LogData},redgreen, StateData};
+redgreen(get_state, _From, StateData = {_LightId,_ManagedLanes,Siblings,Times, LogData}) ->
+    {reply, {redgreen,Times,Siblings, LogData},redgreen, StateData};
 redgreen({tabulate_data, DataLog},_From, StateData) ->
     io:format("Writing down data results: ~p~n",[DataLog]),
-    {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData} = StateData,
+    {LightId,{Av, Ca}, Siblings, Times, LogData} = StateData,
     write_final_data({Av, Ca}, DataLog),
-    {reply, {redgreen,DataLog},redgreen, {LightId,{Av, Ca}, Siblings, Cycle_time, Go_time, LogData}};
+    {reply, {redgreen,DataLog},redgreen, {LightId,{Av, Ca}, Siblings, Times, LogData}};
 redgreen(move_street,_From, StateData) ->
     io:format("continue moving street lanes. Data: ~w~n",[StateData]),
-    {LightId,{Av, Ca},Siblings, Cycle_time, Go_time, LogData} = StateData,
+    {LightId,{Av, Ca},Siblings, Times, LogData} = StateData,
+    {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
+    {go_time, GTime} = lists:keyfind(go_time, 1, Times),
     write_result(LogData, io_lib:format("continue moving street lanes. Data: ~w",[StateData])),
-    update_on_active(Ca, Cycle_time, Go_time, LogData),
-    update_on_idle(Av, Cycle_time, LogData),
-    {reply, {redgreen,Siblings},redgreen, {LightId,{Av, Ca},Siblings, Cycle_time, Go_time + 1, LogData}};
+    update_on_active(Ca, CTime, GTime, LogData),
+    update_on_idle(Av, CTime, LogData),
+    NewTimes = lists:keyreplace(go_time,1, Times, {go_time, GTime + 1}),
+    {reply, {redgreen,Siblings},redgreen, {LightId,{Av, Ca},Siblings, NewTimes, LogData}};
 redgreen(idle,_From, StateData) ->
     io:format("stop moving street lanes. Data: ~w~n",[StateData]),
-    {LightId,{Av, Ca},Siblings, Cycle_time, _Go_time, LogData} = StateData,
+    {LightId,{Av, Ca},Siblings,Times, LogData} = StateData,
+    {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
     write_result(LogData, io_lib:format("stop moving street lanes. Data: ~w",[StateData])),
-    update_on_idle(Ca, Cycle_time, LogData),
-    update_on_idle(Av, Cycle_time, LogData),
-    {reply, {redgreen,Siblings},redred, {LightId,{Av, Ca},Siblings, Cycle_time, 0, LogData}}.
+    update_on_idle(Ca, CTime, LogData),
+    update_on_idle(Av, CTime, LogData),
+    NewTimes = lists:keyreplace(go_time,1, Times, {go_time, 0}),
+    {reply, {redgreen,Siblings},redred, {LightId,{Av, Ca},Siblings, NewTimes, LogData}}.
     
 %% private functions
 unexpected_event(_CurrentState, _Event, _StateData) ->
@@ -214,15 +237,18 @@ test() ->
  
 evaluate_state({LightId, LightPid, Time}) ->
    io:format("Evaluating state ~w~n",[LightPid]),
-   {State, Cycle_time, Go_time, _Siblings, LogData} = get_state(LightPid),
+   {State, Times, _Siblings, LogData} = get_state(LightPid),
+   
+   {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
+   {go_time, GTime} = lists:keyfind(go_time, 1, Times),
    
    write_result(LogData, 
        io_lib:format("Running simulation iteration: ~w continue",[Time])),
    write_result(LogData, io_lib:format("Evaluating state for light_fsm: ~w continue",[LightId])),
    
-   Next_time = Go_time + 1,
+   Next_time = GTime + 1,
    if
-       Next_time >= Cycle_time ->
+       Next_time >= CTime ->
            io:format("Finishing ~w way cycle moving to idle~n",[State]),
 	   write_result(LogData, io_lib:format("Finishing ~w way cycle moving to idle",[State])),
 	   idle(LightPid),		 
@@ -230,7 +256,7 @@ evaluate_state({LightId, LightPid, Time}) ->
 	       greenred -> move_street(LightPid);
 	       redgreen -> move_avenue(LightPid)
 	   end;
-       Next_time < Cycle_time ->
+       Next_time < CTime ->
 	   io:format("Continuing ~w way cycle~n",[State]),
 	   write_result(LogData, io_lib:format("Continuing ~w way cycle",[State])),
 	   case State of
