@@ -343,25 +343,32 @@ prepare_car_dispatch(Car, ConnectedLanes, CarsQueque, TurnCarNum, {LaneId, Paren
 %% or diferent lane in case that there are no available space because of obstructions
 %% when there is no prefered target lane, get the enabled lane acording to LanesOrder (Options: main, secondary)
 get_target_lane(LanesOrder, ConnectedLanes, AuxLane, {car,{Wait,Delay, Position, Route, []}}) ->
-    {get_enabled_lane(LanesOrder, ConnectedLanes, AuxLane), {car,{Wait,Delay, Position, Route, []}}};
+    {get_enabled_lane(LanesOrder, ConnectedLanes, AuxLane, Route), {car,{Wait,Delay, Position, Route, []}}};
 
 % in case that the car has a prefered lane use that instead of previous selected (priority: TOP)  
-get_target_lane(_LanesOrder, _ConnectedLanes, _AuxLane, {car,{Wait,Delay, Position, Route, [TLane | Tail]}}) ->
-    {{prefered, [TLane]}, {car,{Wait,Delay, Position, Route, Tail}}}.
+get_target_lane(LanesOrder, ConnectedLanes, AuxLane, {car,{Wait,Delay, Position, Route, [TLane | Tail]}}) ->
+    case check_lanes_route(Route, [TLane]) of
+        true  -> {{prefered, [TLane]}, {car,{Wait,Delay, Position, Route, Tail}}};
+        false -> {get_enabled_lane(LanesOrder, ConnectedLanes, AuxLane, Route), {car,{Wait,Delay, Position, Route, Tail}}}
+    end.
     
-
+  
 %%Input: LIst of lanes to look for (main, secondary), 
 %%	 ConnectedLanes: a list of tuples of all lanes (main, secondary, siblings) connected to the current
 %%	 Auxlanes: Default lane data in case of no matches.
 %%Output: Target Lane to be used for dispatch that is enabled
-get_enabled_lane([], _ConnectedLanes, AuxLane) ->
+get_enabled_lane([], _ConnectedLanes, AuxLane, _Route) ->
     {outside, AuxLane};  
-get_enabled_lane([TargetItem | TargetOrder], ConnectedLanes, AuxLane) ->
+get_enabled_lane([TargetItem | TargetOrder], ConnectedLanes, AuxLane, Route) ->
     {Type, List} = lists:keyfind(TargetItem, 1, ConnectedLanes),
     case List of
-        [{}] -> get_enabled_lane(TargetOrder, ConnectedLanes, AuxLane);
-        [] -> get_enabled_lane(TargetOrder, ConnectedLanes, AuxLane);
-        _Ok  -> {Type, List}
+        [{}] -> get_enabled_lane(TargetOrder, ConnectedLanes, AuxLane, Route);
+        []   -> get_enabled_lane(TargetOrder, ConnectedLanes, AuxLane, Route);
+        _Ok  -> 
+        	case check_lanes_route(Route, List) of
+        	    true  -> {Type, List};
+        	    false -> get_enabled_lane(TargetOrder, ConnectedLanes, AuxLane, Route)
+        	end
     end.
 
 

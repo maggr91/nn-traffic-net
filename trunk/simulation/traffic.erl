@@ -61,6 +61,7 @@ set_map() ->
     Roads = get_lanes(),
     Obs = get_obs(),
 
+    io:format("Allocating lights ~w.~n",[Axis]),
     {_Origin, AllocatedLights} = allocate_lights({Axis,[]}),
 %%Get geometric distribution for each lane that has a type 2 (2 directions)
     NewRoads = lane:init_geometric(Roads),
@@ -93,9 +94,11 @@ set_map() ->
 %% modify to avoid this step
 allocate_lights({[],Spawned})->
     {[],Spawned};
-allocate_lights({[{LightId,_ManagedLanes, Siblings, Cycle_time, Go_time}|Tail], Spawned}) ->
+allocate_lights({[{LightId,_ManagedLanes, Siblings, Times}|Tail], Spawned}) ->
     %%Pid = spawn(traffic,light, [ManagedLanes,Siblings, Cycle_time, Go_time]),
-    allocate_lights({Tail, [{LightId,Siblings, Cycle_time, Go_time} | Spawned]}). 
+    %%Replace Go_time for  AllRed_time (Go_time set by default to 0
+    %%allocate_lights({Tail, [{LightId,Siblings, Cycle_time,Go_time, AllRed_time} | Spawned]}). 
+    allocate_lights({Tail, [{LightId,Siblings, Times} | Spawned]}). 
  
  
 %% Spawn every lane on the area with the respective data         
@@ -116,12 +119,12 @@ allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes,
 %%connect lights with its lanes
 connect({[], _LaneList, LightsFSM,_LogData}) -> 
     LightsFSM;
-connect({[{LightId,Siblings, Cycle_time, Go_time} | TailLight], LaneList,LightsFSM, LogData}) -> 
+connect({[{LightId,Siblings, Times} | TailLight], LaneList,LightsFSM, LogData}) -> 
     %%io:format("Luz: ~w / lineas: ~w.~n",[LightId, LaneList]),
     {ManagedLanes, RemLanes} = find_lanes({LightId, {[],[]}}, LaneList, []),
     %%io:format("Managed Lanes: ~w.~n~n",[ManagedLanes]),
     PathLog = (LogData ++ lists:flatten(io_lib:format("~p",[LightId]))) ++ ".txt",
-    {ok, LightPid} = light_fsm:start_link({LightId, ManagedLanes,Siblings, Cycle_time, Go_time, PathLog}),
+    {ok, LightPid} = light_fsm:start_link({LightId, ManagedLanes,Siblings, Times, PathLog}),
     connect({TailLight, RemLanes, [{LightId,LightPid}|LightsFSM], LogData}).
 
 
@@ -198,7 +201,8 @@ find_adjLanes(AdjLaneId, [_LHead | LTail]) ->
 %% Use the List FSM lights to get the list of siblings that each one has.
 set_connection_to_light_siblings([], _LightsList) -> [];
 set_connection_to_light_siblings([{_Id, Pid}|LightsRem], LightsList) ->
-    {_State, _Cycle_time, _Go_time, Siblings, _LogData} = light_fsm:get_state(Pid),
+    %%{_State, _Cycle_time, _Go_time, Siblings, _LogData} = light_fsm:get_state(Pid),
+    {_State, _Times, Siblings, _LogData} = light_fsm:get_state(Pid),
 %% The siblings list is a list of tuples that contaings LightId use this to find the corresponding PID
     CompleteSiblings = find_siblings(Siblings,LightsList,[]),
 %% After getting the list with all PIDs, update the corresponding FSM    
