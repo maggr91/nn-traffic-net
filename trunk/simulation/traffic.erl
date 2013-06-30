@@ -73,6 +73,10 @@ set_map() ->
     io:format("PATH ~s.~n",[Path]),
     NewPath = Path ++ "arrival_log.txt",
     DataPath = Path ++ "data_log.txt",
+    
+    file:delete(NewPath), %% delete old arrival log
+    file:delete(DataPath), %% delete old data log
+    
 %%Connect each lane with siblings or any other connected lane
 %%after that get sources lanes (lanes where cars will arrive to the area)    
     connect_lanes({AllocatedLanes,AllocatedLanes}),

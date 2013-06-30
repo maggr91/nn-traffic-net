@@ -2,12 +2,12 @@
 "Evaluating state for light_fsm: light208 continue".
 "Continuing redred way cycle".
 "First moving streets <0.80.0>".
-"First move of lights from red to green on streets. Start Moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redred}\n".
-"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redred}".
-"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208ca2,1}]}]}\n".
+"First move of lights from red to green on streets. Start Moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redred}\n".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208ca1".
-"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,3}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208ca2".
 "Waiting msj received from <0.80.0>".
@@ -24,11 +24,11 @@
 "Running simulation iteration: 1 continue".
 "Evaluating state for light_fsm: light208 continue".
 "Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redred}".
-"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208ca2,1}]}]}\n".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208ca1".
-"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,3}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208ca2".
 "Waiting msj received from <0.80.0>".
@@ -45,11 +45,11 @@
 "Running simulation iteration: 2 continue".
 "Evaluating state for light_fsm: light208 continue".
 "Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redred}".
-"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208ca2,1}]}]}\n".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208ca1".
-"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,3}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208ca2".
 "Waiting msj received from <0.80.0>".
@@ -66,11 +66,11 @@
 "Running simulation iteration: 3 continue".
 "Evaluating state for light_fsm: light208 continue".
 "Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redred}".
-"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208ca2,1}]}]}\n".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208ca1".
-"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,3}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208ca2".
 "Waiting msj received from <0.80.0>".
@@ -87,7 +87,7 @@
 "Running simulation iteration: 4 continue".
 "Evaluating state for light_fsm: light208 continue".
 "Finishing redgreen way cycle moving to idle".
-"stop moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redred}".
+"stop moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redred}".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca1".
 "Waiting msj received from <0.80.0>".
@@ -105,36 +105,41 @@
 "----------------------------------------------------".
 "Running simulation iteration: 5 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Finishing redred way cycle moving to idle".
-"All Red time. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}\n".
+"Changing for red to green on avenue. Start Moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}\n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av1".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av2".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av3".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av4".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av5".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca1".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca2".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av1".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av2".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av3".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av4".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av5".
 "----------------------------------------------------".
 "Running simulation iteration: 6 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Changing for red to green on avenue. Start Moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,2},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}\n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av1".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av2".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av3".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av4".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av5".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av2,1}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av1".
+"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av2".
+"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av3".
+"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,4},{lane208av3,10}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av4".
+"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208av4,5}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av5".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca1".
 "Waiting msj received from <0.80.0>".
@@ -143,20 +148,20 @@
 "Running simulation iteration: 7 continue".
 "Evaluating state for light_fsm: light208 continue".
 "Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
-"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av2,7}]}]}\n".
+"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av2,1}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av1".
-"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,2}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,0}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av2".
 "GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av3".
-"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,6},{lane208av3,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,4},{lane208av3,10}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av4".
-"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,2},{transfer,[{lane208av4,5}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208av4,5}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av5".
 "Waiting msj received from <0.80.0>".
@@ -167,20 +172,20 @@
 "Running simulation iteration: 8 continue".
 "Evaluating state for light_fsm: light208 continue".
 "Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
-"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av2,7}]}]}\n".
+"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av2,1}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av1".
-"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,2}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,0}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av2".
 "GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av3".
-"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,6},{lane208av3,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,4},{lane208av3,10}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av4".
-"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,2},{transfer,[{lane208av4,5}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208av4,5}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av5".
 "Waiting msj received from <0.80.0>".
@@ -191,20 +196,20 @@
 "Running simulation iteration: 9 continue".
 "Evaluating state for light_fsm: light208 continue".
 "Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
-"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av2,7}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
+"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{4,1,4,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,1}]}]}\n".
+"No more cars to move: Moving carslist  [{car,{5,1,3,[ca210],[]}}] \n".
 "reply recieve after update on active lane lane208av1".
-"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,2}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,0}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av2".
 "GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av3".
-"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,6},{lane208av3,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,4},{lane208av3,10}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av4".
-"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,2},{transfer,[{lane208av4,5}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208av4,5}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av5".
 "Waiting msj received from <0.80.0>".
@@ -214,32 +219,9 @@
 "----------------------------------------------------".
 "Running simulation iteration: 10 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
-"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av2,7}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av1".
-"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,2}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av2".
-"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av3".
-"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,6},{lane208av3,0}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av4".
-"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,2},{transfer,[{lane208av4,5}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av5".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca1".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca2".
-"----------------------------------------------------".
-"Running simulation iteration: 11 continue".
-"Evaluating state for light_fsm: light208 continue".
 "Finishing greenred way cycle moving to idle".
-"stop moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"stop moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"Updated waiting reversed [{car,{6,2,2,[ca210],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av1".
 "Waiting msj received from <0.80.0>".
@@ -255,14 +237,36 @@
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca2".
 "----------------------------------------------------".
-"Running simulation iteration: 12 continue".
+"Running simulation iteration: 11 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Finishing redred way cycle moving to idle".
-"All Red time. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}\n".
+"Changing for red to green on streets. Start Moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}\n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca1".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca2".
+"Updated waiting reversed [{car,{7,3,1,[ca210],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av1".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av2".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av3".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av4".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av5".
+"----------------------------------------------------".
+"Running simulation iteration: 12 continue".
+"Evaluating state for light_fsm: light208 continue".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca1".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca2".
+"Updated waiting reversed [{car,{8,4,0,[ca210],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av1".
 "Waiting msj received from <0.80.0>".
@@ -276,11 +280,15 @@
 "----------------------------------------------------".
 "Running simulation iteration: 13 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Changing for red to green on streets. Start Moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,2},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}\n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca1".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca2".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca1".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca2".
+"Updated waiting reversed [{car,{9,5,0,[ca210],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av1".
 "Waiting msj received from <0.80.0>".
@@ -295,13 +303,14 @@
 "Running simulation iteration: 14 continue".
 "Evaluating state for light_fsm: light208 continue".
 "Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208ca2,1}]}]}\n".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208ca1".
-"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,3}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208ca2".
+"Updated waiting reversed [{car,{10,6,0,[ca210],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av1".
 "Waiting msj received from <0.80.0>".
@@ -316,13 +325,14 @@
 "Running simulation iteration: 15 continue".
 "Evaluating state for light_fsm: light208 continue".
 "Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208ca2,1}]}]}\n".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208ca1".
-"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,3}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208ca2".
+"Updated waiting reversed [{car,{11,7,0,[ca210],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av1".
 "Waiting msj received from <0.80.0>".
@@ -336,14 +346,13 @@
 "----------------------------------------------------".
 "Running simulation iteration: 16 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208ca2,1}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208ca1".
-"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,3}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208ca2".
+"Finishing redgreen way cycle moving to idle".
+"stop moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208ca1".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208ca2".
+"Updated waiting reversed [{car,{12,8,0,[ca210],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av1".
 "Waiting msj received from <0.80.0>".
@@ -357,14 +366,8 @@
 "----------------------------------------------------".
 "Running simulation iteration: 17 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208ca2,1}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208ca1".
-"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,3}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208ca2".
+"Changing for red to green on avenue. Start Moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}\n".
+"Updated waiting reversed [{car,{13,9,0,[ca210],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av1".
 "Waiting msj received from <0.80.0>".
@@ -375,58 +378,83 @@
 "reply recieve after update on idle lane lane208av4".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av5".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208ca1".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 18 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Finishing redgreen way cycle moving to idle".
-"stop moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{13,9,0,[ca210],[]}},{car,{4,4,4,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,1}]}]}\n".
+"Prob dispatch: [{dispatch,-1},{transfer,[{lane208av2,1}]}].\n".
+"Prepare dispatch to straigth lane on NO turnCarNum: {main,[{lane206av1,<0.55.0>}]}.\n".
+"Lane av208 to dispatch lane206av1. Car {car,{13,9,0,[ca210],[]}} \n".
+"Card Added to lane lane206av1\n".
+"Dispatch result: {reply,transfered}.\n".
+"No more cars to move: Moving carslist  [{car,{5,4,3,[ca210],[]}}] \n".
+"reply recieve after update on active lane lane208av1".
+"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av2".
+"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av3".
+"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,4},{lane208av3,10}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av4".
+"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208av4,5}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av5".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca1".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca2".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av1".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av2".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av3".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av4".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av5".
 "----------------------------------------------------".
 "Running simulation iteration: 19 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Finishing redred way cycle moving to idle".
-"All Red time. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}\n".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{5,4,3,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,1}]}]}\n".
+"No more cars to move: Moving carslist  [{car,{6,4,2,[ca210],[]}}] \n".
+"reply recieve after update on active lane lane208av1".
+"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av2".
+"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av3".
+"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,4},{lane208av3,10}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av4".
+"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208av4,5}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av5".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca1".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca2".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av1".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av2".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av3".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av4".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av5".
 "----------------------------------------------------".
 "Running simulation iteration: 20 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Changing for red to green on avenue. Start Moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,2},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}\n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av1".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av2".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av3".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av4".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av5".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{6,4,2,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,1}]}]}\n".
+"No more cars to move: Moving carslist  [{car,{7,4,1,[ca210],[]}}] \n".
+"reply recieve after update on active lane lane208av1".
+"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av2".
+"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av3".
+"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,4},{lane208av3,10}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av4".
+"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208av4,5}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av5".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca1".
 "Waiting msj received from <0.80.0>".
@@ -435,20 +463,20 @@
 "Running simulation iteration: 21 continue".
 "Evaluating state for light_fsm: light208 continue".
 "Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
-"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av2,7}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
+"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{7,4,1,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,1}]}]}\n".
+"No more cars to move: Moving carslist  [{car,{8,4,0,[ca210],[]}}] \n".
 "reply recieve after update on active lane lane208av1".
-"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,2}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,0}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av2".
 "GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av3".
-"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,6},{lane208av3,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,4},{lane208av3,10}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av4".
-"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,2},{transfer,[{lane208av4,5}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208av4,5}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane208av5".
 "Waiting msj received from <0.80.0>".
@@ -458,23 +486,19 @@
 "----------------------------------------------------".
 "Running simulation iteration: 22 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
-"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{6,5,4,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,7}]}]}\n".
-"No more cars to move: Moving carslist  [{car,{7,5,3,[ca210],[]}}] \n".
-"reply recieve after update on active lane lane208av1".
-"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,2}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av2".
-"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av3".
-"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,6},{lane208av3,0}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av4".
-"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,2},{transfer,[{lane208av4,5}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av5".
+"Finishing greenred way cycle moving to idle".
+"stop moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"Updated waiting reversed [{car,{9,5,0,[ca210],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av1".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av2".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av3".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av4".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av5".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca1".
 "Waiting msj received from <0.80.0>".
@@ -482,57 +506,12 @@
 "----------------------------------------------------".
 "Running simulation iteration: 23 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
-"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{7,5,3,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,7}]}]}\n".
-"No more cars to move: Moving carslist  [{car,{8,5,2,[ca210],[]}}] \n".
-"reply recieve after update on active lane lane208av1".
-"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,2}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av2".
-"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av3".
-"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,6},{lane208av3,0}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av4".
-"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,2},{transfer,[{lane208av4,5}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av5".
+"Changing for red to green on streets. Start Moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}\n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca1".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca2".
-"----------------------------------------------------".
-"Running simulation iteration: 24 continue".
-"Evaluating state for light_fsm: light208 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
-"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{8,5,2,[ca210],[]}},{car,{4,1,4,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,7}]}]}\n".
-"No more cars to move: Moving carslist  [{car,{5,1,3,[ca210],[]}},{car,{9,5,1,[ca210],[]}}] \n".
-"reply recieve after update on active lane lane208av1".
-"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,2}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av2".
-"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av3".
-"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,6},{lane208av3,0}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av4".
-"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,2},{transfer,[{lane208av4,5}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av5".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca1".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca2".
-"----------------------------------------------------".
-"Running simulation iteration: 25 continue".
-"Evaluating state for light_fsm: light208 continue".
-"Finishing greenred way cycle moving to idle".
-"stop moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
-"Updated waiting reversed [{car,{10,6,0,[ca210],[]}},{car,{6,2,2,[ca210],[]}}], \n".
+"Updated waiting reversed [{car,{10,6,0,[ca210],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av1".
 "Waiting msj received from <0.80.0>".
@@ -543,26 +522,74 @@
 "reply recieve after update on idle lane lane208av4".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av5".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca1".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca2".
 "----------------------------------------------------".
-"Running simulation iteration: 26 continue".
+"Running simulation iteration: 24 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Finishing redred way cycle moving to idle".
-"All Red time. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}\n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca1".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca2".
-"Updated waiting reversed [{car,{11,7,0,[ca210],[]}},{car,{7,3,1,[ca210],[]}}], \n".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca1".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca2".
+"Updated waiting reversed [{car,{11,7,0,[ca210],[]}},{car,{18,14,3,[av210,av212],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av1".
+"Updated waiting reversed [{car,{19,15,3,[av210,av212],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av2".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av3".
+"Updated waiting reversed [{car,{21,17,3,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av4".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av5".
+"----------------------------------------------------".
+"Running simulation iteration: 25 continue".
+"Evaluating state for light_fsm: light208 continue".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca1".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca2".
+"Updated waiting reversed [{car,{12,8,0,[ca210],[]}},{car,{19,15,2,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av1".
+"Updated waiting reversed [{car,{20,16,2,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av2".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av3".
+"Updated waiting reversed [{car,{22,18,2,[av210,av212],[]}},{car,{18,13,3,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av4".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av5".
+"----------------------------------------------------".
+"Running simulation iteration: 26 continue".
+"Evaluating state for light_fsm: light208 continue".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca1".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca2".
+"Updated waiting reversed [{car,{13,9,0,[ca210],[]}},{car,{20,16,1,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av1".
+"Updated waiting reversed [{car,{21,17,1,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av2".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av3".
+"Updated waiting reversed [{car,{23,19,1,[av210,av212],[]}},{car,{19,14,2,[av210,av212],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av4".
 "Waiting msj received from <0.80.0>".
@@ -570,18 +597,23 @@
 "----------------------------------------------------".
 "Running simulation iteration: 27 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Changing for red to green on streets. Start Moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,2},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}\n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca1".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca2".
-"Updated waiting reversed [{car,{12,8,0,[ca210],[]}},{car,{8,4,1,[ca210],[]}}], \n".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca1".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca2".
+"Updated waiting reversed [{car,{14,10,0,[ca210],[]}},{car,{21,17,1,[av210,av212],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av1".
+"Updated waiting reversed [{car,{22,18,0,[av210,av212],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av2".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av3".
+"Updated waiting reversed [{car,{24,20,0,[av210,av212],[]}},{car,{20,15,1,[av210,av212],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av4".
 "Waiting msj received from <0.80.0>".
@@ -589,23 +621,21 @@
 "----------------------------------------------------".
 "Running simulation iteration: 28 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208ca2,1}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208ca1".
-"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,3}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208ca2".
-"Updated waiting reversed [{car,{13,9,0,[ca210],[]}},{car,{9,5,1,[ca210],[]}},{car,{24,20,3,[av210,av212],[]}}], \n".
+"Finishing redgreen way cycle moving to idle".
+"stop moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208ca1".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208ca2".
+"Updated waiting reversed [{car,{15,11,0,[ca210],[]}},{car,{22,18,1,[av210,av212],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av1".
-"Updated waiting reversed [{car,{23,19,3,[av210,av212],[]}}], \n".
+"Updated waiting reversed [{car,{23,19,0,[av210,av212],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av2".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av3".
-"Updated waiting reversed [{car,{23,19,3,[av210,av212],[]}}], \n".
+"Updated waiting reversed [{car,{25,21,0,[av210,av212],[]}},{car,{21,16,1,[av210,av212],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av4".
 "Waiting msj received from <0.80.0>".
@@ -613,66 +643,11 @@
 "----------------------------------------------------".
 "Running simulation iteration: 29 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208ca2,1}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208ca1".
-"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,3}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208ca2".
-"Updated waiting reversed [{car,{14,10,0,[ca210],[]}},{car,{10,6,1,[ca210],[]}},{car,{25,21,2,[av210,av212],[]}},{car,{18,13,3,[av210,av212],[]}}], \n".
+"Changing for red to green on avenue. Start Moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}\n".
+"Updated waiting reversed [{car,{16,12,0,[ca210],[]}},{car,{23,19,1,[av210,av212],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av1".
-"Updated waiting reversed [{car,{24,20,2,[av210,av212],[]}},{car,{19,14,3,[av210,av212],[]}}], \n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av2".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av3".
-"Updated waiting reversed [{car,{24,20,2,[av210,av212],[]}},{car,{20,15,3,[av210,av212],[]}}], \n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av4".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av5".
-"----------------------------------------------------".
-"Running simulation iteration: 30 continue".
-"Evaluating state for light_fsm: light208 continue".
-"Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208ca2,1}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208ca1".
-"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,3}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208ca2".
-"Updated waiting reversed [{car,{15,11,0,[ca210],[]}},{car,{11,7,1,[ca210],[]}},{car,{26,22,2,[av210,av212],[]}},{car,{19,14,3,[av210,av212],[]}}], \n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av1".
-"Updated waiting reversed [{car,{25,21,1,[av210,av212],[]}},{car,{20,15,2,[av210,av212],[]}}], \n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av2".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av3".
-"Updated waiting reversed [{car,{25,21,1,[av210,av212],[]}},{car,{21,16,2,[av210,av212],[]}}], \n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av4".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av5".
-"----------------------------------------------------".
-"Running simulation iteration: 31 continue".
-"Evaluating state for light_fsm: light208 continue".
-"Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208ca2,1}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208ca1".
-"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,3}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208ca2".
-"Updated waiting reversed [{car,{16,12,0,[ca210],[]}},{car,{12,8,1,[ca210],[]}},{car,{27,23,2,[av210,av212],[]}},{car,{20,15,3,[av210,av212],[]}}], \n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av1".
-"Updated waiting reversed [{car,{26,22,0,[av210,av212],[]}},{car,{21,16,1,[av210,av212],[]}}], \n".
+"Updated waiting reversed [{car,{24,20,0,[av210,av212],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av2".
 "Waiting msj received from <0.80.0>".
@@ -682,63 +657,143 @@
 "reply recieve after update on idle lane lane208av4".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av5".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208ca1".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208ca2".
+"----------------------------------------------------".
+"Running simulation iteration: 30 continue".
+"Evaluating state for light_fsm: light208 continue".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{16,12,0,[ca210],[]}},{car,{23,19,1,[av210,av212],[]}},{car,{11,8,4,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,1}]}]}\n".
+"Prob dispatch: [{dispatch,-1},{transfer,[{lane208av2,1}]}].\n".
+"Prepare dispatch to straigth lane on NO turnCarNum: {main,[{lane206av1,<0.55.0>}]}.\n".
+"Lane av208 to dispatch lane206av1. Car {car,{16,12,0,[ca210],[]}} \n".
+"Card Added to lane lane206av1\n".
+"Dispatch result: {reply,transfered}.\n".
+"No more cars to move: Moving carslist  [{car,{12,8,3,[ca210],[]}},{car,{24,19,0,[av210,av212],[]}}] \n".
+"reply recieve after update on active lane lane208av1".
+"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[{car,{24,20,0,[av210,av212],[]}}],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,0}]}]}\n".
+"Prob dispatch: [{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,0}]}].\n".
+"Prepare dispatch to straigth lane on NO turnCarNum: {main,[{lane206av2,<0.54.0>}]}.\n".
+"Lane av208 to dispatch lane206av2. Car {car,{24,20,0,[av210,av212],[]}} \n".
+"Card Added to lane lane206av2\n".
+"Dispatch result: {reply,transfered}.\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av2".
+"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av3".
+"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[{car,{26,22,0,[av210,av212],[]}},{car,{22,17,1,[av210,av212],[]}}],[],[{dispatch,-1},{transfer,[{lane208av5,4},{lane208av3,10}]}]}\n".
+"Prob dispatch: [{dispatch,-1},{transfer,[{lane208av5,4},{lane208av3,10}]}].\n".
+"Prepare dispatch to straigth lane on NO turnCarNum: {main,[{lane206av4,<0.52.0>}]}.\n".
+"Lane av208 to dispatch lane206av4. Car {car,{26,22,0,[av210,av212],[]}} \n".
+"Card Added to lane lane206av4\n".
+"Dispatch result: {reply,transfered}.\n".
+"No more cars to move: Moving carslist  [{car,{23,17,0,[av210,av212],[]}}] \n".
+"reply recieve after update on active lane lane208av4".
+"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208av4,5}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av5".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208ca1".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208ca2".
+"----------------------------------------------------".
+"Running simulation iteration: 31 continue".
+"Evaluating state for light_fsm: light208 continue".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{24,19,0,[av210,av212],[]}},{car,{12,8,3,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,1}]}]}\n".
+"Prob dispatch: [{dispatch,-1},{transfer,[{lane208av2,1}]}].\n".
+"Prepare dispatch to straigth lane on NO turnCarNum: {main,[{lane206av1,<0.55.0>}]}.\n".
+"Lane av208 to dispatch lane206av1. Car {car,{24,19,0,[av210,av212],[]}} \n".
+"Card Added to lane lane206av1\n".
+"Dispatch result: {reply,transfered}.\n".
+"No more cars to move: Moving carslist  [{car,{13,8,2,[ca210],[]}}] \n".
+"reply recieve after update on active lane lane208av1".
+"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av2".
+"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av3".
+"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[{car,{23,17,0,[av210,av212],[]}}],[],[{dispatch,-1},{transfer,[{lane208av5,4},{lane208av3,10}]}]}\n".
+"Prob dispatch: [{dispatch,-1},{transfer,[{lane208av5,4},{lane208av3,10}]}].\n".
+"Prepare dispatch to straigth lane on NO turnCarNum: {main,[{lane206av4,<0.52.0>}]}.\n".
+"Lane av208 to dispatch lane206av4. Car {car,{23,17,0,[av210,av212],[]}} \n".
+"Card Added to lane lane206av4\n".
+"Dispatch result: {reply,transfered}.\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av4".
+"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208av4,5}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av5".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208ca1".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 32 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Finishing redgreen way cycle moving to idle".
-"stop moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{13,8,2,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,1}]}]}\n".
+"No more cars to move: Moving carslist  [{car,{14,8,1,[ca210],[]}}] \n".
+"reply recieve after update on active lane lane208av1".
+"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av2".
+"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av3".
+"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,4},{lane208av3,10}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av4".
+"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208av4,5}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av5".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca1".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca2".
-"Updated waiting reversed [{car,{17,13,0,[ca210],[]}},{car,{13,9,1,[ca210],[]}},{car,{28,24,2,[av210,av212],[]}},{car,{21,16,3,[av210,av212],[]}}], \n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av1".
-"Updated waiting reversed [{car,{27,23,0,[av210,av212],[]}},{car,{22,17,1,[av210,av212],[]}}], \n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av2".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av3".
-"Updated waiting reversed [{car,{27,23,0,[av210,av212],[]}},{car,{23,18,1,[av210,av212],[]}}], \n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av4".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av5".
 "----------------------------------------------------".
 "Running simulation iteration: 33 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Finishing redred way cycle moving to idle".
-"All Red time. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}\n".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{14,8,1,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,1}]}]}\n".
+"No more cars to move: Moving carslist  [{car,{15,8,0,[ca210],[]}}] \n".
+"reply recieve after update on active lane lane208av1".
+"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av2".
+"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av3".
+"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,4},{lane208av3,10}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av4".
+"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,0},{transfer,[{lane208av4,5}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208av5".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca1".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca2".
-"Updated waiting reversed [{car,{18,14,0,[ca210],[]}},{car,{14,10,1,[ca210],[]}},{car,{29,25,2,[av210,av212],[]}},{car,{22,17,3,[av210,av212],[]}}], \n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av1".
-"Updated waiting reversed [{car,{28,24,0,[av210,av212],[]}},{car,{23,18,1,[av210,av212],[]}}], \n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av2".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av3".
-"Updated waiting reversed [{car,{28,24,0,[av210,av212],[]}},{car,{24,19,1,[av210,av212],[]}}], \n".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av4".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208av5".
 "----------------------------------------------------".
 "Running simulation iteration: 34 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Changing for red to green on avenue. Start Moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,2},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}\n".
-"Updated waiting reversed [{car,{19,15,0,[ca210],[]}},{car,{15,11,1,[ca210],[]}},{car,{30,26,2,[av210,av212],[]}},{car,{23,18,3,[av210,av212],[]}}], \n".
+"Finishing greenred way cycle moving to idle".
+"stop moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
+"Updated waiting reversed [{car,{16,9,0,[ca210],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av1".
-"Updated waiting reversed [{car,{29,25,0,[av210,av212],[]}},{car,{24,19,1,[av210,av212],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av2".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av3".
-"Updated waiting reversed [{car,{29,25,0,[av210,av212],[]}},{car,{25,20,1,[av210,av212],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av4".
 "Waiting msj received from <0.80.0>".
@@ -750,145 +805,12 @@
 "----------------------------------------------------".
 "Running simulation iteration: 35 continue".
 "Evaluating state for light_fsm: light208 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
-"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{19,15,0,[ca210],[]}},{car,{15,11,1,[ca210],[]}},{car,{30,26,2,[av210,av212],[]}},{car,{23,18,3,[av210,av212],[]}},{car,{9,9,4,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,7}]}]}\n".
-"Prob dispatch: [{dispatch,-1},{transfer,[{lane208av2,7}]}].\n".
-"Prepare dispatch to straigth lane on NO turnCarNum: {main,[{lane206av1,<0.55.0>}]}.\n".
-"Lane av208 to dispatch lane206av1. Car {car,{19,15,0,[ca210],[]}} \n".
-"Card Added to lane lane206av1\n".
-"Dispatch result: {reply,transfered}.\n".
-"No more cars to move: Moving carslist  [{car,{10,9,3,[ca210],[]}},{car,{24,18,2,[av210,av212],[]}},{car,{31,26,1,[av210,av212],[]}},{car,{16,11,0,[ca210],[]}}] \n".
-"reply recieve after update on active lane lane208av1".
-"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[{car,{29,25,0,[av210,av212],[]}},{car,{24,19,1,[av210,av212],[]}}],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,2}]}]}\n".
-"Prob dispatch: [{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,2}]}].\n".
-"Prepare dispatch to straigth lane on NO turnCarNum: {main,[{lane206av2,<0.54.0>}]}.\n".
-"Lane av208 to dispatch lane206av2. Car {car,{29,25,0,[av210,av212],[]}} \n".
-"Card Added to lane lane206av2\n".
-"Dispatch result: {reply,transfered}.\n".
-"No more cars to move: Moving carslist  [{car,{25,19,0,[av210,av212],[]}}] \n".
-"reply recieve after update on active lane lane208av2".
-"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av3".
-"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[{car,{29,25,0,[av210,av212],[]}},{car,{25,20,1,[av210,av212],[]}}],[],[{dispatch,-1},{transfer,[{lane208av5,6},{lane208av3,0}]}]}\n".
-"Prob dispatch: [{dispatch,-1},{transfer,[{lane208av5,6},{lane208av3,0}]}].\n".
-"Prepare dispatch to straigth lane on NO turnCarNum: {main,[{lane206av4,<0.52.0>}]}.\n".
-"Lane av208 to dispatch lane206av4. Car {car,{29,25,0,[av210,av212],[]}} \n".
-"Card Added to lane lane206av4\n".
-"Dispatch result: {reply,transfered}.\n".
-"No more cars to move: Moving carslist  [{car,{26,20,0,[av210,av212],[]}}] \n".
-"reply recieve after update on active lane lane208av4".
-"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,2},{transfer,[{lane208av4,5}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av5".
+"Changing for red to green on streets. Start Moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}\n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca1".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208ca2".
-"----------------------------------------------------".
-"Running simulation iteration: 36 continue".
-"Evaluating state for light_fsm: light208 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
-"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{16,11,0,[ca210],[]}},{car,{31,26,1,[av210,av212],[]}},{car,{24,18,2,[av210,av212],[]}},{car,{10,9,3,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,7}]}]}\n".
-"Prob dispatch: [{dispatch,-1},{transfer,[{lane208av2,7}]}].\n".
-"Prepare dispatch to straigth lane on NO turnCarNum: {main,[{lane206av1,<0.55.0>}]}.\n".
-"Lane av208 to dispatch lane206av1. Car {car,{16,11,0,[ca210],[]}} \n".
-"Card Added to lane lane206av1\n".
-"Dispatch result: {reply,transfered}.\n".
-"No more cars to move: Moving carslist  [{car,{11,9,2,[ca210],[]}},{car,{25,18,1,[av210,av212],[]}},{car,{32,26,0,[av210,av212],[]}}] \n".
-"reply recieve after update on active lane lane208av1".
-"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[{car,{25,19,0,[av210,av212],[]}}],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,2}]}]}\n".
-"Prob dispatch: [{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,2}]}].\n".
-"Prepare dispatch to straigth lane on NO turnCarNum: {main,[{lane206av2,<0.54.0>}]}.\n".
-"Lane av208 to dispatch lane206av2. Car {car,{25,19,0,[av210,av212],[]}} \n".
-"Card Added to lane lane206av2\n".
-"Dispatch result: {reply,transfered}.\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av2".
-"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av3".
-"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[{car,{26,20,0,[av210,av212],[]}}],[],[{dispatch,-1},{transfer,[{lane208av5,6},{lane208av3,0}]}]}\n".
-"Prob dispatch: [{dispatch,-1},{transfer,[{lane208av5,6},{lane208av3,0}]}].\n".
-"Prepare dispatch to straigth lane on NO turnCarNum: {main,[{lane206av4,<0.52.0>}]}.\n".
-"Lane av208 to dispatch lane206av4. Car {car,{26,20,0,[av210,av212],[]}} \n".
-"Card Added to lane lane206av4\n".
-"Dispatch result: {reply,transfered}.\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av4".
-"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,2},{transfer,[{lane208av4,5}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av5".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca1".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca2".
-"----------------------------------------------------".
-"Running simulation iteration: 37 continue".
-"Evaluating state for light_fsm: light208 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
-"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{32,26,0,[av210,av212],[]}},{car,{25,18,1,[av210,av212],[]}},{car,{11,9,2,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,7}]}]}\n".
-"Prob dispatch: [{dispatch,-1},{transfer,[{lane208av2,7}]}].\n".
-"Prepare dispatch to straigth lane on NO turnCarNum: {main,[{lane206av1,<0.55.0>}]}.\n".
-"Lane av208 to dispatch lane206av1. Car {car,{32,26,0,[av210,av212],[]}} \n".
-"Card Added to lane lane206av1\n".
-"Dispatch result: {reply,transfered}.\n".
-"No more cars to move: Moving carslist  [{car,{12,9,1,[ca210],[]}},{car,{26,18,0,[av210,av212],[]}}] \n".
-"reply recieve after update on active lane lane208av1".
-"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,2}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av2".
-"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av3".
-"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,6},{lane208av3,0}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av4".
-"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,2},{transfer,[{lane208av4,5}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av5".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca1".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca2".
-"----------------------------------------------------".
-"Running simulation iteration: 38 continue".
-"Evaluating state for light_fsm: light208 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
-"GO msj\n. CarsQueque LaneId lane208av1: {1,[{siblings,[{lane208av2,<0.61.0>}]},{secondary,[]},{main,[{lane206av1,<0.55.0>}]}],[{car,{26,18,0,[av210,av212],[]}},{car,{12,9,1,[ca210],[]}}],[],[{dispatch,-1},{transfer,[{lane208av2,7}]}]}\n".
-"Prob dispatch: [{dispatch,-1},{transfer,[{lane208av2,7}]}].\n".
-"Prepare dispatch to straigth lane on NO turnCarNum: {main,[{lane206av1,<0.55.0>}]}.\n".
-"Lane av208 to dispatch lane206av1. Car {car,{26,18,0,[av210,av212],[]}} \n".
-"Card Added to lane lane206av1\n".
-"Dispatch result: {reply,transfered}.\n".
-"No more cars to move: Moving carslist  [{car,{13,9,0,[ca210],[]}}] \n".
-"reply recieve after update on active lane lane208av1".
-"GO msj\n. CarsQueque LaneId lane208av2: {1,[{siblings,[{lane208av1,<0.62.0>},{lane208av3,<0.60.0>}]},{secondary,[]},{main,[{lane206av2,<0.54.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av3,0},{lane208av1,2}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av2".
-"GO msj\n. CarsQueque LaneId lane208av3: {1,[{siblings,[{lane208av2,<0.61.0>},{lane208av4,<0.59.0>}]},{secondary,[]},{main,[{lane206av3,<0.53.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av4,1},{lane208av2,2}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av3".
-"GO msj\n. CarsQueque LaneId lane208av4: {1,[{siblings,[{lane208av3,<0.60.0>},{lane208av5,<0.58.0>}]},{secondary,[]},{main,[{lane206av4,<0.52.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208av5,6},{lane208av3,0}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av4".
-"GO msj\n. CarsQueque LaneId lane208av5: {2,[{siblings,[{lane208av4,<0.59.0>}]},{secondary,[{lane208av5,<0.58.0>}]},{main,[{lane206av5,<0.51.0>}]}],[],[],[{dispatch,2},{transfer,[{lane208av4,5}]}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane208av5".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca1".
-"Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca2".
-"----------------------------------------------------".
-"Running simulation iteration: 39 continue".
-"Evaluating state for light_fsm: light208 continue".
-"Finishing greenred way cycle moving to idle".
-"stop moving avenue lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],redgreen}".
-"Updated waiting reversed [{car,{14,10,0,[ca210],[]}}], \n".
+"Updated waiting reversed [{car,{17,10,0,[ca210],[]}}], \n".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av1".
 "Waiting msj received from <0.80.0>".
@@ -899,8 +821,104 @@
 "reply recieve after update on idle lane lane208av4".
 "Waiting msj received from <0.80.0>".
 "reply recieve after update on idle lane lane208av5".
+"----------------------------------------------------".
+"Running simulation iteration: 36 continue".
+"Evaluating state for light_fsm: light208 continue".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca1".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca2".
+"Updated waiting reversed [{car,{18,11,0,[ca210],[]}},{car,{23,17,3,[av210,av212],[]}}], \n".
 "Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca1".
+"reply recieve after update on idle lane lane208av1".
+"Updated waiting reversed [{car,{24,17,3,[av210,av212],[]}}], \n".
 "Waiting msj received from <0.80.0>".
-"reply recieve after update on idle lane lane208ca2".
+"reply recieve after update on idle lane lane208av2".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av3".
+"Updated waiting reversed [{car,{20,16,3,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av4".
+"Updated waiting reversed [{car,{23,17,3,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av5".
+"----------------------------------------------------".
+"Running simulation iteration: 37 continue".
+"Evaluating state for light_fsm: light208 continue".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca1".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca2".
+"Updated waiting reversed [{car,{19,12,0,[ca210],[]}},{car,{24,18,2,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av1".
+"Updated waiting reversed [{car,{25,18,2,[av210,av212],[]}},{car,{17,12,3,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av2".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av3".
+"Updated waiting reversed [{car,{21,17,2,[av210,av212],[]}},{car,{16,11,3,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av4".
+"Updated waiting reversed [{car,{24,18,2,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av5".
+"----------------------------------------------------".
+"Running simulation iteration: 38 continue".
+"Evaluating state for light_fsm: light208 continue".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca1".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca2".
+"Updated waiting reversed [{car,{20,13,0,[ca210],[]}},{car,{25,19,1,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av1".
+"Updated waiting reversed [{car,{26,19,1,[av210,av212],[]}},{car,{18,13,2,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av2".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av3".
+"Updated waiting reversed [{car,{22,18,1,[av210,av212],[]}},{car,{17,12,2,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av4".
+"Updated waiting reversed [{car,{25,19,1,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av5".
+"----------------------------------------------------".
+"Running simulation iteration: 39 continue".
+"Evaluating state for light_fsm: light208 continue".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light208,{[{lane208av1,<0.62.0>},{lane208av2,<0.61.0>},{lane208av3,<0.60.0>},{lane208av4,<0.59.0>},{lane208av5,<0.58.0>}],[{lane208ca1,<0.57.0>},{lane208ca2,<0.56.0>}]},[{light210,<0.81.0>},{light408,<0.76.0>},{light206,<0.79.0>}],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane208ca1: {2,[{siblings,[{lane208ca2,<0.56.0>}]},{secondary,[{lane206av1,<0.55.0>}]},{main,[{lane208ca1,<0.57.0>}]}],[],[],[{dispatch,1},{transfer,[{lane208ca2,0}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca1".
+"GO msj\n. CarsQueque LaneId lane208ca2: {1,[{siblings,[{lane208ca1,<0.57.0>}]},{secondary,[]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane208ca1,1}]}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane208ca2".
+"Updated waiting reversed [{car,{21,14,0,[ca210],[]}},{car,{26,20,1,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av1".
+"Updated waiting reversed [{car,{27,20,0,[av210,av212],[]}},{car,{19,14,1,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av2".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av3".
+"Updated waiting reversed [{car,{23,19,0,[av210,av212],[]}},{car,{18,13,1,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av4".
+"Updated waiting reversed [{car,{26,20,0,[av210,av212],[]}}], \n".
+"Waiting msj received from <0.80.0>".
+"reply recieve after update on idle lane lane208av5".
 "----------------------------------------------------".
