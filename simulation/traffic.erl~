@@ -64,8 +64,7 @@ set_map() ->
     io:format("Allocating lights ~w.~n",[Axis]),
     {_Origin, AllocatedLights} = allocate_lights({Axis,[]}),
 %%Get geometric distribution for each lane that has a type 2 (2 directions)
-    NewRoads = lane:init_geometric(Roads),
-    io:format("FULL roads ~w.~n",[NewRoads]),
+    NewRoads = lane:init_geometric(Roads),    
 %%Spawn every lane as a proccess    
     {_OrigLanes, AllocatedLanes} = allocate_lanes({NewRoads,[],Obs}),
 %%Set archive_log for cars arrival to sources_lanes  
@@ -82,9 +81,10 @@ set_map() ->
 %%Get poisson dist for each source lane
     NewSources = lane:init_poisson(SourceLanes),    
     %%io:format("SOURCES With poisson ~w.~n",[NewSources]),    
-
+    io:format("PREPARING LightsFSM.~n",[]),
 %%Spawn FSM for traffic lights on each intersection and then connect them    
     LightsFSM = connect({AllocatedLights, AllocatedLanes, [],Path}), 
+    io:format("LightsFSM ~w.~n",[LightsFSM]),
     set_connection_to_light_siblings(LightsFSM,LightsFSM),
 
     {LightsFSM, NewSources, {NewPath,DataPath}}.
@@ -202,7 +202,7 @@ find_adjLanes(AdjLaneId, [_LHead | LTail]) ->
 set_connection_to_light_siblings([], _LightsList) -> [];
 set_connection_to_light_siblings([{_Id, Pid}|LightsRem], LightsList) ->
     %%{_State, _Cycle_time, _Go_time, Siblings, _LogData} = light_fsm:get_state(Pid),
-    {_State, _Times, Siblings, _LogData} = light_fsm:get_state(Pid),
+    {_State, _Times, Siblings, _LogData, _OldState} = light_fsm:get_state(Pid),
 %% The siblings list is a list of tuples that contaings LightId use this to find the corresponding PID
     CompleteSiblings = find_siblings(Siblings,LightsList,[]),
 %% After getting the list with all PIDs, update the corresponding FSM    
