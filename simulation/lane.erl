@@ -127,7 +127,14 @@ lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstructio
 	{write_down, Pid, Path,LaneIdS} ->
 	    write_result(Path, io_lib:format("=======================================",[])),
 	    write_result(Path, io_lib:format("START WRITEDOWN CARS INFO FOR LANE: ~w",[LaneIdS])),
-	    write_final_data(CarsQueque, Path, LaneId),
+	    write_result(Path, io_lib:format("--------------Cars on lane-------------",[])),
+	    write_final_data(CarsQueque, Path),
+	    write_result(Path, io_lib:format("--------------Cars on lane-------------",[])),
+	    write_result(Path, io_lib:format("-----Cars that leaved area on this lane-----",[])),
+	    write_final_data(OutSideArea, Path),	    
+	    write_result(Path, io_lib:format("-----Cars that leaved area on this lane-----",[])),
+	    write_result(Path, io_lib:format("FINISH WRITEDOWN CARS INFO FOR LANE: ~w",[LaneId])),
+	    write_result(Path, io_lib:format("=======================================",[])),
 	    reply(Pid, finished);
 	    	    
 	stop -> {ok, normal}
@@ -1022,10 +1029,9 @@ new_transfer() ->
 write_result(Path, Data) ->
     file:write_file(Path, io_lib:fwrite("~p.\n", [lists:flatten(Data)]),[append]).
     
-write_final_data([], Path, LaneId) ->
-    write_result(Path, io_lib:format("FINISH WRITEDOWN CARS INFO FOR LANE: ~w",[LaneId])),
-    write_result(Path, io_lib:format("=======================================",[]));
-write_final_data([Car|Tail], Path, LaneId) ->    
+write_final_data([], Path) ->
+    write_result(Path, io_lib:format("***End of car list",[]));
+write_final_data([Car|Tail], Path) ->    
     write_result(Path, io_lib:format(" ~w",[Car])),
-    write_final_data(Tail, Path, LaneId).
+    write_final_data(Tail, Path).
     

@@ -73,6 +73,10 @@ set_map() ->
     io:format("PATH ~s.~n",[Path]),
     NewPath = Path ++ "arrival_log.txt",
     DataPath = Path ++ "data_log.txt",
+    
+    file:delete(NewPath), %% delete old arrival log
+    file:delete(DataPath), %% delete old data_log log
+    
 %%Connect each lane with siblings or any other connected lane
 %%after that get sources lanes (lanes where cars will arrive to the area)    
     connect_lanes({AllocatedLanes,AllocatedLanes}),
@@ -81,7 +85,7 @@ set_map() ->
 %%Get poisson dist for each source lane
     NewSources = lane:init_poisson(SourceLanes),    
     %%io:format("SOURCES With poisson ~w.~n",[NewSources]),    
-    io:format("PREPARING LightsFSM.~n",[]),
+    io:format("PREPARING LightsFSM .~n",[]),
 %%Spawn FSM for traffic lights on each intersection and then connect them    
     LightsFSM = connect({AllocatedLights, AllocatedLanes, [],Path}), 
     io:format("LightsFSM ~w.~n",[LightsFSM]),
