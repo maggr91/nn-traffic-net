@@ -2,10 +2,8 @@
 "Evaluating state for light_fsm: light408 continue".
 "Continuing redred way cycle".
 "First moving streets <0.76.0>".
-"Moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"Waiting msj received from <0.76.0>".
-"reply recieve after update on idle lane lane408ca2".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"First move of lights from red to green on streets. Start Moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redred}\n".
+"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redred}".
 "GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane408ca2".
@@ -13,7 +11,7 @@
 "Running simulation iteration: 1 continue".
 "Evaluating state for light_fsm: light408 continue".
 "Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redred}".
 "GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane408ca2".
@@ -21,7 +19,7 @@
 "Running simulation iteration: 2 continue".
 "Evaluating state for light_fsm: light408 continue".
 "Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redred}".
 "GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane408ca2".
@@ -29,7 +27,7 @@
 "Running simulation iteration: 3 continue".
 "Evaluating state for light_fsm: light408 continue".
 "Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redred}".
 "GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane408ca2".
@@ -37,215 +35,191 @@
 "Running simulation iteration: 4 continue".
 "Evaluating state for light_fsm: light408 continue".
 "Finishing redgreen way cycle moving to idle".
-"stop moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"Waiting msj received from <0.76.0>".
-"reply recieve after update on idle lane lane408ca2".
-"Moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"stop moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redred}".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 5 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"Finishing redred way cycle moving to idle".
+"All Red time. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}\n".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 6 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"Changing for red to green on avenue. Start Moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,2},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}\n".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 7 continue".
 "Evaluating state for light_fsm: light408 continue".
 "Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 8 continue".
 "Evaluating state for light_fsm: light408 continue".
 "Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 9 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Finishing greenred way cycle moving to idle".
-"stop moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"Waiting msj received from <0.76.0>".
-"reply recieve after update on idle lane lane408ca2".
-"Moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 10 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane408ca2".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}".
+"Waiting msj received from <0.76.0>".
+"reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 11 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane408ca2".
+"Finishing greenred way cycle moving to idle".
+"stop moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}".
+"Waiting msj received from <0.76.0>".
+"reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 12 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane408ca2".
+"Finishing redred way cycle moving to idle".
+"All Red time. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],greenred}\n".
+"Waiting msj received from <0.76.0>".
+"reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 13 continue".
 "Evaluating state for light_fsm: light408 continue".
+"Changing for red to green on streets. Start Moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,2},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],greenred}\n".
+"Waiting msj received from <0.76.0>".
+"reply recieve after update on idle lane lane408ca2".
+"----------------------------------------------------".
+"Running simulation iteration: 14 continue".
+"Evaluating state for light_fsm: light408 continue".
 "Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],greenred}".
 "GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane408ca2".
 "----------------------------------------------------".
-"Running simulation iteration: 14 continue".
-"Evaluating state for light_fsm: light408 continue".
-"Finishing redgreen way cycle moving to idle".
-"stop moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"Waiting msj received from <0.76.0>".
-"reply recieve after update on idle lane lane408ca2".
-"Moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"Waiting msj received from <0.76.0>".
-"reply recieve after update on idle lane lane408ca2".
-"----------------------------------------------------".
 "Running simulation iteration: 15 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"Waiting msj received from <0.76.0>".
-"reply recieve after update on idle lane lane408ca2".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 16 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"Waiting msj received from <0.76.0>".
-"reply recieve after update on idle lane lane408ca2".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 17 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"Waiting msj received from <0.76.0>".
-"reply recieve after update on idle lane lane408ca2".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 18 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"Finishing redgreen way cycle moving to idle".
+"stop moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],greenred}".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 19 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Finishing greenred way cycle moving to idle".
-"stop moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"Waiting msj received from <0.76.0>".
-"reply recieve after update on idle lane lane408ca2".
-"Moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"Finishing redred way cycle moving to idle".
+"All Red time. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}\n".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 20 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane408ca2".
+"Changing for red to green on avenue. Start Moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,2},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}\n".
+"Waiting msj received from <0.76.0>".
+"reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 21 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane408ca2".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}".
+"Waiting msj received from <0.76.0>".
+"reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 22 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane408ca2".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}".
+"Waiting msj received from <0.76.0>".
+"reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 23 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane408ca2".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}".
+"Waiting msj received from <0.76.0>".
+"reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 24 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Finishing redgreen way cycle moving to idle".
-"stop moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"Waiting msj received from <0.76.0>".
-"reply recieve after update on idle lane lane408ca2".
-"Moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"Continuing greenred way cycle".
+"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 25 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"Finishing greenred way cycle moving to idle".
+"stop moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 26 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"Finishing redred way cycle moving to idle".
+"All Red time. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],greenred}\n".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 27 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"Changing for red to green on streets. Start Moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,2},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],greenred}\n".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 28 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"Waiting msj received from <0.76.0>".
-"reply recieve after update on idle lane lane408ca2".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 29 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Finishing greenred way cycle moving to idle".
-"stop moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"Waiting msj received from <0.76.0>".
-"reply recieve after update on idle lane lane408ca2".
-"Moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"Waiting msj received from <0.76.0>".
-"reply recieve after update on idle lane lane408ca2".
+"Continuing redgreen way cycle".
+"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],greenred}".
+"GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
+"No more cars to move: Moving carslist  [] \n".
+"reply recieve after update on active lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 30 continue".
 "Evaluating state for light_fsm: light408 continue".
 "Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],greenred}".
 "GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane408ca2".
@@ -253,72 +227,63 @@
 "Running simulation iteration: 31 continue".
 "Evaluating state for light_fsm: light408 continue".
 "Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],greenred}".
 "GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 32 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane408ca2".
+"Finishing redgreen way cycle moving to idle".
+"stop moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],greenred}".
+"Waiting msj received from <0.76.0>".
+"reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 33 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Continuing redgreen way cycle".
-"continue moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"GO msj\n. CarsQueque LaneId lane408ca2: {1,[{siblings,[]},{secondary,[{lane208ca1,<0.57.0>}]},{main,[{lane208ca2,<0.56.0>}]}],[],[],[{dispatch,-1},{transfer,-91}]}\n".
-"No more cars to move: Moving carslist  [] \n".
-"reply recieve after update on active lane lane408ca2".
+"Finishing redred way cycle moving to idle".
+"All Red time. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,1},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}\n".
+"Waiting msj received from <0.76.0>".
+"reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 34 continue".
 "Evaluating state for light_fsm: light408 continue".
-"Finishing redgreen way cycle moving to idle".
-"stop moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"Waiting msj received from <0.76.0>".
-"reply recieve after update on idle lane lane408ca2".
-"Moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"Changing for red to green on avenue. Start Moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,2},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}\n".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 35 continue".
 "Evaluating state for light_fsm: light408 continue".
 "Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 36 continue".
 "Evaluating state for light_fsm: light408 continue".
 "Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 37 continue".
 "Evaluating state for light_fsm: light408 continue".
 "Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 38 continue".
 "Evaluating state for light_fsm: light408 continue".
 "Continuing greenred way cycle".
-"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"continue moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
 "Running simulation iteration: 39 continue".
 "Evaluating state for light_fsm: light408 continue".
 "Finishing greenred way cycle moving to idle".
-"stop moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,4},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
-"Waiting msj received from <0.76.0>".
-"reply recieve after update on idle lane lane408ca2".
-"Moving street lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116]}".
+"stop moving avenue lanes. Data: {light408,{[],[{lane408ca2,<0.45.0>}]},[{light208,<0.80.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,4},{allred_time,2}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,48,56,46,116,120,116],redgreen}".
 "Waiting msj received from <0.76.0>".
 "reply recieve after update on idle lane lane408ca2".
 "----------------------------------------------------".
