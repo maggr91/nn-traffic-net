@@ -60,6 +60,7 @@ lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstructio
     %% add the car to the end of the lane, then reply with an ok, if not reply with a full 
     	    LaneLastPos = Capacity - 1,
     	    NoObsBegin = no_obs_on_dispatch(Obstruction, LaneLastPos),
+    	    io:format("Lane ~w lastpos ~w, NoObsBegin ~w ~n",[LaneId, LaneLastPos,NoObsBegin]),
 	    case ((length(CarsQueque) < Capacity) and (LastPosition < LaneLastPos) and NoObsBegin)  of
 	        true  ->	            
 	            NewCarsQueque = lists:reverse([NewCarData|lists:reverse(CarsQueque)]),
@@ -538,7 +539,8 @@ attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, {car,{Wait,Delay, Positi
     %% when there is an obstacule at the begining of the next lane selected for dispatch
     io:format("CALLING SIBLING FOR TRANSFER on ~w to ~w ~n after dispatch error",[CurrentLaneId, {SiblingId, SiblingPid}]),
     write_result(LogData, io_lib:format("CALLING SIBLING FOR TRANSFER on ~w to ~w ~n after dispatch error",[CurrentLaneId, {SiblingId, SiblingPid}])),    
-    SiblingPid ! {try_transfer,before, {CurrentLaneId, self()},Position, {car,{Wait,Delay, Position, Route, PrefLanes}}, LogData},
+    %%change before for atPoint because it needs to allow pass at some point
+    SiblingPid ! {try_transfer,atPoint, {CurrentLaneId, self()},Position, {car,{Wait,Delay, Position, Route, PrefLanes}}, LogData},
     receive
        {reply, ok}    -> io:format("transfer succeded for dispatch ~w~n",[{SiblingId, SiblingPid}]),
        			 write_result(LogData, io_lib:format("transfer succeded for dispatch ~w~n",[{SiblingId, SiblingPid}])),
@@ -609,7 +611,7 @@ attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, [{car,{Wait,Delay, Posit
     
 attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, [{car,{Wait,Delay, Position, Route, PrefLanes}} | Tail], 
   UpdatedCars, {Obs, ObsBeginPosition, ObsEndPosition}, LogData,LastPosition) when Position - 1 < ObsBeginPosition, Position - 1 < 0; Position - 1 == LastPosition ->
-    %% when they aren't in the way of the obstacule do not try to pass the car to the sibling lane 
+    %% when they aren't in the way of thatPointe obstacule do not try to pass the car to the sibling lane 
     io:format("CANT MOVE NORMAL, NOT CALLING SIBLING FOR TRANSFER, NEXT POSITION: ~w IS OCCUPIEDED On ~w ~n",[{Position - 1, LastPosition}, CurrentLaneId]),
     write_result(LogData, io_lib:format("CANT MOVE NORMAL, NOT CALLING SIBLING FOR TRANSFER, NEXT POSITION: ~w IS OCCUPIEDED On ~w ~n",[{Position - 1, LastPosition}, CurrentLaneId])),    
     attemp_transfer(CurrentLaneId, {SiblingId, SiblingPid}, Tail, [{car,{Wait + 1,Delay + 1, Position, Route, PrefLanes}} | UpdatedCars], {Obs, ObsBeginPosition, ObsEndPosition}, LogData,Position);
@@ -682,54 +684,86 @@ is_space_enabled({car,{WaitL, DelayL, PositionL, RouteL, PrefLanesL}}, CarsQuequ
     io:format("Car location: ~w result on in_range function: ~w~n",[{PositionL, Position, TransferPosition}, LocationRes]),
     write_result(LogData, io_lib:format("Car location: ~w result on in_range function: ~w~n",[{PositionL, Position, TransferPosition}, LocationRes])),
     case LocationRes of
-        {false, no_in_range} ->
+        {false, no_in_range, _Location} ->
            is_space_enabled({car,{Wait,Delay, Position, Route, PrefLanes}}, CarsTail, 
               TransferPosition, ProbData, CaToTransfer, [{car,{WaitL, DelayL, PositionL, RouteL, PrefLanesL}}|UpdatedCars], Capacity, TransferTime, LogData);    
         Other -> 
            evaluate_location_result(Other,{car,{WaitL, DelayL, PositionL, RouteL, PrefLanesL}},UpdatedCars, CaToTransfer,
               CarsQueque, ProbData,  TransferTime)
     end.
+
+
+%%IN CASE OF ERROR REMOVE FROM HERE
+
+%% If the diference of distance is the above 2 add the first car and them the new car   
+evaluate_location_result ({true, Diff, at_first}, FirstCar, UpdatedCars, 
+  CaToTransfer, CarsQueque, ProbData, _TransferTime) when Diff >= 2  ->
+    NewUpdated = [CaToTransfer | UpdatedCars],
+    AddCarList = [FirstCar | NewUpdated],
+    {true, lists:append(lists:reverse(AddCarList), CarsQueque), ProbData};
+
+%% if the diferences is not 2 or more, but its time to cd the pass then add the first car, and after that 
+%% add the new one
+evaluate_location_result ({true, Diff, at_first}, FirstCar, UpdatedCars, 
+  CaToTransfer, CarsQueque, ProbData, _TransferTime) when Diff < 2, ProbData == 0  ->
+    NewUpdated = [CaToTransfer | UpdatedCars],
+    AddCarList = [ FirstCar | NewUpdated],
+    NewAllowPass = new_transfer(),
+    {true, lists:append(lists:reverse(AddCarList), CarsQueque), NewAllowPass};
+
+%% TO HERE
     
-evaluate_location_result ({true, Diff}, FirstCar, UpdatedCars, 
+    
+%% If the diference of distance is the above 2 add the first car and them the new car   
+evaluate_location_result ({true, Diff, _Location}, FirstCar, UpdatedCars, 
   CaToTransfer, CarsQueque, ProbData, _TransferTime) when Diff >= 2  ->
     NewUpdated = [FirstCar | UpdatedCars],
     AddCarList = [CaToTransfer | NewUpdated],
     {true, lists:append(lists:reverse(AddCarList), CarsQueque), ProbData};
 
-evaluate_location_result ({true, Diff}, FirstCar, UpdatedCars, 
+%% if the diferences is not 2 or more, but its time to cd the pass then add the first car, and after that 
+%% add the new one
+evaluate_location_result ({true, Diff, _Location}, FirstCar, UpdatedCars, 
   CaToTransfer, CarsQueque, ProbData, _TransferTime) when Diff < 2, ProbData == 0  ->
     NewUpdated = [FirstCar | UpdatedCars],
     AddCarList = [CaToTransfer | NewUpdated],
     NewAllowPass = new_transfer(),
     {true, lists:append(lists:reverse(AddCarList), CarsQueque), NewAllowPass};
 
-evaluate_location_result ({true, Diff}, FirstCar, UpdatedCars, 
+%%used to reduce the allow pass counter (transfer) only when transfer was asked on the position before of a obs
+evaluate_location_result ({true, Diff, _Location}, FirstCar, UpdatedCars, 
   _CaToTransfer, CarsQueque, ProbData, TransferTime) when Diff < 2, ProbData > 0, TransferTime == atPoint ->          
     NewUpdated = [FirstCar | UpdatedCars],
     {false, lists:append(lists:reverse(NewUpdated), CarsQueque), ProbData - 1};
-    
-evaluate_location_result ({true, Diff}, FirstCar, UpdatedCars, 
+
+%%used to NOT reduce the allow pass counter (transfer) only when transfer was asked way before the obs
+evaluate_location_result ({true, Diff, _Location}, FirstCar, UpdatedCars, 
   _CaToTransfer, CarsQueque, ProbData, TransferTime) when Diff < 2, ProbData > 0, TransferTime == before ->          
      NewUpdated = [FirstCar | UpdatedCars],
      {false, lists:append(lists:reverse(NewUpdated), CarsQueque), ProbData};
 
-evaluate_location_result ({true, Diff}, FirstCar, UpdatedCars, 
+%% catch for errors
+evaluate_location_result ({true, Diff, _Location}, FirstCar, UpdatedCars, 
   _CaToTransfer, CarsQueque, ProbData, _TransferTime) when Diff < 2, ProbData < 0 ->          
      io:format("ERROR ON PROBDATA"),
      NewUpdated = [FirstCar | UpdatedCars],
      {false, lists:append(lists:reverse(NewUpdated), CarsQueque), ProbData};
     
-evaluate_location_result ({false, no_space}, FirstCar, UpdatedCars, 
+%% In case that there is no space and the transfer was at the point but it
+%% was not posible, then reduce the allow pass counter
+evaluate_location_result ({false, no_space, _Location}, FirstCar, UpdatedCars, 
   _CaToTransfer, CarsQueque, ProbData, TransferTime) when TransferTime == atPoint, ProbData > 0 -> %% don't move cars to next position on same lane
      NewUpdated = [FirstCar | UpdatedCars],
      {false, lists:append(lists:reverse(NewUpdated), CarsQueque), ProbData - 1};
 
-evaluate_location_result ({false, no_space}, FirstCar, UpdatedCars, 
+%% If there was a car at the position do not reduce the allow pass counter
+evaluate_location_result ({false, no_space, _Location}, FirstCar, UpdatedCars, 
   _CaToTransfer, CarsQueque, ProbData, TransferTime) when TransferTime == atPoint, ProbData == 0 -> %% don't move cars to next position on same lane
      NewUpdated = [FirstCar | UpdatedCars],
      {false, lists:append(lists:reverse(NewUpdated), CarsQueque), ProbData};
 
-evaluate_location_result ({false, no_space}, FirstCar, UpdatedCars, 
+%% If there was a car at the position and this
+evaluate_location_result ({false, no_space, _Location}, FirstCar, UpdatedCars, 
   _CaToTransfer, CarsQueque, ProbData, TransferTime) when TransferTime == before -> %% move cars to next position on same lane
      NewUpdated = [FirstCar | UpdatedCars],
      {false, lists:append(lists:reverse(NewUpdated), CarsQueque), ProbData}.
@@ -737,20 +771,21 @@ evaluate_location_result ({false, no_space}, FirstCar, UpdatedCars,
 %%TODO: REVISAR PARA EL CASO DE EL ULTIMO CARRO EN LA FILA Y EL CARRO POR AGREGAR    
 %% Check if TransferPosition(Match) is located between the current position of first car (Min)
 %% and the next one (Max).
+%% ADDED: dummy element on tuple none
 in_range(Min, Max, Match) when Match > Min, Match < Max->
-    {true, Max - Match};
+    {true, Max - Match, dummy};
 in_range(Min, Max, Match) when Match > Min, Match > Max->
-    {false, no_in_range};
+    {false, no_in_range, dummy};
 in_range(Min, Max, Match) when Match == Min; Match == Max->
-    {false, no_space};
+    {false, no_space, dummy};
 in_range(_Min, _Max, _Match) -> 
-    {false, -1}. 
+    {false, -1, dummy}. 
 in_range(Min, Match) when Match < Min->
-    {true, Min - Match};
+    {true, Min - Match, at_first};
 in_range(Min, Match) when Match == Min->
-    {false, no_space};
+    {false, no_space, dummy};
 in_range(_Min,_Match) -> 
-    {false, -1}.
+    {false, -1, dummy}.
 
 %%Update probData
 allow_pass_update(ProbData, Position) ->
@@ -843,8 +878,14 @@ add_car({LaneId, LanePid, WaitingOutside, _ProbData, _Timer}, Car, LogPath) ->
             io:format("Card Added to lane ~w~n",[LaneId]),
             write_result(LogPath, io_lib:format("Card Added to lane ~w",[LaneId])),   
             WaitingUpdated = waiting(WaitingOutside, LogPath),
-            WaitingUpdated
+            WaitingUpdated;
             %%{[{LaneId, LanePid, WaitingUpdated, ProbData, NewArrival} | SourcesLane], NewArrival}
+        {reply, {obs_on_begin, _Any}} ->
+            io:format("Lane ~w has obstruction at the begining. Adding to wait list~n",[LaneId]),
+            write_result(LogPath, io_lib:format("Lane ~w has obstruction at the begining. Adding to wait list~n",[LaneId])), 
+            WaitingUpdated = waiting([Car|WaitingOutside], LogPath),
+            WaitingUpdated
+        
     end.
 
 %%=================================================================================================================================
