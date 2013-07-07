@@ -1,6 +1,6 @@
 {test,lane212av1,2,3}
-{test,lane212av4,1,2}
-{test,lane210av3,3,4}
+{test,lane212av3,1,2}
+{test,lane210av4,3,4}
 {test,lane210av5,2,3}
 {test,lane208av1,2,3}
 {test,lane208av3,2,3}
