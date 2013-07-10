@@ -4,10 +4,10 @@
 "First moving streets <0.78.0>".
 "First move of lights from red to green on streets. Start Moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],redred}\n".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],redred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".
@@ -15,10 +15,10 @@
 "Evaluating state for light_fsm: light412 continue".
 "Continuing redgreen way cycle".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],redred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".
@@ -26,10 +26,10 @@
 "Evaluating state for light_fsm: light412 continue".
 "Continuing redgreen way cycle".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],redred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".
@@ -37,10 +37,10 @@
 "Evaluating state for light_fsm: light412 continue".
 "Continuing redgreen way cycle".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],redred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".
@@ -118,10 +118,10 @@
 "Evaluating state for light_fsm: light412 continue".
 "Continuing redgreen way cycle".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".
@@ -129,10 +129,10 @@
 "Evaluating state for light_fsm: light412 continue".
 "Continuing redgreen way cycle".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".
@@ -140,10 +140,10 @@
 "Evaluating state for light_fsm: light412 continue".
 "Continuing redgreen way cycle".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".
@@ -151,10 +151,10 @@
 "Evaluating state for light_fsm: light412 continue".
 "Continuing redgreen way cycle".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".
@@ -232,10 +232,10 @@
 "Evaluating state for light_fsm: light412 continue".
 "Continuing redgreen way cycle".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".
@@ -243,10 +243,10 @@
 "Evaluating state for light_fsm: light412 continue".
 "Continuing redgreen way cycle".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".
@@ -254,10 +254,10 @@
 "Evaluating state for light_fsm: light412 continue".
 "Continuing redgreen way cycle".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".
@@ -265,10 +265,10 @@
 "Evaluating state for light_fsm: light412 continue".
 "Continuing redgreen way cycle".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".
@@ -346,10 +346,10 @@
 "Evaluating state for light_fsm: light412 continue".
 "Continuing redgreen way cycle".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,0},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".
@@ -357,10 +357,10 @@
 "Evaluating state for light_fsm: light412 continue".
 "Continuing redgreen way cycle".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,1},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".
@@ -368,10 +368,10 @@
 "Evaluating state for light_fsm: light412 continue".
 "Continuing redgreen way cycle".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".
@@ -379,10 +379,10 @@
 "Evaluating state for light_fsm: light412 continue".
 "Continuing redgreen way cycle".
 "continue moving street lanes. Data: {light412,{[],[{lane412ca1,<0.48.0>},{lane412ca2,<0.47.0>}]},[{light212,<0.82.0>},false],[{allred_timer,0},{cycle_time,5},{go_time,3},{allred_time,1}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,52,49,50,46,116,120,116],greenred}".
-"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca1: {1,[{siblings,[{lane412ca2,<0.47.0>}]},{secondary,[]},{main,[{lane212ca1,<0.70.0>}]}],[],[],[{dispatch,-1},{transfer,[{lane412ca2,2}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca1".
-"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,0}]}]}\n".
+"GO msj\n. CarsQueque LaneId lane412ca2: {1,[{siblings,[{lane412ca1,<0.48.0>}]},{secondary,[]},{main,[{lane212ca2,<0.69.0>}]}],[],[{test,1,2}],[{dispatch,-1},{transfer,[{lane412ca1,20}]}]}\n".
 "No more cars to move: Moving carslist  [] \n".
 "reply recieve after update on active lane lane412ca2".
 "----------------------------------------------------".

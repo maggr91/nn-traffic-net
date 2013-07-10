@@ -18,14 +18,18 @@
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane212av2".
 "--------------Cars on lane-------------".
+" {car,{10,6,0,[{outav212,0,0}],[],2,3}}".
+" {car,{3,0,1,[{outav212,6,6}],[],2,3}}".
+" {car,{2,0,2,[{outav212,1,1}],[],2,3}}".
+" {car,{7,6,3,[{outav212,0,0}],[],2,3}}".
 "***End of car list".
 "--------------Cars on lane-------------".
 "-----Cars that leaved area on this lane-----".
 "***End of car list".
 "-----Cars that leaved area on this lane-----".
-"dsp_str: 10".
+"dsp_str: 12".
 "dsp_trn: 0".
-"tra_sib: 6".
+"tra_sib: 9".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane212av2".
 "=======================================".
 "=======================================".
@@ -36,16 +40,15 @@
 "***End of car list".
 "--------------Cars on lane-------------".
 "-----Cars that leaved area on this lane-----".
-" {car,{7,5,0,[{av212,7,5},{outav212,0,0}],[]}}".
-" {car,{10,8,0,[{av212,10,8},{outav212,0,0}],[]}}".
-" {car,{12,8,0,[{av212,12,8},{outav212,0,0}],[]}}".
-" {car,{5,3,0,[{av212,5,3},{outav212,0,0}],[]}}".
-" {car,{6,5,0,[{av212,6,5},{outav212,0,0}],[]}}".
+" {car,{6,6,0,[{av212,6,6},{outav212,0,0}],[],1,3}}".
+" {car,{4,2,0,[{av212,4,2},{outav212,0,0}],[],2,3}}".
+" {car,{4,3,0,[{av212,4,3},{outav212,0,0}],[],2,3}}".
+" {car,{11,8,0,[{av212,11,8},{outav212,0,0}],[],2,3}}".
 "***End of car list".
 "-----Cars that leaved area on this lane-----".
 "dsp_str: 0".
 "dsp_trn: 0".
-"tra_sib: 5".
+"tra_sib: 4".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane212av3".
 "=======================================".
 "=======================================".
@@ -53,16 +56,15 @@
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane212av4".
 "--------------Cars on lane-------------".
-" {car,{4,0,0,[{outav212,0,0}],[]}}".
-" {car,{3,0,1,[{outav212,0,0}],[]}}".
+" {car,{4,0,0,[{outav212,0,0}],[],2,3}}".
 "***End of car list".
 "--------------Cars on lane-------------".
 "-----Cars that leaved area on this lane-----".
 "***End of car list".
 "-----Cars that leaved area on this lane-----".
-"dsp_str: 5".
+"dsp_str: 4".
 "dsp_trn: 2".
-"tra_sib: 3".
+"tra_sib: 2".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane212av4".
 "=======================================".
 "FINISH WRITEDOWN FOR LANE".
@@ -134,12 +136,13 @@
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane210av3".
 "--------------Cars on lane-------------".
+" {car,{1,0,3,[{av212,4,1},{outav212,0,0}],[],2,3}}".
 "***End of car list".
 "--------------Cars on lane-------------".
 "-----Cars that leaved area on this lane-----".
 "***End of car list".
 "-----Cars that leaved area on this lane-----".
-"dsp_str: 2".
+"dsp_str: 1".
 "dsp_trn: 0".
 "tra_sib: 0".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane210av3".
@@ -149,16 +152,16 @@
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane210av2".
 "--------------Cars on lane-------------".
-" {car,{4,0,0,[{av212,10,8},{outav212,0,0}],[]}}".
-" {car,{3,0,1,[{av212,9,8},{outav212,0,0}],[]}}".
-" {car,{2,0,2,[{av212,4,2},{outav212,0,0}],[]}}".
-" {car,{1,0,3,[{av212,5,2},{outav212,0,0}],[]}}".
+" {car,{4,0,0,[{av212,16,12},{outav212,0,0}],[],2,3}}".
+" {car,{3,0,1,[{av212,13,9},{outav212,0,0}],[],2,3}}".
+" {car,{2,0,2,[{av212,10,8},{outav212,0,0}],[],2,3}}".
+" {car,{1,0,3,[{av212,10,7},{outav212,0,0}],[],2,3}}".
 "***End of car list".
 "--------------Cars on lane-------------".
 "-----Cars that leaved area on this lane-----".
 "***End of car list".
 "-----Cars that leaved area on this lane-----".
-"dsp_str: 6".
+"dsp_str: 8".
 "dsp_trn: 0".
 "tra_sib: 0".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane210av2".
@@ -185,13 +188,14 @@
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane210ca1".
 "--------------Cars on lane-------------".
-" {car,{7,6,0,[{outca210,0,0}],[]}}".
+" {car,{7,6,0,[{outca210,0,0}],[],2,3}}".
+" {car,{2,2,2,[{outca210,0,0}],[],1,3}}".
 "***End of car list".
 "--------------Cars on lane-------------".
 "-----Cars that leaved area on this lane-----".
 "***End of car list".
 "-----Cars that leaved area on this lane-----".
-"dsp_str: 2".
+"dsp_str: 1".
 "dsp_trn: 3".
 "tra_sib: 0".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane210ca1".
@@ -218,18 +222,18 @@
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane208av2".
 "--------------Cars on lane-------------".
-" {car,{4,4,0,[{av210,12,8},{av212,10,8},{outav212,0,0}],[]}}".
-" {car,{3,3,1,[{av210,12,8},{av212,12,8},{outav212,0,0}],[]}}".
-" {car,{2,2,2,[{av210,14,10},{av212,7,6},{outav212,0,0}],[]}}".
-" {car,{1,1,3,[{av210,13,9},{av212,8,6},{outav212,0,0}],[]}}".
+" {car,{4,4,0,[{av210,12,8},{av212,13,9},{outav212,0,0}],[],2,3}}".
+" {car,{3,3,1,[{av210,12,8},{av212,12,8},{outav212,1,1}],[],2,3}}".
+" {car,{2,2,2,[{av210,12,8},{av212,9,7},{outav212,0,0}],[],2,3}}".
+" {car,{1,1,3,[{av210,12,8},{av212,9,6},{outav212,0,0}],[],2,3}}".
 "***End of car list".
 "--------------Cars on lane-------------".
 "-----Cars that leaved area on this lane-----".
 "***End of car list".
 "-----Cars that leaved area on this lane-----".
-"dsp_str: 4".
+"dsp_str: 5".
 "dsp_trn: 0".
-"tra_sib: 2".
+"tra_sib: 1".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane208av2".
 "=======================================".
 "=======================================".
@@ -267,14 +271,13 @@
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane208av5".
 "--------------Cars on lane-------------".
+" {car,{8,6,0,[{ca210,8,7},{outca210,0,0}],[],3,3}}".
 "***End of car list".
 "--------------Cars on lane-------------".
 "-----Cars that leaved area on this lane-----".
-" {car,{11,8,0,[{av208,11,8},{ca210,6,5},{outca210,0,0}],[]}}".
-" {car,{10,8,0,[{av208,10,8},{ca210,4,2},{outca210,0,0}],[]}}".
 "***End of car list".
 "-----Cars that leaved area on this lane-----".
-"dsp_str: 1".
+"dsp_str: 2".
 "dsp_trn: 0".
 "tra_sib: 0".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane208av5".
@@ -318,10 +321,11 @@
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane206av5".
 "--------------Cars on lane-------------".
-" {car,{9,6,0,[{av208,10,8},{ca210,4,1},{outca210,0,0}],[]}}".
 "***End of car list".
 "--------------Cars on lane-------------".
 "-----Cars that leaved area on this lane-----".
+" {car,{3,0,0,[{av206,3,0},{av208,11,8},{ca210,4,3},{outca210,0,0}],[],2,3}}".
+" {car,{9,8,0,[{av206,9,8},{av208,3,0},{ca210,10,8},{outca210,0,0}],[],3,3}}".
 "***End of car list".
 "-----Cars that leaved area on this lane-----".
 "dsp_str: 0".
@@ -349,8 +353,9 @@
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane206av3".
 "--------------Cars on lane-------------".
-" {car,{7,6,0,[{av208,6,4},{av210,14,10},{av212,5,4},{outav212,0,0}],[]}}".
-" {car,{6,6,1,[{av208,6,3},{av210,12,9},{av212,4,1},{outav212,0,0}],[]}}".
+" {car,{9,6,0,[{av208,6,6},{av210,11,8},{av212,9,8},{outav212,0,0}],[],2,3}}".
+" {car,{8,6,1,[{av208,6,5},{av210,11,8},{av212,5,3},{outav212,0,0}],[],2,3}}".
+" {car,{7,6,2,[{av208,6,4},{av210,11,8},{av212,5,2},{outav212,0,0}],[],2,3}}".
 "***End of car list".
 "--------------Cars on lane-------------".
 "-----Cars that leaved area on this lane-----".
@@ -358,7 +363,7 @@
 "-----Cars that leaved area on this lane-----".
 "dsp_str: 0".
 "dsp_trn: 0".
-"tra_sib: 2".
+"tra_sib: 3".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane206av3".
 "=======================================".
 "=======================================".
@@ -381,15 +386,13 @@
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane206av1".
 "--------------Cars on lane-------------".
-" {car,{10,6,0,[{av208,6,6},{av210,12,8},{av212,5,5},{outav212,0,0}],[]}}".
-" {car,{9,6,1,[{av208,6,5},{av210,12,8},{av212,7,7},{outav212,0,0}],[]}}".
 "***End of car list".
 "--------------Cars on lane-------------".
 "-----Cars that leaved area on this lane-----".
 "***End of car list".
 "-----Cars that leaved area on this lane-----".
 "dsp_str: 0".
-"dsp_trn: 0".
+"dsp_trn: 2".
 "tra_sib: 2".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane206av1".
 "=======================================".
@@ -400,20 +403,24 @@
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane206ca2".
 "--------------Cars on lane-------------".
-" {car,{3,0,1,[{outca206,0,0}],[]}}".
+" {car,{1,0,3,[{outca206,0,0}],[],2,3}}".
 "***End of car list".
 "--------------Cars on lane-------------".
 "-----Cars that leaved area on this lane-----".
-" {car,{12,9,0,[{ca206,12,9},{outca206,0,0}],[]}}".
-" {car,{6,5,0,[{ca206,6,5},{outca206,0,0}],[]}}".
-" {car,{10,8,0,[{ca206,10,8},{outca206,0,0}],[]}}".
-" {car,{6,6,0,[{ca206,6,6},{outca206,0,0}],[]}}".
-" {car,{8,8,0,[{ca206,8,8},{outca206,0,0}],[]}}".
+" {car,{8,7,0,[{ca206,8,7},{outca206,0,0}],[],2,3}}".
+" {car,{12,10,0,[{ca206,12,10},{outca206,0,0}],[],3,3}}".
+" {car,{4,3,0,[{ca206,4,3},{outca206,0,0}],[],1,3}}".
+" {car,{8,8,0,[{ca206,8,8},{outca206,0,0}],[],1,3}}".
+" {car,{7,7,0,[{ca206,7,7},{outca206,0,0}],[],1,3}}".
+" {car,{9,8,0,[{ca206,9,8},{outca206,0,0}],[],1,3}}".
+" {car,{15,14,0,[{ca206,15,14},{outca206,0,0}],[],1,3}}".
+" {car,{4,1,0,[{ca206,4,1},{outca206,0,0}],[],1,3}}".
+" {car,{11,10,0,[{ca206,11,10},{outca206,0,0}],[],2,3}}".
 "***End of car list".
 "-----Cars that leaved area on this lane-----".
-"dsp_str: 2".
+"dsp_str: 1".
 "dsp_trn: 0".
-"tra_sib: 4".
+"tra_sib: 5".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane206ca2".
 "=======================================".
 "=======================================".
@@ -421,13 +428,13 @@
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane206ca1".
 "--------------Cars on lane-------------".
-" {car,{6,3,0,[{outca206,0,0}],[]}}".
+" {car,{4,0,0,[{outca206,0,0}],[],2,3}}".
 "***End of car list".
 "--------------Cars on lane-------------".
 "-----Cars that leaved area on this lane-----".
 "***End of car list".
 "-----Cars that leaved area on this lane-----".
-"dsp_str: 4".
+"dsp_str: 5".
 "dsp_trn: 0".
 "tra_sib: 0".
 "FINISH WRITEDOWN CARS INFO FOR LANE: lane206ca1".
@@ -475,16 +482,16 @@
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane410ca1".
 "--------------Cars on lane-------------".
-" {car,{10,6,0,[{ca210,6,6},{outca210,0,0}],[]}}".
-" {car,{8,6,1,[{outca410,0,0}],[]}}".
-" {car,{1,1,3,[{outca410,0,0}],[]}}".
+" {car,{9,6,0,[{ca210,11,10},{outca210,0,0}],[],2,3}}".
+" {car,{4,4,1,[{outca410,0,0}],[],1,3}}".
 "***End of car list".
 "--------------Cars on lane-------------".
 "-----Cars that leaved area on this lane-----".
-" {car,{8,7,0,[{ca410,8,7},{outca410,0,0}],[]}}".
-" {car,{12,8,0,[{ca410,12,8},{ca210,12,8},{outca210,0,0}],[]}}".
-" {car,{4,3,0,[{ca410,4,3},{outca410,0,0}],[]}}".
-" {car,{4,1,0,[{ca410,4,1},{outca410,0,0}],[]}}".
+" {car,{3,0,0,[{ca410,3,0},{outca410,0,0}],[],2,3}}".
+" {car,{5,5,0,[{ca410,5,5},{outca410,0,0}],[],1,3}}".
+" {car,{4,2,0,[{ca410,4,2},{outca410,0,0}],[],2,3}}".
+" {car,{8,8,0,[{ca410,8,8},{outca410,0,0}],[],1,3}}".
+" {car,{3,0,0,[{ca410,3,0},{outca410,0,0}],[],2,3}}".
 "***End of car list".
 "-----Cars that leaved area on this lane-----".
 "dsp_str: 0".
@@ -520,16 +527,17 @@
 "=======================================".
 "START WRITEDOWN CARS INFO FOR LANE: lane406ca2".
 "--------------Cars on lane-------------".
-" {car,{3,0,1,[{ca206,5,4},{outca206,0,0}],[]}}".
 "***End of car list".
 "--------------Cars on lane-------------".
 "-----Cars that leaved area on this lane-----".
-" {car,{7,5,0,[{ca406,7,5},{outca406,0,0}],[]}}".
-" {car,{11,8,0,[{ca406,11,8},{outca406,0,0}],[]}}".
-" {car,{12,8,0,[{ca406,12,8},{ca206,6,6},{outca206,0,0}],[]}}".
-" {car,{4,2,0,[{ca406,4,2},{outca406,0,0}],[]}}".
-" {car,{11,8,0,[{ca406,11,8},{outca406,0,0}],[]}}".
-" {car,{7,7,0,[{ca406,7,7},{outca406,0,0}],[]}}".
+" {car,{3,0,0,[{ca406,3,0},{outca406,0,0}],[],2,3}}".
+" {car,{6,5,0,[{ca406,6,5},{av206,11,8},{av208,4,2},{av210,3,0},{av212,8,8},{outav212,0,0}],[],2,3}}".
+" {car,{6,6,0,[{ca406,6,6},{av206,11,8},{av208,4,3},{av210,3,0},{av212,9,8},{outav212,0,0}],[],1,3}}".
+" {car,{4,1,0,[{ca406,4,1},{outca406,0,0}],[],2,3}}".
+" {car,{7,6,0,[{ca406,7,6},{outca406,0,0}],[],2,3}}".
+" {car,{11,8,0,[{ca406,11,8},{ca206,9,9},{outca206,0,0}],[],2,3}}".
+" {car,{3,0,0,[{ca406,3,0},{outca406,0,0}],[],2,3}}".
+" {car,{7,7,0,[{ca406,7,7},{outca406,0,0}],[],1,3}}".
 "***End of car list".
 "-----Cars that leaved area on this lane-----".
 "dsp_str: 0".
