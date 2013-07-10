@@ -1,8 +1,8 @@
 -module(traffic).
 
--export([start/0, set_map/0, connect/1, connect_lanes/1]).
+-export([start/1, set_map/1, connect/1, connect_lanes/1]).
 
--export([init/0]).
+-export([init/1]).
 
 %-export([test_move_av/1,test_move_ca/1, test_idle/1]).
 
@@ -17,10 +17,10 @@
 %% of normal traffic, with no modification of ANN
 
 %% Start method, USE this to run simulation
-start() ->    
+start(MaxSpeed) ->    
 %%    register(poissonServer,prob:start({poisson,6})),    
 %%    register(traffic, spawn(traffic, init, [])),
-      spawn(traffic, init, []).
+      spawn(traffic, init, [MaxSpeed]).
 %%    timer:apply_after(400, traffic, run_simulation, [Lapse]).
     %%run_simulation(Lapse).
 
@@ -49,24 +49,27 @@ reply (Pid, Reply) ->
 %%       {reply, Reply} -> Reply
 %%    end.
 
-init() ->
-    MapData = set_map(), 
+init(MaxSpeed) ->
+    MapData = set_map(MaxSpeed), 
     loop(MapData, 0).
 
 %% Function to load the map by reading files located in
 %% ~/sources folder
-set_map() ->
+set_map(MaxSpeed) ->
 %%Read data from files
     Axis = get_lights(),
     Roads = get_lanes(),
     Obs = get_obs(),
+    
+    %%get the max move for each car on the area
+    MaxSpeedMove = max_car_move(MaxSpeed, 4.4),
 
     io:format("Allocating lights ~w.~n",[Axis]),
     {_Origin, AllocatedLights} = allocate_lights({Axis,[]}),
 %%Get geometric distribution for each lane that has a type 2 (2 directions)
     NewRoads = lane:init_geometric(Roads),    
 %%Spawn every lane as a proccess    
-    {_OrigLanes, AllocatedLanes} = allocate_lanes({NewRoads,[],Obs}),
+    {_OrigLanes, AllocatedLanes} = allocate_lanes({NewRoads,[],Obs,MaxSpeedMove}),
 %%Set archive_log for cars arrival to sources_lanes  
     {ok, Cwd} = file:get_cwd(),
     Path = Cwd ++ "/logs/",
@@ -75,7 +78,7 @@ set_map() ->
     DataPath = Path ++ "data_log.txt",
     
     file:delete(NewPath), %% delete old arrival log
-    file:delete(DataPath), %% delete old data_log log
+    file:delete(DataPath), %% delete old data log
     
 %%Connect each lane with siblings or any other connected lane
 %%after that get sources lanes (lanes where cars will arrive to the area)    
@@ -106,19 +109,19 @@ allocate_lights({[{LightId,_ManagedLanes, Siblings, Times}|Tail], Spawned}) ->
  
  
 %% Spawn every lane on the area with the respective data         
-allocate_lanes({[], Spawned,_Obs}) ->
+allocate_lanes({[], Spawned,_Obs,_MaxSpeedMove}) ->
     {[],Spawned};
 allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes, 
-                  CarsQueque, IsSource, Capacity, {probList, ProbData}, GeoProb}|Tail], Spawned, Obs}) ->
+                  CarsQueque, IsSource, Capacity, {probList, ProbData}, GeoProb}|Tail], Spawned, Obs, MaxSpeedMove}) ->
 %%for each lane in the list spawn a proccess
     %%Pid = lane:start({Type, [], CarsQueque, Capacity, [], ProbData, GeoProb}),
     %%Obstruction = [create_obstruction(Capacity)],
     io:format("Obstacules loaded: ~w",[Obs]),
     Obstruction = allocate_obs(Obs, LaneId),  
-    Pid = lane:start({LaneId, Type, [], CarsQueque, Capacity, Obstruction, GeoProb}),
+    Pid = lane:start({LaneId, Type, [], CarsQueque, Capacity, Obstruction, GeoProb, MaxSpeedMove}),
     {arrival, ProbList} = lists:keyfind(arrival, 1, ProbData),
     ProbRanges = list_to_tuple(ProbList),
-    allocate_lanes({Tail, [{LaneId,Pid, LightController,Dir,ConnectedLanes, IsSource, ProbRanges} | Spawned], Obs}).
+    allocate_lanes({Tail, [{LaneId,Pid, LightController,Dir,ConnectedLanes, IsSource, ProbRanges} | Spawned], Obs, MaxSpeedMove}).
 
 %%connect lights with its lanes
 connect({[], _LaneList, LightsFSM,_LogData}) -> 
@@ -347,6 +350,16 @@ allocate_obs([{Obs, TargetLaneId, BeginPos, EndPos} | Tail] , TargetLaneId, ObsL
    allocate_obs(Tail,TargetLaneId, [{Obs, BeginPos, EndPos} | ObsList]);
 allocate_obs([_NotMatchObs | Tail] , TargetLaneId, ObsList) ->
    allocate_obs(Tail, TargetLaneId, ObsList).
+ 
+
+%%FUNCTION to calculate the max movement posible at the given speed
+%%INPUT: MaxSpeed km/h that the car will reach at some point
+%%	 CarAvgLegnth average length of cars default is 4.4 meters
+%%OUTPUT: Max Positions that a car can move per second
+max_car_move(MaxSpeed, CarAvgLength) ->
+    MaxSpeedMS = (MaxSpeed * 1000) / 3600,
+    MaxPos = MaxSpeedMS / CarAvgLength,
+    MaxPos. 
     
 %% Estimate initial Cars arrival for all sources lanes
 %%init_poisson(SourcesLanes) ->

@@ -3,9 +3,10 @@
 -export([start/1, run_simulation/1]).
 
 
-start(Lapse) ->    
+start(Lapse) ->
+    MaxSpeed = 50,    
     register(poissonServer,prob:start({poisson,6})),
-    register(geoServer,prob:start({geometrica,0.5}))
+    register(geoServer,prob:start({geometrica,0.5})),
     register(geoCedServer,prob:start({geometrica,0.25})),    
     register(traffic, traffic:start()),
     timer:apply_after(200, simulation, run_simulation, [Lapse]).
