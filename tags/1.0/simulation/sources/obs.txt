@@ -1,0 +1,10 @@
+{test,lane212av1,2,3}
+{test,lane212av3,1,2}
+{test,lane210av4,3,4}
+{test,lane210av5,2,3}
+{test,lane208av1,2,3}
+{test,lane208av3,2,3}
+{test,lane412ca2,1,2}
+{test,lane406ca1,3,4}
+{test,lane206av4,0,2}
+{test,lane206av2,1,2}

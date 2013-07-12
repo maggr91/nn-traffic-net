@@ -1,0 +1,112 @@
+\section{Alcance y Limitaciones}
+		
+		
+		Esta tesis se enfocar\'{a} en las situaciones ocurridas \'{u}nicamente en San
+		Jos\'{e} dentro de las zonas en las que opera actualmente el sistema de control de
+	tr\'{a}fico, primero en la ciudad de San Jos\'{e} en las \textbf{avenidas:} 2,
+	4 y 8,  y las \textbf{calles:} 12, 10, 8 y 6; que ser\'{a} tomada como base inicial para el
+	desarrollo y entrenamiento de la red neuronal.
+	
+		Adicionalmente, se elaborar\'{a} una red neuronal que funcione en un m\'{i}nimo de
+	seis sem\'{a}foros ubicados en diferentes intersecciones de la zona delimitada
+	anteriormente. Estos tomar\'{a}n las decisiones en conjunto para administrar y
+	coordinar los tiempos que deben permanecer en luz verde o cuando es necesario
+	que uno o varios de estos cambien a luz roja. Se realizar\'{a} varias
+	simulaciones ya que se busca determinar bajo qu\'{e} factores funciona mejor el
+	sistema mencionado, para esto, los datos que se obtengan como resultado del
+	funcionamiento de la red ser\'{a}n valorados con respecto a las bit\'{a}coras
+	que sean proporcionadas por el \textit{Centro de Control de Tr\'{a}nsito del
+	MOPT}.
+	Cabe destacar que s\'{o}lo se proceder\'{a} a hacer pruebas en otras regiones de San Jos\'{e} hasta obtener resultados confiables de las pruebas realizadas en las zonas descritas.
+	
+		Como parte de las labores requeridas, se crear\'{a} un programa para simular los
+	escenarios planteados para entrenamiento y prueba de la red neuronal. No se
+	tomar\'{a}n como par\'{a}metro de entrada el consumo de combustible de los autom\'{o}viles,
+	ni los gastos relacionados con estos. De igual forma, no se validar\'{a}n las
+	entradas que reciba la red, es decir, todos los datos presentados a la red
+	ser\'{a}n correctos sin consideraciones de alg\'{u}n tipo que afecte a las
+	entradas de la red. Tampoco se contempla la implementaci\'{o}n y pruebas
+	correspondientes en un ambiente real, esto debido a que el centro de control de
+	tr\'{a}nsito no dispone de recursos para invertir en la realizaci\'{o}n de
+	esto.
+	No obstante, la funcionalidad y resultados podr\'{a}n ser apreciados por medio del programa de simulaci\'{o}n mencionado, por lo que el esfuerzo se centra m\'{a}s en definir, desarrollar y probar el modelo de red neuronal que logre hacer su cometido de la mejor forma posible.
+	
+		El no contar con los sensores necesarios para la detecci\'{o}n de veh\'{i}culos
+	automotores  as\'{i} como el presupuesto para adquirirlo, se convierte en una de
+	las principales limitantes por las cuales el modelo no ser\'{a} implementado en un
+	ambiente real. De igual forma, no se cuenta con el personal y tiempo necesarios para llevar a cabo esta labor, ya que el tiempo establecido para la realizaci\'{o}n de este trabajo podr\'{i}a no ser suficiente para llevar a cabo ambas labores, es decir, tanto el desarrollo del modelo como la implementaci\'{o}n en un ambiente real del mismo.
+		
+		La implementaci\'{o}n del modelo resultado de esta tesis se deja como tema para su
+	posterior realizaci\'{o}n en otro trabajo, motivando a otras personas a retomar la
+	soluci\'{o}n y brindar sus propios aportes y mejoras al mismo.\\
+
+\section{Lista de Entregables}
+
+Como parte de realizaci\'{o}n de la tesis se realizar\'{a} un modelo alternativo
+que utilice el algoritmo de propagaci\'{o}n hacia atr\'{a}s para su
+entrenamiento y la documentaci\'{o}n correspondiente. Lo cual se divide en los
+siguientes entregables:
+
+\begin{itemize}
+  \item Implementaci\'{o}n del algoritmo para la programaci\'{o}n de la red: En
+  el lenguaje y plataformas especificados previamente. \'{E}ste consistir\'{a} de la
+  l\'{o}gica de su implementaci\'{o}n, y los archivos en el lenguaje de
+  programaci\'{o}n seleccionados.
+  \item Programa de simulaci\'{o}n de escenarios para la red  neuronal: este
+  programa ser\'{a} empleado para poder realizar pruebas a la red, de forma que
+  se puedan realizar los ajustes necesarios para que esta cometa la menor
+  cantidad de errores posibles. Para este se tomar\'{a}n en cuenta los factores
+  que afectan el desempe\~{n}o de la red.
+  \item Documentaci\'{o}n del an\'{a}lisis estad\'{i}stico de los resultados obtenidos al
+  entrenar la red neuronal, de forma que se pueda determinar bajo cu\'{a}les
+  condiciones esta funciona mejor. De igual forma se contempla una
+  comparaci\'{o}n con respecto a los tiempos de cambios de luces obtenidos del
+  sistema actualmente utilizado por el Centro de Control de Tr\'{a}nsito del
+  MOPT.
+  \item Datos obtenidos de las pruebas realizadas a la red neuronal: estos datos
+  corresponden a los resultados finales sobre los ajustes que fueron hechos
+  sobre la red, los errores que se corrigieron y su evaluaci\'{o}n con respecto
+  al criterio de validez para determinar los valores reales esperados.
+\end{itemize}
+
+\section{Beneficios Esperados}
+	
+	\subsection{La organizaci\'{o}n}
+			Esta tesis ayudar\'{a} a poner en claro las mejoras que se dan en
+	caso de lograr la implementaci\'{o}n de este modelo en las calles de San Jos\'{e}. Lo
+	anterior se debe a la necesidad de realizar una serie de an\'{a}lisis estad\'{i}sticos
+	para evaluar diferentes factores que inciden en el control del tr\'{a}fico, con
+	la finalidad de poder saber ante qu\'{e} factores funciona bien, o no, el
+	modelo propuesto para el sistema, pero que a la vez permitir\'{a} contrastar la
+	informaci\'{o}n estad\'{i}stica obtenida del sistema actual permitiendo
+	saber las deficiencias espec\'{i}ficas que existan del mismo.
+	
+		Por otro lado, al contar con las comparaciones mencionadas anteriormente, el
+	Centro de Control de Tr\'{a}nsito del MOPT podr\'{a} hacer uso de esta
+	retroalimentaci\'{o}n para llevar a cabo cualquier “ajuste” que sea necesario de
+	forma que se busque mejorar las disminuciones de tiempo y poder lograr m\'{a}s del
+	30\% que se ha logrado actualmente, as\'{i} como mejorar el \'{i}ndice de ahorros en
+	combustible anuales superando los \$4 millones, es decir m\'{a}s de lo indicado
+	en \cite{Mata2009} y trayendo consigo una mejor respuesta y una mayor
+	satisfacci\'{o}n de los conductores.
+	
+	\subsection{El estudiante}
+		Para el caso del investigador, se espera obtener conocimientos m\'{a}s amplios
+	sobre las redes neuronales, buenas pr\'{a}cticas involucradas dentro de la
+	realizaci\'{o}n de sistemas de control de tr\'{a}nsito en general y
+	especialmente los que se basen o hagan uso de redes neuronales. Con esto se
+	pretende llegar a obtener conocimientos mayores a los que haya dejado la
+	carrera de Ingenier\'{i}a en Sistemas de Informaci\'{o}n y poder abarcar temas
+	que exijan un aprendizaje, y no s\'{o}lo la puesta en pr\'{a}ctica de
+	temas vistos durante la carrera. 
+
+	\subsection{La Universidad}
+		Por \'{u}ltimo, para la Universidad Nacional se busca incentivar la
+	realizaci\'{o}n de tesis o proyectos que se inclinen m\'{a}s por la
+	investigaci\'{o}n donde se involucren temas que no se basen en asuntos,
+	soluciones comunes o se limiten a la realizaci\'{o}n de otro sistema. Se
+	espera lograr que la misma universidad sea la encargada de motivar a los
+	aspirantes a indagar sobre temas nuevos que resulten retadores por el grado de
+	complejidad que implican, pero que al final dejen un gran aporte en diferentes
+	\'{a}reas y que ayuden a obtener investigaciones de gran calidad.
+	

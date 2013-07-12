@@ -1,0 +1,19 @@
+test.
+ok.
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
+"Running simulation iteration: 45 continue. Intersections [light12,light12,light12,light12,light12]".
