@@ -1,10 +1,10 @@
 -module(simulation).
 
--export([start/1, run_simulation/1]).
+-export([start/2, run_simulation/1]).
 
 
-start(Lapse) ->
-    MaxSpeed = 50,    
+start(Lapse, MaxSpeed) ->
+    %%MaxSpeed = 50,    
     register(poissonServer,prob:start({poisson,6})),
     register(geoServer,prob:start({geometrica,0.5})),
     register(geoCedServer,prob:start({geometrica,0.25})),    
