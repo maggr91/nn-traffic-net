@@ -99,7 +99,8 @@ serverTabla(TablaAcum)->
 		    reply(Cliente, encuentraValorTabla(TablaAcum, random:uniform())),
 		    serverTabla(TablaAcum);
 		killyou -> 
-		    io:format("Saliendo... mi tabla era: ~p~n",[TablaAcum]);
+		    %%io:format("Saliendo... mi tabla era: ~p~n",[TablaAcum]);
+		    {normal, ok};
 		X -> 
 		    io:format("Llamado no esperado... ~p~n",[X]),
 		    serverTabla(TablaAcum)

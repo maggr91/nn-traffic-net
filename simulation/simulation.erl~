@@ -1,14 +1,14 @@
 -module(simulation).
 
--export([start/2, run_simulation/1]).
+-export([start/2, run_simulation/1, unregister_process/0]).
 
 
 start(Lapse, MaxSpeed) ->
-    MaxSpeed = 50,    
+    %%MaxSpeed = 50,    
     register(poissonServer,prob:start({poisson,6})),
     register(geoServer,prob:start({geometrica,0.5})),
     register(geoCedServer,prob:start({geometrica,0.25})),    
-    register(traffic, traffic:start(MaxSpeed)),
+    register(trafficServer, traffic:start(MaxSpeed)),
     timer:apply_after(200, simulation, run_simulation, [Lapse]).
     %%run_simulation(Lapse).
     
@@ -23,13 +23,25 @@ run_simulation(Lapse, Current) when Current < Lapse ->
     run_simulation(Lapse, Current + 1);
 run_simulation(Lapse, Current) when Current >= Lapse ->
     stop().
- 
+    %%timer:apply_after(300, simulation, unregister_process, []). 
 stop() -> 
+	stop_probServers(),
     call(stop).
 
+%%unregister_process() ->
+%%    unregister(poissonServer),
+%%    unregister(geoServer),
+%%    unregister(geoCedServer),
+%%    unregister(trafficServer).
+
+stop_probServers() ->
+    poissonServer ! killyou,
+    geoServer ! killyou,
+    geoCedServer ! killyou.
+    
 call(Message) ->
     io:format("CALLING PROCESS LOOP.~n",[]),
-    traffic ! {call, self(), Message},
+    trafficServer ! {call, self(), Message},
     receive
        {reply, Reply} -> Reply
     end.
