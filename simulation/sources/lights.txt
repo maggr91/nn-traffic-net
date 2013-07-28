@@ -1,59 +1,16 @@
-{light,{1,2,12}, Idle, 45, 0}
-{light,{2,2,12}, On, 45, 0}
-
-{light,1,[2,10], Idle, 45, 0}
-{light,2,[2,10], On, 45, 0}
-
-{light,1,[2,8], Idle, 45, 0}
-{light,2,[2,8], On, 45, 0}
-
-{light,1,[2,6], Idle, 45, 0}
-{light,2,[2,6], On, 45, 0}
-
-{light,1,[2,12], Idle, 45, 0}
-{light,2,[2,12], On, 45, 0}
-
-{light,1,[2,10], Idle, 45, 0}
-{light,2,[2,10], On, 45, 0}
-
-{light,1,[2,8], Idle, 45, 0}
-{light,2,[2,8], On, 45, 0}
-
-{light,1,[2,6], Idle, 45, 0}
-{light,2,[2,6], On, 45, 0}
-
-{light,1,[4,12], Idle, 45, 0}
-{light,2,[4,12], On, 45, 0}
-
-{light,1,[4,10], Idle, 45, 0}
-{light,2,[4,10], On, 45, 0}
-
-{light,1,[4,8], Idle, 45, 0}
-{light,2,[4,8], On, 45, 0}
-
-{light,1,[4,6], Idle, 45, 0}
-{light,2,[4,6], On, 45, 0}
-
-{light,1,[6,12], Idle, 45, 0}
-{light,2,[6,12], On, 45, 0}
-
-{light,1,[6,10], Idle, 45, 0}
-{light,2,[6,10], On, 45, 0}
-
-{light,1,[6,8], Idle, 45, 0}
-{light,2,[6,8], On, 45, 0}
-
-{light,1,[6,6], Idle, 45, 0}
-{light,2,[6,6], On, 45, 0}
-
-{light,1,[8,12], Idle, 45, 0}
-{light,2,[8,12], On, 45, 0}
-
-{light,1,[8,10], Idle, 45, 0}
-{light,2,[8,10], On, 45, 0}
-
-{light,1,[8,8], Idle, 45, 0}
-{light,2,[8,8], On, 45, 0}
-
-{light,1,[8,6], Idle, 45, 0}
-{light,2,[8,6], On, 45, 0}
+{light212,twoDir,[light210,light412],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}
+{light210,twoDir,[light212,light410,light208],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}
+{light208,twoDir,[light210,light408,light206],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}
+{light206,twoDir,[light208,light406,light206],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}
+{light412,twoDir,[light212,light612],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}
+{light410,twoDir,[light210,light610],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}
+{light408,twoDir,[light208,light608],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}
+{light406,twoDir,[light206,light606],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}
+{light612,twoDir,[light412,light812,light610],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}
+{light610,twoDir,[light612,light410,light810,light608],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}
+{light608,twoDir,[light610,light408,light808,light606],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}
+{light606,twoDir,[light608,light406,light806],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}
+{light812,twoDir,[light612,light810],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}
+{light810,twoDir,[light812,light610,light808],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}
+{light808,twoDir,[light810,light608,light806],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}
+{light806,twoDir,[light808,light606],[{cycle_time, 5}, {go_time,0}, {allred_time,1}]}

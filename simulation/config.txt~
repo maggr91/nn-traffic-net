@@ -1,0 +1,1 @@
+[{avg_car_length, 4.4},{source_obs, "obs.txt"},{source_lanes, "/sources/prueba.txt"},{source_lights, "/sources/prueba2.txt"},{log_arrival, "arrival_log.txt"},{log_data, "data_log.txt"}]
