@@ -1,75 +1,64 @@
-{lane,1, [2,12], 1, []}
-{lane,1, [2,12], 1, []}
-{lane,1, [2,12], 1, []}
-{lane,2, [2,12], 1, []}
-{lane,2, [2,12], 2, []}
-
-{lane,1, [2,10], 1, []}
-{lane,1, [2,10], 1, []}
-{lane,1, [2,10], 1, []}
-{lane,1, [2,10], 2, []}
-{lane,2, [2,10], 2, []}
-
-{lane,1, [2,8], 1, []}
-{lane,1, [2,8], 1,[]}
-{lane,1, [2,8], 1,[]}
-{lane,1, [2,8], 1,[]}
-{lane,2, [2,8], 1,[]}
-{lane,2, [2,8], 2,[]}
-
-{lane,1, [2,6],1, []}
-{lane,1, [2,6],1, []}
-{lane,1, [2,6],1, []}
-{lane,1, [2,6],1, []}
-{lane,2, [2,6],2, []}
-
-{lane,2, [4,12], 1, []}
-{lane,2, [4,12], 1, []}
-
-{lane,2, [4,10], 1, []}
-
-{lane,2, [4,8], 1,[]}
-
-{lane,2, [4,6],1, []}
-{lane,2, [4,6],1, []}
-
-{lane,1, [6,12], 1, []}
-{lane,1, [6,12], 1, []}
-{lane,2, [6,12], 1, []}
-{lane,2, [6,12], 1, []}
-{lane,3, [6,12], 1, []}
-{lane,3, [6,12], 1, []}
-
-{lane,1 [6,10], 1, []}
-{lane,1 [6,10], 2, []}
-{lane,2, [6,10], 1, []}
-{lane,2 [6,10], 2, []}
-
-{lane,1, [6,8], 1,[]}
-{lane,1, [6,8], 2,[]}
-{lane,2, [6,8], 1,[]}
-{lane,2, [6,8], 2,[]}
-
-{lane,1, [6,6],1, []}
-{lane,1, [6,6],2, []}
-{lane,2, [6,6],1, []}
-{lane,2, [6,6],2, []}
-
-{lane,1, [8,12], 1, []}
-{lane,1, [8,12], 2, []}
-{lane,2, [8,12], 1, []}
-{lane,2, [8,12], 2, []}
-
-{lane,1, [8,10], 1, []}
-{lane,1, [8,10], 2, []}
-{lane,2, [8,10], 1, []}
-{lane,2, [8,10], 2, []}
-
-{lane,1, [8,8], 1,[]}
-{lane,1, [8,8], 2,[]}
-{lane,2, [8,8], 2,[]}
-
-{lane,1, [8,6],1, []}
-{lane,1, [8,6],2, []}
-{lane,2, [8,6],1, []}
-{lane,2, [8,6],2, []}
+{lane212av1,light212,av, 1, [{main,[lane210av1]},{secondary, [lane210av2]}, {siblings, [lane212av2]}],[], source_lane, 5,		{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane212av2,light212,av, 1, [{main,[lane210av2]},{secondary, [lane210av3]}, {siblings, [lane212av1, lane212av3]}],[], source_lane, 5,	{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane212av3,light212,av, 1, [{main,[lane210av3]},{secondary, [lane210av4]}, {siblings, [lane212av2, lane212av4]}],[], source_lane, 5,		{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane212av4,light212,av, 2, [{main,[lane210av4]},{secondary, [lane212av4]}, {siblings, [lane212av3]} ],[], source_lane, 5,		{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane212ca1,light212,ca, 2, [{main,[lane212ca1]},{secondary, [lane210av1]}, {siblings, [lane212ca2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane212ca2,light212,ca, 1, [{main,[lane212ca2]},{secondary, []},           {siblings, [lane212ca2]}],[], normal_lane, 5,	       	{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane210av1,light210,av, 2, [{main,[lane208av1]},{secondary, [lane208ca1]}, {siblings,[lane210av2]}],[], normal_lane, 5,	       	{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane210av2,light210,av, 1, [{main,[lane208av2]},{secondary, []},           {siblings, [lane210av1, lane210av3]}],[], normal_lane, 5, 	{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane210av3,light210,av, 1, [{main,[lane208av3]},{secondary, []},           {siblings, [lane210av2, lane210av4]}],[], normal_lane, 5,	{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane210av4,light210,av, 1, [{main,[lane208av4]},{secondary, []},           {siblings, [lane210av3, lane210av5]}],[], normal_lane, 5, 	{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane210av5,light210,av, 1, [{main,[lane208av5]},{secondary, []},           {siblings, [lane210av4]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane210ca1,light210,ca, 2, [{main,[lane410ca1]},{secondary, [lane208av5]}, {siblings, []}],[], source_lane, 5,				{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane208av1,light208,av, 1, [{main,[lane206av1]},{secondary, []},           {siblings, [lane208av2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane208av2,light208,av, 1, [{main,[lane206av2]},{secondary, []},           {siblings, [lane208av1,lane208av3]}],[], normal_lane, 5,	{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane208av3,light208,av, 1, [{main,[lane206av3]},{secondary, []},           {siblings, [lane208av2,lane208av4]}],[], normal_lane, 5,	{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane208av4,light208,av, 1, [{main,[lane206av4]},{secondary, []},           {siblings, [lane208av3,lane208av5]}],[], normal_lane, 5,	{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane208av5,light208,av, 2, [{main,[lane206av5]},{secondary, [lane208av5]}, {siblings, [lane208av4]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane208ca1,light208,ca, 2, [{main,[lane208ca1]},{secondary, [lane206av1]}, {siblings, [lane208ca2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane208ca2,light208,ca, 1, [{main,[lane208ca2]},{secondary, []},           {siblings, [lane208ca1]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane206av1,light206,av, 2, [{main,[lane206av1]},{secondary, [lane406ca2]}, {siblings, [lane206av2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane206av2,light206,av, 1, [{main,[lane206av2]},{secondary, []},           {siblings, [lane206av1,lane206av3]}],[], normal_lane, 5,	{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane206av3,light206,av, 1, [{main,[lane206av3]},{secondary, []},           {siblings, [lane206av2,lane206av4]}],[], normal_lane, 5,	{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane206av4,light206,av, 1, [{main,[lane206av4]},{secondary, []},           {siblings, [lane206av3,lane206av5]}],[], normal_lane, 5,	{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane206av5,light206,av, 1, [{main,[lane206av5]},{secondary, []},           {siblings, [lane206av4]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane206ca1,light206,ca, 1, [{main,[lane406ca1]},{secondary, []},           {siblings, [lane206ca2]}],[], source_lane, 5,		{probList, [{arrival,[0,1,2]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane206ca2,light206,ca, 2, [{main,[lane406ca2]},{secondary, [lane206ca2]}, {siblings, [lane206ca1]}],[], source_lane, 5,		{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane412ca1,light412,ca, 1, [{main,[lane212ca1]},{secondary, []},           {siblings, [lane412ca2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane412ca2,light412,ca, 1, [{main,[lane212ca2]},{secondary, []},           {siblings, [lane412ca1]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane410ca1,light410,ca, 1, [{main,[lane610ca2]},{secondary, []},           {siblings, []}],[], source_lane, 5,				{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane408ca2,light408,ca, 1, [{main,[lane208ca2]},{secondary, [lane208ca1]}, {siblings, []}],[], normal_lane, 5,				{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane406ca1,light406,ca, 1, [{main,[lane606ca1]},{secondary, []},           {siblings, [lane406ca2]}],[], source_lane, 5,		{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane406ca2,light406,ca, 1, [{main,[lane606ca2]},{secondary, []},           {siblings, [lane406ca1]}],[], source_lane, 5,		{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane612av1,light612,av, 1, [{main,[lane412ca1]},{secondary, []},           {siblings, [lane612av2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane612av2,light612,av, 1, [{main,[lane412ca2]},{secondary, []},           {siblings, [lane612av1]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane612av3,light612,av, 1, [{main,[lane412ca1]},{secondary, []},           {siblings, [lane612av4]}],[], source_lane, 5,		{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane612av4,light612,av, 1, [{main,[lane412ca2]},{secondary, []},           {siblings, [lane612av3]}],[], source_lane, 5,		{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane612ca1,light612,ca, 1, [{main,[lane412ca1]},{secondary, []},           {siblings, [lane612ca2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane612ca2,light612,ca, 1, [{main,[lane412ca2]},{secondary, []},           {siblings, [lane612ca1]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane610ca2,light610,ca, 2, [{main,[lane810ca1]},{secondary, [lane612av1]}, {siblings, []}],[], normal_lane, 5,				{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane610av1,light610,av, 1, [{main,[lane612av1]},{secondary, []},           {siblings, [lane610av2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane610av2,light610,av, 2, [{main,[lane612av2]},{secondary, [lane810ca2]}, {siblings, [lane610av1]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane608av1,light608,av, 2, [{main,[lane610av1]},{secondary, [lane408ca2]}, {siblings, [lane608av2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane608av2,light608,av, 1, [{main,[lane610av2]},{secondary, []},           {siblings, [lane608av1]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane608ca1,light608,ca, 1, [{main,[lane408ca2]},{secondary, []},           {siblings, [lane608ca2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane608ca2,light608,ca, 2, [{main,[lane408ca2]},{secondary, [lane610av2]}, {siblings, [lane608ca1]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane606av1,light606,av, 1, [{main,[lane608av1]},{secondary, []},           {siblings, [lane606av2]}],[], source_lane, 5,		{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane606av2,light606,av, 2, [{main,[lane608av2]},{secondary, [lane806ca2]}, {siblings, [lane606av1]}],[], source_lane, 5,		{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane606ca1,light606,ca, 2, [{main,[lane806ca1]},{secondary, [lane608av1]}, {siblings, [lane606ca2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane606ca2,light606,ca, 1, [{main,[lane806ca2]},{secondary, []},           {siblings, [lane606ca1]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane812av1,light812,av, 2, [{main,[lane812av1]},{secondary, [lane612ca1]}, {siblings, [lane812av2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane812av2,light812,av, 1, [{main,[lane812av2]},{secondary, []},           {siblings, [lane812av1]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane812ca1,light812,ca, 1, [{main,[lane612ca1]},{secondary, []},           {siblings, [lane812ca2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane812ca2,light812,ca, 2, [{main,[lane612ca2]},{secondary, [lane812ca2]}, {siblings, [lane812ca1]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane810av1,light810,av, 1, [{main,[lane812av1]},{secondary, []},           {siblings, [lane810av2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane810av2,light810,av, 2, [{main,[lane812av2]},{secondary, [lane810av2]}, {siblings, [lane810av1]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane810ca1,light810,ca, 2, [{main,[lane810ca1]},{secondary, [lane812av1]}, {siblings, [lane810ca2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane810ca2,light810,ca, 1, [{main,[lane810ca2]},{secondary, []},           {siblings, [lane810ca1]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane808av1,light808,av, 2, [{main,[lane810av1]},{secondary, [lane608ca1]}, {siblings, [lane808av2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane808av2,light808,av, 1, [{main,[lane810av2]},{secondary, []},           {siblings, [lane808av1]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane808ca2,light808,ca, 2, [{main,[lane608ca2]},{secondary, [lane810av2]}, {siblings, []}],[], source_lane, 5,				{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane806av1,light806,av, 1, [{main,[lane808av1]},{secondary, []},           {siblings, [lane806av2]}],[], source_lane, 5,		{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane806av2,light806,av, 2, [{main,[lane808av2]},{secondary, [lane806av2]}, {siblings, [lane806av1]}],[], source_lane, 5,		{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane806ca1,light806,ca, 2, [{main,[lane806ca1]},{secondary, [lane808av1]}, {siblings, [lane806ca2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane806ca2,light806,ca, 1, [{main,[lane806ca2]},{secondary, []},           {siblings, [lane806ca1]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}

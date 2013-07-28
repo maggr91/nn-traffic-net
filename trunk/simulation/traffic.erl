@@ -17,10 +17,10 @@
 %% of normal traffic, with no modification of ANN
 
 %% Start method, USE this to run simulation
-start(MaxSpeed) ->    
+start(ConfigData) ->    
 %%    register(poissonServer,prob:start({poisson,6})),    
 %%    register(traffic, spawn(traffic, init, [])),
-      spawn(traffic, init, [MaxSpeed]).
+      spawn(traffic, init, [ConfigData]).
 %%    timer:apply_after(400, traffic, run_simulation, [Lapse]).
     %%run_simulation(Lapse).
 
@@ -49,20 +49,39 @@ reply (Pid, Reply) ->
 %%       {reply, Reply} -> Reply
 %%    end.
 
-init(MaxSpeed) ->
-    MapData = set_map(MaxSpeed), 
+init({MaxSpeed, ConfigData}) ->
+	%% get all config info
+	io:format("Configuration ~p.~n",[ConfigData]), 
+	LightSource = find_config_data(ConfigData, source_lights),
+	LaneSource = find_config_data(ConfigData, source_lanes),
+	ObsSource = find_config_data(ConfigData, source_obs),
+	AvgCar = find_config_data(ConfigData, avg_car_length),
+	ArrivaLog = find_config_data(ConfigData, log_arrival),
+	DataLog = find_config_data(ConfigData, log_data),
+    
+    io:format("Config Data ~w.~n",[{MaxSpeed, LightSource, LaneSource, ObsSource, AvgCar, ArrivaLog,DataLog}]),
+    MapData = set_map({MaxSpeed, LightSource, LaneSource, ObsSource, AvgCar, ArrivaLog,DataLog}), 
     loop(MapData, 0).
+
+
+%%find configuration
+find_config_data(ConfigData, Key) ->
+	Res = lists:keyfind(Key, 1, ConfigData),
+	case Res of
+		false -> [];
+		{Key, Value} -> Value
+	end.
 
 %% Function to load the map by reading files located in
 %% ~/sources folder
-set_map(MaxSpeed) ->
+set_map({MaxSpeed, LightSource, LaneSource, ObsSource, AvgCar, ArrivaLog,DataLog}) ->
 %%Read data from files
-    Axis = get_lights(),
-    Roads = get_lanes(),
-    Obs = get_obs(),
+    Axis = get_lights(LightSource),
+    Roads = get_lanes(LaneSource),
+    Obs = get_obs(ObsSource),
     
     %%get the max move for each car on the area
-    MaxSpeedMove = max_car_move(MaxSpeed, 4.4),
+    MaxSpeedMove = max_car_move(MaxSpeed, AvgCar),
 
     io:format("Allocating lights ~w.~n",[Axis]),
     {_Origin, AllocatedLights} = allocate_lights({Axis,[]}),
@@ -73,9 +92,11 @@ set_map(MaxSpeed) ->
 %%Set archive_log for cars arrival to sources_lanes  
     {ok, Cwd} = file:get_cwd(),
     Path = Cwd ++ "/logs/",
-    io:format("PATH ~s.~n",[Path]),
-    NewPath = Path ++ "arrival_log.txt",
-    DataPath = Path ++ "data_log.txt",
+    io:format("PATH ~s.~n",[Path]),    
+    %%NewPath = Path ++ "arrival_log.txt",
+    %%DataPath = Path ++ "data_log.txt",
+    NewPath = Path ++ ArrivaLog,
+    DataPath = Path ++ DataLog,
     
     file:delete(NewPath), %% delete old arrival log
     file:delete(DataPath), %% delete old data log
@@ -101,11 +122,11 @@ set_map(MaxSpeed) ->
 %% modify to avoid this step
 allocate_lights({[],Spawned})->
     {[],Spawned};
-allocate_lights({[{LightId,_ManagedLanes, Siblings, Times}|Tail], Spawned}) ->
+allocate_lights({[{LightId, Sequence, Siblings, Times}|Tail], Spawned}) ->
     %%Pid = spawn(traffic,light, [ManagedLanes,Siblings, Cycle_time, Go_time]),
     %%Replace Go_time for  AllRed_time (Go_time set by default to 0
     %%allocate_lights({Tail, [{LightId,Siblings, Cycle_time,Go_time, AllRed_time} | Spawned]}). 
-    allocate_lights({Tail, [{LightId,Siblings, Times} | Spawned]}). 
+    allocate_lights({Tail, [{LightId,Sequence, Siblings, Times} | Spawned]}). 
  
  
 %% Spawn every lane on the area with the respective data         
@@ -126,41 +147,68 @@ allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes,
 %%connect lights with its lanes
 connect({[], _LaneList, LightsFSM,_LogData}) -> 
     LightsFSM;
-connect({[{LightId,Siblings, Times} | TailLight], LaneList,LightsFSM, LogData}) -> 
+connect({[{LightId,Sequence,Siblings, Times} | TailLight], LaneList,LightsFSM, LogData}) -> 
     %%io:format("Luz: ~w / lineas: ~w.~n",[LightId, LaneList]),
-    {ManagedLanes, RemLanes} = find_lanes({LightId, {[],[]}}, LaneList, []),
+    %%{ManagedLanes, RemLanes} = find_lanes({LightId, {[],[]}}, LaneList, []),
+    {ManagedLanes, RemLanes} = find_lanesO({LightId, []}, LaneList, []),
     %%io:format("Managed Lanes: ~w.~n~n",[ManagedLanes]),
     PathLog = (LogData ++ lists:flatten(io_lib:format("~p",[LightId]))) ++ ".txt",
-    {ok, LightPid} = light_fsm:start_link({LightId, ManagedLanes,Siblings, Times, PathLog}),
+    {ok, LightPid} = invoke_light(Sequence, {LightId, ManagedLanes,Siblings, Times, PathLog}),
     connect({TailLight, RemLanes, [{LightId,LightPid}|LightsFSM], LogData}).
 
-
+invoke_light(twoDir, Args) ->
+	light_fsm:start_link(Args);
+invoke_light(threeDir, Args) ->
+	light_fsm_3st:start_link(Args).
+	
+%%%%%%%%%% OLD METHOD DEPRECATED (JUST FOR BACKUP)
 %% Find all lanes that are connected to the LIght passed as param
-find_lanes({_LightId,ManagedLanes}, [], RemLanes) -> 
+%%find_lanes({_LightId,ManagedLanes}, [], RemLanes) -> 
     %%io:format("Exit ~w / sin lineas. Rem Lanes: ~w~n~n",[{LightId,ManagedLanes},RemLanes]),
-    {ManagedLanes, RemLanes};
-find_lanes({LightId,{Av, Ca}}, [{LaneId,LanePid, LightId,Dir,_AdjLanes, _IsSource, _ProbData}| Tail], RemLanes) ->
+%%    {ManagedLanes, RemLanes};
+%%find_lanes({LightId,{Av, Ca}}, [{LaneId,LanePid, LightId,Dir,_AdjLanes, _IsSource, _ProbData}| Tail], RemLanes) ->
     %%io:format("Coincidencia: ~w envio de mensaje.~n",[{LightId,LaneId}]),
     %%io:format("{Av ~w, Ca: ~w.~n",[Av, Ca]),
-    if  %%Determine lane type if its either a street or an avenue and locate it in the corresponding list
-        Dir =:= av -> 
-    	    NewManaged = {[{LaneId,LanePid}| Av], Ca},    	    
+%%    if  %%Determine lane type if its either a street or an avenue and locate it in the corresponding list
+%%        Dir =:= av -> 
+%%    	    NewManaged = {[{LaneId,LanePid}| Av], Ca},    	    
     %%	    io:format("light ~w, lanes: ~w.Dir:~w~n",[self(), NewManaged, Dir]),
     %%	    io:format("Coincidencia: mensaje enviado.~n",[]),
     %%      io:format("Coincidencia: mensaje recibido.~n~n",[]),
-            find_lanes({LightId,NewManaged},Tail, RemLanes);
-    	Dir =:= ca ->
-    	    NewManaged = {Av, [{LaneId,LanePid}| Ca]},
+%%            find_lanes({LightId,NewManaged},Tail, RemLanes);
+%%    	Dir =:= ca ->
+%%    	    NewManaged = {Av, [{LaneId,LanePid}| Ca]},
    %% 	    io:format("light ~w, lanes: ~w. Dir:~w~n ",[self(), NewManaged,Dir]),
    %% 	    io:format("Coincidencia: mensaje enviado.~n",[]),
    %%       io:format("Coincidencia: mensaje recibido.~n~n",[]),
-            find_lanes({LightId,NewManaged},Tail, RemLanes);
-        true ->
-     	    io:format("NO TYPE MATCH",[])     	    
-    end; 
-find_lanes({LightId, ManagedLanes}, [LHead | LTail], RemLanes) ->
+%%            find_lanes({LightId,NewManaged},Tail, RemLanes);
+%%        true ->
+%%     	    io:format("NO TYPE MATCH",[])     	    
+%%    end; 
+%%find_lanes({LightId, ManagedLanes}, [LHead | LTail], RemLanes) ->
     %%io:format("No Coincidencia: ~w continue.~n",[{LightId,ManagedLanes}]),
-    find_lanes({LightId, ManagedLanes}, LTail, [LHead|RemLanes]).
+%%    find_lanes({LightId, ManagedLanes}, LTail, [LHead|RemLanes]).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%NEW METHOD TO ADD LANES
+find_lanesO({_LightId,ManagedLanes}, [], RemLanes) ->     
+    {lists:reverse(ManagedLanes), RemLanes};
+find_lanesO({LightId,ManagedLanes}, [{LaneId,LanePid, LightId,Dir,_AdjLanes, _IsSource, _ProbData}| Tail], RemLanes) ->
+	%% Get the lane type list for the current lane and add it
+    %%Determine lane type if its either a street or an avenue and locate it in the corresponding list
+    %%io:format("New line ~w~n",[Dir]),
+    io:format("Light ~w ManagedLanes ~w ~n",[LightId, ManagedLanes]),
+    Res = lists:keyfind(Dir, 1, ManagedLanes),
+    case Res of
+    	{Dir, List} ->	NewList = [{LaneId,LanePid} | List],
+					    NewManaged = lists:keyreplace(Dir,1, ManagedLanes, {Dir, NewList});
+		false 		->	NewManaged = [{Dir, [{LaneId,LanePid}]} | ManagedLanes]		
+    end,
+    find_lanesO({LightId,NewManaged},Tail, RemLanes);
+        
+find_lanesO({LightId, ManagedLanes}, [LHead | LTail], RemLanes) ->
+    find_lanesO({LightId, ManagedLanes}, LTail, [LHead|RemLanes]).
+
 
 
 %% Connect each lane with other near lanes
@@ -226,23 +274,45 @@ find_siblings([SiblingId|Tail], LightsList,CompleteSiblings) ->
     
 
 %%text file initialization of map
-get_lights() -> 
+get_lights([]) ->
+	get_data("/sources/prueba2.txt");
+get_lights(SourceFile) ->
+	get_data(SourceFile).
+	
+get_lanes([]) ->
+	get_data("/sources/prueba.txt");
+get_lanes(SourceFile) ->
+	get_data(SourceFile).
+
+get_obs([]) ->
+	get_data("/sources/prueba.txt");
+get_obs(SourceFile) ->
+	get_data(SourceFile).
+
+get_data(SourceFile) -> 
 %% Get the working directory, set complete path y read all lines
     {ok, Cwd} = file:get_cwd(),
-    Path = Cwd ++ "/sources/prueba2.txt",
-    readlines(Path).
- 
-get_lanes() ->
-%% Get the working directory, set complete path y read all lines
-    {ok, Cwd} = file:get_cwd(),
-    Path = Cwd ++ "/sources/prueba.txt",
+    Path = Cwd ++ SourceFile,
     readlines(Path).
 
-get_obs() ->
+	
+%%get_lights(SourceFile) -> 
 %% Get the working directory, set complete path y read all lines
-    {ok, Cwd} = file:get_cwd(),
-    Path = Cwd ++ "/sources/obs.txt",
-    readlines(Path).
+%%    {ok, Cwd} = file:get_cwd(),
+%%    Path = Cwd ++ SourceFile,
+%%    readlines(Path).
+ 
+%%get_lanes(SourceFile) ->
+%% Get the working directory, set complete path y read all lines
+%%    {ok, Cwd} = file:get_cwd(),
+%%    Path = Cwd ++ "/sources/prueba.txt",
+%%    readlines(Path).
+
+%%get_obs() ->
+%% Get the working directory, set complete path y read all lines
+%%    {ok, Cwd} = file:get_cwd(),
+%%    Path = Cwd ++ "/sources/obs.txt",
+%%    readlines(Path).
 
 %get_statistics() ->
 %    {ok, Cwd} = file:get_cwd(),
@@ -311,8 +381,8 @@ loop({Intersections, SourceLanes, {LogPath, DataLogPath}}, Time) ->
 
 
 %% Add to a final list all the cars that completed theier travel 
-add_to_outside(OutsideArea, Car) ->
-   [Car | OutsideArea].
+%%add_to_outside(OutsideArea, Car) ->
+%%   [Car | OutsideArea].
    
 %% Receive traffic light list as param and evaluate state for ech one
 traverse_network([], _Time) ->
