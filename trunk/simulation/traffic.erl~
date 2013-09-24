@@ -66,7 +66,7 @@ init({MaxSpeed, ConfigData}) ->
 
 %%find configuration
 find_config_data(ConfigData, Key) ->
-	Res = lists:keyfind(K, 1, ConfigData),
+	Res = lists:keyfind(Key, 1, ConfigData),
 	case Res of
 		false -> [];
 		{Key, Value} -> Value
