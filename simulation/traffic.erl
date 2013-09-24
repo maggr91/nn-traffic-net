@@ -275,7 +275,7 @@ find_siblings([SiblingId|Tail], LightsList,CompleteSiblings) ->
 
 %%text file initialization of map
 get_lights([]) ->
-	get_data("/sources/prueba2.txt");
+	filemanager:get_data("/sources/prueba2.txt");
 get_lights(SourceFile) ->
 	get_data(SourceFile).
 	
