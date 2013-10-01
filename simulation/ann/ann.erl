@@ -1,5 +1,5 @@
 -module(ann).
--export([start/0, start/3, test_run/0]).
+-export([start/0, start/3, test_run/0, train_inputs/2, stop/1]).
 
 -export([init/0, init/3]).
 
@@ -51,18 +51,32 @@ update_connections(InputLay, HiddenLay, OutputLay)->
 update_connections_aux([], _LayerA, _LayerB) ->
 	{ok, []};
 update_connections_aux([{_NeuronId, NeuronPid} | NeuronsTail], LayerInput, LayerSensitivities) ->
-	NeuronPid ! {get_connections, self()},
-	receive
-		{reply, {Weights, Inputs, Sensitivities}} ->
-			%io:format("Old connections ~w~n", [{{Weights, Inputs, Sensitivities}}]),
+	Res = perceptron:get_connections(NeuronPid),
+	case Res of
+		{ok, {Weights, Inputs, Sensitivities}} ->			
 			NewInputs = get_connections_pids(Inputs, LayerInput),
-			%io:format("NEW inputs: ~w~n", [NewInputs]),
 			NewSensitivities = get_connections_pids(Sensitivities, LayerSensitivities),
-			%io:format("NEW Sensitivities: ~w~n", [NewSensitivities]),
-			NeuronPid ! {update_connections, {Weights, NewInputs, NewSensitivities}},
-			update_connections_aux(NeuronsTail, LayerInput, LayerSensitivities)
-			%%set_new_connections({NeuronId, NeuronPid},Weights, NewInputs, NewSensitivities)
+			perceptron:update_connections(NeuronPid, {Weights, NewInputs, NewSensitivities}),
+			update_connections_aux(NeuronsTail, LayerInput, LayerSensitivities);
+		_Other ->
+			{error, []}			
 	end.
+	
+%update_connections_aux([], _LayerA, _LayerB) ->
+%	{ok, []};
+%update_connections_aux([{_NeuronId, NeuronPid} | NeuronsTail], LayerInput, LayerSensitivities) ->
+%	NeuronPid ! {get_connections, self()},
+%	receive
+%		{reply, {Weights, Inputs, Sensitivities}} ->
+			%io:format("Old connections ~w~n", [{{Weights, Inputs, Sensitivities}}]),
+%			NewInputs = get_connections_pids(Inputs, LayerInput),
+			%io:format("NEW inputs: ~w~n", [NewInputs]),
+%			NewSensitivities = get_connections_pids(Sensitivities, LayerSensitivities),
+			%io:format("NEW Sensitivities: ~w~n", [NewSensitivities]),
+%			NeuronPid ! {update_connections, {Weights, NewInputs, NewSensitivities}},
+%			update_connections_aux(NeuronsTail, LayerInput, LayerSensitivities)
+			%%set_new_connections({NeuronId, NeuronPid},Weights, NewInputs, NewSensitivities)
+%	end.
 
 get_connections_pids(Target, Source) ->
 	lists:map(fun({NeuronId, Pid}) -> 
@@ -130,11 +144,11 @@ network(Layers) ->
 %	{normal, ok}.
 	receive
 		{train, CallerPid, Data} ->
-			set_input(Layers,Data),
+			send_input(Layers,Data),
 			reply(CallerPid, ok),
 			network(Layers);
 		{stop, CallerPid} ->
-			io:format("Saving training~n"),
+			io:format("Saving training of layers ~w~n", [Layers]),
 			file:delete("test_saving.txt"),
 			io:format("Old file deleted~n"),			
 			save_training(Layers, "test_saving.txt"),
@@ -143,13 +157,35 @@ network(Layers) ->
 	end.			
 
 %% set a new training set for the network
-set_input(Layers, Data) ->
-	{_Type, InputLayer} = lists:keyfind(input, 1,Layers),
+send_input(Layers, Data) ->
+	io:format("Layers = ~w~n",[Layers]),
+	{_InType, InputLayer} = lists:keyfind(input, 1,Layers),
+	{_OutType, OutputLayer} = lists:keyfind(output, 1,Layers),
 	{_Train, TrainInput} = lists:keyfind(input, 1,Data),
-	{_DesairedOut, _DesairedOutput} = lists:keyfind(output, 1,Data),
+	{_DesairedOut, TargetOutput} = lists:keyfind(output, 1,Data),
 	io:format("Neuron: ~w pass val: ~w",[InputLayer,TrainInput]),
-	set_input_aux(InputLayer, TrainInput),
+	%set_input_aux(InputLayer, TrainInput),	
+	set_input(first, InputLayer, TrainInput, TargetOutput, OutputLayer),	
 	true.
+
+set_input(first, InputLayer, TrainInput, TargetOutput, OutputLayer)->
+	set_input_aux(InputLayer, TrainInput);
+	%%set_input(wait, InputLayer, TrainInput, TargetOutput, OutputLayer);
+set_input(wait, InputLayer, TrainInput, TargetOutput, OutputLayer)->
+	receive
+		{desired_output, CallerPid, CallerId} ->
+			io:format("~n~n~n~nCall from neuron: ~w to get Desired output: ~w ~n~n",[CallerId,TargetOutput]),
+			{Last, _Pid} = lists:last(OutputLayer), %string:to_integer([lists:last(L)])
+			io:format("Call from ~w, output ~w... Last: ~w~n",[CallerId, TargetOutput,Last]),
+			reply(CallerPid, TargetOutput),
+			if Last =/= CallerId ->
+					io:format("Waiting for next output call~n"),
+					set_input(wait, InputLayer, TrainInput, TargetOutput, OutputLayer);
+			   Last =:= CallerId ->
+			   		io:format("Last output call~n"),
+			   		{normal, ok}
+			end			
+	end.
 
 set_input_aux([], []) ->
 	{ok, []};
@@ -165,16 +201,25 @@ save_training([{Type, Layer} | LayersTail], LogPath) ->
 	save_training_aux(Layer, LogPath),
 	save_training(LayersTail, LogPath).
 	
+%%save_training(Layers, LogPath) ->
+%%	io:format("Saving Layer: ~w on ~p~n", [Layers, LogPath]),
+%%	Layer = lists:foldl(fun({_Type, List}, Main) -> lists:append(Main, List) end, [], Layers),
+%%	save_training_aux(Layer, LogPath),
+%%	{ok, saved}.
+
 save_training_aux([], _LogPath) ->
+	io:format("No more neurons to save~n"),
 	{ok, []};
 save_training_aux([{NeuronId, NeuronPid} | NeuronTail], LogPath) ->
 	io:format("Saving neuron ~w: ~w on ~p~n", [NeuronId, NeuronPid, LogPath]),
-	NeuronPid ! {save_training, self(), LogPath},
-	receive
-		{reply, saved} ->
+	Res = perceptron:save(NeuronPid, LogPath),
+	io:format("Saving neuron result ~w. Next ~w~n", [Res, NeuronTail]),
+	case Res of
+		{ok, saved} ->
 			io:format("Reply save succesful, continue~n"),
 			save_training_aux(NeuronTail, LogPath);
 		_Other ->
+			io:format("ERROR!!!!!!~n"),
 			{error, "bad save"}
 	end.
 	
@@ -197,3 +242,25 @@ filter_neurons(Filter, Data) ->
 
 display_status(Layer) ->
 	lists:map(fun({_Id, Pid}) -> Pid ! {status} end, Layer).
+	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%client interface functions%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+train_inputs(NetworkPid, Inputs) ->
+	io:format("Train network ~w... Data ~w~n", [NetworkPid, Inputs]),
+	NetworkPid ! {train, self(), Inputs},
+	receive
+		{reply, ok} -> {reply, ok};
+		_Error		-> {fail, []}
+	end.
+	
+stop(NetworkPid) ->
+	NetworkPid ! {stop, self()},
+	receive
+		{reply, ended} ->			
+			{ok, []};
+		_Other ->
+			{error, []}
+	end.

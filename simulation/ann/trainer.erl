@@ -23,10 +23,20 @@ init(Input, Hiden, Output) ->
 	timer:apply_after(200, trainer, train, [TrainingData]).	
 
 train([]) ->
-	timer:apply_after(700, trainer, finish, []);
+	timer:apply_after(1500, trainer, finish, []);
+
+%%train([Data | TrainingData]) ->
+%%	network ! {train, self(), Data},
+%%	receive
+%%		{reply, ok} -> train(TrainingData);
+%%		{reply, ended} -> {ok, []};
+%%		_Error		-> {fail, []}
+%%	end.
+
 train([Data | TrainingData]) ->
-	network ! {train, self(), Data},
-	receive
+	Res = ann:train_inputs(network, Data),
+	io:format("Train network Res ~w... Data ~w~n", [Res, Data]),
+	case Res of
 		{reply, ok} -> train(TrainingData);
 		{reply, ended} -> {ok, []};
 		_Error		-> {fail, []}
@@ -34,14 +44,25 @@ train([Data | TrainingData]) ->
 
 finish() ->
 	io:format("===========================================~n~n Ending training ~n~n===========================================~n~n"),
-	network ! {stop, self()},
-	receive
-		{reply, ended} ->
+	Res = ann:stop(network),
+	case Res of
+		{ok, []} ->
 			io:format("Training finished please check test_saving.txt~n~n"),
-			{ok, []};
+			{normal, ok};
 		_Other ->
 			{error, []}
 	end.
+
+%%finish() ->
+%%	io:format("===========================================~n~n Ending training ~n~n===========================================~n~n"),
+%%	network ! {stop, self()},
+%%	receive
+%%		{reply, ended} ->
+%%			io:format("Training finished please check test_saving.txt~n~n"),
+%%			{ok, []};
+%%		_Other ->
+%%			{error, []}
+%%	end.
 		
 load_training_set() ->
 	filemanager:get_data("/training/training_set.txt").
