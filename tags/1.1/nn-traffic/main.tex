@@ -1,0 +1,58 @@
+%%This is a very basic article template.
+%%There is just one section and two subsections.
+
+\documentclass[12pt,oneside]{book}
+
+\input{body/header.tex}
+\makeglossaries
+% We define some strings that will use along
+\def\thesistitle{Dise\~{n}o de un modelo de red neuronal para un sistema de
+control de tr\'{a}nsito distribuido}%, utilizando el modelo de propagaci\'{o}n
+% hacia atr\'{a}s para su entrenamiento.}
+
+
+\begin{document}
+\frontmatter
+\pagestyle{empty}
+
+\input{body/cover2.tex}
+\input{body/presentation.tex}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter
+% Use double space 
+\onehalfspace 
+% Now fancy style
+\pagestyle{fancy}
+% Left the right header clean
+\rhead{}
+\renewcommand{\chaptername}{}
+	
+\input{body/introduction.tex}
+\input{body/description.tex}
+\input{body/theory.tex}
+\input{body/methodology.tex}
+\input{body/feasibility.tex}
+\input{body/worksch.tex}
+
+% Final pages
+\backmatter
+\singlespace
+
+\input{body/annexes.tex}
+
+%====================================================
+%-----------------references-------------------------
+%====================================================
+\bibliographystyle{apacitex}
+%\refstepcounter{chapter}
+%\addcontentsline{toc}{chapter}{\bibname}
+\bibliography{body/references}
+%\input{body/bibl.tex}
+
+% \printglossaries
+\input{body/glossary.tex}
+
+\end{document}

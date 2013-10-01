@@ -1,0 +1,153 @@
+\chapter{Estudio de Factibilidad}
+	\label{chap:fact}
+	
+	Como se ha mencionado a lo largo de esta propuesta, no se realizar\'{a}n
+labores sobre el sistema de control de  tr\'{a}fico actual y tampoco se
+interactuar\'{a} o afectar\'{a} la instituci\'{o}n, \'{u}nicamente
+se recibir\'{a}n datos que sirvan de par\'{a}metros para la investigaci\'{o}n
+	
+	\section{Factibilidad T\'{e}cnica}
+	
+	Luego de analizar los recursos con los que dispone el investigador, se concluye
+que es posible llevar a cabo las simulaciones para la red neuronal. Este punto
+es el m\'{a}s cr\'{i}tico para poder realizar la investigaci\'{o}n ya que se
+requiere de equipo con altos recursos de hardware para poder realizar el
+procesamiento de datos en tiempo de ejecuci\'{o}n.
+	
+	Para este caso el equipo a emplear cuenta con las siguientes especificaciones
+	t\'{e}nicas:
+	\begin{itemize}
+	  \item Procesador AMD FX 8120 8-Core Processor 3.1 8 Socket AM3
+	  \item Memoria RAM: Corsair Vengeance Blue 16 GB DDR3 SDRAM Dual Channel
+	  Memory Kit CMZ16GX3M4A1600C9B
+	  \item Tarjeta Madre ASUS M5A99X Evo - AM3+ - 990X - SATA 6Gbps and USB 3.0 -
+	  ATX DDR3 2133
+	  \item Disco Duro: Western Digital Caviar Black 1 TB SATA III 7200 RPM 64 MB
+	  Cache Internal Desktop Hard Drive Bulk/OEM - WD1002FAEX
+	  \item Sistema Operativo: Ubuntu 12.4 o Windows 7 Ultimate (seg\'{u}n
+	  necesidades)
+	  
+	\end{itemize}
+	
+	Bajo estas condiciones, el equipo disponible es capaz de realizar la labor de
+entrenamiento, de igual forma se cuenta con el espacio requerido para cualquier
+informaci\'{o}n estad\'{i}stica que sea generada. 
+
+	Por otro lado, se dispone de varias herramientas de software y lenguajes de
+programaci\'{o}n para desarrollar la red. Esto se debe a que no se
+encuentra vinculada con alguna tecnolog\'{i}a espec\'{i}fica. Por lo tanto no
+se generan dependencias a alguna plataforma o software proporcionado por un
+proveedor.
+	
+	Finalmente, se cuenta con una base de los conocimientos y m\'{e}todos
+matem\'{a}ticos necesarios, pero de igual forma se poseen textos
+explicativos tanto t\'{e}cnicos como estad\'{i}sticos para poder realizarse.
+		
+	
+	\section{Factibilidad Financiera}
+	
+	Desde el punto de vista econ\'{o}mico, no se cuenta con ninguna dificultad
+para realizar la investigaci\'{o}n. El \'{u}nico costo asociado corresponde al
+an\'{a}lisis de datos estad\'{i}sticos con respecto al sistema de control de
+tr\'{a}nsito del MOPT y a los resultados del desempe\~{n}o de la red. Junto con
+esto se a\~{n}ade el tiempo requerido para poder administrar el proyecto. Cabe
+destacar que por parte del Centro de Control de Tr\'{a}nsito del MOPT no se
+incurrir\'{a} en costos significativos ya que la interacci\'{o}n con los
+miembros del mismo ser\'{a} principalmente por correo electr\'{o}nico, o
+tel\'{e}fono celular. Lamentablemente no se cuenta con un detalle del salario
+de los operadores del centro, para la estimaci\'{o}n de los costos en los
+que se incurrir\'{i}an.
+	
+		No obstante, por la estimaci\'{o}n del tiempo que se pueda emplear, se
+considera que para poder proporcionar los datos estad\'{i}sticos del sistema
+actual, se requerir\'{i}an entre 30 minutos y una hora durante algunas semanas.
+Este tiempo ser\'{a} necesario hasta que se proceda a realizar la simulaci\'{o}n de
+la red, y durante el cual se solicitar\'{a} como m\'{i}nimo una vez para poder
+realizar las comparaciones y de considerarse necesario se solicitar\'{a}n
+actualizaciones de los datos en un rango de fechas determinado.
+	
+		Las tablas \ref{tab:salary}, \ref{tab:lightpower}, y \ref{tab:internet}
+		ilustran el costo de la investigaci\'{o}n en base a los conceptos que se consideran relevantes.
+		
+	\begin{table}[!h]
+			\centering
+			\begin{tabular}{|c|p{3cm}|p{3cm}|p{2cm}|c|}
+				\hline
+				\textbf{Concepto} & \textbf{Horas en colones} & \textbf{Horas/semana} &
+				\textbf{\# de meses} & \textbf{Total}\\ \hline 
+				Salario de Investigador & \textcentoldstyle  10000 & 8 & 9 &
+				\textcentoldstyle  2,880,000 \\
+				\hline
+			\end{tabular}
+			\caption{Salarios}
+			\label{tab:salary}
+		\end{table}
+		
+		
+	\begin{table}[!h]
+			\centering
+			\begin{tabular}{|c|p{2cm}|p{2cm}|p{3cm}|p{2cm}|c|}
+				\hline
+				\textbf{Concepto} & \textbf{Consumo KW/h} & \textbf{Costo en colones/KW} &
+				\textbf{Horas/semana} & \textbf{\# de meses} & \textbf{Total}\\ \hline 
+				Desktop & 0.78 & \textcentoldstyle  58.00 & 6 & 9 &
+				\textcentoldstyle  8,143.2 \\
+				\hline
+			\end{tabular}
+			\caption{Consumo Energ\'{e}tico}
+			\label{tab:lightpower}
+	\end{table}
+		
+	\begin{table}[!h]
+			\centering
+			\begin{tabular}{|c|c|c|c|}
+				\hline
+				\textbf{Velocidad} & \textbf{Costo Mensual} & \textbf{\# Meses} &
+				\textbf{Total en colones}\\ \hline 2Gb/s & \textcentoldstyle  14300 & 9 &
+				\textcentoldstyle  128,700 \\
+				\hline
+			\end{tabular}
+			\caption{Internet}
+			\label{tab:internet}
+	\end{table}
+	
+	Sumando los totales de las tablas mencionadas se obtiene un costo de
+	\textcentoldstyle  3,016,843.2
+	
+	\section{Factibilidad Operativa}
+	
+		El hecho de encontrarse en el \'{a}rea de la inteligencia artificial, da un
+grado de complejidad significativo a la investigaci\'{o}n. El investigador ha
+adquirido durante el proceso de revisi\'{o}n bibliogr\'{a}fica, los conceptos
+b\'{a}sico y necesarios sobre la tem\'{a}tica. De igual forma se cuenta con el
+apoyo del tutor quien recientemente llev\'{o} a cabo una tesis de maestr\'{i}a
+en la misma \'{a}rea, brindando su apoyo con conocimientos claros de las
+implicaciones que esta investigaci\'{o}n conlleva.
+		
+		El investigador cuenta con los conocimientos necesarios para poder dar
+inicio a la investigaci\'{o}n, como son los conocimientos en:
+programaci\'{o}n, c\'{a}lculo de derivadas e integrales, teor\'{i}a
+b\'{a}sica sobre redes neuronales y su funcionamiento. Otros conocimientos con
+respecto a algoritmos propios de las redes neuronales, an\'{a}lisis de datos y correciones de errores de la misma ser\'{a}n reforzados en etapas tempranas
+del proceso. 
+	
+	\section{Factibilidad Legal}
+	
+		Debido a que la implementaci\'{o}n en un ambiente real no forma parte del
+		alcance de la investigaci\'{o}n, los aspectos legales no representan un inconveniente al
+respecto. No obstante, a modo de ejemplo la implementaci\'{o}n de sistemas con
+base a este tipo de tecnolog\'{i}as se ha fomentado a nivel mundial como una
+forma para mejorar la calidad del sistema de transporte en las ciudades.
+	
+	Adicionalmente, por el nivel de abstraci\'{o}n al que se lleva la
+investigaci\'{o}n no supone causar problemas de ning\'{u}n tipo, y se
+llevar\'{a} a cabo sin violar leyes a nivel nacional. Cabe destacar que la
+informaci\'{o}n que proporcione el Centro de Control de Tr\'{a}nsito del MOPT no
+viola confidencialidad alguna debido a que se trata de datos estad\'{i}sticos sobre tiempos ajustados a los
+sem\'{a}foros y la cantidad de veh\'{i}culos que hayan sido registrados en un
+periiodo determinado.
+	
+	Finalmente, los algoritmos p\'{u}blicos no se pueden patentar por lo que no se
+	infringen leyes por violaci\'{o}n de patentes. Adicionalmente, la
+	investigaci\'{o}n con sus resultados y productos generados ser\'{a} liberada bajo licencia GNU GPL V3 y durante todo el proceso estar\'{a} disponible en Internet en el sitio
+\url{http://code.google.com/p/nn-traffic-net/}

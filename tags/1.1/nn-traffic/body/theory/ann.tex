@@ -1,0 +1,330 @@
+\section{Redes neuronales artificiales}
+		
+		
+		El cerebro humano es tan sorprendente que se ha tratado de imitar a trav\'{e}s de
+	la tecnolog\'{i}a. Las redes neuronales artificiales representan una forma
+	funcional y estructural de esta b\'{u}squeda por imitar el cerebro humano. Tal como
+	su nombre lo indica, estas redes son una emulaci\'{o}n del comportamiento de una red neuronal biol\'{o}gica, pero diversos autores las definen de cierta forma particular por lo que a continuaci\'{o}n se mencionan algunas de ellas.
+	
+	\begin{itemize}
+	  \item Un modelo que surgi\'{o} para emular el proceso de aprendizaje es la red
+	  neuronal artificial. Las redes neuronales son modelos que intentan reproducir
+	  el comportamiento del cerebro humano. \cite{Hilera1995}
+	  \item Las redes neuronales artificiales son, lo que su nombre indica,
+	  redes computacionales que intentan simular, las redes de c\'{e}lulas nerviosas o
+	  neuronas del sistema nervioso central del ser humano. \cite{Graupe2007}
+	\end{itemize}
+	
+		Como se puede observar, las redes neuronales han obtenido buenos resultados en
+	los procesos de aprendizaje y formando parte de procesos de an\'{a}lisis. De
+	acuerdo con Kumar \cite{Kumar2007}, estas redes poseen la capacidad de
+	generalizar y por lo tanto pueden predecir nuevos resultados a partir de resultados previos, y de igual forma pueden procesar informaci\'{o}n en paralelo a altas velocidades y de forma distribuida.
+	
+		Por las razones anteriores, se plantea la tesis entorno al uso de una red
+	neuronal para lograr una toma de decisiones en una red formada por sem\'{a}foros.
+	
+		En este caso como se tiene un objetivo muy claro, resulta posible
+	utilizar un algoritmo de propagaci\'{o}n hacia atr\'{a}s
+	(backpropagation), este es uno de los m\'{a}s empleados para la implementaci\'{o}n de las redes neuronales, por lo
+	que ser\'{a} tomado como base para el entrenamiento de la red a implementar con
+	el modelo propuesto para esta tesis. De igual forma se ver\'{a} el contraste
+	que se pueda obtener con respecto al modelo de Hopfield mencionado por Gilmore
+	y Elibiary \cite{Gilmore1993}, como una de las opciones m\'{a}s viables para la
+	realizaci\'{o}n de este tipo de sistemas.
+
+% 	\subsection{Componentes de una red neuronal}
+% 	
+% 		Al tratar de imitar a sus contrapartes biol\'{o}gicas, las redes neuronales
+% 	artificiales llevan consigo una serie de componentes los cuales resultan
+% 	importantes destacar para su posterior implementaci\'{o}n.
+% 	
+% 	\begin{itemize}
+% 	  \item \textbf{Vector de entrada:} corresponde a las entradas provenientes de
+% 	  cada neurona conectada.
+% 	  \item \textbf{Escalar de salida:} la salida de la red resulta un \'{u}nico valor
+% 	  escalar, debido a que durante el procesos las entradas son acumuladas.
+% 	  \item \textbf{Cambio de entradas en la sinapsis:} las entradas son procesadas
+% 	  por medio de la multiplicaci\'{o}n del peso asociado a la conexi\'{o}n.
+% 	  \item \textbf{Acumulaci\'{o}n de entradas:} tanto las redes biol\'{o}gicas
+% 	  como las artificiales suman las entradas permitiendo as\'{i} obtener un resultado para la neurona.
+% 	  \item \textbf{Pesos ajustables:} Los pesos que cambian el valor de las
+% 	  entradas a una neurona son ajustables, agregando de esta forma dinamismo a la red debido a que gran parte del conocimiento de una red se encuentra almacenada en sus pesos.
+% 
+% 	\end{itemize}
+% 
+% 		A pesar de las definiciones dadas sobre redes neuronales, no se ha dado una
+% 	que refleje la verdadera forma conceptual de la misma, por eso de  acuerdo con
+% 	\cite{Kriesel2005}:
+% 	
+% 		\textit{Una red neuronal es una tripleta ordenada $(N,V,w)$ con dos conjuntos
+% 		N, V y una funci\'{o}n w.}
+% 	
+% 	Donde:
+% 	\textbf{N} es el conjunto de neuronas
+% 	\textbf{V} es un conjunto $\lbrace(i,j) | i, j 2 \in N\rbrace$  cuyos elementos
+% 	son llamados conexiones entre las neuronas, i y j 
+% 	\textbf{W} es una funci\'{o}n $w: V\to\mathbb{R}$ que define los
+% 	pesos, los valores indefinidos o 0 se dejan para las conexiones que no existen dentro de la red.
+% 	
+% 	
+% 		Adicionalmente cada neurona cuenta con una serie de funciones para el manejo
+% 	de las entradas, procesamiento de las mismas y la generaci\'{o}n de su salida. Estas
+% 	corresponde a:
+% 
+% 	\begin{itemize}
+% 	  \item \textbf{Funci\'{o}n de propagaci\'{o}n:} como ya sabe cada neurona se
+% 	  encuentra conectada otras neuronas, por esta raz\'{o}n para la neurona $j$ se
+% 	  van a recibir n entradas, eso se recibe en forma de un vector de entrada con
+% 	  la informaci\'{o}n proveniente de cada una de estas. M\'{a}s detalladamente,
+% 	  esta se encarga de recibir las entradas $O_{i_1},\ldots, O_{i_n}$
+% 	  provenientes de las neuronas $i_1,\ldots,i_n$ las cuales forman el conjunto
+% 	  $I = \lbrace i_1,\ldots,i_n\rbrace $, y que se encuentran conectadas a la
+% 	  neurona $j$, luego de esto, la funci\'{o}n de propagaci\'{o}n convierte ese vector de entrada en un \'{u}nico escalar conocido como entrada de la red o
+% 	  $net_j$. 
+% 	  
+% 	  \begin{equation}
+% 	  	net_j = f_{prop}(o_{i_1},\ldots,o_{i_n} , w_{i_1,j},\ldots,w_{i_n,j})
+% 	  \end{equation}
+% 	  
+% 	  Por lo general se emplea una sumatoria de las entradas por los pesos
+% 	  de las conexiones obteniendo como resultado el escalar mencionado.
+% 	  
+% 	  \begin{equation}
+% 	  	net_j = \sum_{i \in I} (o_i \cdot w_{i,j})
+% 	  \end{equation}
+% 	 
+% 	  \item \textbf{Funci\'{o}n de activaci\'{o}n:} esta funci\'{o}n se encarga de
+% 	  cambiar el estado de activaci\'{o}n de la neurona. En otras palabras, para
+% 	  una neurona $j$,  el estado de activaci\'{o}n $a_j$ se asigna a la neurona
+% 	  como resultado de la funci\'{o}n indicando de esta forma el grado de actividad de la misma.
+% 	  
+% 	  Cabe destacar que las neuronas se ven activadas si la entrada de la red
+% 	  excede el umbral establecido. En este caso una neurona $j$, el valor del
+% 	  umbral $\Theta_j$ se asigna de forma \'{u}nica a $j$,  marcando de esta forma el
+% 	  gradiente de valor m\'{a}ximo de la funci\'{o}n de activaci\'{o}n.
+% 	  
+% 	  		\begin{equation}
+% 	  			a_j(t) = f_{act}(net_j(t)),a_j(t-1),\Theta_j)
+% 	  		\end{equation}
+% 	  
+% 	  Esto transforma la entrada de la red $net_j$ y el estado de activaci\'{o}n
+% 	  anterior $a_j(t - 1)$ en el nuevo estado de activaci\'{o}n $a_j(t)$
+% 	  
+% 	  
+% 	  \item Funci\'{o}n de salida: se encarga de calcular el valor que ser\'{a}
+% 	  transmitido a las otras neuronas conectadas a $j$. Por lo general se hace uso
+% 	  de la funci\'{o}n identidad en otras palabras, el valor $a_j$ para la
+% 	  activaci\'{o}n se coloca directamente como la salida.
+% 	\end{itemize}
+% 	
+% 	
+% 	\subsection{Topolog\'{i}as}
+% 	
+% 		La topolog\'{i}a de las redes neuronales consiste en la arquitectura o forma en la
+% 	que se organizar\'{a}n las neuronas dentro de la red, forman de esta forma una
+% 	serie de capas o agrupaciones que sin importar los par\'{a}metros con los que se
+% 	defina esta, podr\'{a} contar con tres tipos de neuronas artificiales:
+% 	
+% 	\begin{itemize}
+% 	  \item \textbf{Neuronas de entrada:} encargadas de recibir la informaci\'{o}n
+% 	  directamente desde el exterior.
+% 	  \item	\textbf{Neuronas ocultas:} reciben informaci\'{o}n desde otras
+% 	  neuronas.
+% 	  En estas neuronas es donde se realiza la representaci\'{o}n de la informaci\'{o}n almacenada.
+% 	  \item \textbf{Neuronas de salida:} toman la informaci\'{o}n procesada
+% 	  devolvi\'{e}ndola al exterior.
+% 	\end{itemize}
+% 	
+% 		Dependiendo de como se agrupen las neuronas a sea por capas o que se
+% 	encuentren m\'{a}s o menos cercas de la entrada y salida de la red, se cuenta par\'{a}metros
+% 	fundamentales para estas dentro de los cuales se mencionan
+% 
+% 	\begin{itemize}
+% 	  \item El grado de conectividad
+% 	  \item El tipo de conexiones existentes entre las neuronas.
+% 	\end{itemize}
+% 	
+% 		Como punto de partida se cuenta con la redes de \textit{conexiones hacia
+% 		adelante} o \textit{Feedforward}, en esta las redes se ven agrupadas en tres
+% 		capas principales: una capa de entrada, $n$ capas de procesamiento escondidas
+% 		y una capa de salida. Tal y como su nombre lo indica, las neuronas en tipo de red s\'{o}lo cuentan con
+% 	conexiones directas con las neuronas de la siguiente capa (hacia la capa de
+% 	salida). Es importante mencionar que una variante de este puede contar con conexiones de atajo o \textit{shortcuts}  para saltar una o m\'{a}s capas pero que de igual forma deben de seguir hacia adelante.
+% 	
+% 		Extendiendo la funcionalidad mencionada en la descripci\'{o}n anterior, se cuenta
+% 	con las redes recurrentes estas permiten realizar conexiones ya sea a s\'{i} mismas
+% 	conocido como \textit{recurrencia directa} o que se permitan conexiones
+% 	dentro de la misma capa para una red de una o varias capas, en la denominada
+% 	\textit{recurrencia lateral}. Este tipo de conexiones resultan muy \'{u}tiles
+% 	en casos en los que se cuenta con una \'{u}nica capa, pero de igual forma es aplicable en el caso de m\'{u}ltiples capas.
+% 	
+% 		Finalmente, est\'{a}n las redes completamente conectadas las cuales permiten
+% 	conexiones entre todas las neuronas con excepci\'{o}n de recurrencias directas,
+% 	como resultado de este tipo e conexiones cada neurona puede convertirse en una
+% 	neurona de entrada.
+% 	
+% 	\subsection{Activaci\'{o}n de Neuronas}
+% 		De acuerdo con Kriesel \cite{Kriesel2005}, resulta muy importante el orden en el que cada
+% 	neurona de forma individual recibe y procesa las entradas y genera las salidas
+% 	en este se distinguen dos modelos la forma s\'{i}ncrona y la as\'{i}ncronas. Para el
+% 	caso del primero, todas las neuronas cambian sus valores de forma simult\'{a}nea calculando las entradas de la red, la activaci\'{o}n de las mismas y la salida generada adem\'{a}s de ir pasando estos resultados. Este modelo es el que m\'{a}s se asemeja a la contraparte biol\'{o}gica y es el m\'{a}s gen\'{e}rico.
+% 	
+% 			Con respecto al modelo as\'{i}ncrono, las neuronas cambian sus valores en
+% 	diferentes puntos del tiempo, por lo que existen \'{o}rdenes diferentes en las que
+% 	esto puede ocurrir. Dentro de estos destacan:
+% 	
+% 	\begin{itemize}
+% 	  \item \textbf{Orden aleatorio:} se escoge al azar una neurona $i$ para que se
+% 	  actualicen sus valores $net_i, a_i y o_i$. Como es de esperarse, al no tener
+% 	  un orden establecido, puede ocurrir casos en los que una neurona se escoja repetidamente durante un ciclo y otras que del todo no sean elegidas.
+% 	  \item \textbf{Permutaci\'{o}n aleatoria:} se garantiza que cada neurona sea
+% 	  escogida una \'{u}nica vez por cada ciclo, pero sin un orden definido. Este orden de activaci\'{o}n no es muy usado por el hecho de tener que invertir tiempo calculando una nueva permutaci\'{o}n por cada ciclo.
+% 	  \item \textbf{Orden topol\'{o}gico:} las neuronas se activan de acuerdo con
+% 	  un orden definido por la topolog\'{i}a. Tomando como ejemplo una red
+% 	  \textit{feedforward}, las neuronas de entrada se activar\'{i}an primero,
+% 	  seguidas por las neuronas ocultas y finalmente las neuronas de salida
+% 	  
+% 	\end{itemize}
+% 	
+% 	
+% 	
+% 	\subsection{Aprendizaje y entrenamiento}
+% 	
+% 	
+% 		Definidos los puntos anteriores, y una vez seleccionada la topolog\'{i}a, la
+% 	activaci\'{o}n de las neuronas y el tipo de neurona a utilizar, es necesario
+% 	determinar la forma de entrenamiento. Como requisito para poder utilizar una red neuronal artificial, es necesario entrenarla y para realizar esto, se toma como punto de partida un conjunto de pesos aleatorios haciendo que el proceso de aprendizaje busque los pesos que permitan desarrollar de forma adecuada la tarea encomendada a la red. Este proceso esta conformado por una serie de pruebas iterativas mediante las cuales se van ajustando los componentes seg\'{u}n el desempe\~{n}o obtenido hasta lograr un nivel de resultados aceptable.
+% 	
+% 		Considerando lo anterior, una red neuronal puede aprender debido a alguna de
+% 	las siguientes razones:
+% 	
+% 	\begin{itemize}
+% 	  \item Desarrollo de una nueva conexi\'{o}n
+% 	  \item Eliminar conexiones existentes
+% 	  \item Cambio de los peso de conexiones
+% 	  \item Cambio de los valores de umbral en las neuronas
+% 	  \item Variaci\'{o}n de alguna de las tres funciones de la neurona (activaci\'{o}n,
+% 	  propagaci\'{o}n y salida)
+% 	\end{itemize}
+% 	
+% 	
+% 	Existen varios tipos de aprendizajes de los cuales resulta importante mencionar
+% 	dos:
+% 	
+% 	\begin{itemize}
+% 	  \item \textbf{Aprendizaje supervisado:} requieren que se les brinden una
+% 	  serie de datos clasificados, es decir, cada patr\'{o}n de entrada empleado para su
+% 	  entrenamiento se encuentra asociado con un patr\'{o}n de salida esperado [11].
+% 	  Este tipo de tipo de aprendizaje presenta la ventaja de poder optimizar los par\'{a}metros para que la red cometa la menor cantidad de errores posibles, adem\'{a}s de que al conocer las entradas y sus salidas, es posible determinar con precisi\'{o}n la cantidad de errores que se est\'{a}n cometiendo.
+% 	  
+% 	  Por otro lado se presenta la desventaja de tener que con una base de datos
+% 	  para que el aprendizaje pueda funcionar de forma correcta, con el problema de poseer una escalabilidad limitada, es decir, se vuelven m\'{a}s lentas conforme aumenta la red.
+% 	  
+% 	  \item  \textbf{Aprendizaje no supervisado o auto organizado:} estas no usa un
+% 	  ''maestro'' el cual les indique una clasificaci\'{o}n correcta, por lo
+% 	  tanto tampoco poseen retroalimentaci\'{o}n sobre esta [12]. Este tipo de aprendizaje se asemeja m\'{a}s al aprendizaje que emplea el cerebro, contrario al aprendizaje supervisado. Otra ventaja que este brinda es que solo requiere los patrones de entrada y no se requiere realizar la clasificaci\'{o}n de los mismos. Por otro lado al indicarse la salida correcta, la red va a seguir generando resultados pero estos pueden no resultar los correctos o m\'{a}s adecuados para el problema evaluado. [21]
+% 
+% 	\end{itemize}
+% 	
+% 	
+% 	De acuerdo con Ram\'{i}rez [24], el proceso de aprendizaje permite a la red
+% neuronal realizar cambios a sus pesos para poder responder a las entradas que
+% se le proporcionen. Dichos cambios se traducen a destrucci\'{o}n, modificaci\'{o}n o
+% creaci\'{o}n de conexiones.
+% 	
+% 	El mismo autor resalta que: \begin{quote}\textit{``Durante el proceso de
+% 	aprendizaje, los pesos de las conexiones de la red sufren modificaciones, por tanto se puede afirmar que
+% este proceso ha terminado o `ha aprendido' cuando los valores de los pesos
+% permanecen estables o el margen de error es menor o igual al que se ha definido
+% como aceptable.''}\end{quote}(Ram\'{i}rez, 2012)
+% 	
+% De acuerdo con Kriesel [\cite{Kriesel2005} El objetivo principal es cambiar los valores de
+% los pesos de tal forma que la red no s\'{o}lo asocie los patrones para valores de
+% entrada y salida aprendidos durante el entrenamiento, sino que tambi\'{e}n provea
+% resultados a patrones desconocidos o similares, otorg\'{a}ndole as\'{i} la
+% capacidad de \textit{generalizar} resultados. Es por estar raz\'{o}n que resulta
+% importante conocer c\'{o}mo se modifican dichos valores, definir los criterios a emplear para cambiarlos para lograr que la red aprenda una nueva informaci\'{o}n. [24]
+% 
+% Dichos criterios determinan la \textit{regla de aprendizaje} para la red. En
+% esta se consideran dos tipos: el aprendizaje supervisado y el aprendizaje no
+% supervisado, ambos mencionados anteriormente. Junto a estos se a\~{n}ade el momento
+% en el cual la red puede \textit{``aprender''} ya sea durante su funcionamiento
+% (online) o fuera de este mientras se encuentra desconectada (offline).
+% 
+% Tanto el entrenamiento online como el offline presentan sus ventajas y
+% desventajas, en el caso del aprendizaje online la red aprende de forma directa
+% de los errores obtenidos de los resultados alterando los pesos de forma din\'{a}mica
+% siempre y cuando se le presenten o posee informaci\'{o}n nueva para procesar, lo
+% anterior causa que no se distinga entre fase de entrenamiento y de
+% operaci\'{o}n. Por su lado, el aprendizaje offline, tambi\'{e}n denominado \textit{entrenamiento en lote}  posee una fase de aprendizaje o entrenamiento y una fase de operaci\'{o}n bien definidas. Contrario al entrenamiento online, los pesos permanecen fijos una vez que se haya terminado la fase de entrenamiento y no cambiar\'{a}n hasta no llevar acabo otra.
+% 
+% 
+% \subsection{Supervisi\'{o}n de un red neuronal}
+% 
+% 	Mientras una red no haya terminado su entrenamiento se hace uso de una
+% correcci\'{o}n de error para lograr obtener resultados adecuados. Kriesel \cite{Kriesel2005}
+% brinda tres definiciones involucradas en el proceso, estas corresponden a los
+% patrones de entrenamiento (training pattern), entradas de ense\~{n}anza (teaching input) y el vector de error o vector de diferencia (error vector).
+% 
+% 	Los \textit{patrones de entrenamiento} corresponden simplemente a un vector de
+% 	entrada, del cual se conoce su respectiva salida. Por su parte, las entradas de
+% ense\~{n}anza consisten de un vector de salida deseado para los patrones de
+% entrenamiento proporcionados previamente. Finalmente, el vector de error es la diferencia entre el vector de salida esperado (entradas de ense\~{n}anza) y el resultado obtenido.
+% 
+% 	En [24] Ram\'{i}rez menciona una t\'{e}cnica para corregir el error cometido por la
+% red, la cual consiste de los siguientes pasos:
+% 
+% \begin{enumerate}
+%   \item Inicializar los pesos de la red con valores aleatorios
+%   \item Presentar un patr\'{o}n de entrada y propagaci\'{o}n de los valores hasta
+%   calcular la salida.
+%   \item Adaptar los pesos basados en el error cometido teniendo en cuenta la
+%   salida esperada. Llevando a cabo el procedimiento mientras no se obtenga un error menor o igual al error aceptado.
+% \end{enumerate}	
+
+%\subsection{Algoritmo de Backpropagation}
+
+	El algoritmo que se mencion\'{o} anteriormente (backpropagation), corresponde a
+	una de las diferentes t\'{e}cnicas de aprendizaje que se pueden utilizar en una
+	red neuronal. M\'{a}s detalladamente, es un m\'{e}todo de aprendizaje
+	supervisado que consta de dos fases: en la primera se aplica un patr\'{o}n de entrada el cual se propaga por toda la red a trav\'{e}s de
+las distintas capas de esta generando de esta forma una salida. Una vez obtenido
+el resultado, se compara contra la salida deseada y se calcula el error cometido
+por cada una de las neuronas de salida. Luego se transmite el conjunto de
+errores hacia atr\'{a}s en este caso tomando como punto de partida la capa de
+salida hacia el resto de neuronas localizadas en las capas intermedias
+\cite{Fritsch1996}. Cabe destacar que el error recibido por cada neurona es
+proporcional a su contribuci\'{o}n sobre el error total causado en la red. Por lo que tom\'{a}ndose dicho error como base se realizan ajustes a los pesos de las conexiones o pesos sin\'{a}pticos de cada neurona.
+
+\subsection{Sistemas Expertos vs Redes Neuronales}
+ 
+ 		Como alternativa para la toma de decisiones se encuentran los sistemas
+ 	expertos, estos se caracterizan por contar con una base de conocimiento que
+ 	se encuentra separada del sistema original, permitiendo agregar nuevo
+ 	conocimiento a este sin requerirse realizar cambios al sistema. No obstante, se necesita una persona experta en un \'{a}rea para que se puedan crear las reglas que codifiquen el conocimiento \cite{Basogain}.
+ 	
+ 		Basogain en su escrito resalta las ventajas de las redes neuronales sobre
+ 	estos sistemas al destacar que el desarrollo de una red neuronal no se
+ 	requiere programar ni el conocimiento ni las reglas para procesar ese
+ 	conocimiento, ya que es ella misma la que aprende las reglas mediante los ajustes que se realicen a las conexiones entre las neuronas.
+ 		
+ 		Un sistema experto hace expl\'{i}cito su conocimiento en forma de reglas pre
+ 	establecidas, mientras que las redes neuronales generan sus reglas
+ 	aprendiendo, usando como materia prima los ejemplos que le fuesen mostrados
+ 	durante la fase de entrenamiento de la red.
+ 		
+ 			La forma en que los sistemas expertos almacenan la informaci\'{o}n se ve opacada
+ 	por el modo empleado en las redes neuronales, ya que estas guardan su
+ 	conocimiento de forma distribuida a lo largo de la red y no en una sola base
+ 	centralizada. La caracter\'{i}stica anterior resulta una gran ventaja debido a que se pueden usar de forma asociativa, es decir, si s\'{o}lo reciben una entrada parcial la red determinar\'{a} la entrada m\'{a}s parecida en memoria y dar\'{a} una salida asociada con la entrada original completa, concedi\'{e}ndoles la capacidad de generalizar, mientras que un sistema experto requiere de la entrada completa para poder determinar la soluci\'{o}n de acuerdo a su base de conocimiento.
+
+ 		Finalmente, se encuentra la tolerancia a fallos, el cual se refiere al caso
+ 	de que si fallan partes de las neuronas simplemente se realizar\'{a}n
+ 	modificaciones a las conexi\'{o}n, variando \'{u}nicamente su comportamiento
+ 	pero el sistema en cuesti\'{o}n no deja de funcionar. Con esto queda claro que
+ 	las redes neuronales se desempe\~{n}an mejor, por lo cual se adec\'{u}an
+ 	m\'{a}s para solucionar el problema presentado en esta tesis.
+ 	
+%  		Luego de exponer las caracter\'{i}sticas de ambos elementos, se puede observar
+%  			que a pesar de existir alternativas como los sistemas expertos, las redes neuronales se desempe\~{n}an mejor en los procesos de aprendizaje, en reconocer patrones y generalizar, motivos por los cuales fueron elegidas para la soluci\'{o}n propuesta con esta tesis.
+
