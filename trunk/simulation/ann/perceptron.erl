@@ -1,5 +1,7 @@
 -module(perceptron).
 -export([perceptron/4, sigmoid/1, dot_prod/2, feed_forward/3, replace_input/2, convert_to_list/1, connect_neuron/2, test_run/0]).
+%%client interface
+-export([save/2, update_connections/2, get_connections/1]).
 
 test_run() ->
 	I1_pid = spawn(perceptron, perceptron, [i1,[],[],[]]),
@@ -137,7 +139,15 @@ perceptron(LayerId, Weights, Inputs, Sensitivities) ->
 					io:format("LEARNING ~w", [{LayerId,self()}]),
 					io:format("~n~w outputs: ~w", [{LayerId,self()}, Output]),
 					%% call learn message to self()
-					self() ! {learn, {{LayerId, self()}, 1}}
+					%%ON TEST Get the desired output
+					%network ! {desired_output, self(), LayerId},
+					%receive 
+					%	{reply, TargetOutput} ->
+					%		io:format("~n Desired OUTPUT on ~w: ~w", [LayerId,TargetOutput])
+					%		self() ! {learn, {{LayerId, self()}, TargetOutput}}						
+					%end,
+					
+					self() ! {learn, {{LayerId, self()}, 1}}				
 			end,
 			perceptron(LayerId,Weights, New_Inputs, Sensitivities);
 		{connect_input, SenderNeuron_PID} ->
@@ -267,5 +277,37 @@ save_training(LayerId, Weights, Inputs, Sensitivities, LogData) ->
 %%give format to inputs o sensitivities
 format_connections_saving(Layer) ->
 	lists:map(fun ({{Id, _Pid}, Val}) -> {Id, Val} end, Layer).
-	
 
+%collect([], Values) ->
+%	lists:reverse(Values);
+%collect([{Neuron, OldVal} | Tail], Values) ->
+%	receive
+%		{collect_input, CallerPid, Value} ->
+%			collect(Tail, [ {Neuron, Value} | Values])
+%	end.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%client interface functions%%%%%%%%%%%
+
+save(NeuronPid, LogPath) ->
+	NeuronPid ! {save_training, self(), LogPath},
+	receive
+		{reply, saved} ->
+			io:format("Save Neuron ~w~n", [NeuronPid]),
+			{ok, saved};
+		Other ->
+			io:format("Error on neuron WAAAAAAAAAA ~w~n", [Other]),
+			{error, "bad save"}
+	end.
+
+update_connections(NeuronPid, Data) ->
+	NeuronPid ! {update_connections, Data}.
+
+get_connections(NeuronPid) ->
+	NeuronPid ! {get_connections, self()},
+	receive
+		{reply, {Weights, Inputs, Sensitivities}} ->
+			{ok, {Weights, Inputs, Sensitivities}};
+		_Other ->
+			{error, []}
+	end.
