@@ -1,19 +1,23 @@
 -module(lane).
 
--export([start/1, estimate_new_arrival/2, init_poisson/1, init_geometric/1]).
+-export([start/2, estimate_new_arrival/2, init_poisson/1, init_geometric/1, connect/2, checkpoint/2, restore/1, restore/4]).
 
--export([init/1]).
+-export([init/2]).
 
 %% Main call function to spawn proccess
-start(Args) ->
-    spawn(lane,init, [Args]).
+start(Source, Args) ->
+    spawn(lane,init, [Source, Args]).
     
-init({LaneId, Type, ConnectedLanes, CarsQueque, Capacity, Obstruction, ProbData, TopSpeed}) ->    
+init(normal, {LaneId, Type, ConnectedLanes, CarsQueque, Capacity, Obstruction, ProbData, TopSpeed}) ->    
     %%NEW stats: dsp_str: dispatch to straight lane 
     %%		 dsp_trn: dispatch to turn lane
     %%		 tra_sib: transfers to siblings
     %% all this items are counters
-    lane(LaneId, Type, ConnectedLanes, CarsQueque,[], Capacity, Obstruction, ProbData, [{dsp_str,0},{dsp_trn,0},{tra_sib, 0}], TopSpeed).
+    lane(LaneId, Type, ConnectedLanes, CarsQueque,[], Capacity, Obstruction, ProbData, [{dsp_str,0},{dsp_trn,0},{tra_sib, 0}], TopSpeed);
+
+init(restore, {LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstruction, ProbData, Stats, TopSpeed}) ->
+	%% restore form a checkpoint faile
+	lane(LaneId, Type, ConnectedLanes, CarsQueque,OutSideArea, Capacity, Obstruction, ProbData, Stats, TopSpeed).
 
 reply (Pid, Reply) ->
     Pid ! {reply, Reply}.
@@ -159,7 +163,16 @@ lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstructio
 	    write_result(Path, io_lib:format("FINISH WRITEDOWN CARS INFO FOR LANE: ~w",[LaneId])),
 	    write_result(Path, io_lib:format("=======================================",[])),
 	    reply(Pid, finished);
-	    	    
+	 {checkpoint, Pid, {LightId, Dir, {ChkPath, CarChkPath, OCarChkPath}}} ->
+	 	io:format("Lane ~w: checkpoint called. Data ~p~n", [LaneId, {LightId, Dir, {ChkPath, CarChkPath, OCarChkPath}}]), 
+	 	write_checkpoint(LaneId,LightId, Dir, Type, ConnectedLanes, CarsQueque, 
+	 		OutSideArea, Capacity, Obstruction, ProbData, Stats, TopSpeed, {ChkPath, CarChkPath,OCarChkPath}),
+	 	reply(Pid, chkpoint_saved),
+	 	lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, 
+	 		Obstruction, ProbData, Stats, TopSpeed);
+	 {restore, {NCarsQueque, NOutSideArea, NCapacity, NObstruction, NProbData, NStats, NTopSpeed}} ->
+	 	lane(LaneId, Type, ConnectedLanes, NCarsQueque, NOutSideArea, NCapacity, 
+	 		NObstruction, NProbData, NStats, NTopSpeed);
 	stop -> {ok, normal}
     end.  
 
@@ -751,7 +764,7 @@ attemp_transfer(CurrentLaneId, SiblingList, [Car = {CarType,{Wait,Delay, {BPos, 
     io:format("CALLING SIBLING FOR TRANSFER when position NOT reached on ~w to ~w ~n",[CurrentLaneId, SiblingList]),
     write_result(LogData, io_lib:format("CALLING SIBLING FOR TRANSFER when position NOT reached on ~w to ~w ~n",[CurrentLaneId, SiblingList])),
     
-    case attemp_transfer_options({CurrentLaneId, self()}, SiblingList, Car, LogData, atPoint) of
+    case attemp_transfer_options({CurrentLaneId, self()}, SiblingList, Car, LogData, before) of
        {reply, ok}    -> io:format("transfer succeded after attemps ~w~n",[{SiblingList, Tail, UpdatedCars, ObsData}]),
        			 write_result(LogData, io_lib:format("transfer succeded after attemps ~w~n",[{SiblingList, Tail, UpdatedCars, ObsData}])),
                          attemp_transfer(CurrentLaneId, SiblingList, Tail, UpdatedCars, {Obs, ObsBeginPosition, ObsEndPosition}, LogData, -1);
@@ -984,18 +997,18 @@ in_range(_Min,_Match) ->
     {false, -1, dummy}.
 
 %%Update probData
-allow_pass_update(ProbData, Position) ->
-    {transfer, List} = lists:keyfind(transfer, 1, ProbData),
-    NewTransferList = allow_pass_update(List,Position, []),
-    lists:keyreplace(transfer,1, ProbData, {transfer, NewTransferList}).
-allow_pass_update(-1, _Position, _NewTransferList) ->
-    -1;
-allow_pass_update([], _Position, NewTransferList) ->
-    NewTransferList;
-allow_pass_update([{LaneId, APass, Position} | Tail], Position, NewTransferList) ->
-    allow_pass_update(Tail, Position, [{LaneId, APass - 1, Position} | NewTransferList]);
-allow_pass_update([Transfer | Tail], Position, NewTransferList) ->
-    allow_pass_update(Tail, Position, [Transfer| NewTransferList]).
+%%allow_pass_update(ProbData, Position) ->
+%%    {transfer, List} = lists:keyfind(transfer, 1, ProbData),
+%%    NewTransferList = allow_pass_update(List,Position, []),
+%%    lists:keyreplace(transfer,1, ProbData, {transfer, NewTransferList}).
+%%allow_pass_update(-1, _Position, _NewTransferList) ->
+%%    -1;
+%%allow_pass_update([], _Position, NewTransferList) ->
+%%    NewTransferList;
+%%allow_pass_update([{LaneId, APass, Position} | Tail], Position, NewTransferList) ->
+%%    allow_pass_update(Tail, Position, [{LaneId, APass - 1, Position} | NewTransferList]);
+%%allow_pass_update([Transfer | Tail], Position, NewTransferList) ->
+%%    allow_pass_update(Tail, Position, [Transfer| NewTransferList]).
 
 %%=======================================================================%%
 %%=======================================================================%%
@@ -1009,29 +1022,29 @@ allow_pass_update([Transfer | Tail], Position, NewTransferList) ->
 
 %%TODO: Unir este metodo con attemp_transfer 
 %% move cars on transfer success
-keep_moving(CarsQueque, ObsPosition, LogData) ->
-    io:format("keep moving CarsQueque ~w, ObsPosition ~w~n",[CarsQueque, ObsPosition]),
-    write_result(LogData, io_lib:format("keep moving CarsQueque ~w, ObsPosition ~w~n",[CarsQueque, ObsPosition])),
-    keep_moving(CarsQueque, ObsPosition, -1, [], LogData).
+%%keep_moving(CarsQueque, ObsPosition, LogData) ->
+%%    io:format("keep moving CarsQueque ~w, ObsPosition ~w~n",[CarsQueque, ObsPosition]),
+%%    write_result(LogData, io_lib:format("keep moving CarsQueque ~w, ObsPosition ~w~n",[CarsQueque, ObsPosition])),
+%%    keep_moving(CarsQueque, ObsPosition, -1, [], LogData).
 
-keep_moving([], _ObsPosition, _LastPosition, UpdatedCars, LogData)->
-    io:format("STOP keep moving UpdatedCars ~w~n",[UpdatedCars]),
-    write_result(LogData, io_lib:format("STOP keep moving UpdatedCars ~w~n",[UpdatedCars])),
-    lists:reverse(UpdatedCars);
+%%keep_moving([], _ObsPosition, _LastPosition, UpdatedCars, LogData)->
+%%    io:format("STOP keep moving UpdatedCars ~w~n",[UpdatedCars]),
+%%    write_result(LogData, io_lib:format("STOP keep moving UpdatedCars ~w~n",[UpdatedCars])),
+%%    lists:reverse(UpdatedCars);
 
-keep_moving([{CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}}|Tail], ObsPosition,LastPosition, UpdatedCars, 
-  LogData) when BPos - 1 /= ObsPosition, BPos - 1 /= LastPosition ->
-    %%NewPosition = Position - 1,
-    {NBPos, NEPos, Length} = get_new_position({BPos, EPos, Length}, 1),
-    io:format("keep moving OK NewPosition ~w. Tail ~w~n",[{NBPos, NEPos, Length}, Tail]),
-    write_result(LogData, io_lib:format("keep moving OK NewPosition ~w. Tail ~w~n",[{NBPos, NEPos, Length}, Tail])),
-    keep_moving(Tail, ObsPosition, NEPos, [{CarType,{Wait + 1,Delay, {NBPos, NEPos, Length}, Route, PrefLanes, NextMove, TopMove}} |  UpdatedCars],LogData);
+%%keep_moving([{CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}}|Tail], ObsPosition,LastPosition, UpdatedCars, 
+%%  LogData) when BPos - 1 /= ObsPosition, BPos - 1 /= LastPosition ->
+%%    %%NewPosition = Position - 1,
+%%    {NBPos, NEPos, Length} = get_new_position({BPos, EPos, Length}, 1),
+%%    io:format("keep moving OK NewPosition ~w. Tail ~w~n",[{NBPos, NEPos, Length}, Tail]),
+%%    write_result(LogData, io_lib:format("keep moving OK NewPosition ~w. Tail ~w~n",[{NBPos, NEPos, Length}, Tail])),
+%%    keep_moving(Tail, ObsPosition, NEPos, [{CarType,{Wait + 1,Delay, {NBPos, NEPos, Length}, Route, PrefLanes, NextMove, TopMove}} |  UpdatedCars],LogData);
     
-keep_moving([{CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}}|Tail], ObsPosition,LastPosition, UpdatedCars,
-  LogData) when BPos - 1 == ObsPosition; BPos - 1 == LastPosition ->
-    io:format("keep moving NO MORE~n",[]),
-    write_result(LogData, io_lib:format("keep moving NO MORE~n",[])),
-    keep_moving(Tail, ObsPosition, EPos,[{CarType,{Wait + 1,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}} |  UpdatedCars], LogData).
+%%keep_moving([{CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}}|Tail], ObsPosition,LastPosition, UpdatedCars,
+%%  LogData) when BPos - 1 == ObsPosition; BPos - 1 == LastPosition ->
+%%    io:format("keep moving NO MORE~n",[]),
+%%    write_result(LogData, io_lib:format("keep moving NO MORE~n",[])),
+%%    keep_moving(Tail, ObsPosition, EPos,[{CarType,{Wait + 1,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}} |  UpdatedCars], LogData).
 
 %%Stop cars from moving after an obstacle has been found or when the red light has been given
 stop_moving([{CarType,{Wait,Delay, Position, Route, PrefLanes, NextMove, TopMove}}|Waiting]) ->
@@ -1378,6 +1391,56 @@ new_transfer() ->
 %%=======================================================================%%
 %%====================END OF GEOMETRIC DIST==============================%%
 %%=======================================================================%%
+
+%%=======================================================================%%
+%%====================CLIENT INTERFACE FUNC==============================%%
+%%=======================================================================%%
+%% remove if fails
+connect(LanePid, ConnectionData) ->
+	LanePid ! {connect_lane, ConnectionData, self()},
+    receive
+		{reply, error} -> 
+			{reply, error};
+	  	{reply, ok} -> 
+		    {reply, ok};
+		_Other ->
+			{error, []}
+    end.   
+
+checkpoint({LaneId, LanePid}, LightData) ->
+	LanePid ! {checkpoint, self(), LightData},
+    receive
+        {reply, chkpoint_saved} -> 
+            io:format("reply recieve after checkpoint lane ~w.~n",[LaneId]),
+            {reply, ok};
+        _Other ->
+        	{error, checkpoint}
+    end.
+
+restore(LaneList) ->
+	{ok, Cwd} = file:get_cwd(),
+    LanesFile = Cwd ++ "/lanes_chk.txt",
+    CarFile = Cwd ++ "/Cars_chk.txt",
+    OCarFile = Cwd ++ "/OCars_chk.txt",
+    
+	Lanes = filemanager:get_data(LanesFile),
+	Cars = filemanager:get_data(CarFile),
+	OCars = filemanger:get_data(OCarFile),
+	
+	restore_aux(LaneList, Lanes, Cars, OCars).
+
+
+restore(LaneList, LanesFile, CarFile,OCarFile) ->
+	io:format("Lanes Files: ~p", [{LanesFile, CarFile,OCarFile}]),
+	Lanes = filemanager:get_data(LanesFile),
+	Cars = filemanager:get_data(CarFile),
+	OCars = filemanger:get_data(OCarFile),
+	
+	restore_aux(LaneList, Lanes, Cars, OCars).
+   
+%%=======================================================================%%
+%%====================CLIENT INTERFACE FUNC==============================%%
+%%=======================================================================%%
  
 %% Write down the results
 write_result(Path, Data) ->
@@ -1395,3 +1458,51 @@ write_final_stats([{Stat, Counter}|Tail], Path) ->
     write_result(Path, io_lib:format("~w: ~w",[Stat, Counter])),
     write_final_stats(Tail, Path).
     
+write_checkpoint(LaneId, _LightId, _Dir, _Type, _ConnectedLanes, CarsQueque, OutSideArea, 
+  Capacity, Obstruction, ProbData, Stats, TopSpeed, {Path, CarsPath,OCarsPath}) ->
+	%%{lane212av1,light212,av, 1, [{main,[lane210av1]},{secondary, [lane210av2]}, {siblings, [lane212av2]}],[], source_lane, 5,
+	%%Lanes = format_connected_lanes(ConnectedLanes),
+	%%filemanager:write_raw(Path, 
+	%%	io_lib:format("~w",[{LaneId,LightId, Dir, Type,Lanes, normal_lane,Capacity,Obstruction, ProbData, Stats, TopSpeed}])),
+	filemanager:write_raw(Path, 
+		io_lib:format("~w",[{LaneId, Capacity,Obstruction, ProbData, Stats, TopSpeed}])),
+	filemanager:write_raw(CarsPath, io_lib:format("~w", [{LaneId, CarsQueque}])),
+	filemanager:write_raw(OCarsPath, io_lib:format("~w", [{LaneId, OutSideArea}])).
+   
+format_connected_lanes(ConnectedLanes) ->
+	lists:map(fun({LaneType, List}) ->
+				{LaneType, lists:map(fun({LaneId, _LanePid}) -> LaneId end, List)} end,
+			  ConnectedLanes).
+
+%%%% RESTORE
+%%restore_aux([], _Cars, _OCars, RestoredLanes) ->
+%%	RestoredLanes;
+%%restore_aux([Lanei | LaneTail], Cars, OCars, RestoredLanes) ->
+%%	{LaneId,LightId, Dir, Type,Lanes, normal_lane,Capacity,Obstruction, ProbData, Stats, TopSpeed} = Lanei,
+%%	CarsQueque = restore_cars(LaneId, Cars),
+%%	OutSideArea = restore_cars(LaneId, OCars),
+%%	RestLane= spawn(lane,init, 
+%%		[restore, {LaneId, Type, Lanes, CarsQueque, OutSideArea, Capacity, Obstruction, ProbData, Stats, TopSpeed}]),
+%%	restore_aux(LaneTail, Cars, OCars, [{LaneId, RestLane, LightId, Dir} | RestoredLanes]).
+
+restore_aux([], _RestoredLanes, _Cars, _OCars) ->
+	{ok, restore_aux};
+restore_aux([Lanei | LaneTail], RestoredLanes, Cars, OCars) ->
+	{LaneId,Pid, _LightController, _Dir, _ConnectedLanes, _IsSource, _ProbRanges}  = Lanei,
+	LaneData = restore_lane(LaneId, RestoredLanes, Cars, OCars),
+	Pid ! {restore, LaneData}, %% restore the data
+	restore_aux(LaneTail, RestoredLanes, Cars, OCars).
+
+restore_lane(LaneId, Lanes, Cars, OCars) ->
+%%{LaneId, Capacity,Obstruction, ProbData, Stats, TopSpeed}
+	{LaneId, Capacity,Obstruction, ProbData, Stats, TopSpeed} = lists:keyfind(LaneId, 1, Lanes),
+	CarsQueque = restore_cars(LaneId, Cars),
+	OutSideArea = restore_cars(LaneId, OCars),
+	{CarsQueque, OutSideArea, Capacity, Obstruction, ProbData, Stats, TopSpeed}.
+	
+restore_cars(Id, List) ->
+	Res = lists:keyfind(Id, 1, List),
+	case Res of
+		false -> [];
+		_Other -> Res
+	end. 
