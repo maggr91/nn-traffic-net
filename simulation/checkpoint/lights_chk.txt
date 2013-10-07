@@ -1,0 +1,8 @@
+{light212,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],redgreen,greenred}
+{light210,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],redgreen,greenred}
+{light208,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],greenred,redgreen}
+{light206,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],greenred,redgreen}
+{light412,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],greenred,redgreen}
+{light410,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],redgreen,greenred}
+{light408,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],greenred,redgreen}
+{light406,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],greenred,redgreen}

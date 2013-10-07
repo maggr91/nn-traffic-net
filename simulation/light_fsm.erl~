@@ -3,14 +3,15 @@
 
 %gen_fsm behavior implementation
 -export([init/1, handle_event/3,handle_sync_event/4, handle_info/3, terminate/3, code_change/4,
-         get_state/1, tabulate_data/2]).
+         get_state/1]).
 
 %states
 -export([ redred/2, redred/3, greenred/2, greenred/3, redgreen/2, redgreen/3]).
 %-record(state,{}).
 
 %client calls
--export([start_link/1,move_avenue/1, move_street/1, idle/1,update_siblings/2, evaluate_state/1]).
+-export([start_link/1,move_avenue/1, move_street/1, idle/1,update_siblings/1, evaluate_state/1, 
+			tabulate_data/1, checkpoint_data/1, restore/1]).
 
 %test
 -export([test/0]).
@@ -34,11 +35,18 @@ move_street(Pid) ->
 idle(Pid) ->
     gen_fsm:sync_send_event(Pid,idle).
 
-update_siblings(Pid, Siblings) ->
+update_siblings({Pid, Siblings}) ->
     gen_fsm:sync_send_event(Pid,{update_siblings, Siblings}).
 
-tabulate_data(Pid, DataLog) ->
+tabulate_data({Pid, DataLog}) ->
     gen_fsm:sync_send_event(Pid,{tabulate_data, DataLog}).
+ 
+checkpoint_data({Pid, DataLog}) ->
+    gen_fsm:sync_send_event(Pid,{checkpoint, DataLog}).
+
+restore({Pid, RestoredData}) ->
+    gen_fsm:sync_send_event(Pid,{restore, RestoredData}).
+    
 %% gen_fsm functions
 
 start_link(Args) ->
@@ -122,6 +130,16 @@ redred({tabulate_data, DataLog},_From, StateData) ->
     {LightId,ManagedLanes, Siblings, Times, LogData, OldState} = StateData,
     write_final_data(ManagedLanes, DataLog),
     {reply, {redred,DataLog},redred, {LightId,ManagedLanes, Siblings, Times, LogData, OldState}};
+redred({checkpoint, DataLog}, _From, StateData) ->    
+    {LightId,ManagedLanes, Siblings, Times, LogData, OldState} = StateData,
+    io:format("Checkpoint for: ~p~n",[LightId]),
+    write_checkpoint(ManagedLanes, LightId, DataLog, {LightId, Times, redred, OldState}),
+    {reply, {redred,DataLog}, redred, {LightId,ManagedLanes, Siblings, Times, LogData, OldState}};
+redred({restore, RestoredData}, _From, StateData) ->    
+    {LightId,ManagedLanes, Siblings, _Times, LogData, _OldState} = StateData,
+    {_Id, RestoredTimes, RestoredState, RestoredOldState} = RestoredData,
+    io:format("Restore for: ~p~n",[LightId]),
+    {reply, {redred,RestoredData}, RestoredState, {LightId,ManagedLanes, Siblings, RestoredTimes, LogData, RestoredOldState}};
 redred(move_avenue,_From, StateData) ->
     io:format("Changing for red to green on avenue. Start Moving avenue lanes. Data: ~w~n",[StateData]),
     {LightId,ManagedLanes,Siblings, Times, LogData, OldState} = StateData,
@@ -196,6 +214,7 @@ greenred(idle, StateData) ->
 greenred(Event, StateData) ->
     unexpected_event(greenred, Event, StateData),
     {next_state, greenred, StateData}.
+
 %%Synch calls
 greenred(get_state, _From, StateData = {_LightId,_ManagedLanes,Siblings, Times, LogData, OldState}) ->
     {reply, {greenred,Times, Siblings,LogData, OldState},greenred, StateData};
@@ -204,6 +223,16 @@ greenred({tabulate_data, DataLog},_From, StateData) ->
     {LightId,ManagedLanes, Siblings, Times, LogData, OldState} = StateData,
     write_final_data(ManagedLanes, DataLog),
     {reply, {greenred,DataLog},greenred, {LightId,ManagedLanes, Siblings,Times, LogData, OldState}};
+greenred({checkpoint, DataLog}, _From, StateData) ->    
+    {LightId,ManagedLanes, Siblings, Times, LogData, OldState} = StateData,
+    io:format("Checkpoint for: ~p~n",[LightId]),
+    write_checkpoint(ManagedLanes, LightId, DataLog, {LightId, Times, greenred, OldState}),
+    {reply, {greenred,DataLog}, greenred, {LightId,ManagedLanes, Siblings, Times, LogData, OldState}};
+greenred({restore, RestoredData}, _From, StateData) ->    
+    {LightId,ManagedLanes, Siblings, _Times, LogData, _OldState} = StateData,
+    {_Id, RestoredTimes, RestoredState, RestoredOldState} = RestoredData,
+    io:format("Restore for: ~p~n",[LightId]),
+    {reply, {greenred,RestoredData}, RestoredState, {LightId,ManagedLanes, Siblings, RestoredTimes, LogData, RestoredOldState}};
 greenred(move_avenue, _From, StateData) ->
     io:format("continue moving avenue lanes. Data: ~w~n",[StateData]),
     {LightId,ManagedLanes,Siblings, Times, LogData, OldState} = StateData,
@@ -228,6 +257,7 @@ greenred(idle, _From, StateData) ->
     NewTimes = lists:keyreplace(allred_timer,1, Times, {allred_timer, ARTimer + 1}),
     {reply, {greenred,Siblings},redred, {LightId,ManagedLanes,Siblings, NewTimes, LogData, greenred}}.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Moving STREETS    
 redgreen(move_street, StateData) ->
     io:format("continue moving street lanes. Data: ~w~n",[StateData]),
@@ -262,6 +292,16 @@ redgreen({tabulate_data, DataLog},_From, StateData) ->
     {LightId,ManagedLanes, Siblings, Times, LogData, OldState} = StateData,
     write_final_data(ManagedLanes, DataLog),
     {reply, {redgreen,DataLog},redgreen, {LightId,ManagedLanes, Siblings, Times, LogData, OldState}};
+redgreen({checkpoint, DataLog}, _From, StateData) ->    
+    {LightId,ManagedLanes, Siblings, Times, LogData, OldState} = StateData,
+    io:format("Checkpoint for: ~p~n",[LightId]),
+    write_checkpoint(ManagedLanes, LightId, DataLog, {LightId, Times, redgreen, OldState}),
+    {reply, {redgreen,DataLog}, redgreen, {LightId,ManagedLanes, Siblings, Times, LogData, OldState}};
+redgreen({restore, RestoredData}, _From, StateData) ->    
+    {LightId,ManagedLanes, Siblings, _Times, LogData, _OldState} = StateData,
+    {_Id, RestoredTimes, RestoredState, RestoredOldState} = RestoredData,
+    io:format("Restore for: ~p~n",[LightId]),
+    {reply, {redgreen,RestoredData}, RestoredState, {LightId,ManagedLanes, Siblings, RestoredTimes, LogData, RestoredOldState}};
 redgreen(move_street,_From, StateData) ->
     io:format("continue moving street lanes. Data: ~w~n",[StateData]),
     {LightId,ManagedLanes,Siblings, Times, LogData, OldState} = StateData,
@@ -389,7 +429,7 @@ update_lanes_idle_aux(ManagedLanes, [Idle | Tail], CTime, LogData)->
 	case Res of
     	{Idle, List} -> update_on_idle(List, CTime, LogData);
     	false		   -> []		
-    end
+    end,
 	update_lanes_idle_aux(ManagedLanes, Tail, CTime, LogData).
 
 %% Update each lane that is active on this light 
@@ -455,3 +495,20 @@ write_final_data_aux([{LaneId,LanePid}|Tail], Path) ->
 write_endline(LogData) ->
    io:format("-----------------------------------------------~n~n"),
    write_result(LogData, io_lib:format("----------------------------------------------------",[])).
+   
+%%%%%%%%%%%%%%
+%% CHECKPOINT
+write_checkpoint([], _LightId, DataLogs, LightStateData) ->
+	{LightChk, _LanesChk, _CarsChk, _OCarsChk} = DataLogs,
+	filemanager:write_raw(LightChk, io_lib:format("~w", [LightStateData])),
+	{ok, checkpoint};
+write_checkpoint([{Dir, List} | ManagedLanes], LightId, DataLogs, LightStateData) ->	
+	{ _LightChk, LanesChk, CarsChk,OCarsChk} = DataLogs,
+    write_checkpoint_aux(List,{LightId, Dir, {LanesChk, CarsChk,OCarsChk}}),
+    write_checkpoint(ManagedLanes, LightId, DataLogs, LightStateData).
+    
+write_checkpoint_aux([], _LightData) ->
+    [];
+write_checkpoint_aux([{LaneId,LanePid}|Tail], LightData) ->   
+    lane:checkpoint({LaneId, LanePid}, LightData),    
+    write_checkpoint_aux(Tail, LightData).
