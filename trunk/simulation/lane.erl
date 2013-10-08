@@ -1503,6 +1503,7 @@ restore_lane(LaneId, Lanes, Cars, OCars) ->
 restore_cars(Id, List) ->
 	Res = lists:keyfind(Id, 1, List),
 	case Res of
-		false -> [];
-		_Other -> Res
+		false -> 	[];
+		_Other -> 	{Id, Cars} = Res,
+				 	Cars
 	end. 
