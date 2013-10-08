@@ -1,6 +1,6 @@
 -module(simulation).
 
--export([start/2, run_simulation/1, restore/0]).
+-export([start/2, run_simulation/1, restore/0, call/1]).
 
 
 start(Lapse, MaxSpeed) ->
@@ -8,7 +8,7 @@ start(Lapse, MaxSpeed) ->
     [Config | _Junk] = get_config(),
     start_probServers(),
     register(trafficServer, traffic:start(normal, {MaxSpeed, Config})),
-    timer:apply_after(200, simulation, run_simulation, [Lapse]).
+    timer:apply_after(200, simulation, run_simulation, [{normal, Lapse, now()}]).
     
 restore() ->
 	start_probServers(),
@@ -17,24 +17,35 @@ restore() ->
 	{ConfigData, LastTime, TopTime} = RestoredStruct,
 	register(trafficServer, traffic:start(restore, {ConfigData, LastTime})),
 	
-    timer:apply_after(1200, simulation, run_simulation, [{LastTime, TopTime}]).
+    timer:apply_after(400, simulation, run_simulation, [{restore, LastTime, TopTime, now()}]).
 
 %%run simulation from last checkpoint
-run_simulation({LastTime, Lapse}) ->    
-    run_simulation(Lapse, LastTime);
+run_simulation({restore, LastTime, Lapse, BeginTime}) ->    
+    run_simulation(Lapse, LastTime, BeginTime);
 
 %%run aux
-run_simulation(Lapse) ->    
-    run_simulation(Lapse, 0).
+run_simulation({normal, Lapse, BeginTime}) ->    
+    run_simulation(Lapse, 0, BeginTime).
 
 %% Loop used to run each iteration of the simulation
-run_simulation(Lapse, Current) when Current < Lapse ->
-    io:format("CONTINUING with run.~n",[]),
-    call(continue),   
-    run_simulation(Lapse, Current + 1);
-run_simulation(Lapse, Current) when Current >= Lapse ->
-    %%stop().
-    checkpoint(Current, Lapse).
+run_simulation(Lapse, Current, BeginTime) when Current < Lapse ->
+	CurrentTime = now(),
+	case microsec_to_minutes(timer:now_diff(CurrentTime,BeginTime)) >= 30 of
+		false ->
+				io:format("CONTINUING with run.~n",[]),
+				call(continue),   
+				run_simulation(Lapse, Current + 1, BeginTime);
+		true ->
+				io:format("SAVING CHECKPOINT.~n",[]),
+				checkpoint(Current, Lapse),
+				%%timer:apply_after(300, simulation, call, [continue]),
+				call(continue),
+				run_simulation(Lapse, Current + 1, now())
+	end;
+				
+run_simulation(Lapse, Current, _BeginTime) when Current >= Lapse ->
+    stop().
+    %%checkpoint(Current, Lapse).
     %%timer:apply_after(300, simulation, unregister_process, []). 
 stop() -> 
 	stop_probServers(),
@@ -100,13 +111,15 @@ find_config_data(ConfigData, Key) ->
 		{Key, Value} -> Value
 	end.
 
+microsec_to_minutes(Value) ->
+	((((Value / 1000) / 1000) / 60)). 
 %%%%%%%%%%%%%%%%%
 
 clearLastCheck()->
 	file:del_dir("checkpoint").
 	
 checkpoint(CurrentTime, Lapse) ->
-	stop_probServers(),
+	%%stop_probServers(),
 	clearLastCheck(),
 	filelib:ensure_dir("checkpoint/"),
 	{{Y, M, D}, {H, Mi, _S}} = calendar:local_time(),

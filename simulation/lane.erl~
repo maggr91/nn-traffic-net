@@ -1434,7 +1434,7 @@ restore(LaneList, LanesFile, CarFile,OCarFile) ->
 	io:format("Lanes Files: ~p", [{LanesFile, CarFile,OCarFile}]),
 	Lanes = filemanager:get_data(LanesFile),
 	Cars = filemanager:get_data(CarFile),
-	OCars = filemanger:get_data(OCarFile),
+	OCars = filemanager:get_data(OCarFile),
 	
 	restore_aux(LaneList, Lanes, Cars, OCars).
    
@@ -1504,5 +1504,5 @@ restore_cars(Id, List) ->
 	Res = lists:keyfind(Id, 1, List),
 	case Res of
 		false -> [];
-		_Other -> Res
+		_Other -> {Id, Res
 	end. 
