@@ -47,7 +47,7 @@ tabulate_data({Pid, DataLog}) ->
 checkpoint_data({Pid, DataLog}) ->
     gen_fsm:sync_send_event(Pid,{checkpoint, DataLog}).
 
-restore(Pid, RestoredData) ->
+restore({Pid, RestoredData}) ->
     gen_fsm:sync_send_event(Pid,{restore, RestoredData}).
   
 %% gen_fsm functions
@@ -613,11 +613,11 @@ write_endline(LogData) ->
 %%%%%%%%%%%%%%
 %% CHECKPOINT
 write_checkpoint([], _LightId, DataLogs, LightStateData) ->
-	{LightChk, _LanesChk, _CarsChk, _OCarsChk} = DataLogs,
+	{LightChk, _LanesChk, _CarsChk, _OCarsChk, _SCarsChk} = DataLogs,
 	filemanager:write_raw(LightChk, io_lib:format("~w", [LightStateData])),
 	{ok, checkpoint};
 write_checkpoint([{Dir, List} | ManagedLanes], LightId, DataLogs, LightStateData) ->	
-	{ _LightChk, LanesChk, CarsChk,OCarsChk} = DataLogs,
+	{ _LightChk, LanesChk, CarsChk,OCarsChk, _SCarsChk} = DataLogs,
     write_checkpoint_aux(List,{LightId, Dir, {LanesChk, CarsChk,OCarsChk}}),
     write_checkpoint(ManagedLanes, LightId, DataLogs, LightStateData).
     

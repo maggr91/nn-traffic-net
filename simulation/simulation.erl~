@@ -30,7 +30,7 @@ run_simulation({normal, Lapse, BeginTime}) ->
 %% Loop used to run each iteration of the simulation
 run_simulation(Lapse, Current, BeginTime) when Current < Lapse ->
 	CurrentTime = now(),
-	case microsec_to_minutes(timer:now_diff(CurrentTime,BeginTime)) >= 30 of
+	case microsec_to_minutes(timer:now_diff(CurrentTime,BeginTime)) >= 1 of
 		false ->
 				io:format("CONTINUING with run.~n",[]),
 				call(continue),   
