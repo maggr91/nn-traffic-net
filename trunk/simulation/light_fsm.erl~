@@ -25,7 +25,6 @@ init_move_street(Pid) ->
     gen_fsm:sync_send_event(Pid,init_move_street).
 
 
-
 move_avenue(Pid) ->
     gen_fsm:sync_send_event(Pid,move_avenue).
     
@@ -499,11 +498,11 @@ write_endline(LogData) ->
 %%%%%%%%%%%%%%
 %% CHECKPOINT
 write_checkpoint([], _LightId, DataLogs, LightStateData) ->
-	{LightChk, _LanesChk, _CarsChk, _OCarsChk} = DataLogs,
+	{LightChk, _LanesChk, _CarsChk, _OCarsChk, _SCarsChk} = DataLogs,
 	filemanager:write_raw(LightChk, io_lib:format("~w", [LightStateData])),
 	{ok, checkpoint};
 write_checkpoint([{Dir, List} | ManagedLanes], LightId, DataLogs, LightStateData) ->	
-	{ _LightChk, LanesChk, CarsChk,OCarsChk} = DataLogs,
+	{ _LightChk, LanesChk, CarsChk,OCarsChk, _SCarsChk} = DataLogs,
     write_checkpoint_aux(List,{LightId, Dir, {LanesChk, CarsChk,OCarsChk}}),
     write_checkpoint(ManagedLanes, LightId, DataLogs, LightStateData).
     

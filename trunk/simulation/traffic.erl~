@@ -334,8 +334,8 @@ loop({Intersections, SourceLanes, {LogPath, DataLogPath, CheckPointLog}}, Time) 
         tabulate_network(Intersections,DataLogPath),
         reply(Pid, {normal, Time});
     {call, Pid, checkpoint} ->
-    	safe_delete_files(CheckLogs),
-    	checkpoint(Intersections, CheckPointLog),
+    	safe_delete_files(CheckPointLog),
+    	checkpoint(Intersections,SourceLanes, CheckPointLog),
     	reply(Pid, {ok, checkpoint}),
     	loop({Intersections, SourceLanes, {LogPath, DataLogPath, CheckPointLog}}, Time)
   end.
@@ -400,12 +400,20 @@ max_car_move(MaxSpeed, CarAvgLength) ->
 %%DESC: calls to all 
 %%INPUT: LanesList a list with all lanes to be saved in 
 %%OUTPUT: None
-checkpoint([], _CheckPointLog) ->
+checkpoint(Intersections, Sources, CheckPointLog) ->
+	{LightChk, LanesChk, CarsChk, OCarsChk, SCarsChk} = CheckPointLog,
+	checkpoint_lights(Intersections, {LightChk, LanesChk, CarsChk, OCarsChk}),
+	checkpoint_sources(Sources, SCarsChk).
+
+checkpoint_sources(Sources, CheckFile) ->
+	lane:checkpoint_sources(Sources, CheckFile).
+
+checkpoint_lights([], _CheckPointLog) ->
     [];
-checkpoint([{_InterId, Intersection, Sequence} | Intersections], CheckPointLog) ->
+checkpoint_lights([{_InterId, Intersection, Sequence} | Intersections], CheckPointLog) ->
 	%%light_fsm:checkpoint_data(Intersection, CheckPointLog),
 	invoke_light(Sequence, checkpoint_data,{Intersection, CheckPointLog}),
-    checkpoint(Intersections, CheckPointLog).    
+    checkpoint_lights(Intersections, CheckPointLog).    
     
 format_checkpointlogs(CheckLogs) ->
 	L = tuple_to_list(CheckLogs),
@@ -438,14 +446,16 @@ restore_map({LightSource, LaneSource, ArrivaLog, DataLog, CheckPointLog}) ->
     connect_lanes({AllocatedLanes,AllocatedLanes}),
     SourceLanes = get_source_lanes(AllocatedLanes),
 
-	{LightsFile, LanesFile, CarsFile, OCarFile} = CheckPointLog,
+	{LightsFile, LanesFile, CarsFile, OCarFile, SCarsChk} = CheckPointLog,
 	%%RESTORE LANES DATA FROM CHECKPOINT
 	lane:restore(AllocatedLanes, LanesFile, CarsFile, OCarFile),
 	
-	NewCheckLogPath = format_checkpointlogs(CheckPointLog),
-	
 	%%Get poisson dist for each source lane
-    NewSources = lane:init_poisson(SourceLanes),    
+    NewSources = lane:init_poisson(SourceLanes),   
+    RestoredSources = lane:restore_sources(NewSources, SCarsChk),
+	
+	NewCheckLogPath = format_checkpointlogs(CheckPointLog),
+		     
     %%io:format("SOURCES With poisson ~w.~n",[NewSources]),    
     io:format("PREPARING LightsFSM .~n",[]),
 %%Spawn FSM for traffic lights on each intersection and then connect them    

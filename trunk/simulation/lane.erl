@@ -1,6 +1,7 @@
 -module(lane).
 
--export([start/2, estimate_new_arrival/2, init_poisson/1, init_geometric/1, connect/2, checkpoint/2, restore/1, restore/4]).
+-export([start/2, estimate_new_arrival/2, init_poisson/1, init_geometric/1, connect/2, 
+	checkpoint/2, restore/1, restore/4, restore_sources/2, checkpoint_sources/2]).
 
 -export([init/2]).
 
@@ -1507,3 +1508,23 @@ restore_cars(Id, List) ->
 		_Other -> 	{Id, Cars} = Res,
 				 	Cars
 	end. 
+	
+%%%SPECIAL METHOD FOR SOURCES LANES USED IN TRAFFIC MODULE
+checkpoint_sources(Sources, CheckFile) ->
+	lists:map(fun ({LaneId, _LanePid, WaitingCars, ProbData, Timer}) ->
+				filemanager:write_raw(CheckFile, io_lib:format("~w", [{LaneId, {ProbData, Timer, WaitingCars}}]))
+			  end,
+			  Sources
+			 ),
+	{ok, checkpoint_sources}.
+
+
+restore_sources(SourcesList, File) ->
+	SourcesData = filemanager:get_data(File),
+	restore_sources_aux(SourcesList, SourcesData, []).	
+restore_sources_aux([], _SourcesData, RestoredSources) ->
+	RestoredSources;
+restore_sources_aux([{LaneId, LanePid, _WaitingCars, _ProbData, _Timer} | Tail], SourcesData, RestoredSources) ->
+	{RestoredProbData, RestoredTimer, RestoredWaitingCars} = restore_cars(LaneId, SourcesData),
+	restore_sources_aux(Tail, SourcesData, [ {LaneId, LanePid, RestoredWaitingCars, RestoredProbData, RestoredTimer} | RestoredSources]).
+	
