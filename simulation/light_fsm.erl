@@ -56,7 +56,7 @@ init(Args) ->
     {LightId, ManagedLanes,Siblings, Times, LogData} = Args,
     file:delete(LogData), %% delete old log
     NewTimes = [{allred_timer, 0} | Times],
-    CtrlMod = moduler:start(),
+    CtrlMod = moduler:start(LightId),
     %{ok, redred,{LightId, ManagedLanes,Siblings, NewTimes, LogData, redred, CtrlMod}}.
     {ok, redred,[{id,LightId}, {managed_lanes, ManagedLanes},{siblings, Siblings}, 
     	{times, NewTimes}, {log_data, LogData}, {old_state, redred}, {ctrl_mod, CtrlMod}]}.
@@ -132,8 +132,9 @@ redred({update_siblings, Siblings},_From, StateData) ->
     
     %%CREATE THE MODULER HERE USING THE AV OR DIR
     %%SPAWN THE NN TOO AND ADD IT TO THE MODULER
-    %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod}
-    NewStateData = update_state_data([{siblings, Siblings}], StateData),
+    %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod}    
+    update_moduler(StateData, Siblings),
+    NewStateData = update_state_data([{siblings, Siblings}], StateData),    
     {reply, {redred,Siblings},redred, NewStateData};
     
 redred({tabulate_data, DataLog},_From, StateData) ->
@@ -654,4 +655,38 @@ get_state_data(State, StateData) ->
     OldState = find_element(old_state, StateData),
     CtrlMod = find_element(ctrl_mod, StateData),
 	{State,Times,Siblings, LogData, OldState, CtrlMod}.
-	  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% MODULER interface
+
+%%DESC: Basic function on init just to update information of the moduler related with connections
+update_moduler(StateData, Siblings) ->
+	CtrlModSender = find_element(ctrl_mod, StateData),
+	lists:map(
+		fun ({Dir, SiblingsList}) ->
+			io:format("Sibling list for ~w : ~w~n",[Dir, SiblingsList]),
+			lists:map(
+				fun({Id, _LightPid,_Sequence, CtrlModReciever}) ->
+					%{_State, _Times, _Siblings, _LogData, _OldState, CtrlModReciever} = get_state(LightPid),
+				  	moduler:connect(Dir, CtrlModSender, CtrlModReciever),
+				  	io:format("moduler connected~w~n",[Id]),
+				  	moduler:status(CtrlModSender),
+				  	moduler:status(CtrlModReciever)
+				end,
+				SiblingsList	
+		)
+		end,
+		Siblings
+	), 
+	{ok, upd_moduler}.
+	
+%update_moduler_aux([{Dir, SiblingsList} | Tail], CtrlMod) ->
+%	Links = get_moduler_links(SiblingsList, []), 
+%	update_moduler_aux(Tail, [{Dir, CtrlMod} | CtrlModLinks]).
+
+%get_moduler_links([], ModulerLinks) ->
+%	lists:reverse(ModulerLinks);
+%get_moduler_links([{_Id, LightPid,_Sequence} | Tail], ModulerLinks) ->
+%	{_State, _Times, _Siblings, _LogData, _OldState, CtrlMod} = get_state(LightPid),
+%	get_moduler_links(Tail, [CtrlMod | ModulerLinks]).
+	
