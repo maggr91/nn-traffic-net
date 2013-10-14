@@ -23,7 +23,7 @@ init() ->
 init({Light, NN}) ->
 	[Config | _Junk] = get_config(),
 	CheckpointLog = find_config_data(Config, checkpoint_data),
-	listen(Light,[{av, []}, {ca,[]}],NN, [{siblings_data, []},{net_values, []}], CheckpointLog).
+	listen(Light,[{av, []}, {ca,[]}],NN, [], CheckpointLog).
 	
 %%CREATES The decision maker for the light in this case is a Neuronal Network
 %%Input: None

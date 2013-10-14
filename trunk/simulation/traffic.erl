@@ -235,7 +235,7 @@ find_adjLanes(AdjLaneId, [_LHead | LTail]) ->
 set_connection_to_light_siblings([], _LightsList) -> [];
 set_connection_to_light_siblings([{_Id, Pid,Sequence}|LightsRem], LightsList) ->
     %%{_State, _Times, Siblings, _LogData, _OldState} = light_fsm:get_state(Pid),
-   {_State, _Times, Siblings, _LogData, _OldState} = invoke_light(Sequence, get_state, Pid),
+   {_State, _Times, Siblings, _LogData, _OldState, _CtrlMod} = invoke_light(Sequence, get_state, Pid),
 %% The siblings list is a list of tuples that contaings LightId use this to find the corresponding PID
     CompleteSiblings = find_siblings(Siblings,LightsList,[]),
 %% After getting the list with all PIDs, update the corresponding FSM    

@@ -8,7 +8,7 @@ start(Lapse, MaxSpeed) ->
     [Config | _Junk] = get_config(),
     start_probServers(),
     register(trafficServer, traffic:start(normal, {MaxSpeed, Config})),
-    timer:apply_after(200, simulation, run_simulation, [{normal, Lapse, now()}]).
+    timer:apply_after(400, simulation, run_simulation, [{normal, Lapse, now()}]).
     
 restore() ->
 	start_probServers(),
