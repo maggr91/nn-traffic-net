@@ -1,22 +1,22 @@
 -module(ann).
--export([start/0, start/3, test_run/0, train_inputs/2, stop/1]).
+-export([start/1, start/3, test_run/0, train_inputs/2, stop/1]).
 
--export([init/0, init/3]).
+-export([init/1, init/3]).
 
-start()->
-	spawn(ann, init, []).
+start(Args)->
+	spawn(ann, init, [Args]).
 	
 start(Input, Hiden, Output) ->
 	spawn(ann, init, [Input, Hiden, Output]).
 
-init() ->
+init(NNField) ->
 	%% When not first training use the save configuration for the ann
-	Layers = load_layers(),
-	network(Layers).
+	Layers = load_layers(NNField),
+	network(Layers, NNField).
 
 %%when loading a network from old process
-load_layers() ->
-	{ConfigX, ConfigH, ConfigY} = check_for_learning(),
+load_layers(NNField) ->
+	{ConfigX, ConfigH, ConfigY} = check_for_learning(NNField),
 	InputLay = load_layer(ConfigX),
 	HiddenLay = custom_load_layer(ConfigH),
 	OutputLay = load_layer(ConfigY),
@@ -92,7 +92,7 @@ get_connections_pids(Target, Source) ->
 init(Input, Hiden, Output) ->
 	io:format("New network~n"),
 	Layers = load_layers(Input, Hiden, Output),
-	network(Layers).
+	network(Layers, "test_saving.txt").
 
 %% creates a new network from scratch
 load_layers(Input, Hiden, Output) ->
@@ -135,7 +135,7 @@ connect_layers(SenderLayer, [ReceiverNeuron | ReceiverTail]) ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-network(Layers) ->	
+network(Layers, NNFile) ->	
 % 	io:format("Saving training~n"),
 %	file:delete("test_saving.txt"),
 %	io:format("Old file deleted~n"),			
@@ -146,14 +146,16 @@ network(Layers) ->
 		{train, CallerPid, Data} ->
 			send_input(Layers,Data),
 			reply(CallerPid, ok),
-			network(Layers);
+			network(Layers, NNFile);
 		{stop, CallerPid} ->
 			io:format("Saving training of layers ~w~n", [Layers]),
 			file:delete("test_saving.txt"),
 			io:format("Old file deleted~n"),			
 			save_training(Layers, "test_saving.txt"),
 			reply(CallerPid, ended),
-			{normal, ok}
+			{normal, ok};
+		{update_file, NewNNFile} ->
+			network(Layers, NewNNFile);
 	end.			
 
 %% set a new training set for the network
@@ -231,8 +233,9 @@ reply (Pid, Reply) ->
     
 %load_structure() ->
 %	filemanager:get_data("structure.txt").
-check_for_learning() ->
-	Data = filemanager:get_data("/test_saving.txt"),
+check_for_learning(NNField) ->
+	%Data = filemanager:get_data("/test_saving.txt"),
+	Data = filemanager:get_data(NNField),
 	Input = filter_neurons(i, Data),
 	Hidden = filter_neurons(h, Data),
 	Output = filter_neurons(o, Data),	
