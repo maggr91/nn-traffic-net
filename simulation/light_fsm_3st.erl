@@ -57,10 +57,10 @@ start_link(Args) ->
 
 init(Args) ->
     %%{LightId, {Av, Ca, AvF},Siblings, Cycle_time, Go_time, LogData} = Args,
-    {LightId, ManagedLanes,Siblings, Times, LogData} = Args,
+    {Mode, LightId, ManagedLanes,Siblings, Times, LogData} = Args,
     file:delete(LogData), %% delete old log
     NewTimes = [{allred_timer, 0} | Times],
-    CtrlMod = moduler:start(),
+    CtrlMod = moduler:start({Mode, LightId}),
     %{ok, allred,{LightId, ManagedLanes,Siblings, NewTimes, LogData, allred, CtrlMod}}.
     {ok, allred,[{id,LightId}, {managed_lanes, ManagedLanes},{siblings, Siblings}, 
     	{times, NewTimes}, {log_data, LogData}, {old_state, allred}, {ctrl_mod, CtrlMod}]}.
@@ -143,7 +143,8 @@ allred(get_state, _From, StateData) ->
 allred({update_siblings, Siblings},_From, StateData) ->
     %io:format("Updating StateData: ~w~n",[Siblings]),
     %{LightId,ManagedLanes,_Siblings, Times, LogData, OldState, CtrlMod} = StateData,
-    NewStateData = update_state_data([{siblings, Siblings}], StateData),
+    update_moduler(StateData, Siblings),
+    NewStateData = update_state_data([{siblings, Siblings}], StateData),    
     {reply, {allred,Siblings},allred, NewStateData};
 allred({tabulate_data, DataLog},_From, StateData) ->
     io:format("Writing down data results: ~p~n",[DataLog]),
@@ -688,6 +689,7 @@ write_checkpoint(CallingState, DataLog, StateData) ->
 write_checkpoint([], _LightId, DataLogs, LightStateData, CtrlMod) ->
 	{LightChk, _LanesChk, _CarsChk, _OCarsChk} = DataLogs,
 	filemanager:write_raw(LightChk, io_lib:format("~w", [LightStateData])),
+	moduler:checkpoint(CtrlMod),
 	{ok, checkpoint};
 write_checkpoint([{Dir, List} | ManagedLanes], LightId, DataLogs, LightStateData, CtrlMod) ->	
 	{ _LightChk, LanesChk, CarsChk,OCarsChk} = DataLogs,
@@ -782,3 +784,30 @@ get_state_data(State, StateData) ->
     OldState = find_element(old_state, StateData),
     CtrlMod = find_element(ctrl_mod, StateData),
 	{State,Times,Siblings, LogData, OldState, CtrlMod}.
+	
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% MODULER interface
+
+%%DESC: Basic function on init just to update information of the moduler related with connections
+update_moduler(StateData, Siblings) ->
+	CtrlModSender = find_element(ctrl_mod, StateData),
+	SenderId = find_element(id, StateData),
+	lists:map(
+		fun ({Dir, SiblingsList}) ->
+			io:format("Sibling list for ~w : ~w~n",[Dir, SiblingsList]),
+			lists:map(
+				fun({ReceiverId, _LightPid,_Sequence, CtrlModReciever}) ->
+					%{_State, _Times, _Siblings, _LogData, _OldState, CtrlModReciever} = get_state(LightPid),
+				  	moduler:connect(Dir, {SenderId, CtrlModSender}, {ReceiverId, CtrlModReciever}),
+				  	io:format("moduler connected~w~n",[ReceiverId]),
+				  	moduler:status(CtrlModSender),
+				  	moduler:status(CtrlModReciever)
+				end,
+				SiblingsList	
+		)
+		end,
+		Siblings
+	), 
+	{ok, upd_moduler}.
+	

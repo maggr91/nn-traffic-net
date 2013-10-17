@@ -52,11 +52,11 @@ start_link(Args) ->
     gen_fsm:start_link(?MODULE,Args,[]).
 
 init(Args) ->
-    %%{LightId, {Av, Ca},Siblings, Times, LogData} = Args,
-    {LightId, ManagedLanes,Siblings, Times, LogData} = Args,
+    %%Mode indicates if normal or a restore from checkpoints
+    {Mode, LightId, ManagedLanes,Siblings, Times, LogData} = Args,
     file:delete(LogData), %% delete old log
     NewTimes = [{allred_timer, 0} | Times],
-    CtrlMod = moduler:start(LightId),
+    CtrlMod = moduler:start({Mode, LightId}),
     %{ok, redred,{LightId, ManagedLanes,Siblings, NewTimes, LogData, redred, CtrlMod}}.
     {ok, redred,[{id,LightId}, {managed_lanes, ManagedLanes},{siblings, Siblings}, 
     	{times, NewTimes}, {log_data, LogData}, {old_state, redred}, {ctrl_mod, CtrlMod}]}.
@@ -560,6 +560,7 @@ write_checkpoint(CallingState,DataLog, StateData) ->
 write_checkpoint([], _LightId, DataLogs, LightStateData, CtrlMod) ->
 	{LightChk, _LanesChk, _CarsChk, _OCarsChk} = DataLogs,
 	filemanager:write_raw(LightChk, io_lib:format("~w", [LightStateData])),
+	%moduler:checkpoint(CtrlMod),
 	{ok, checkpoint};
 write_checkpoint([{Dir, List} | ManagedLanes], LightId, DataLogs, LightStateData, CtrlMod) ->	
 	{ _LightChk, LanesChk, CarsChk,OCarsChk} = DataLogs,
@@ -662,16 +663,17 @@ get_state_data(State, StateData) ->
 %%DESC: Basic function on init just to update information of the moduler related with connections
 update_moduler(StateData, Siblings) ->
 	CtrlModSender = find_element(ctrl_mod, StateData),
+	SenderId = find_element(id, StateData),
 	lists:map(
 		fun ({Dir, SiblingsList}) ->
 			io:format("Sibling list for ~w : ~w~n",[Dir, SiblingsList]),
 			lists:map(
-				fun({Id, _LightPid,_Sequence, CtrlModReciever}) ->
+				fun({ReceiverId, _LightPid,_Sequence, CtrlModReciever}) ->
 					%{_State, _Times, _Siblings, _LogData, _OldState, CtrlModReciever} = get_state(LightPid),
-				  	moduler:connect(Dir, CtrlModSender, CtrlModReciever),
-				  	io:format("moduler connected~w~n",[Id])
-				  	moduler:status(CtrlModSender),
-				  	moduler:status(CtrlModReciever),
+				  	moduler:connect(Dir, {SenderId, CtrlModSender}, {ReceiverId, CtrlModReciever}),
+				  	io:format("moduler connected~w~n",[ReceiverId])
+				  	%moduler:status(CtrlModSender),
+				  	%moduler:status(CtrlModReciever)
 				end,
 				SiblingsList	
 		)

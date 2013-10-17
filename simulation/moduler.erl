@@ -1,5 +1,5 @@
 -module(moduler).
--export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/2, request_updates/1]).
+-export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/2, request_updates/1, checkpoint/1]).
 -export([init/1]).
 
 %% Used to comunicate traffic lights 
@@ -14,19 +14,22 @@ start() ->
 start(Args) ->
 	spawn(moduler, init, [Args]).
 
-init(LigthId) ->
+init({restore, LightId}) ->
+	[Config | _Junk] = get_config(),
+	CheckpointLog = find_config_data(Config, checkpoint_data),
+	{ModFile, NNFile} = CheckpointLog,
+	NN = restore_dm(NNFile),
+	RestoredData = restore(ModFile),
+	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,CheckpointLog);
+
+init({normal, LigthId}) ->
 	[Config | _Junk] = get_config(),
 	CheckpointLog = find_config_data(Config, checkpoint_data),
 	{_Other, NNFile} = CheckpointLog,
 	NN = create_dm(Config),
 	update_dm(NN, NNFile, LigthId),	
 	listen(LigthId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}],CheckpointLog).
-	
-%init({Light, NN}) ->
-%	[Config | _Junk] = get_config(),
-%	CheckpointLog = find_config_data(Config, checkpoint_data),
-%	listen(Light,[{av, []}, {ca,[]}],NN, [{siblings_data, []},{net_values, []}], CheckpointLog).
-	
+		
 %%CREATES The decision maker for the light in this case is a Neuronal Network
 %%Input: None
 %%Output: Pid of the DM
@@ -41,7 +44,9 @@ update_dm(NN, NNFile, LigthId)->
 	FileAux = Cwd ++ NNFile,
 	NewNNFile = FileAux ++ NewLight,
 	NN ! {update_file, NewNNFile}.
-	
+
+restore_dm(NNFile) ->	
+	ann:start(NNFile).
 listen(Light, Siblings, NN, Data, CheckpointLog) ->
 	receive
 		%%call siblings
@@ -63,15 +68,17 @@ listen(Light, Siblings, NN, Data, CheckpointLog) ->
 			reply(CallerPid, ok),
 			send_update_to_Siblings(Siblings, NewVals),
 			listen(Light, Siblings, NN, NewData, CheckpointLog);
-		{connect, SiblingPid, Dir} ->
+		{connect, SiblingData, Dir} ->
 			{Dir, List} = lists:keyfind(Dir, 1, Siblings),
-			Exist = lists:any(fun(Item) -> Item == SiblingPid end, List),
+			Exist = lists:any(fun(Item) -> Item == SiblingData end, List),
 			case Exist of
-				false -> NewSinbligs = lists:keyreplace(Dir, 1, Siblings, {Dir, [SiblingPid | List]}),
+				false -> NewSinbligs = lists:keyreplace(Dir, 1, Siblings, {Dir, [SiblingData | List]}),
 						 listen(Light, NewSinbligs, NN, Data, CheckpointLog);
 				true  -> listen(Light, Siblings, NN, Data, CheckpointLog)
 			end;
-		{checkpoint, _CallerPid} ->
+		{checkpoint, CallerPid} ->
+			write_checkpoint(NN, Data, CheckpointLog, Light),
+			reply(CallerPid, ok),
 			listen(Light, Siblings, NN, Data, CheckpointLog);			
 		{status, _CallerPid} ->
 			io:format("Status of moduler ~w ~n Siblings: ~w~n Data: ~w~n~n",[{Light,self()}, Siblings, Data]),
@@ -81,9 +88,9 @@ listen(Light, Siblings, NN, Data, CheckpointLog) ->
 reply(Pid, Reply) ->
     Pid ! {reply, Reply}.
 
-connect(Dir, SenderPid, ReceiverPid) ->
-	SenderPid ! {connect, ReceiverPid, Dir},
-	ReceiverPid ! {connect, SenderPid, Dir}.
+connect(Dir, {SenderId, SenderPid}, {ReceiverId, ReceiverPid}) ->
+	SenderPid ! {connect, {ReceiverId, ReceiverPid}, Dir},
+	ReceiverPid ! {connect, {SenderId, SenderPid}, Dir}.
 	
 %connect(Dir, SenderPid, ReceiverPid) ->
 %	SenderPid ! {connect, ReceiverPid, Dir}.
@@ -98,16 +105,18 @@ request_update_from_Siblings([{Dir, SiblingsList} | Siblings], Data) ->
 	
 update_from_Siblings_aux([], Data) ->
 	Data;
-update_from_Siblings_aux([S | Siblings], Data) ->
+update_from_Siblings_aux([{Sid, S} | Siblings], Data) ->
 	S ! {response, self()},
 	receive
 		{reply, NewData} ->
-			Res = lists:keyfind(S,1, Data),
-			case Res of
-				false ->	update_from_Siblings_aux(Siblings, [{S, NewData} | Data]); 	
-				_Other -> 	UpdatedData = lists:keyreplace(S,1,Data,{S, NewData}),
-							update_from_Siblings_aux(Siblings, UpdatedData)
-			end;						
+			UpdatedData = update_siblings_data(Sid, Data, NewData),
+			update_from_Siblings_aux(Siblings, UpdatedData);
+			%Res = lists:keyfind(S,1, Data),
+			%case Res of
+			%	false ->	update_from_Siblings_aux(Siblings, [{S, NewData} | Data]); 	
+			%	_Other -> 	UpdatedData = lists:keyreplace(S,1,Data,{S, NewData}),
+			%				update_from_Siblings_aux(Siblings, UpdatedData)
+			%end;						
 		_Other ->
 			{error, badarg}			
 	end.
@@ -118,7 +127,7 @@ send_update_to_Siblings(Siblings, Data) ->
 		fun({Dir, SiblingsList}) ->
 			io:format("Sending update to siblings on ~w. List: ~w~n~n", [Dir, SiblingsList]),
 			lists:map(
-				fun(SiblingPid) ->
+				fun({_SiblingId, SiblingPid}) ->
 					SiblingPid ! {broadcast_update, self(), Data}
 				end,
 				SiblingsList
@@ -183,7 +192,36 @@ status_test() ->
 	L = [m1,m2,m3,m4,m5,m6,m7,m8,m9],
 	lists:map(fun (Mod) -> Mod ! {status, self()} end, L),
 	{ok, []}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% CHECKPOINT
+%%%%%%%%%%%%%
+checkpoint(Pid) ->
+	Pid ! {checkpoint, self()},
+	receive
+		{reply, ok} -> {reply, ok};
+		_Other		-> {reply, error}
+	end.
 	
+
+write_checkpoint(NN, Data, CheckpointLog, LightId) ->
+	FormatedSiblings = format_siblings(Data),
+	FormatedData = lists:keyreplace(siblings_data,1,Data, {siblings_data, FormatedSiblings}),
+	{ModulerFile, _NNFile} = CheckpointLog,
+	filemanager:write_raw(ModulerFile, io_lib:format("~w", [{LightId, FormatedData}])),
+	write_checkpoint_nn(NN).
+write_checkpoint_nn(NN) ->
+	NN ! {stop, self()}.
+	
+format_siblings(Data) ->
+	{_Key, SiblingList} = lists:keyfind(siblings_data,1, Data),
+	lists:map(fun ({Sibling, NewData})-> {Sibling, NewData} end, SiblingList).
+	
+
+%%Uses the default file load in the Process to restore the data
+restore(File) ->
+	filemanager:get_data(File).
+
 test() ->
 	M1 = moduler:start(),
 	M2 = moduler:start(),
