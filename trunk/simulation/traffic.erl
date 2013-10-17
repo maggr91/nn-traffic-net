@@ -1,6 +1,6 @@
 -module(traffic).
 
--export([start/2, set_map/1, connect/1, connect_lanes/1]).
+-export([start/2, set_map/1, connect/2, connect_lanes/1]).
 
 -export([init/2]).
 
@@ -100,7 +100,7 @@ set_map({MaxSpeed, LightSource, LaneSource, ObsSource, AvgCar, ArrivaLog,DataLog
     %%io:format("SOURCES With poisson ~w.~n",[NewSources]),    
     io:format("PREPARING LightsFSM .~n",[]),
 %%Spawn FSM for traffic lights on each intersection and then connect them    
-    LightsFSM = connect({AllocatedLights, AllocatedLanes, [],Path}), 
+    LightsFSM = connect({AllocatedLights, AllocatedLanes, [],Path}, normal), 
     io:format("LightsFSM ~w.~n",[LightsFSM]),
     set_connection_to_light_siblings(LightsFSM,LightsFSM),
 
@@ -134,16 +134,16 @@ allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes,
     allocate_lanes({Tail, [{LaneId,Pid, LightController,Dir,ConnectedLanes, IsSource, ProbRanges} | Spawned], Obs, MaxSpeedMove}).
 
 %%connect lights with its lanes
-connect({[], _LaneList, LightsFSM,_LogData}) -> 
+connect({[], _LaneList, LightsFSM,_LogData}, _Mode) -> 
     LightsFSM;
-connect({[{LightId,Sequence,Siblings, Times} | TailLight], LaneList,LightsFSM, LogData}) -> 
+connect({[{LightId,Sequence,Siblings, Times} | TailLight], LaneList,LightsFSM, LogData}, Mode) -> 
     %%io:format("Luz: ~w / lineas: ~w.~n",[LightId, LaneList]),
     %%{ManagedLanes, RemLanes} = find_lanes({LightId, {[],[]}}, LaneList, []),
     {ManagedLanes, RemLanes} = find_lanesO({LightId, []}, LaneList, []),
     %%io:format("Managed Lanes: ~w.~n~n",[ManagedLanes]),
     PathLog = (LogData ++ lists:flatten(io_lib:format("~p",[LightId]))) ++ ".txt",
-    {ok, LightPid} = invoke_light(Sequence, start_link, {LightId, ManagedLanes,Siblings, Times, PathLog}),
-    connect({TailLight, RemLanes, [{LightId,LightPid, Sequence}|LightsFSM], LogData}).
+    {ok, LightPid} = invoke_light(Sequence, start_link, {Mode, LightId, ManagedLanes,Siblings, Times, PathLog}),
+    connect({TailLight, RemLanes, [{LightId,LightPid, Sequence}|LightsFSM], LogData}, Mode).
 
 %%invoke_light(twoDir, Args) ->
 %%	light_fsm:start_link(Args);
@@ -346,7 +346,7 @@ loop({Intersections, SourceLanes, {LogPath, DataLogPath, CheckPointLog}}, Time) 
 	 	write_result(LogPath, io_lib:format("----------------------------------------------------------",[])),
 	 	loop({Intersections, UpdatedSources, {LogPath, DataLogPath, CheckPointLog}}, Time + 1);    
     {call,Pid, stop} -> 
-        tabulate_network(Intersections,DataLogPath),
+        tabulate_network(Intersections,DataLogPath),        
         reply(Pid, {normal, Time});
     {call, Pid, checkpoint} ->
     	safe_delete_files(CheckPointLog),
@@ -474,7 +474,7 @@ restore_map({LightSource, LaneSource, ArrivaLog, DataLog, CheckPointLog}) ->
     %%io:format("SOURCES With poisson ~w.~n",[NewSources]),    
     io:format("PREPARING LightsFSM .~n",[]),
 %%Spawn FSM for traffic lights on each intersection and then connect them    
-    LightsFSM = connect({AllocatedLights, AllocatedLanes, [],Path}), 
+    LightsFSM = connect({AllocatedLights, AllocatedLanes, [],Path}, restore), 
     io:format("LightsFSM ~w.~n",[LightsFSM]),
     set_connection_to_light_siblings(LightsFSM,LightsFSM),
 

@@ -44,6 +44,8 @@ run_simulation(Lapse, Current, BeginTime) when Current < Lapse ->
 	end;
 				
 run_simulation(Lapse, Current, _BeginTime) when Current >= Lapse ->
+	io:format("FINAL SAVING CHECKPOINT.~n",[]),
+	checkpoint(Current, Lapse),
     stop().
     %%checkpoint(Current, Lapse).
     %%timer:apply_after(300, simulation, unregister_process, []). 

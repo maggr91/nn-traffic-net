@@ -1,8 +1,8 @@
-{light212,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],redgreen,greenred}
-{light210,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],redgreen,greenred}
-{light208,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],greenred,redgreen}
-{light206,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],greenred,redgreen}
-{light412,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],greenred,redgreen}
-{light410,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],redgreen,greenred}
-{light408,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],greenred,redgreen}
-{light406,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],greenred,redgreen}
+{light212,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],greenred,redred}
+{light210,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],greenred,redred}
+{light208,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],redgreen,redred}
+{light206,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],redgreen,redred}
+{light412,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],redgreen,redred}
+{light410,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],greenred,redred}
+{light408,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],redgreen,redred}
+{light406,[{allred_timer,0},{cycle_time,5},{go_time,2},{allred_time,1}],redgreen,redred}
