@@ -151,6 +151,8 @@ allred({tabulate_data, DataLog},_From, StateData) ->
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,
     ManagedLanes = find_element(managed_lanes, StateData),
     write_final_data(ManagedLanes, DataLog),
+    CtrlMod = find_element(ctrl_mod, StateData),
+    moduler:stop(CtrlMod),
     {reply, {allred,DataLog},allred, StateData};
 allred({checkpoint, DataLog}, _From, StateData) ->    
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,
@@ -286,6 +288,8 @@ greenredred({tabulate_data, DataLog},_From, StateData) ->
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,
 	ManagedLanes = find_element(managed_lanes, StateData),    	
     write_final_data(ManagedLanes, DataLog),
+    CtrlMod = find_element(ctrl_mod, StateData),
+    moduler:stop(CtrlMod),
     {reply, {greenredred,DataLog},greenredred, StateData};
 greenredred({checkpoint, DataLog}, _From, StateData) ->    
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,
@@ -371,6 +375,8 @@ redgreenred({tabulate_data, DataLog},_From, StateData) ->
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,
     ManagedLanes = find_element(managed_lanes, StateData),
     write_final_data(ManagedLanes, DataLog),
+    CtrlMod = find_element(ctrl_mod, StateData),
+    moduler:stop(CtrlMod),
     {reply, {redgreenred,DataLog},redgreenred, StateData};
 redgreenred({checkpoint, DataLog}, _From, StateData) ->    
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,
@@ -455,6 +461,8 @@ redredgreen({tabulate_data, DataLog},_From, StateData) ->
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,
     ManagedLanes = find_element(managed_lanes, StateData),
     write_final_data(ManagedLanes, DataLog),
+    CtrlMod = find_element(ctrl_mod, StateData),
+    moduler:stop(CtrlMod),
     {reply, {redredgreen,DataLog},redredgreen, StateData};
 redredgreen({checkpoint, DataLog}, _From, StateData) ->    
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,

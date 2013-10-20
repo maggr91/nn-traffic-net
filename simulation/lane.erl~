@@ -1,6 +1,7 @@
 -module(lane).
 
--export([start/2, estimate_new_arrival/2, init_poisson/1, init_geometric/1, connect/2, checkpoint/2, restore/1, restore/4, restore_sources/2]).
+-export([start/2, estimate_new_arrival/2, init_poisson/1, init_geometric/1, connect/2, 
+	checkpoint/2, restore/1, restore/4, restore_sources/2, checkpoint_sources/2]).
 
 -export([init/2]).
 
@@ -164,7 +165,7 @@ lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstructio
 	    write_result(Path, io_lib:format("=======================================",[])),
 	    reply(Pid, finished);
 	 {checkpoint, Pid, {LightId, Dir, {ChkPath, CarChkPath, OCarChkPath}}} ->
-	 	io:format("Lane ~w: checkpoint called. Data ~p~n", [LaneId, {LightId, Dir, {ChkPath, CarChkPath, OCarChkPath}}]), 
+	 	io:format("Lane ~w: checkpoint called.", [LaneId]), 
 	 	write_checkpoint(LaneId,LightId, Dir, Type, ConnectedLanes, CarsQueque, 
 	 		OutSideArea, Capacity, Obstruction, ProbData, Stats, TopSpeed, {ChkPath, CarChkPath,OCarChkPath}),
 	 	reply(Pid, chkpoint_saved),
@@ -1490,15 +1491,24 @@ restore_aux([], _RestoredLanes, _Cars, _OCars) ->
 restore_aux([Lanei | LaneTail], RestoredLanes, Cars, OCars) ->
 	{LaneId,Pid, _LightController, _Dir, _ConnectedLanes, _IsSource, _ProbRanges}  = Lanei,
 	LaneData = restore_lane(LaneId, RestoredLanes, Cars, OCars),
-	Pid ! {restore, LaneData}, %% restore the data
+	if LaneData /= false ->
+		Pid ! {restore, LaneData}; %% restore the data		
+	   true -> nodata
+	end,
 	restore_aux(LaneTail, RestoredLanes, Cars, OCars).
 
 restore_lane(LaneId, Lanes, Cars, OCars) ->
 %%{LaneId, Capacity,Obstruction, ProbData, Stats, TopSpeed}
-	{LaneId, Capacity,Obstruction, ProbData, Stats, TopSpeed} = lists:keyfind(LaneId, 1, Lanes),
-	CarsQueque = restore_cars(LaneId, Cars),
-	OutSideArea = restore_cars(LaneId, OCars),
-	{CarsQueque, OutSideArea, Capacity, Obstruction, ProbData, Stats, TopSpeed}.
+	LaneData = lists:keyfind(LaneId, 1, Lanes),
+	io:format("~nLaneId data : ~w", [LaneData]),
+	case LaneData of
+		false -> false;
+		_Other ->
+				{LaneId, Capacity,Obstruction, ProbData, Stats, TopSpeed} = LaneData,
+				CarsQueque = restore_cars(LaneId, Cars),
+				OutSideArea = restore_cars(LaneId, OCars),
+				{CarsQueque, OutSideArea, Capacity, Obstruction, ProbData, Stats, TopSpeed}
+	end.
 	
 restore_cars(Id, List) ->
 	Res = lists:keyfind(Id, 1, List),

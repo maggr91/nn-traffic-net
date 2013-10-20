@@ -1,5 +1,5 @@
 -module(moduler).
--export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/2, request_updates/1, checkpoint/1]).
+-export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/2, request_updates/1, checkpoint/1, stop/1]).
 -export([init/1]).
 
 %% Used to comunicate traffic lights 
@@ -18,17 +18,19 @@ init({restore, LightId}) ->
 	[Config | _Junk] = get_config(),
 	CheckpointLog = find_config_data(Config, checkpoint_data),
 	{ModFile, NNFile} = CheckpointLog,
-	NN = restore_dm(NNFile),
-	RestoredData = restore(ModFile),
+	NN = restore_dm(NNFile, LightId),
+	RestoredData = restore(ModFile, LightId),
 	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,CheckpointLog);
 
 init({normal, LigthId}) ->
 	[Config | _Junk] = get_config(),
 	CheckpointLog = find_config_data(Config, checkpoint_data),
-	{_Other, NNFile} = CheckpointLog,
+	{Other, NNFile} = CheckpointLog,
+	FormatLog = formated_log(Other),
+	NewCheckpointLog = {FormatLog, NNFile},
 	NN = create_dm(Config),
 	update_dm(NN, NNFile, LigthId),	
-	listen(LigthId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}],CheckpointLog).
+	listen(LigthId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}],NewCheckpointLog).
 		
 %%CREATES The decision maker for the light in this case is a Neuronal Network
 %%Input: None
@@ -38,15 +40,25 @@ create_dm(Config) ->
 	{Input, Hidden, Output} = NNConfig,
 	ann:start(Input, Hidden, Output).
 
-update_dm(NN, NNFile, LigthId)->
-	{ok, Cwd} = file:get_cwd(),
-	NewLight = atom_to_list(LigthId) ++ ".txt",
-	FileAux = Cwd ++ NNFile,
-	NewNNFile = FileAux ++ NewLight,
+update_dm(NN, NNFile, LightId)->
+	NewNNFile = format_dm_file(NNFile, LightId),
 	NN ! {update_file, NewNNFile}.
 
-restore_dm(NNFile) ->	
-	ann:start(NNFile).
+restore_dm(NNFile, LightId) ->
+	NewLight = atom_to_list(LightId) ++ ".txt",
+	NewNNFile = NNFile ++ NewLight,
+	ann:start(NewNNFile).
+
+format_dm_file(NNFile, LightId) ->
+	{ok, Cwd} = file:get_cwd(),
+	NewLight = atom_to_list(LightId) ++ ".txt",
+	FileAux = Cwd ++ NNFile,
+	FileAux ++ NewLight.
+	
+formated_log(File) ->
+	{ok, Cwd} = file:get_cwd(),
+	Cwd ++ File.
+	
 listen(Light, Siblings, NN, Data, CheckpointLog) ->
 	receive
 		%%call siblings
@@ -76,6 +88,10 @@ listen(Light, Siblings, NN, Data, CheckpointLog) ->
 						 listen(Light, NewSinbligs, NN, Data, CheckpointLog);
 				true  -> listen(Light, Siblings, NN, Data, CheckpointLog)
 			end;
+		{stop, CallerPid} ->
+			force_stop(NN),
+			reply(CallerPid, ok),
+			{normal, moduler};
 		{checkpoint, CallerPid} ->
 			write_checkpoint(NN, Data, CheckpointLog, Light),
 			reply(CallerPid, ok),
@@ -193,6 +209,10 @@ status_test() ->
 	lists:map(fun (Mod) -> Mod ! {status, self()} end, L),
 	{ok, []}.
 
+stop(ModulerPid) ->
+	ModulerPid ! {stop, self()},
+	{normal, moduler}.
+	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% CHECKPOINT
 %%%%%%%%%%%%%
@@ -208,10 +228,11 @@ write_checkpoint(NN, Data, CheckpointLog, LightId) ->
 	FormatedSiblings = format_siblings(Data),
 	FormatedData = lists:keyreplace(siblings_data,1,Data, {siblings_data, FormatedSiblings}),
 	{ModulerFile, _NNFile} = CheckpointLog,
+	%io:format("moduler file: ~p", [ModulerFile]),
 	filemanager:write_raw(ModulerFile, io_lib:format("~w", [{LightId, FormatedData}])),
 	write_checkpoint_nn(NN).
 write_checkpoint_nn(NN) ->
-	NN ! {stop, self()}.
+	NN ! {checkpoint, self()}.
 	
 format_siblings(Data) ->
 	{_Key, SiblingList} = lists:keyfind(siblings_data,1, Data),
@@ -219,9 +240,20 @@ format_siblings(Data) ->
 	
 
 %%Uses the default file load in the Process to restore the data
-restore(File) ->
-	filemanager:get_data(File).
+restore(File, LightId) ->
+	Data = filemanager:get_data(File),
+	find_element(LightId, Data).
+	
+find_element(Id, Data) ->
+	{Id, Element} = lists:keyfind(Id, 1, Data),
+	case Element of
+		false ->	[];
+		_Other ->	Element
+	end.
 
+force_stop(NN) ->
+	NN ! {stop, self()}.
+	
 test() ->
 	M1 = moduler:start(),
 	M2 = moduler:start(),
