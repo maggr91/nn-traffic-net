@@ -142,6 +142,8 @@ redred({tabulate_data, DataLog},_From, StateData) ->
     %%{_LightId,ManagedLanes, _Siblings, _Times, _LogData, _OldState, _CtrlMod} = StateData,
     ManagedLanes = find_element(managed_lanes, StateData),
     write_final_data(ManagedLanes, DataLog),
+    CtrlMod = find_element(ctrl_mod, StateData),
+    moduler:stop(CtrlMod),
     {reply, {redred,DataLog},redred, StateData};
 redred({checkpoint, DataLog}, _From, StateData) ->    
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,
@@ -254,6 +256,8 @@ greenred({tabulate_data, DataLog},_From, StateData) ->
     %%{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,
     ManagedLanes = find_element(managed_lanes, StateData),
     write_final_data(ManagedLanes, DataLog),
+    CtrlMod = find_element(ctrl_mod, StateData),
+    moduler:stop(CtrlMod),
     {reply, {greenred,DataLog},greenred, StateData};
 greenred({checkpoint, DataLog}, _From, StateData) ->    
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,
@@ -335,6 +339,8 @@ redgreen({tabulate_data, DataLog},_From, StateData) ->
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,
     ManagedLanes = find_element(managed_lanes, StateData),
     write_final_data(ManagedLanes, DataLog),
+    CtrlMod = find_element(ctrl_mod, StateData),
+    moduler:stop(CtrlMod),
     {reply, {redgreen,DataLog},redgreen, StateData};
 redgreen({checkpoint, DataLog}, _From, StateData) ->    
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,
@@ -554,7 +560,7 @@ write_checkpoint(CallingState,DataLog, StateData) ->
 	Times = find_element(times, StateData),
 	OldState = find_element(old_state, StateData),
 	CtrlMod = find_element(ctrl_mod, StateData),
-	io:format("Data to checkpoint  ~w~n", [{ManagedLanes, LightId, DataLog, {LightId, Times, CallingState, OldState}, CtrlMod}]),
+	%io:format("Data to checkpoint  ~w~n", [{ManagedLanes, LightId, DataLog, {LightId, Times, CallingState, OldState}, CtrlMod}]),
 	write_checkpoint(ManagedLanes, LightId, DataLog, {LightId, Times, CallingState, OldState}, CtrlMod).
 	
 write_checkpoint([], _LightId, DataLogs, LightStateData, CtrlMod) ->

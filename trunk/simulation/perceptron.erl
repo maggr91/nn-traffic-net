@@ -1,7 +1,7 @@
 -module(perceptron).
 -export([perceptron/4, sigmoid/1, dot_prod/2, feed_forward/3, replace_input/2, convert_to_list/1, connect_neuron/2, test_run/0]).
 %%client interface
--export([save/2, update_connections/2, get_connections/1]).
+-export([save/3, update_connections/2, get_connections/1]).
 
 test_run() ->
 	I1_pid = spawn(perceptron, perceptron, [i1,[],[],[]]),
@@ -204,6 +204,10 @@ perceptron(LayerId, Weights, Inputs, Sensitivities) ->
 			{NewWeights, NewInputs, NewSensitivities} = Data,
 			io:format("PERCEPTRON ~w new connections ~w~n", [LayerId, {NewWeights, NewInputs, NewSensitivities}]),
 			perceptron(LayerId, NewWeights, NewInputs, NewSensitivities);
+		{checkpoint, CallerPid, LogData} ->
+			save_training(LayerId, Weights, Inputs, Sensitivities, LogData),
+			reply(CallerPid, saved),
+			perceptron(LayerId, Weights, Inputs, Sensitivities);
 		{save_training, CallerPid, LogData} ->
 			save_training(LayerId, Weights, Inputs, Sensitivities, LogData),
 			reply(CallerPid, saved),
@@ -289,8 +293,11 @@ format_connections_saving(Layer) ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%client interface functions%%%%%%%%%%%
 
-save(NeuronPid, LogPath) ->
-	NeuronPid ! {save_training, self(), LogPath},
+save(NeuronPid, LogPath, IsCheckpoint) ->
+	case IsCheckpoint of
+		false -> NeuronPid ! {save_training, self(), LogPath};
+		true  -> NeuronPid ! {checkpoint, self(), LogPath}
+	end,
 	receive
 		{reply, saved} ->
 			io:format("Save Neuron ~w~n", [NeuronPid]),
