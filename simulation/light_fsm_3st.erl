@@ -60,10 +60,18 @@ init(Args) ->
     {Mode, LightId, ManagedLanes,Siblings, Times, LogData} = Args,
     file:delete(LogData), %% delete old log
     NewTimes = [{allred_timer, 0} | Times],
+    
     CtrlMod = moduler:start({Mode, LightId}),
     %{ok, allred,{LightId, ManagedLanes,Siblings, NewTimes, LogData, allred, CtrlMod}}.
-    {ok, allred,[{id,LightId}, {managed_lanes, ManagedLanes},{siblings, Siblings}, 
-    	{times, NewTimes}, {log_data, LogData}, {old_state, allred}, {ctrl_mod, CtrlMod}]}.
+    StateData = [{id,LightId}, {managed_lanes, ManagedLanes},{siblings, Siblings}, 
+    	{times, NewTimes}, {log_data, LogData}, {old_state, allred}, {ctrl_mod, CtrlMod}],
+    
+    case Mode of
+    	normal -> scan_lanes(StateData);
+    	_Other -> continue
+    end,
+    
+    {ok, allred, StateData}.
 
 get_state(LightPid) ->
     try
@@ -818,4 +826,43 @@ update_moduler(StateData, Siblings) ->
 		Siblings
 	), 
 	{ok, upd_moduler}.
+
+
+%%INPUT: StateData all data related to the light
+%%OUTPUT: None
+%%DESC: Scans all lanes in order to get relevant information about them like obstructions, max speed, capacity, etc
+%% and after that sends values to the moduler
+scan_lanes(StateData) ->
+	ManagedLanes = find_element(managed_lanes, StateData),
+	CtrlMod = find_element(ctrl_mod, StateData),
+	Info = scan_lanes_aux(ManagedLanes, []),
+	CtrlMod ! {inputs,self(), Info},
+	{ok, scanned}.
+	
+scan_lanes_aux([], Scanned) ->
+	Scanned;
+scan_lanes_aux([{Dir, List} | ManagedLanes], Scanned) ->
+	InfoList = lists:map(
+		fun({LaneId,LanePid}) ->
+			LanePid ! {info, self()},
+			receive
+				{reply, false} -> {LaneId,LanePid};
+				{reply, Data} ->  Data
+			end
+		end,
+		List
+	),
+	ProcessedList = process_scans(InfoList),
+	scan_lanes_aux(ManagedLanes, [{Dir, ProcessedList}|Scanned]).
+	
+process_scans(InfoList) ->
+	CountType1 = length(lists:filter(fun({_LaneId, Type,_Capacity,_Obstruction,_TopSpeed}) -> Type == 1 end, InfoList)),
+	CountType2 = length(lists:filter(fun({_LaneId, Type,_Capacity,_Obstruction,_TopSpeed}) -> Type == 2 end, InfoList)),
+	BaseLine = lists:last(InfoList),
+	{_LaneId, _Type, BCapacity, _Obstruction, BTopSpeed} = BaseLine,
+	CountObStops = length(lists:filter(fun({_Id,_Dirs,_Capacity,Obstruction,_TopSpeed}) -> 
+											lists:any(fun({Obs, _Begin, _End}) ->  Obs =:= park end,Obstruction) == true
+									   end,
+									   InfoList)),
+	{CountType1, CountType2, BCapacity, BTopSpeed, CountObStops}.
 	

@@ -174,6 +174,10 @@ lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstructio
 	 {restore, {NCarsQueque, NOutSideArea, NCapacity, NObstruction, NProbData, NStats, NTopSpeed}} ->
 	 	lane(LaneId, Type, ConnectedLanes, NCarsQueque, NOutSideArea, NCapacity, 
 	 		NObstruction, NProbData, NStats, NTopSpeed);
+	 {info, CallerPid} ->
+	 	reply(CallerPid, {LaneId, Type,Capacity, Obstruction, TopSpeed}),
+	 	lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, 
+	 		Obstruction, ProbData, Stats, TopSpeed);
 	stop -> {ok, normal}
     end.  
 

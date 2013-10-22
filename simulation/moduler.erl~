@@ -1,5 +1,5 @@
 -module(moduler).
--export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/2, request_updates/1, checkpoint/1]).
+-export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/2, request_updates/1, checkpoint/1, stop/1]).
 -export([init/1]).
 
 %% Used to comunicate traffic lights 
@@ -30,7 +30,7 @@ init({normal, LigthId}) ->
 	NewCheckpointLog = {FormatLog, NNFile},
 	NN = create_dm(Config),
 	update_dm(NN, NNFile, LigthId),	
-	listen(LigthId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}],NewCheckpointLog).
+	listen(LigthId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}, {net_input, []}],NewCheckpointLog).
 		
 %%CREATES The decision maker for the light in this case is a Neuronal Network
 %%Input: None
@@ -76,9 +76,12 @@ listen(Light, Siblings, NN, Data, CheckpointLog) ->
 			listen(Light, Siblings, NN, Data, CheckpointLog);
 			%% send info to caller
 		{update_nn, CallerPid, NewVals} ->
-			NewData = update_nn_data(Data, NewVals),
+			NewData = update_nn_data(net_values, Data, NewVals),
 			reply(CallerPid, ok),
 			send_update_to_Siblings(Siblings, NewVals),
+			listen(Light, Siblings, NN, NewData, CheckpointLog);
+		{inputs, CallerPid, NewVals} ->
+			NewData = update_nn_data(net_input, Data, NewVals),			
 			listen(Light, Siblings, NN, NewData, CheckpointLog);
 		{connect, SiblingData, Dir} ->
 			{Dir, List} = lists:keyfind(Dir, 1, Siblings),
@@ -166,9 +169,10 @@ update_siblings_data(Sibling, Data, NewData) ->
 	end,
 	lists:keyreplace(siblings_data, 1, Data, {siblings_data, NewSiblingData}).
 
-update_nn_data(Data, NewVals) ->
-	{net_values, _Values} = lists:keyfind(net_values, 1, Data),
-	lists:keyreplace(net_values, 1, Data, {net_values, NewVals}).
+update_nn_data(Id, Data, NewVals) ->
+	%{net_values, _Values} = lists:keyfind(net_values, 1, Data),
+	%lists:keyreplace(net_values, 1, Data, {net_values, NewVals}).	
+	lists:keyreplace(Id, 1, Data, {Id, NewVals}).
 
 
 %%find configuration
