@@ -346,9 +346,7 @@ loop({Intersections, SourceLanes, {LogPath, DataLogPath, CheckPointLog}}, Time) 
 	 	write_result(LogPath, io_lib:format("----------------------------------------------------------",[])),
 	 	loop({Intersections, UpdatedSources, {LogPath, DataLogPath, CheckPointLog}}, Time + 1);    
     {call,Pid, stop} -> 
-        tabulate_network(Intersections,DataLogPath),
-        safe_delete_files(CheckPointLog),
-    	checkpoint(Intersections,SourceLanes, CheckPointLog),
+        tabulate_network(Intersections,DataLogPath),        
         reply(Pid, {normal, Time});
     {call, Pid, checkpoint} ->
     	safe_delete_files(CheckPointLog),

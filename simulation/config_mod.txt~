@@ -1,1 +1,1 @@
-[{nn_config, {2,2,1}}, {checkpoint_data, {"/checkpoint/modulers.txt", "/checkpoint/nn_saving.txt"}}]
+[{nn_config, {2,2,1}}, {checkpoint_data, {"/checkpoint/modulers.txt", "/checkpoint/nn_saving/nn_saving_", "/checkpoint/sensors/sensor_"}}]

@@ -175,7 +175,7 @@ lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstructio
 	 	lane(LaneId, Type, ConnectedLanes, NCarsQueque, NOutSideArea, NCapacity, 
 	 		NObstruction, NProbData, NStats, NTopSpeed);
 	 {info, CallerPid} ->
-	 	reply(CallerPid, {LaneId, Type,Capacity, Obstruction, TopSpeed})
+	 	reply(CallerPid, {LaneId, Type,Capacity, Obstruction, TopSpeed}),
 	 	lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, 
 	 		Obstruction, ProbData, Stats, TopSpeed);
 	stop -> {ok, normal}
