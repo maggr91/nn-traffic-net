@@ -1,6 +1,6 @@
 -module(moduler).
--export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/2, request_updates/1, checkpoint/1, stop/1]).
--export([init/1]).
+-export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/2, request_updates/1, checkpoint/1, stop/1,]).
+-export([init/1, update_dm/3]).
 
 %% Used to comunicate traffic lights 
 %% this acts like a buffer for the communication
@@ -14,23 +14,34 @@ start() ->
 start(Args) ->
 	spawn(moduler, init, [Args]).
 
-init({restore, LightId}) ->
+init({restore, LightId, Lanes}) ->
 	[Config | _Junk] = get_config(),
 	CheckpointLog = find_config_data(Config, checkpoint_data),
-	{ModFile, NNFile} = CheckpointLog,
+	{ModFile, NNFile, SensorFile} = CheckpointLog,
+	
 	NN = restore_dm(NNFile, LightId),
-	RestoredData = restore(ModFile, LightId),
-	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,CheckpointLog);
+	RestoredData = restore(ModFile, LightId),	
+	
+	Sensor = restore_sens(SensorFile,Lanes, LightId),	
+	
+	timer:apply_after(100, moduler, update_dm, [NN, NNFile, LightId]),
+	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,CheckpointLog, Sensor);
 
-init({normal, LigthId}) ->
+init({normal, LightId, Lanes}) ->
 	[Config | _Junk] = get_config(),
 	CheckpointLog = find_config_data(Config, checkpoint_data),
-	{Other, NNFile} = CheckpointLog,
+	{Other, NNFile, SensorFile} = CheckpointLog,
+	
 	FormatLog = formated_log(Other),
-	NewCheckpointLog = {FormatLog, NNFile},
+	FormatSens = format_dm_file(SensorFile, LightId),
+	
+	NewCheckpointLog = {FormatLog, NNFile, FormatSens},
 	NN = create_dm(Config),
-	update_dm(NN, NNFile, LigthId),	
-	listen(LigthId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}, {net_input, []}],NewCheckpointLog).
+	update_dm(NN, NNFile, LightId),	
+	
+	Sensor = create_sens(Lanes, FormatSens),
+	
+	listen(LightId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}, {net_input, []}],NewCheckpointLog, Sensor).
 		
 %%CREATES The decision maker for the light in this case is a Neuronal Network
 %%Input: None
@@ -49,6 +60,19 @@ restore_dm(NNFile, LightId) ->
 	NewNNFile = NNFile ++ NewLight,
 	ann:start(NewNNFile).
 
+%%%%%%%%%%%
+%% SENSOR
+
+create_sens(Lanes, FormatSens) ->
+	sensor:start({normal, {Lanes, FormatSens}}).
+	
+restore_sens(SensorFile,Lanes, LightId) ->
+	NewLight = atom_to_list(LightId) ++ ".txt",
+	NewSensFile = SensorFile ++ NewLight,
+	Pid = sensor:start({restore, {Lanes, NewSensFile}}),
+	Pid ! {update_file, NewSensFile},
+	Pid.
+
 format_dm_file(NNFile, LightId) ->
 	{ok, Cwd} = file:get_cwd(),
 	NewLight = atom_to_list(LightId) ++ ".txt",
@@ -59,49 +83,59 @@ formated_log(File) ->
 	{ok, Cwd} = file:get_cwd(),
 	Cwd ++ File.
 	
-listen(Light, Siblings, NN, Data, CheckpointLog) ->
+listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 	receive
 		%%call siblings
 		{broadcast_request, _CallerPid} -> %%Ask siblings to send an update
 			io:format("Data before broadcast: ~w", [Data]),
 			NewData = request_update_from_Siblings(Siblings, Data),
-			listen(Light, Siblings, NN, NewData, CheckpointLog);
+			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
 		{broadcast_update, CallerPid, NewData} -> %%Send siblings to an update
 			io:format("Update triggered by siblings ~w Light: ~w... NewData", [CallerPid,Light]),
 			UpdateData = update_siblings_data(CallerPid, Data, NewData),
-			listen(Light, Siblings, NN, UpdateData, CheckpointLog);
+			listen(Light, Siblings, NN, UpdateData, CheckpointLog, Sensor);
 		{response, CallerPid} ->
 			{_Key, ResponseData} = lists:keyfind(net_values,1,Data),
 			reply(CallerPid, ResponseData),
-			listen(Light, Siblings, NN, Data, CheckpointLog);
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
 			%% send info to caller
 		{update_nn, CallerPid, NewVals} ->
 			NewData = update_nn_data(net_values, Data, NewVals),
 			reply(CallerPid, ok),
 			send_update_to_Siblings(Siblings, NewVals),
-			listen(Light, Siblings, NN, NewData, CheckpointLog);
-		{inputs, CallerPid, NewVals} ->
+			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
+		{inputs, _CallerPid, NewVals} ->
 			NewData = update_nn_data(net_input, Data, NewVals),			
-			listen(Light, Siblings, NN, NewData, CheckpointLog);
+			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
 		{connect, SiblingData, Dir} ->
 			{Dir, List} = lists:keyfind(Dir, 1, Siblings),
 			Exist = lists:any(fun(Item) -> Item == SiblingData end, List),
 			case Exist of
 				false -> NewSinbligs = lists:keyreplace(Dir, 1, Siblings, {Dir, [SiblingData | List]}),
-						 listen(Light, NewSinbligs, NN, Data, CheckpointLog);
-				true  -> listen(Light, Siblings, NN, Data, CheckpointLog)
+						 listen(Light, NewSinbligs, NN, Data, CheckpointLog, Sensor);
+				true  -> listen(Light, Siblings, NN, Data, CheckpointLog, Sensor)
 			end;
+		{proc, CallerPid, Dir} ->
+			FormatedInputs = format_inputs(Dir, Data),
+			
+			%%call nn with the new inputs
+			%ann:input(FormatedInputs)
+			
+			Desition = true,
+			reply(CallerPid, Desition), 
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
+			
 		{stop, CallerPid} ->
-			force_stop(NN),
+			force_stop(NN, Sensor),
 			reply(CallerPid, ok),
 			{normal, moduler};
 		{checkpoint, CallerPid} ->
-			write_checkpoint(NN, Data, CheckpointLog, Light),
+			write_checkpoint(NN, Data, CheckpointLog, Light, Sensor),
 			reply(CallerPid, ok),
-			listen(Light, Siblings, NN, Data, CheckpointLog);			
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);			
 		{status, _CallerPid} ->
 			io:format("Status of moduler ~w ~n Siblings: ~w~n Data: ~w~n~n",[{Light,self()}, Siblings, Data]),
-			listen(Light, Siblings, NN, Data, CheckpointLog)
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor)
 	end.
 
 reply(Pid, Reply) ->
@@ -216,7 +250,15 @@ status_test() ->
 stop(ModulerPid) ->
 	ModulerPid ! {stop, self()},
 	{normal, moduler}.
+
+calculate_outputs(NetValues, _NetInputs) ->
+	PromCars = random:uniform(5),
+	ExtraOutputs = [PromCars],
+	NewValues = lists:append(NetValues, ExtraOutputs),
+	NewValues.
 	
+format_inputs(_Dir, _Data) ->
+	{}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% CHECKPOINT
 %%%%%%%%%%%%%
@@ -228,15 +270,20 @@ checkpoint(Pid) ->
 	end.
 	
 
-write_checkpoint(NN, Data, CheckpointLog, LightId) ->
+write_checkpoint(NN, Data, CheckpointLog, LightId, Sensor) ->
 	FormatedSiblings = format_siblings(Data),
 	FormatedData = lists:keyreplace(siblings_data,1,Data, {siblings_data, FormatedSiblings}),
-	{ModulerFile, _NNFile} = CheckpointLog,
+	{ModulerFile, _NNFile, _SensorLight} = CheckpointLog,
 	%io:format("moduler file: ~p", [ModulerFile]),
 	filemanager:write_raw(ModulerFile, io_lib:format("~w", [{LightId, FormatedData}])),
-	write_checkpoint_nn(NN).
+	write_checkpoint_nn(NN),
+	write_checkpoint_sens(Sensor).
+
 write_checkpoint_nn(NN) ->
 	NN ! {checkpoint, self()}.
+
+write_checkpoint_sens(Sensor) ->
+	Sensor ! {checkpoint, self()}.
 	
 format_siblings(Data) ->
 	{_Key, SiblingList} = lists:keyfind(siblings_data,1, Data),
@@ -255,8 +302,9 @@ find_element(Id, Data) ->
 		_Other ->	Element
 	end.
 
-force_stop(NN) ->
-	NN ! {stop, self()}.
+force_stop(NN, Sensor) ->
+	NN ! {stop, self()},
+	Sensor ! {stop, self()}.
 	
 test() ->
 	M1 = moduler:start(),

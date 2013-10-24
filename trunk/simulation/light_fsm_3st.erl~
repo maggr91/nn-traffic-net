@@ -865,3 +865,4 @@ process_scans(InfoList) ->
 									   end,
 									   InfoList)),
 	{CountType1, CountType2, BCapacity, BTopSpeed, CountObStops}.
+	

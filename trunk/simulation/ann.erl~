@@ -41,7 +41,7 @@ custom_load_layer(HiddenLayerItems) ->
 			  HiddenLayerItems).
 
 update_connections(InputLay, HiddenLay, OutputLay)->
-	io:format("Update connections Data ~w~n", [{InputLay, HiddenLay, OutputLay}]),
+	io:format("Update connections Data ~w~n", [{nputLay, HiddenLay, OutputLay}]),
 	io:format("Update connections for input~n"),
 	update_connections_aux(InputLay, [], HiddenLay),
 	io:format("Update connections for hidden~n"),

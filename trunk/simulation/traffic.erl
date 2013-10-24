@@ -126,7 +126,7 @@ allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes,
 %%for each lane in the list spawn a proccess
     %%Pid = lane:start({Type, [], CarsQueque, Capacity, [], ProbData, GeoProb}),
     %%Obstruction = [create_obstruction(Capacity)],
-    io:format("Obstacules loaded: ~w",[Obs]),
+    %io:format("Obstacules loaded: ~w",[Obs]),
     Obstruction = allocate_obs(Obs, LaneId),  
     Pid = lane:start(normal,{LaneId, Type, [], CarsQueque, Capacity, Obstruction, GeoProb, MaxSpeedMove}),
     {arrival, ProbList} = lists:keyfind(arrival, 1, ProbData),

@@ -1326,7 +1326,7 @@ init_poisson([],SourceUpdated) ->
     SourceUpdated;
 init_poisson([{LaneId, LanePid, [], ProbData}| Tail], SourceUpdated) ->
     Arrival = data_distribution(poissonServer),
-    io:format("Arrival time ~w~n",[Arrival]),
+    %io:format("Arrival time ~w~n",[Arrival]),
     NewLane = {LaneId, LanePid, [],ProbData, Arrival},
     init_poisson(Tail, [NewLane | SourceUpdated]).
     
