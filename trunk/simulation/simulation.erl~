@@ -1,6 +1,6 @@
 -module(simulation).
 
--export([start/2, run_simulation/1, restore/0, call/1]).
+-export([start/2,start/3, run_simulation/1, restore/0, call/1]).
 
 
 start(Lapse, MaxSpeed) ->
@@ -9,7 +9,7 @@ start(Lapse, MaxSpeed) ->
     start_probServers(),
     register(trafficServer, traffic:start(normal, {MaxSpeed, Config})),
     timer:apply_after(400, simulation, run_simulation, [{normal, Lapse, now()}]).
-    
+  
 restore() ->
 	start_probServers(),
 	RestoredStruct = load_checkpoint(filelib:is_dir("checkpoint")),
@@ -44,8 +44,8 @@ run_simulation(Lapse, Current, BeginTime) when Current < Lapse ->
 	end;
 				
 run_simulation(Lapse, Current, _BeginTime) when Current >= Lapse ->
-	io:format("SAVING CHECKPOINT.~n",[]),
-				checkpoint(Current, Lapse),
+	io:format("FINAL SAVING CHECKPOINT.~n",[]),
+	checkpoint(Current, Lapse),
     stop().
     %%checkpoint(Current, Lapse).
     %%timer:apply_after(300, simulation, unregister_process, []). 

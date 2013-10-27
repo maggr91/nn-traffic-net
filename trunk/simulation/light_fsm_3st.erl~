@@ -61,7 +61,7 @@ init(Args) ->
     file:delete(LogData), %% delete old log
     NewTimes = [{allred_timer, 0} | Times],
     
-    CtrlMod = moduler:start({Mode, LightId}),
+    CtrlMod = moduler:start({Mode, LightId, ManagedLanes}),
     %{ok, allred,{LightId, ManagedLanes,Siblings, NewTimes, LogData, allred, CtrlMod}}.
     StateData = [{id,LightId}, {managed_lanes, ManagedLanes},{siblings, Siblings}, 
     	{times, NewTimes}, {log_data, LogData}, {old_state, allred}, {ctrl_mod, CtrlMod}],

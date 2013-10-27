@@ -725,10 +725,11 @@ find_element(_Id, []) ->
 %find_element(Id, {LightId, StateData}) ->
 %	find_element(Id, StateData);
 find_element(Id, StateData) ->
-	{Id, Element} = lists:keyfind(Id, 1, StateData),
+	Element = lists:keyfind(Id, 1, StateData),
 	case Element of
 		false ->	[];
-		_Other ->	Element
+		_Other ->	{Id, Value} = Element,
+					Value
 	end.
 
 
