@@ -52,7 +52,6 @@ init(normal, {MaxSpeed, ConfigData}) ->
     MapData = set_map({MaxSpeed, LightSource, LaneSource, ObsSource, AvgCar, ArrivaLog,DataLog, CheckPointLog}), 
     loop(MapData, 0).
 
-
 %%find configuration
 find_config_data(ConfigData, Key) ->
 	Res = lists:keyfind(Key, 1, ConfigData),
@@ -126,9 +125,12 @@ allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes,
 %%for each lane in the list spawn a proccess
     %%Pid = lane:start({Type, [], CarsQueque, Capacity, [], ProbData, GeoProb}),
     %%Obstruction = [create_obstruction(Capacity)],
-    io:format("Obstacules loaded: ~w",[Obs]),
-    Obstruction = allocate_obs(Obs, LaneId),  
-    Pid = lane:start(normal,{LaneId, Type, [], CarsQueque, Capacity, Obstruction, GeoProb, MaxSpeedMove}),
+    %io:format("Obstacules loaded: ~w",[Obs]),
+    Obstruction = allocate_obs(Obs, LaneId),
+    
+    TargetMaxSpeed = find_max_car_move(LaneId, Dir, MaxSpeedMove),
+      
+    Pid = lane:start(normal,{LaneId, Type, [], CarsQueque, Capacity, Obstruction, GeoProb, TargetMaxSpeed}),
     {arrival, ProbList} = lists:keyfind(arrival, 1, ProbData),
     ProbRanges = list_to_tuple(ProbList),
     allocate_lanes({Tail, [{LaneId,Pid, LightController,Dir,ConnectedLanes, IsSource, ProbRanges} | Spawned], Obs, MaxSpeedMove}).
@@ -404,12 +406,43 @@ allocate_obs([_NotMatchObs | Tail] , TargetLaneId, ObsList) ->
 %%INPUT: MaxSpeed km/h that the car will reach at some point
 %%	 CarAvgLegnth average length of cars default is 4.4 meters
 %%OUTPUT: Max Positions that a car can move per second
-max_car_move(MaxSpeed, CarAvgLength) ->
-    MaxSpeedMS = (MaxSpeed * 1000) / 3600,
+max_car_move(MaxSpeeds, CarAvgLength) when length(MaxSpeeds) == 0 ->
+	MaxSpeedMS = (40 * 1000) / 3600,
     MaxPos = MaxSpeedMS / CarAvgLength,
-    erlang:round(MaxPos). 
-    
-    
+    [{all, erlang:round(MaxPos)}];
+max_car_move(MaxSpeed, CarAvgLength) ->
+    %MaxSpeedMS = (MaxSpeed * 1000) / 3600,
+    %MaxPos = MaxSpeedMS / CarAvgLength,
+    %erlang:round(MaxPos).
+    lists:map(fun({Target, Speed}) -> {Target, erlang:round(((Speed * 1000) / 3600)/CarAvgLength)} end, MaxSpeed).
+
+%%FUNCTION to get the determined MAX movement for the lane according to parameters
+%%INPUT: LaneId : id of the lane (ex: lane212av1)
+%%		 Dir	: av or ca
+%%		 Speeds : List of all speeds to find the one
+%%OUTPUT: Max movement (spaces) allowed per second
+find_max_car_move(_LaneId, _Dir, MaxSpeeds) when length(MaxSpeeds) == 1 ->
+	{all, Value} = lists:keyfind(all, 1, MaxSpeeds),
+	Value;
+find_max_car_move(LaneId, Dir, MaxSpeeds) ->
+	S = atom_to_list(LaneId),
+	SDir = atom_to_list(Dir),
+	ParentLaneId1 = list_to_atom(string:concat(SDir, string:substr(S,5,1))),
+    ParentLaneId2 = list_to_atom(string:concat(SDir, string:substr(S,5,3))),
+    Value = try_find_element([ParentLaneId1, ParentLaneId2], MaxSpeeds),
+    Value.
+
+try_find_element([], MaxSpeeds) ->
+	{all, Value} = lists:keyfind(all, 1, MaxSpeeds),
+	Value;
+try_find_element([Target | Matches], MaxSpeeds) ->
+	Element = lists:keyfind(Target, 1, Data),
+	case Element of
+		false ->	try_find_element(Matches, MaxSpeeds);
+		_Other ->	{Target, Value} = Element,
+					Value
+	end.
+
 %%%%%%%%%
 %% Checkpoint
 %%DESC: calls to all 

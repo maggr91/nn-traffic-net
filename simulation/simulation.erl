@@ -9,7 +9,7 @@ start(Lapse, MaxSpeed) ->
     start_probServers(),
     register(trafficServer, traffic:start(normal, {MaxSpeed, Config})),
     timer:apply_after(400, simulation, run_simulation, [{normal, Lapse, now()}]).
-    
+  
 restore() ->
 	start_probServers(),
 	RestoredStruct = load_checkpoint(filelib:is_dir("checkpoint")),

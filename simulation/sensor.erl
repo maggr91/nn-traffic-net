@@ -62,10 +62,11 @@ update_count(LaneId, [{Dir, LanesList} | Lanes], OldLanes) ->
 find_element(_Id, []) ->
 	false;
 find_element(Id, Data) ->
-	{Id, Element} = lists:keyfind(Id, 1, Data),
+	Element = lists:keyfind(Id, 1, Data),
 	case Element of
 		false ->	[];
-		_Other ->	Element
+		_Other ->	{Id, Value} = Element,
+					Value
 	end.
 
 
