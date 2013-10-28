@@ -1,6 +1,6 @@
 -module(sensor).
 
--export([start/1]).
+-export([start/1, get_records/2]).
 
 -export([init/1]).
 
@@ -30,6 +30,10 @@ sensor(Lanes, File) ->
 			sensor(Lanes, File);
 		{update_file, NewFile} ->
 			sensor(Lanes, NewFile);
+		{records, CallerPid, Dir} ->
+			Data = records(Dir, Lanes),
+			reply(CallerPid, Data),
+			sensor(Lanes, File);
 		{stop, CallerPid} ->
 			reply(CallerPid, ok),
 			{normal, sensor}
@@ -132,3 +136,19 @@ restore(Lanes, File) ->
 		RestoredLanes
 	).
 	
+records(Dir, Lanes) ->
+	Targets = find_element(Dir, Lanes),
+	lists:foldl(fun({_Lane, Data}, Sum) -> 
+		Counter = find_element(round_count, Data),
+		Sum + Counter
+		end, 0, Targets).
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%     CLIENT INTERFACE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+get_records(SensorPid, Dir) -> 
+	SensorPid ! {},
+	Data = Dir,
+	Data.
+
