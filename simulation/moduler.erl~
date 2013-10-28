@@ -1,5 +1,5 @@
 -module(moduler).
--export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/2, request_updates/1, checkpoint/1, stop/1,]).
+-export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/2, request_updates/1, checkpoint/1, stop/1, get_sensor/1]).
 -export([init/1, update_dm/3]).
 
 %% Used to comunicate traffic lights 
@@ -20,12 +20,20 @@ init({restore, LightId, Lanes}) ->
 	{ModFile, NNFile, SensorFile} = CheckpointLog,
 	
 	NN = restore_dm(NNFile, LightId),
-	RestoredData = restore(ModFile, LightId),	
+	RestoredData = restore(ModFile, LightId),
 	
-	Sensor = restore_sens(SensorFile,Lanes, LightId),	
-	
+	Sensor = restore_sens(SensorFile,Lanes, LightId),
 	timer:apply_after(100, moduler, update_dm, [NN, NNFile, LightId]),
-	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,CheckpointLog, Sensor);
+	
+	%format log files
+	FormatLog = formated_log(ModFile),
+	FormatSens = format_dm_file(SensorFile, LightId),
+	
+	delete_old([FormatLog, FormatSens]),
+	
+	NewCheckpointLog = {FormatLog, NNFile, FormatSens},
+	
+	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,NewCheckpointLog, Sensor);
 
 init({normal, LightId, Lanes}) ->
 	[Config | _Junk] = get_config(),
@@ -70,7 +78,10 @@ restore_sens(SensorFile,Lanes, LightId) ->
 	NewLight = atom_to_list(LightId) ++ ".txt",
 	NewSensFile = SensorFile ++ NewLight,
 	Pid = sensor:start({restore, {Lanes, NewSensFile}}),
-	Pid ! {update_file, NewSensFile},
+	
+	FinalSensFile = format_dm_file(SensorFile, LightId),
+	io:format("Updating sensor file ~p", [FinalSensFile]),
+	Pid ! {update_file, FinalSensFile},
 	Pid.
 
 format_dm_file(NNFile, LightId) ->
@@ -116,13 +127,18 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 				true  -> listen(Light, Siblings, NN, Data, CheckpointLog, Sensor)
 			end;
 		{proc, CallerPid, Dir} ->
-			FormatedInputs = format_inputs(Dir, Data),
+			SensorInputs = sensor:get_records(Sensor),
+			FormatedInputs = format_inputs(Dir, Data, SensorInputs),
 			
 			%%call nn with the new inputs
-			%ann:input(FormatedInputs)
+			Desition = ann:input(FormatedInputs),
+			NetInputs = find_element(net_input, Data),
 			
-			Desition = true,
-			reply(CallerPid, Desition), 
+			FinalDesition = calculate_outputs(Desition, NetInputs),
+
+			reply(CallerPid, FinalDesition),
+			update_from_nn(self(), FinalDesition),
+			
 			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
 			
 		{stop, CallerPid} ->
@@ -132,7 +148,10 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 		{checkpoint, CallerPid} ->
 			write_checkpoint(NN, Data, CheckpointLog, Light, Sensor),
 			reply(CallerPid, ok),
-			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);			
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
+		{active_sensor, CallerPid} ->
+			reply(CallerPid, Sensor),
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);	
 		{status, _CallerPid} ->
 			io:format("Status of moduler ~w ~n Siblings: ~w~n Data: ~w~n~n",[{Light,self()}, Siblings, Data]),
 			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor)
@@ -150,7 +169,7 @@ connect(Dir, {SenderId, SenderPid}, {ReceiverId, ReceiverPid}) ->
 
 request_update_from_Siblings([], Data) ->
 	io:format("Data after broadcast: ~w~n", [Data]),
-	Data;    
+	Data;
 request_update_from_Siblings([{Dir, SiblingsList} | Siblings], Data) ->
 	io:format("Updating ~w~n", [Dir]),
 	NewData = update_from_Siblings_aux(SiblingsList, Data),
@@ -257,8 +276,15 @@ calculate_outputs(NetValues, _NetInputs) ->
 	NewValues = lists:append(NetValues, ExtraOutputs),
 	NewValues.
 	
-format_inputs(_Dir, _Data) ->
+format_inputs(_Dir, _Data, _SensorInputs) ->
 	{}.
+	
+get_sensor(ModulerPid) ->
+	ModulerPid ! {active_sensor, self()},
+	receive
+		{reply, Sensor} -> Sensor;
+		_Other			-> {error, sensor}
+	end.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% CHECKPOINT
 %%%%%%%%%%%%%
@@ -305,6 +331,9 @@ find_element(Id, Data) ->
 force_stop(NN, Sensor) ->
 	NN ! {stop, self()},
 	Sensor ! {stop, self()}.
+
+delete_old(List) ->
+	lists:map(fun(File) -> file:delete(File) end, List). %% delete old log
 	
 test() ->
 	M1 = moduler:start(),

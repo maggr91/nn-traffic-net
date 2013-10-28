@@ -33,8 +33,9 @@ init(restore, {ConfigData, Time}) ->
 	ArrivaLog = find_config_data(ConfigData, log_arrival),
 	DataLog = find_config_data(ConfigData, log_data),
     CheckPointLog = find_config_data(ConfigData, checkpoint_data),
+    AvgCar = find_config_data(ConfigData, avg_car_length),
     
-    MapData = restore_map({LightSource, LaneSource, ArrivaLog, DataLog, CheckPointLog}), 
+    MapData = restore_map({LightSource, LaneSource, ArrivaLog, DataLog, CheckPointLog, AvgCar}), 
 	loop(MapData, Time);
 
 init(normal, {MaxSpeed, ConfigData}) ->
@@ -467,7 +468,7 @@ format_checkpointlogs(CheckLogs) ->
 	L = tuple_to_list(CheckLogs),
 	list_to_tuple(lists:map(fun(Log) -> {ok, Cwd} = file:get_cwd(), Cwd ++ Log end, L)).
 	
-restore_map({LightSource, LaneSource, ArrivaLog, DataLog, CheckPointLog}) ->
+restore_map({LightSource, LaneSource, ArrivaLog, DataLog, CheckPointLog, AvgCar}) ->
 %%Restore configuration from files
     Axis = get_lights(LightSource),
     Roads = get_lanes(LaneSource),
@@ -476,8 +477,12 @@ restore_map({LightSource, LaneSource, ArrivaLog, DataLog, CheckPointLog}) ->
     {_Origin, AllocatedLights} = allocate_lights({Axis,[]}),
 %%Get geometric distribution for each lane that has a type 2 (2 directions)
     NewRoads = lane:init_geometric(Roads),    
+    
+    %%get the max move for each car on the area
+    MaxSpeedMove = max_car_move([], AvgCar),
+    
 %%Spawn every lane as a proccess    
-    {_OrigLanes, AllocatedLanes} = allocate_lanes({NewRoads,[],[],0}),
+    {_OrigLanes, AllocatedLanes} = allocate_lanes({NewRoads,[],[],MaxSpeedMove}),
 %%Set archive_log for cars arrival to sources_lanes  
     {ok, Cwd} = file:get_cwd(),
     Path = Cwd ++ "/logs/",
