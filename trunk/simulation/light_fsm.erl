@@ -472,19 +472,19 @@ evaluate_state(State = redgreen, _OldState, NextTime, CTime, _ARTime, _ARTimer, 
 %%OUTPUT: None
 %%DESC:	 This function is used to call all lanes and tell them to update either on idle or active
 
-update_lanes(ManagedLanes, Active, Idle,CTime, GTime, LogData) ->
-	update_lanes_active_aux(ManagedLanes, Active, CTime, GTime, LogData), 
+update_lanes(ManagedLanes, Active, Idle,CTime, GTime, LogData,Sensor) ->
+	update_lanes_active_aux(ManagedLanes, Active, CTime, GTime, LogData, Sensor), 
     update_lanes_idle_aux(ManagedLanes, Idle, CTime, LogData).
 	
-update_lanes_active_aux(_ManagedLanes, [], _CTime, _GTime, _LogData)->
+update_lanes_active_aux(_ManagedLanes, [], _CTime, _GTime, _LogData, _Sensor)->
 	[];
-update_lanes_active_aux(ManagedLanes, [Active | Tail], CTime, GTime, LogData)->
+update_lanes_active_aux(ManagedLanes, [Active | Tail], CTime, GTime, LogData, Sensor)->
 	Res = lists:keyfind(Active, 1, ManagedLanes),
 	case Res of
-    	{Active, List} -> update_on_active(List, CTime, GTime, LogData);
+    	{Active, List} -> update_on_active(List, CTime, GTime, LogData, Sensor);
     	false		   -> []		
     end,	
-	update_lanes_active_aux(ManagedLanes, Tail, CTime, GTime, LogData).
+	update_lanes_active_aux(ManagedLanes, Tail, CTime, GTime, LogData, Sensor).
 
 update_lanes_idle_aux(_ManagedLanes, [], _CTime, _LogData)->
 	[];
@@ -497,16 +497,16 @@ update_lanes_idle_aux(ManagedLanes, [Idle | Tail], CTime, LogData)->
 	update_lanes_idle_aux(ManagedLanes, Tail, CTime, LogData).
 
 %% Update each lane that is active on this light 
-update_on_active([], _Cycle_time, _Go_time, _LogData) ->  
+update_on_active([], _Cycle_time, _Go_time, _LogData, _Sensor) ->  
     true;
-update_on_active([{LaneId,LanePid}|Tail], Go_time, Cycle_time, LogData) ->  
-    LanePid ! {go, self(), Cycle_time, Go_time, LogData},
+update_on_active([{LaneId,LanePid}|Tail], Go_time, Cycle_time, LogData, Sensor) ->  
+    LanePid ! {go, self(), Cycle_time, Go_time, LogData, Sensor},
     receive
         {reply, _Reply} -> 
             %%io:format("reply recieve after update on active lane ~w.~n",[LaneId]),
             write_result(LogData, io_lib:format("reply recieve after update on active lane ~w",[LaneId]))
     end,
-    update_on_active(Tail,Cycle_time, Go_time, LogData).
+    update_on_active(Tail,Cycle_time, Go_time, LogData, Sensor).
 
 %% Update each lane that is waiting on this light 
 update_on_idle([], _Cycle_time, _LogData) -> 
@@ -619,20 +619,24 @@ process_state(idle, StateData, OnActive, OnIdle, FromState, Dir) ->
     LogData = find_element(log_data, StateData),
 
 	write_result(LogData, io_lib:format("continue moving ~w lanes. Data: ~w",[Dir, StateData])),
-    update_lanes(ManagedLanes, OnActive, OnIdle, CTime, 0, LogData),
+    update_lanes(ManagedLanes, OnActive, OnIdle, CTime, 0, LogData, null),
 
     NewTimes = lists:keyreplace(allred_timer,1, Times, {allred_timer, ARTimer + 1}),
     update_state_data([{times, NewTimes}, {old_state, FromState}], StateData);
     
-process_state(move, StateData, OnActive, OnIdle, _FromState, Dir) ->	
+process_state(move, StateData, OnActive, OnIdle, _FromState, Dir) ->
     ManagedLanes = find_element(managed_lanes, StateData),
     LogData = find_element(log_data, StateData),
-    Times = find_element(times, StateData),    
+    Times = find_element(times, StateData),
     CTime = find_element(cycle_time, Times),
-    GTime = find_element(go_time, Times),    
+    GTime = find_element(go_time, Times),
+    
+    %%NEW TO CONNECT WITH SENSOR
+    CtrlMod = find_element(ctrl_mod, StateData),
+    Sensor = get_safe_sensor(CtrlMod),
     
     write_result(LogData, io_lib:format("continue moving ~w lanes. Data: ~w",[Dir, StateData])),
-    update_lanes(ManagedLanes, OnActive, OnIdle,CTime, GTime, LogData),    
+    update_lanes(ManagedLanes, OnActive, OnIdle,CTime, GTime, LogData, Sensor),    
     
     NewTimes = lists:keyreplace(go_time,1, Times, {go_time, GTime + 1}),
     update_state_data([{times, NewTimes}], StateData);
@@ -644,7 +648,7 @@ process_state(allred_move, StateData, OnActive, OnIdle, _FromState, Dir) ->
     CTime = find_element(cycle_time, Times),
         
     write_result(LogData, io_lib:format("Changing for red to green on ~w. Start Moving ~w lanes. Data: ~w~n",[Dir, Dir,StateData])),    
-    update_lanes(ManagedLanes, OnActive, OnIdle,CTime, 0, LogData),
+    update_lanes(ManagedLanes, OnActive, OnIdle,CTime, 0, LogData, null),
     
     NewTimesAux = lists:keyreplace(go_time,1, Times, {go_time, 0}),
     NewTimes = lists:keyreplace(allred_timer,1, NewTimesAux, {allred_timer, 0}),
@@ -659,7 +663,7 @@ process_state(allred_idle, StateData, OnActive, OnIdle, _FromState, _Dir) ->
     ARTimer = find_element(allred_timer, Times),
     
     write_result(LogData, io_lib:format("All Red time. Data: ~w~n",[StateData])),
-    update_lanes(ManagedLanes, OnActive, OnIdle, CTime, 0, LogData),    
+    update_lanes(ManagedLanes, OnActive, OnIdle, CTime, 0, LogData, null),    
     NewTimes = lists:keyreplace(allred_timer,1, Times, {allred_timer, ARTimer + 1}),
     
     update_state_data([{times, NewTimes}], StateData).
@@ -734,4 +738,11 @@ process_scans(InfoList) ->
 									   end,
 									   InfoList)),
 	{CountType1, CountType2, BCapacity, BTopSpeed, CountObStops}.
-	
+
+
+get_safe_sensor(CtrlMod) ->
+	Res = moduler:get_sensor(CtrlMod),
+	case Res of
+		{reply, Sensor} -> Sensor;
+		_Other			-> null
+	end.	
