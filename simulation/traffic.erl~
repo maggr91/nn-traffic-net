@@ -130,7 +130,6 @@ allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes,
     Obstruction = allocate_obs(Obs, LaneId),
     
     TargetMaxSpeed = find_max_car_move(LaneId, Dir, MaxSpeedMove),
-    io:format("~n~nMax speed: ~w",[TargetMaxSpeed]),
       
     Pid = lane:start(normal,{LaneId, Type, [], CarsQueque, Capacity, Obstruction, GeoProb, TargetMaxSpeed}),
     {arrival, ProbList} = lists:keyfind(arrival, 1, ProbData),

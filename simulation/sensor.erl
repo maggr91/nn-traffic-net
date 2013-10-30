@@ -1,6 +1,6 @@
 -module(sensor).
 
--export([start/1, get_records/2]).
+-export([start/1, get_records/2, car_pass/4]).
 
 -export([init/1]).
 
@@ -21,8 +21,10 @@ init({restore, Args}) ->
 
 sensor(Lanes, File) ->
 	receive 
-		{update, _CallerPid, CallerId} ->
-			NewLanes = update_count(CallerId, Lanes, Lanes),
+		{update, CallerPid, CallerId, Value, Dir} ->
+			io:format("Sensor msg ~w for lane: ~w with data: ~w~n", [self(), CallerId, {Dir, Value}]),
+			NewLanes = update_count(CallerId, Lanes, Lanes, Value, Dir),
+			reply(CallerPid, ok),
 			sensor(NewLanes, File);
 		{checkpoint, _CallerPid} ->
 			filelib:ensure_dir("checkpoint/sensors/"),
@@ -30,12 +32,12 @@ sensor(Lanes, File) ->
 			sensor(Lanes, File);
 		{update_file, NewFile} ->
 			sensor(Lanes, NewFile);
-		{records, CallerPid, Dir} ->
-			Data = records(Dir, Lanes),
+		{records, CallerPid, Dir, FlowDir} ->
+			Data = records(Dir, Lanes, FlowDir),
 			reply(CallerPid, Data),
 			sensor(Lanes, File);
-		{stop, CallerPid} ->
-			reply(CallerPid, ok),
+		{stop, _CallerPid} ->
+			%reply(CallerPid, ok),
 			{normal, sensor}
 	end.
 	
@@ -44,19 +46,19 @@ reply(Pid, Reply) ->
     
 format_lanes(Lanes) ->
 	lists:map(fun({Dir, List}) ->
-		{Dir, lists:map( fun({LaneId, LanePid}) -> {LaneId, [{id, LanePid}, {round_count, 0}, {total, 0}]} end, List)}
+		{Dir, lists:map( fun({LaneId, LanePid}) -> {LaneId, [{id, LanePid},{dsp_str, 0},{dsp_trn, 0}, {round_count, 0}, {total, 0}]} end, List)}
 		end,
 		Lanes
 	).
 
-update_count(_LaneId, [], OldLanes) ->
+update_count(_LaneId, [], OldLanes, _Value, _CounterId) ->
 	OldLanes;
-update_count(LaneId, [{Dir, LanesList} | Lanes], OldLanes) ->
+update_count(LaneId, [{Dir, LanesList} | Lanes], OldLanes, Value, CounterId) ->
 	Exist = lists:keyfind(LaneId, 1, LanesList),
 	case Exist of
-		false  -> update_count(LaneId, Lanes, OldLanes);
+		false  -> update_count(LaneId, Lanes, OldLanes, Value, CounterId);
 		_Other -> {LaneId, Data} = Exist,
-				  NewData = update_data_count([{round_count, 1}, {total, 1}], Data),
+				  NewData = update_data_count([{CounterId, Value}, {total, Value}], Data),
 				  NewLaneList = lists:keyreplace(LaneId,1, LanesList, {LaneId, NewData}),
 				  lists:keyreplace(Dir,1, OldLanes, {Dir, NewLaneList})
 	end.
@@ -136,10 +138,10 @@ restore(Lanes, File) ->
 		RestoredLanes
 	).
 	
-records(Dir, Lanes) ->
+records(Dir, Lanes, FlowDir) ->
 	Targets = find_element(Dir, Lanes),
 	lists:foldl(fun({_Lane, Data}, Sum) -> 
-		Counter = find_element(round_count, Data),
+		Counter = find_element(FlowDir, Data),
 		Sum + Counter
 		end, 0, Targets).
 	
@@ -148,7 +150,14 @@ records(Dir, Lanes) ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 get_records(SensorPid, Dir) -> 
-	SensorPid ! {},
-	Data = Dir,
-	Data.
+	SensorPid ! {records, self(), Dir, dsp_str},
+	receive
+		{reply, Data} -> {reply, Data};
+		_Other		  -> {reply, error}
+	end.
 
+car_pass(SensorPid, LaneId, Count, Dir) ->
+	io:format("~nSensor call to exec ~w for lane: ~w with data: ~w~n", [SensorPid, LaneId, {Dir, Count}]),	
+	SensorPid ! {update, self(), LaneId, Count, Dir},
+	{ok, sensor}.
+	

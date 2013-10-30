@@ -1,7 +1,7 @@
 -module(lane).
 
 -export([start/2, estimate_new_arrival/2, init_poisson/1, init_geometric/1, connect/2, 
-	checkpoint/2, restore/1, restore/4, restore_sources/2, checkpoint_sources/2]).
+	checkpoint/2, restore/1, restore/4, restore_sources/2, checkpoint_sources/2, safe_sensor_update/4]).
 
 -export([init/2]).
 
@@ -29,12 +29,15 @@ lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstructio
   %% and run the complete simulation
     receive
     %% if a go message is received it tells all cars to start to move
-        {go, LightController, _TimeCycle, _Time, LogData} ->            
+        {go, LightController, _TimeCycle, _Time, LogData, Sensor} ->            
             CedPos = locate_cedPositions(ConnectedLanes, ProbData, LogData),
-            io:format("GO msj~n. CarsQueque LaneId ~w: CedPos: ~w ~w~n",[LaneId, CedPos, {Type, ConnectedLanes, CarsQueque, Obstruction, ProbData}]),
-            write_result(LogData, io_lib:format("GO msj~n. CarsQueque LaneId ~w: CedPos: ~w ~w~n",[LaneId, CedPos, {Type, ConnectedLanes, CarsQueque, Obstruction, ProbData}])), 
-	    {NewCarsQueque, NewProbData, NewOutArea, NewStats} = move_cars(CarsQueque, ConnectedLanes,Obstruction, [], Capacity,ProbData, LaneId, OutSideArea, LogData, Stats,-1, CedPos),
-            io:format("Moving msj received from ~w. NewCarsQueque: ~w ~n",[LightController,NewCarsQueque]),	    
+            io:format("GO msj. CarsQueque LaneId ~w: CedPos: ~w ~w~n",[LaneId, CedPos, {Type, ConnectedLanes, CarsQueque, Obstruction, ProbData}]),
+            write_result(LogData, io_lib:format("GO msj . CarsQueque LaneId ~w: CedPos: ~w ~w~n",[LaneId, CedPos, {Type, ConnectedLanes, CarsQueque, Obstruction, ProbData}])), 
+	    {NewCarsQueque, NewProbData, NewOutArea, NewStats} = move_cars(CarsQueque, ConnectedLanes,Obstruction, [], Capacity,ProbData, LaneId, OutSideArea, LogData, Stats,-1, CedPos, Sensor),
+            io:format("Moving msj received from ~w. NewCarsQueque: ~w ~n",[LightController,NewCarsQueque]),
+            
+        %timer:apply_after(100, lane, safe_sensor_update, [Sensor, dsp_str, LaneId, 1]),
+        %timer:apply_after(100, lane, safe_sensor_update, [Sensor, dsp_trn, LaneId, 1]),
 	    reply(LightController, updated),
 	    lane(LaneId, Type, ConnectedLanes, NewCarsQueque,NewOutArea, Capacity, Obstruction, NewProbData, NewStats, TopSpeed);
     %% send a message to all cars to start to stop preventing them to pass the red ligth
@@ -259,14 +262,14 @@ waiting(LaneId, CarsQueque, _UpdatedCars, _LastPosition, LogData, ConnectedLanes
 %%=======================================================================%%
 
 %% When a move message is recieved
-move_cars([], _ConnectedLanes, _Obstruction, UpdatedCars, _LanCap, ProbData, _LaneId, NewOutArea, LogData, Stats, _LastCarPos,_CedPos) -> 
+move_cars([], _ConnectedLanes, _Obstruction, UpdatedCars, _LanCap, ProbData, _LaneId, NewOutArea, LogData, Stats, _LastCarPos,_CedPos, _Sensor) -> 
     io:format("No more cars to move: Moving carslist  ~w ~n",[UpdatedCars]),
     write_result(LogData, io_lib:format("No more cars to move: Moving carslist  ~w ~n",[UpdatedCars])),
     {lists:reverse(UpdatedCars), ProbData, NewOutArea, Stats};
 
 %% if car has reached the end of line, dispatch (send) car to one of connected lanes
 move_cars([{CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}}|Tail], ConnectedLanes, Obs, UpdatedCars, LanCap, 
-  ProbData, LaneId, NewOutArea, LogData, Stats, _LastCarPos, CedPos) when BPos == 0  -> 
+  ProbData, LaneId, NewOutArea, LogData, Stats, _LastCarPos, CedPos, Sensor) when BPos == 0  -> 
     %%Dispatch Cars
     io:format("CAR GOING TO DISPATCH Prob dispatch: ~w.~n",[ProbData]),
     write_result(LogData, io_lib:format("CAR GOING TO DISPATCH Prob dispatch: ~w.~n",[ProbData])),
@@ -283,16 +286,24 @@ move_cars([{CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMov
     %% if car was able to move to the next lane, continue with remaining cars, if not stop moving the rest of
     %% the cars
     case Res of 
-        {reply, transfered, Car}   -> move_cars(Tail, ConnectedLanes, Obs, UpdatedCars, LanCap,NewProbData, LaneId, [Car|NewOutArea], LogData, Stats,-1, CedPos);
+        {reply, transfered, Car}   -> move_cars(Tail, ConnectedLanes, Obs, UpdatedCars, LanCap,NewProbData, LaneId, [Car|NewOutArea], LogData, Stats,-1, CedPos, Sensor);
         {reply, transfered} when Dir == str ->
+        				  %%update the sensor counter by the amount specified
+        				  %io:format("Calling sensor ~w for lane: ~w with data: ~w~n", [Sensor, LaneId, {dsp_str, 1}]),
+						  %safe_sensor_update(Sensor, dsp_str, LaneId, 1),
+        			      timer:apply_after(50, lane, safe_sensor_update, [Sensor, dsp_str, LaneId, 1]),
         			      {dsp_str, StrCounter} = lists:keyfind(dsp_str, 1, Stats),
-         			      NewStats = lists:keyreplace(dsp_str,1, Stats, {dsp_str, StrCounter + 1}), 
-        			      move_cars(Tail, ConnectedLanes, Obs, UpdatedCars, LanCap,NewProbData, LaneId,NewOutArea, LogData, NewStats,-1, CedPos);
+         			      NewStats = lists:keyreplace(dsp_str,1, Stats, {dsp_str, StrCounter + 1}),         			      
+						  %timer:apply_after(100, moduler, update_dm, [NN, NNFile, LightId]),
+        			      move_cars(Tail, ConnectedLanes, Obs, UpdatedCars, LanCap,NewProbData, LaneId,NewOutArea, LogData, NewStats,-1, CedPos, Sensor);
         			      
         {reply, transfered} when Dir == trn -> 
         			      {dsp_trn, TrnCounter} = lists:keyfind(dsp_trn, 1, Stats),
-         			      NewStats = lists:keyreplace(dsp_trn,1, Stats, {dsp_trn, TrnCounter + 1}), 
-        			      move_cars(Tail, ConnectedLanes, Obs, UpdatedCars, LanCap,NewProbData, LaneId,NewOutArea, LogData, NewStats,-1, CedPos);
+         			      NewStats = lists:keyreplace(dsp_trn,1, Stats, {dsp_trn, TrnCounter + 1}),
+         			      %%update the sensor counter by the amount specified
+         			      %safe_sensor_update(Sensor, dsp_trn, LaneId, 1),
+         			      timer:apply_after(50, lane, safe_sensor_update, [Sensor, dsp_trn, LaneId, 1]),
+        			      move_cars(Tail, ConnectedLanes, Obs, UpdatedCars, LanCap,NewProbData, LaneId,NewOutArea, LogData, NewStats,-1, CedPos, Sensor);
         			      
         {reply, error, NewUpdated} -> io:format("CALL STOP MOVING ~w  position ~w.~n",[NewUpdated, EPos]),
         			      write_result(LogData, io_lib:format("CALL STOP MOVING ~w  position ~w.~n",[NewUpdated, EPos])),
@@ -302,7 +313,7 @@ move_cars([{CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMov
 
 %% if its the car cannot move anymore
 move_cars([ Car = {CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}}|Tail], ConnectedLanes, [], UpdatedCars, LanCap, 
-  ProbData, LaneId, NewOutArea, LogData, Stats, LastCarPos, CedPos) when BPos /= 0 andalso NextMove == 0 andalso (BPos - 1 >= 0 orelse BPos - 1 > LastCarPos) -> 
+  ProbData, LaneId, NewOutArea, LogData, Stats, LastCarPos, CedPos, Sensor) when BPos /= 0 andalso NextMove == 0 andalso (BPos - 1 >= 0 orelse BPos - 1 > LastCarPos) -> 
  	write_result(LogData, io_lib:format("Call stop_toced : Car ~w  CedPos: ~w.~n",[Car, CedPos])), 
     IsCedPos = stop_toCed(Car, CedPos),
  	%%IsCedPos = stop_toCed({CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}}, CedPos),
@@ -314,21 +325,21 @@ move_cars([ Car = {CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, 
 			io:format("MOVE-CARS-restart : Car be moved, changed movement from ~w to ~w. LastPos ~w, CarQueque: ~w~n",[NextMove, NextMove + 1, NEPos, Tail]),
 			write_result(LogData, io_lib:format("MOVE-CARS-restart : Car be moved, changed movement from ~w to ~w. LastPos ~w, CarQueque: ~w~n",[NextMove, NextMove + 1, NEPos, Tail])), 
 			move_cars(Tail, ConnectedLanes,[], [{CarType,{Wait + 1,Delay, {NBPos, NEPos, Length}, Route, PrefLanes, NewNextMove, TopMove}} | UpdatedCars], 
-			  LanCap, ProbData, LaneId, NewOutArea, LogData, Stats, NEPos, CedPos);
+			  LanCap, ProbData, LaneId, NewOutArea, LogData, Stats, NEPos, CedPos, Sensor);
 		true ->
 			io:format("MOVE-CARS-CEDPos : Car reached a cedPos and has to allow pass ~w. LastPos ~w, CedPositions: ~w~n",[BPos - NextMove, BPos, CedPos]),
 			write_result(LogData, io_lib:format("MOVE-CARS-CEDPos : Car reached a cedPos and has to allow pass ~w. LastPos ~w, CedPositions: ~w~n",[BPos - NextMove, BPos, CedPos])), 
 			move_cars(Tail, ConnectedLanes,[], [{CarType,{Wait + 1,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}} | UpdatedCars], 
-			  LanCap, ProbData, LaneId, NewOutArea, LogData, Stats, EPos, CedPos)
+			  LanCap, ProbData, LaneId, NewOutArea, LogData, Stats, EPos, CedPos, Sensor)
     end;
       
 %% if its the car cannot move anymore
 move_cars([{CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}}|Tail], ConnectedLanes, [], UpdatedCars, LanCap, 
-  ProbData, LaneId, NewOutArea, LogData, Stats, LastCarPos, CedPos) when BPos /= 0 andalso NextMove == 0 andalso (BPos - 1 < 0 orelse BPos - 1 =< LastCarPos) -> 
+  ProbData, LaneId, NewOutArea, LogData, Stats, LastCarPos, CedPos, Sensor) when BPos /= 0 andalso NextMove == 0 andalso (BPos - 1 < 0 orelse BPos - 1 =< LastCarPos) -> 
     io:format("MOVE-CARS-restart : Car cannot be moved, leave movement at ~w. LastPos ~w, CarQueque: ~w~n",[NextMove,BPos, Tail]),
     write_result(LogData, io_lib:format("MOVE-CARS-first : Car cannot be moved, leave movement at ~w. LastPos ~w, CarQueque: ~w~n",[NextMove, BPos, Tail])), 
     move_cars(Tail, ConnectedLanes,[], [{CarType,{Wait + 1,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}} | UpdatedCars], 
-      LanCap, ProbData, LaneId, NewOutArea, LogData, Stats, EPos, CedPos);
+      LanCap, ProbData, LaneId, NewOutArea, LogData, Stats, EPos, CedPos, Sensor);
 
 %% if its the first car in the line
 %%move_cars([{CarType,{Wait,Delay, Position, Route, PrefLanes, NextMove, TopMove}}|Tail], ConnectedLanes, [], UpdatedCars, LanCap, 
@@ -350,7 +361,7 @@ move_cars([{CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMov
 
 %% if its ANY OTHER car in the line
 move_cars([ Car = {CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}}|Tail], ConnectedLanes, [], UpdatedCars, LanCap, 
-  ProbData, LaneId, NewOutArea, LogData, Stats, LastCarPos, CedPos) when (BPos /= 0 andalso NextMove > 1 andalso BPos - NextMove - 1 >= 0 andalso BPos - NextMove - 1 > LastCarPos)
+  ProbData, LaneId, NewOutArea, LogData, Stats, LastCarPos, CedPos, Sensor) when (BPos /= 0 andalso NextMove > 1 andalso BPos - NextMove - 1 >= 0 andalso BPos - NextMove - 1 > LastCarPos)
   orelse (BPos /= 0 andalso NextMove == 1 andalso BPos - NextMove >= 0 andalso BPos - NextMove > LastCarPos)  -> 
   	write_result(LogData, io_lib:format("Call stop_toced : Car ~w  CedPos: ~w.~n",[Car, CedPos])), 
     IsCedPos = stop_toCed(Car, CedPos),
@@ -361,28 +372,28 @@ move_cars([ Car = {CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, 
 			io:format("MOVE-CARS : Car moved ok, change movement from ~w to ~w. ~n",[NextMove, NewNextMove]),
 			write_result(LogData, io_lib:format("MOVE-CARS : Car moved ok, change movement from ~w to ~w.~n",[NextMove, NewNextMove])), 
 			move_cars(Tail, ConnectedLanes,[], [{CarType,{Wait + 1,Delay, {NBPos, NEPos, Length}, Route, PrefLanes, NewNextMove, TopMove}} | UpdatedCars], 
-			  LanCap, ProbData, LaneId, NewOutArea, LogData, Stats, NEPos, CedPos);
+			  LanCap, ProbData, LaneId, NewOutArea, LogData, Stats, NEPos, CedPos, Sensor);
 		true ->
 			io:format("MOVE-CARS-CEDPos : Car reached a cedPos and has to allow pass ~w. LastPos ~w, CedPositions: ~w~n",[BPos - NextMove, BPos, CedPos]),
 			write_result(LogData, io_lib:format("MOVE-CARS-CEDPos : Car reached a cedPos and has to allow pass ~w. LastPos ~w, CedPositions: ~w~n",[BPos - NextMove, BPos, CedPos])), 
 			move_cars(Tail, ConnectedLanes,[], [{CarType,{Wait + 1,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}} | UpdatedCars], 
-			  LanCap, ProbData, LaneId, NewOutArea, LogData, Stats, EPos, CedPos)
+			  LanCap, ProbData, LaneId, NewOutArea, LogData, Stats, EPos, CedPos, Sensor)
     end;
 
 %% if its ANY OTHER car in the line
 move_cars([Car = {CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}}|Tail], ConnectedLanes, [], UpdatedCars, LanCap, 
-  ProbData, LaneId, NewOutArea, LogData, Stats, LastCarPos, CedPos) when (BPos /= 0 andalso NextMove > 1 andalso (BPos - NextMove - 1 < 0 orelse BPos - NextMove - 1 =< LastCarPos))
+  ProbData, LaneId, NewOutArea, LogData, Stats, LastCarPos, CedPos, Sensor) when (BPos /= 0 andalso NextMove > 1 andalso (BPos - NextMove - 1 < 0 orelse BPos - NextMove - 1 =< LastCarPos))
   orelse (BPos /= 0 andalso NextMove == 1 andalso (BPos - NextMove < 0 orelse BPos - NextMove =< LastCarPos)) ->
     NewNextMove = NextMove - 1,
     io:format("MOVE-CARS: Car: ~w - lastPos ~w Reducing movement from ~w to ~w. Try again~n",[Car, LastCarPos,NextMove, NewNextMove]),
     write_result(LogData, io_lib:format("MOVE-CARS: Car: ~w - lastPos ~w Reducing movement from ~w to ~w. Try again~n",[Car, LastCarPos,NextMove, NewNextMove])), 
     move_cars([{CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NewNextMove, TopMove}} | Tail], ConnectedLanes,[], UpdatedCars, 
-      LanCap, ProbData, LaneId, NewOutArea, LogData, Stats, LastCarPos, CedPos);
+      LanCap, ProbData, LaneId, NewOutArea, LogData, Stats, LastCarPos, CedPos, Sensor);
 
  
 %% in case that thers and obstruction on the lane
 move_cars(CarsQueque, ConnectedLanes, [ObsData | _Obstruction], _UpdatedCars, 
-            _LanCap, ProbData, LaneId, NewOutArea, LogData, Stats, _LastCarPos, _CedPos)-> 
+            _LanCap, ProbData, LaneId, NewOutArea, LogData, Stats, _LastCarPos, _CedPos, _Sensor)-> 
 %% get probability for the current car to see if its enable to 
 %% cross to a sibling lane
 %% if it was not able, leave it on the same lane and update times
@@ -1539,4 +1550,16 @@ restore_sources_aux([], _SourcesData, RestoredSources) ->
 restore_sources_aux([{LaneId, LanePid, _WaitingCars, _ProbData, _Timer} | Tail], SourcesData, RestoredSources) ->
 	{RestoredProbData, RestoredTimer, RestoredWaitingCars} = restore_cars(LaneId, SourcesData),
 	restore_sources_aux(Tail, SourcesData, [ {LaneId, LanePid, RestoredWaitingCars, RestoredProbData, RestoredTimer} | RestoredSources]).
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%SENSOR INTERFACE
+
+%%update the counter by the amount specified
+safe_sensor_update(Sensor, Dir, LaneId, Count) ->
+	io:format("~nSAFE_SENSOR~n"),
+	case Sensor of
+		null   ->	{ok, nosensor};
+		_Other ->	sensor:car_pass(Sensor, LaneId, Count, Dir)
+	end.
 	

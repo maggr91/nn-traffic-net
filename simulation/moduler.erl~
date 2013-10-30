@@ -43,6 +43,8 @@ init({normal, LightId, Lanes}) ->
 	FormatLog = formated_log(Other),
 	FormatSens = format_dm_file(SensorFile, LightId),
 	
+	delete_old([FormatLog, FormatSens]),
+	
 	NewCheckpointLog = {FormatLog, NNFile, FormatSens},
 	NN = create_dm(Config),
 	update_dm(NN, NNFile, LightId),	
@@ -127,7 +129,7 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 				true  -> listen(Light, Siblings, NN, Data, CheckpointLog, Sensor)
 			end;
 		{proc, CallerPid, Dir} ->
-			SensorInputs = sensor:get_records(Sensor),
+			SensorInputs = sensor:get_records(Sensor, Dir),
 			FormatedInputs = format_inputs(Dir, Data, SensorInputs),
 			
 			%%call nn with the new inputs
@@ -143,7 +145,7 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 			
 		{stop, CallerPid} ->
 			force_stop(NN, Sensor),
-			reply(CallerPid, ok),
+			%reply(CallerPid, {normal, moduler}),
 			{normal, moduler};
 		{checkpoint, CallerPid} ->
 			write_checkpoint(NN, Data, CheckpointLog, Light, Sensor),
@@ -276,13 +278,15 @@ calculate_outputs(NetValues, _NetInputs) ->
 	NewValues = lists:append(NetValues, ExtraOutputs),
 	NewValues.
 	
-format_inputs(_Dir, _Data, _SensorInputs) ->
-	{}.
+format_inputs(Dir, Data, SensorInputs) ->
+	NetInputs = find_element(net_inputs, Data),
+	LoadedInputs = find_element(Dir, NetInputs),
+	lists:append(LoadedInputs, SensorInputs).
 	
 get_sensor(ModulerPid) ->
 	ModulerPid ! {active_sensor, self()},
 	receive
-		{reply, Sensor} -> Sensor;
+		{reply, Sensor} -> {reply, Sensor};
 		_Other			-> {error, sensor}
 	end.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
