@@ -257,14 +257,16 @@ find_siblings([{Dir, DirLightList} | TailSiblings], LightsList, CompleteSiblings
 %% for this we use the lists:keyfind/3 to return a tuple {LightId, LightPid}
 find_siblings_aux([],_LightsList, CompleteSiblings) ->
     lists:reverse(CompleteSiblings);
-find_siblings_aux([SiblingId|Tail], LightsList,CompleteSiblings) ->
+%%find_siblings_aux([SiblingId|Tail], LightsList,CompleteSiblings) ->
+find_siblings_aux([{SiblingId, Location}|Tail], LightsList,CompleteSiblings) ->
     SiblingData = lists:keyfind(SiblingId, 1, LightsList),
     case SiblingData of
 		false ->  find_siblings_aux(Tail,LightsList, CompleteSiblings);
 				
 		_Other -> {Id, Pid,Sequence} = SiblingData,
     			  {_State, _Times, _Siblings, _LogData, _OldState, CtrlMod} = invoke_light(Sequence, get_state, Pid),
-    			  NewSiblingData = {Id, Pid,Sequence, CtrlMod},
+    			  NewSiblingData = {Id, Pid,Sequence, CtrlMod,Location},
+    			  %%NewSiblingData = {Id, Pid,Sequence, CtrlMod},
 				  find_siblings_aux(Tail,LightsList, [NewSiblingData|CompleteSiblings])
     end.
     

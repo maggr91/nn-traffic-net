@@ -26,6 +26,11 @@ sensor(Lanes, File) ->
 			NewLanes = update_count(CallerId, Lanes, Lanes, Value, Dir),
 			reply(CallerPid, ok),
 			sensor(NewLanes, File);
+		{change, CallerPid, Dir} ->
+			io:format("Change Sensor targets ~n", []),
+			NewLanes = reset_count(Lanes, Dir),
+			reply(CallerPid, ok),
+			sensor(NewLanes, File);
 		{checkpoint, _CallerPid} ->
 			filelib:ensure_dir("checkpoint/sensors/"),
 			write_checkpoint(Lanes, File),
@@ -46,7 +51,7 @@ reply(Pid, Reply) ->
     
 format_lanes(Lanes) ->
 	lists:map(fun({Dir, List}) ->
-		{Dir, lists:map( fun({LaneId, LanePid}) -> {LaneId, [{id, LanePid},{dsp_str, 0},{dsp_trn, 0}, {round_count, 0}, {total, 0}]} end, List)}
+		{Dir, lists:map( fun({LaneId, LanePid}) -> {LaneId, [{id, LanePid},{dsp_str, 0},{dsp_trn, 0}, {rain, 0}, {total_str, 0}, {total_trn, 0}, {total, 0}]} end, List)}
 		end,
 		Lanes
 	).
@@ -58,11 +63,14 @@ update_count(LaneId, [{Dir, LanesList} | Lanes], OldLanes, Value, CounterId) ->
 	case Exist of
 		false  -> update_count(LaneId, Lanes, OldLanes, Value, CounterId);
 		_Other -> {LaneId, Data} = Exist,
-				  NewData = update_data_count([{CounterId, Value}, {total, Value}], Data),
+				  TotalCounterId = list_to_atom(string:concat(atom_to_list(total_), string:substr(atom_to_list(CounterId),5,3))),
+				  NewData = update_data_count([{CounterId, Value}, {TotalCounterId, Value}, {total, Value}], Data),
 				  NewLaneList = lists:keyreplace(LaneId,1, LanesList, {LaneId, NewData}),
 				  lists:keyreplace(Dir,1, OldLanes, {Dir, NewLaneList})
 	end.
 
+reset_count(Lanes, Dir) ->
+	true.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%% GENERAL %%%%%%%%%%%%%%%%%
 find_element(_Id, []) ->
@@ -138,12 +146,17 @@ restore(Lanes, File) ->
 		RestoredLanes
 	).
 	
-records(Dir, Lanes) ->
+records(Dir, Lanes, FlowDir) ->
 	Targets = find_element(Dir, Lanes),
-	lists:foldl(fun({_Lane, Data}, Sum) -> 
+	case lists:any(fun({_Lane, Data}) -> Rain = find_element(rain, Data), Rain == 1 end, Targets) of
+		true -> IsRaining = 1;
+		false -> IsRaining = 0
+	end,
+		
+	[{real_count, lists:foldl(fun({_Lane, Data}, Sum) -> 
 		Counter = find_element(FlowDir, Data),
 		Sum + Counter
-		end, 0, Targets).
+		end, 0, Targets)}, {rain, IsRaining}].
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%     CLIENT INTERFACE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -157,7 +170,11 @@ get_records(SensorPid, Dir) ->
 	end.
 
 car_pass(SensorPid, LaneId, Count, Dir) ->
-	io:format("~nSensor call to exec ~w for lane: ~w with data: ~w~n", [SensorPid, LaneId, {Dir, Count}]),	
+	%io:format("~nSensor call to exec ~w for lane: ~w with data: ~w~n", [SensorPid, LaneId, {Dir, Count}]),	
 	SensorPid ! {update, self(), LaneId, Count, Dir},
+	{ok, sensor}.
+	
+change(SensorPid, Dir) ->
+	SensorPid ! {change, self(), LaneId, Dir},
 	{ok, sensor}.
 	
