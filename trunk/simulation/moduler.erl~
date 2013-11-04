@@ -1,5 +1,6 @@
 -module(moduler).
--export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/2, request_updates/1, checkpoint/1, stop/1, get_sensor/1]).
+-export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/3, request_updates/1, 
+	checkpoint/1, stop/1, get_sensor/1, estimation_proc/2]).
 -export([init/1, update_dm/3]).
 
 %% Used to comunicate traffic lights 
@@ -107,13 +108,15 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 			io:format("Update triggered by siblings ~w Light: ~w... NewData", [CallerPid,Light]),
 			UpdateData = update_siblings_data(CallerPid, Data, NewData),
 			listen(Light, Siblings, NN, UpdateData, CheckpointLog, Sensor);
-		{response, CallerPid} ->
+		{response, CallerPid, Dir} ->
+			SensorInputs = sensor:get_records(Sensor, Dir),
 			{_Key, ResponseData} = lists:keyfind(net_values,1,Data),
-			reply(CallerPid, ResponseData),
+			Return = lists:append([ResponseData, SensorInputs]),
+			reply(CallerPid, Return),
 			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
 			%% send info to caller
-		{update_nn, CallerPid, NewVals} ->
-			NewData = update_nn_data(net_values, Data, NewVals),
+		{update_nn, CallerPid, NewVals, Dir} ->
+			NewData = update_nn_data(net_values, Data, NewVals,Dir),
 			reply(CallerPid, ok),
 			send_update_to_Siblings(Siblings, NewVals),
 			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
@@ -121,29 +124,51 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 			NewData = update_nn_data(net_input, Data, NewVals),			
 			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
 		{connect, SiblingData, Dir} ->
-			{Dir, List} = lists:keyfind(Dir, 1, Siblings),
+			%%add connection to siblings list but not the data
+			%{Dir, List} = lists:keyfind(Dir, 1, Siblings),
+			ExistDir = lists:keyfind(Dir, 1, Siblings),
+			case ExistDir of
+				false -> NewSiblings = [{Dir, []} | Siblings],
+						 List = [];
+				_Other  -> {Dir, List} = ExistDir,
+						 NewSiblings = Siblings
+			end,
+			 
 			Exist = lists:any(fun(Item) -> Item == SiblingData end, List),
 			case Exist of
-				false -> NewSinbligs = lists:keyreplace(Dir, 1, Siblings, {Dir, [SiblingData | List]}),
-						 listen(Light, NewSinbligs, NN, Data, CheckpointLog, Sensor);
-				true  -> listen(Light, Siblings, NN, Data, CheckpointLog, Sensor)
+				false -> UpdatedSiblings = lists:keyreplace(Dir, 1, NewSiblings, {Dir, [SiblingData | List]}),
+						 listen(Light, UpdatedSiblings, NN, Data, CheckpointLog, Sensor);
+				true  -> listen(Light, NewSiblings, NN, Data, CheckpointLog, Sensor)
 			end;
 		{proc, CallerPid, Dir} ->
+			%%First update data from siblings
+			NewData = request_update_from_Siblings(Siblings, Data),
+			
+			%%second, get data from related sensor
+			%%return is [{real_count, Val}, {rain, Val}]
 			SensorInputs = sensor:get_records(Sensor, Dir),
-			FormatedInputs = format_inputs(Dir, Data, SensorInputs),
+			%%Third format all reladted inputs from siblings 
+			SiblingsInput = format_siblings_inputs(Dir, Siblings, NewData),
+			FormatedInputs = format_inputs(Dir, NewData, SensorInputs, SiblingsInput),
 			
 			%%call nn with the new inputs
-			Desition = ann:input(FormatedInputs),
-			NetInputs = find_element(net_input, Data),
-			
+			Desition = ann:input(FormatedInputs),			
+			NetInputs = find_element(net_input, NewData),
+			%%Calculate extra outputs according to nn desition and the input data
 			FinalDesition = calculate_outputs(Desition, NetInputs),
-
+			%%Send the info back to the light
 			reply(CallerPid, FinalDesition),
-			update_from_nn(self(), FinalDesition),
+
+			%%updateValues
+			%update_from_nn(self(), FinalDesition,Dir),
 			
-			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
+			FinalData = update_nn_data(net_values, NewData, FinalDesition, Dir),			
+			send_update_to_Siblings(Siblings, FinalDesition),
 			
-		{stop, CallerPid} ->
+			%listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
+			listen(Light, Siblings, NN, FinalData, CheckpointLog, Sensor);
+			
+		{stop, _CallerPid} ->
 			force_stop(NN, Sensor),
 			%reply(CallerPid, {normal, moduler}),
 			{normal, moduler};
@@ -153,18 +178,28 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
 		{active_sensor, CallerPid} ->
 			reply(CallerPid, Sensor),
-			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);	
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
+		{change_sensor _CallerPid} ->
+			true,
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
 		{status, _CallerPid} ->
 			io:format("Status of moduler ~w ~n Siblings: ~w~n Data: ~w~n~n",[{Light,self()}, Siblings, Data]),
 			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor)
 	end.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%     GENERAL FUNCTIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 reply(Pid, Reply) ->
     Pid ! {reply, Reply}.
 
-connect(Dir, {SenderId, SenderPid}, {ReceiverId, ReceiverPid}) ->
-	SenderPid ! {connect, {ReceiverId, ReceiverPid}, Dir},
-	ReceiverPid ! {connect, {SenderId, SenderPid}, Dir}.
+%connect(Dir, {SenderId, SenderPid}, {ReceiverId, ReceiverPid}) ->
+%	SenderPid ! {connect, {ReceiverId, ReceiverPid}, Dir},
+%	ReceiverPid ! {connect, {SenderId, SenderPid}, Dir}.
+connect(Dir, {SenderId, SenderPid, SenderLocation}, {ReceiverId, ReceiverPid, ReceiverLocation}) ->
+	SenderPid ! {connect, {ReceiverId, ReceiverPid,ReceiverLocation}, Dir},
+	ReceiverPid ! {connect, {SenderId, SenderPid,SenderLocation}, Dir}.
 	
 %connect(Dir, SenderPid, ReceiverPid) ->
 %	SenderPid ! {connect, ReceiverPid, Dir}.
@@ -174,17 +209,17 @@ request_update_from_Siblings([], Data) ->
 	Data;
 request_update_from_Siblings([{Dir, SiblingsList} | Siblings], Data) ->
 	io:format("Updating ~w~n", [Dir]),
-	NewData = update_from_Siblings_aux(SiblingsList, Data),
+	NewData = update_from_Siblings_aux(SiblingsList, Data, Dir),
 	request_update_from_Siblings(Siblings, NewData).
 	
-update_from_Siblings_aux([], Data) ->
+update_from_Siblings_aux([], Data, _Dir) ->
 	Data;
-update_from_Siblings_aux([{Sid, S} | Siblings], Data) ->
-	S ! {response, self()},
+update_from_Siblings_aux([{Sid, S, _SibLocation} | Siblings], Data, Dir) ->
+	S ! {response, self(), Dir},
 	receive
 		{reply, NewData} ->
 			UpdatedData = update_siblings_data(Sid, Data, NewData),
-			update_from_Siblings_aux(Siblings, UpdatedData);
+			update_from_Siblings_aux(Siblings, UpdatedData, Dir);
 			%Res = lists:keyfind(S,1, Data),
 			%case Res of
 			%	false ->	update_from_Siblings_aux(Siblings, [{S, NewData} | Data]); 	
@@ -201,7 +236,7 @@ send_update_to_Siblings(Siblings, Data) ->
 		fun({Dir, SiblingsList}) ->
 			io:format("Sending update to siblings on ~w. List: ~w~n~n", [Dir, SiblingsList]),
 			lists:map(
-				fun({_SiblingId, SiblingPid}) ->
+				fun({_SiblingId, SiblingPid, _SiblingLocation}) ->
 					SiblingPid ! {broadcast_update, self(), Data}
 				end,
 				SiblingsList
@@ -228,6 +263,15 @@ update_nn_data(Id, Data, NewVals) ->
 	%{net_values, _Values} = lists:keyfind(net_values, 1, Data),
 	%lists:keyreplace(net_values, 1, Data, {net_values, NewVals}).	
 	lists:keyreplace(Id, 1, Data, {Id, NewVals}).
+	
+update_nn_data(Id, Data, NewVals, Dir) ->
+	{Id, Values} = lists:keyfind(Id, 1, Data),
+	DirData = lists:keyfind(Dir, 1, Values),
+	case DirData of
+		false 	   -> lists:keyreplace(Id, 1, Data, {Id, [{Dir, NewVals} | Values]});
+		_Other 	   -> NewValues = lists:keyreplace(Dir, 1, Values, {Dir, NewVals}),
+					  lists:keyreplace(Id, 1, Data, {Id, NewValues})
+	end.
 
 
 %%find configuration
@@ -241,13 +285,79 @@ find_config_data(ConfigData, Key) ->
 get_config() ->
 	filemanager:get_data("/config_mod.txt").
 
+calculate_outputs(NetValues, _NetInputs) ->
+	PromCars = random:uniform(5),
+	ExtraOutputs = [{estimated_cars, PromCars}],
+	NewValues = lists:append(NetValues, ExtraOutputs),
+	reformat_net_values([],NewValues,[]).
+
+reformat_net_values([], [], Reformated) ->
+	lists:reverse(Reformated);
+reformat_net_values([_Value | _Values], [], Reformated) ->
+	lists:reverse(Reformated);
+reformat_net_values([], [Value | Values], Reformated) ->
+	reformat_net_values([], Values, [ {other, Value} | Reformated]);
+reformat_net_values([Key | Keys], [Value | Values], Reformated) ->
+	reformat_net_values(Keys, Values, [ {Key, Value} | Reformated]).
+
+
+format_inputs(Dir, Data, SensorInputs, SiblingsData) ->
+	NetInputs = find_element(net_inputs, Data),
+	LoadedInputs = find_element(Dir, NetInputs),
+	Merged = lists:append([LoadedInputs, SensorInputs, SiblingsData]),
+	lists:map(fun({_Key, Value}) -> Value end, Merged).
+
+format_siblings_inputs(Dir, Siblings, Data) ->
+	TargetSiblings = find_element(Dir, Siblings),
+	ElementsData = find_element(siblings_data,Data),
+	
+	%%Get the info about sibling before this one
+	FilteredSiblings = lists:filter(fun({_SiblingId, _SiblingPid, Location}) -> Location == antes end, TargetSiblings),
+		
+	FilteredItems = filter_elements([real_count, estimate_count], ElementsData, FilteredSiblings),
+	
+	Diff = lists:map(fun({SiblingId, _SiblingPid, _SiblingIdLocation}) ->
+		Element = find_element(SiblingId, ElementsData),
+		CarCount = find_element(real_count, Element),
+		Estimate = find_element(estimate_count, Element),
+		
+		Estimate - CarCount
+		end,
+		TargetSiblings
+	),
+	
+	lists:append([{anomally, lists:any(fun(Value) -> Value > 0 end, Diff)} , FilteredItems]).
+	
+	%%TODO: recorrer lista Elements y sacar un estimado de si los carros de los
+	%% semaforos vecinos se estan atascando o no -> carros a pasar - real y pasarlo como parametro a la red
+	%% sacar la info al semaforo anterior.
+	%%%%%FOR EACH ELEMENT IN THE LIST GET AND FORMAT THE DATA FROM DATALIST
+
+
+filter_elements(Filters, ElementsData, FilteredSiblings) ->
+	lists:map(fun({SiblingId, _SiblingPid, _SiblingIdLocation}) ->
+		Data = find_element(SiblingId, ElementsData),
+		filter_elements_aux(Filters, Data, [])
+		end,
+		FilteredSiblings
+	).
+	
+filter_elements_aux([], _Data, Result) ->
+	Result;
+filter_elements_aux([Item | List], Data, Result) ->
+	Info = find_element(Item, Data),
+	case Info of
+		false ->	filter_elements_aux(List, Data, [{Item, -1} | Result]);
+		_Other ->	filter_elements_aux(List, Data, [{Item, Info} | Result])
+	end.
+	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%     CLIENT INTERFACE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%Update ann data
 
-update_from_nn(ModulerPid, Values) ->
-	ModulerPid ! {update_nn, self(), Values},
+%%%Update ann data
+update_from_nn(ModulerPid, Values, Dir) ->
+	ModulerPid ! {update_nn, self(), Values, Dir},
 	receive
 		{reply, ok} ->
 			{ok, udpated};
@@ -272,17 +382,16 @@ stop(ModulerPid) ->
 	ModulerPid ! {stop, self()},
 	{normal, moduler}.
 
-calculate_outputs(NetValues, _NetInputs) ->
-	PromCars = random:uniform(5),
-	ExtraOutputs = [PromCars],
-	NewValues = lists:append(NetValues, ExtraOutputs),
-	NewValues.
-	
-format_inputs(Dir, Data, SensorInputs) ->
-	NetInputs = find_element(net_inputs, Data),
-	LoadedInputs = find_element(Dir, NetInputs),
-	lists:append(LoadedInputs, SensorInputs).
-	
+%%INPUT: ModulerPid related to the traffic light, Dir direction where to look for info
+%%OUTPUT: returns the new data to use by the light (mostly times)
+%%DESC: Called from Lights, in order to ask the DM (nn) what would be the next cycle
+estimation_proc(ModulerPid, Dir) ->
+	ModulerPid ! {proc, self(), Dir},
+	receive
+		{reply, NewDesition} -> {reply, NewDesition};
+		_Other ->	{error, moduler}		
+	end.	
+
 get_sensor(ModulerPid) ->
 	ModulerPid ! {active_sensor, self()},
 	receive
