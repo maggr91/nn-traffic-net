@@ -1,6 +1,6 @@
 -module(sensor).
 
--export([start/1, get_records/2, car_pass/4]).
+-export([start/1, get_records/2, car_pass/4, standby/1, change/2]).
 
 -export([init/1]).
 
@@ -17,7 +17,7 @@ init({normal, Args}) ->
 init({restore, Args}) ->
 	{Lanes, File} = Args,
 	{RestoredLanes, RestoredStandBy} = restore(Lanes, File),
-	sensor(RestoredLanes, File, 0).
+	sensor(RestoredLanes, File, RestoredStandBy).
 
 sensor(Lanes, File, StandBy) ->
 	receive 
@@ -132,7 +132,7 @@ format_for_check(Lanes, StandBy) ->
 restore(Lanes, File) ->
 	%io:format("SensorFileName to restore: ~p, lanes: ~w~n~n", [File, Lanes]),
 	RestoredLanes = filemanager:get_data(File),
-	[{_DirAux,_LaneIdA, _DataA, RestoredStandBy} | Rest ] = RestoredLanes,
+	[{_DirAux,_LaneIdA, _DataA, RestoredStandBy} | _Rest ] = RestoredLanes,
 	{lists:foldl(
 		fun({Dir,LaneId,Data, _StandBy}, Res) ->
 			Exist = lists:keyfind(Dir, 1, Res),
@@ -179,5 +179,9 @@ car_pass(SensorPid, LaneId, Count, Dir) ->
 	
 change(SensorPid, Dir) ->
 	SensorPid ! {change, self(), Dir},
+	{ok, sensor}.
+	
+standby(SensorPid) ->
+	SensorPid ! {standby, self()},
 	{ok, sensor}.
 	
