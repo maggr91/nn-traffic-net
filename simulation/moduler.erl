@@ -1,7 +1,7 @@
 -module(moduler).
 -export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/3, request_updates/1, 
 	checkpoint/1, stop/1, get_sensor/1, estimation_proc/2]).
--export([init/1, update_dm/3]).
+-export([init/1, update_dm/3, delete_old/1]).
 
 %% Used to comunicate traffic lights 
 %% this acts like a buffer for the communication
@@ -30,7 +30,8 @@ init({restore, LightId, Lanes}) ->
 	FormatLog = formated_log(ModFile),
 	FormatSens = format_dm_file(SensorFile, LightId),
 	
-	delete_old([FormatLog, FormatSens]),
+	%delete_old([FormatLog, FormatSens]),
+	timer:apply_after(100, moduler,delete_old,[[FormatLog, FormatSens]]),
 	
 	NewCheckpointLog = {FormatLog, NNFile, FormatSens},
 	

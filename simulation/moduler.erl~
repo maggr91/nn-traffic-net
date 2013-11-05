@@ -30,7 +30,8 @@ init({restore, LightId, Lanes}) ->
 	FormatLog = formated_log(ModFile),
 	FormatSens = format_dm_file(SensorFile, LightId),
 	
-	delete_old([FormatLog, FormatSens]),
+	%delete_old([FormatLog, FormatSens]),
+	timer:apply_after(100, moduler,delete_old,[[FormatLog, FormatSens]]),
 	
 	NewCheckpointLog = {FormatLog, NNFile, FormatSens},
 	
@@ -179,7 +180,7 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 		{active_sensor, CallerPid} ->
 			reply(CallerPid, Sensor),
 			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
-		{change_sensor _CallerPid} ->
+		{change_sensor, _CallerPid} ->
 			true,
 			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
 		{status, _CallerPid} ->

@@ -12,35 +12,37 @@ init({normal, Args}) ->
 	{Lanes, File} = Args,
 	NewLanes = format_lanes(Lanes),
 	%%NewFile = formated_log(File),
-	sensor(NewLanes, File);
+	sensor(NewLanes, File, 0);
 
 init({restore, Args}) ->
 	{Lanes, File} = Args,
-	RestoredLanes = restore(Lanes, File),
-	sensor(RestoredLanes, File).
+	{RestoredLanes, RestoredStandBy} = restore(Lanes, File),
+	sensor(RestoredLanes, File, 0).
 
-sensor(Lanes, File) ->
+sensor(Lanes, File, StandBy) ->
 	receive 
 		{update, CallerPid, CallerId, Value, Dir} ->
 			io:format("Sensor msg ~w for lane: ~w with data: ~w~n", [self(), CallerId, {Dir, Value}]),
 			NewLanes = update_count(CallerId, Lanes, Lanes, Value, Dir),
 			reply(CallerPid, ok),
-			sensor(NewLanes, File);
+			sensor(NewLanes, File, StandBy);
+		{standby, _CallerPid} ->
+			sensor(Lanes, File, StandBy + 1);
 		{change, CallerPid, Dir} ->
 			io:format("Change Sensor targets ~n", []),
 			NewLanes = reset_count(Lanes, Dir),
 			reply(CallerPid, ok),
-			sensor(NewLanes, File);
+			sensor(NewLanes, File, StandBy);
 		{checkpoint, _CallerPid} ->
 			filelib:ensure_dir("checkpoint/sensors/"),
-			write_checkpoint(Lanes, File),
-			sensor(Lanes, File);
+			write_checkpoint(Lanes, File, StandBy),
+			sensor(Lanes, File, StandBy);
 		{update_file, NewFile} ->
-			sensor(Lanes, NewFile);
+			sensor(Lanes, NewFile, StandBy);
 		{records, CallerPid, Dir, FlowDir} ->
 			Data = records(Dir, Lanes, FlowDir),
 			reply(CallerPid, Data),
-			sensor(Lanes, File);
+			sensor(Lanes, File, StandBy);
 		{stop, _CallerPid} ->
 			%reply(CallerPid, ok),
 			{normal, sensor}
@@ -101,23 +103,23 @@ update_data_count([{ElementId, NewValue} | UpdateTail], OldData) ->
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Checkpoint
-write_checkpoint(Lanes, File)->
+write_checkpoint(Lanes, File, StandBy)->
 	io:format("CHECKPOINT SENSOR file : ~p ~n",[File]),
-	FormatedLanes = format_for_check(Lanes),
+	FormatedLanes = format_for_check(Lanes, StandBy),
 	lists:map(fun(Data) -> 
 		filemanager:write_raw(File, io_lib:format("~w", [Data]))
 		end,
 		FormatedLanes),
 	{normal, checkpoint}.
 
-format_for_check(Lanes) ->
+format_for_check(Lanes, StandBy) ->
 	lists:append(
 		lists:map(
 			fun({Dir, List}) -> 
 				lists:map(
 					fun({LaneId, Data})-> 
 						CheckData = lists:filter(fun({Key, _Value}) -> Key =/= id end, Data), 
-						{Dir, LaneId, CheckData} 
+						{Dir, LaneId, CheckData, StandBy} 
 					end, 
 					List
 				) 
@@ -130,8 +132,9 @@ format_for_check(Lanes) ->
 restore(Lanes, File) ->
 	%io:format("SensorFileName to restore: ~p, lanes: ~w~n~n", [File, Lanes]),
 	RestoredLanes = filemanager:get_data(File),
-	lists:foldl(
-		fun({Dir,LaneId,Data}, Res) ->
+	[{_DirAux,_LaneIdA, _DataA, RestoredStandBy} | Rest ] = RestoredLanes,
+	{lists:foldl(
+		fun({Dir,LaneId,Data, _StandBy}, Res) ->
 			Exist = lists:keyfind(Dir, 1, Res),
 			LanePidList = find_element(Dir, Lanes),
 			LanePid = find_element(LaneId, LanePidList),
@@ -144,7 +147,7 @@ restore(Lanes, File) ->
 		end,
 		[],
 		RestoredLanes
-	).
+	), RestoredStandBy}.
 	
 records(Dir, Lanes, FlowDir) ->
 	Targets = find_element(Dir, Lanes),
@@ -175,6 +178,6 @@ car_pass(SensorPid, LaneId, Count, Dir) ->
 	{ok, sensor}.
 	
 change(SensorPid, Dir) ->
-	SensorPid ! {change, self(), LaneId, Dir},
+	SensorPid ! {change, self(), Dir},
 	{ok, sensor}.
 	
