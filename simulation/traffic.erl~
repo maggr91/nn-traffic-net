@@ -104,7 +104,9 @@ set_map({MaxSpeed, LightSource, LaneSource, ObsSource, AvgCar, ArrivaLog,DataLog
     io:format("LightsFSM ~w.~n",[LightsFSM]),
     set_connection_to_light_siblings(LightsFSM,LightsFSM),
 
-    {LightsFSM, NewSources, {NewPath,DataPath, NewCheckLogPath}}.
+	FinalLightsFSM = light_final_format(LightsFSM),
+	
+    {FinalLightsFSM, NewSources, {NewPath,DataPath, NewCheckLogPath}}.
 
 
 %% DEPRECATED: Spawn every intersection and lane on the map
@@ -265,11 +267,23 @@ find_siblings_aux([{SiblingId, Location}|Tail], LightsList,CompleteSiblings) ->
 				
 		_Other -> {Id, Pid,Sequence} = SiblingData,
     			  {_State, _Times, _Siblings, _LogData, _OldState, CtrlMod} = invoke_light(Sequence, get_state, Pid),
-    			  %%NewSiblingData = {Id, Pid,Sequence, CtrlMod,Location},
-    			  NewSiblingData = {Id, Pid,Sequence, CtrlMod},
+    			  NewSiblingData = {Id, Pid,Sequence, CtrlMod,Location},
+    			  %%NewSiblingData = {Id, Pid,Sequence, CtrlMod},
 				  find_siblings_aux(Tail,LightsList, [NewSiblingData|CompleteSiblings])
     end.
-    
+
+
+light_final_format(LightsList) ->
+	lists:map(fun({Id, Pid,Sequence}) ->
+		{_State, _Times, _Siblings, _LogData, _OldState, CtrlMod} = invoke_light(Sequence, get_state, Pid),
+		Res = moduler:get_sensor(CtrlMod),
+		case Res of
+			{reply, Sensor} -> {Id, Pid, Sequence, Sensor};
+			_Other			-> {Id, Pid, Sequence,null}
+		end		
+		end,
+		LightsList
+	).
     
 
 %%text file initialization of map
@@ -330,6 +344,10 @@ get_source_lanes([{_LaneId,_Pid, _LightController,_Dir,_ConnectedLanes, _Isource
 write_result(Path, Data) ->
     file:write_file(Path, io_lib:fwrite("~p.\n", [lists:flatten(Data)]),[append]).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%         MAIN           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 loop({Intersections, SourceLanes, {LogPath, DataLogPath, CheckPointLog}}, Time) ->
   %% On EVERY intersection in the system
   %% get the light_fsm and run each simulation for it
@@ -368,22 +386,25 @@ loop({Intersections, SourceLanes, {LogPath, DataLogPath, CheckPointLog}}, Time) 
 %% Receive traffic light list as param and evaluate state for ech one
 traverse_network([], _Time) ->
     [];
-traverse_network([{InterId, Intersection, Sequence}|Intersections], Time) ->
+traverse_network([{InterId, Intersection, Sequence, Sensor}|Intersections], Time) ->
     %%io:format("Evaluating state for light_fsm: ~w continue.~n",[InterId]),
     %%light_fsm:evaluate_state({InterId, Intersection, Time}),
+    sensor:standby(Sensor),
     invoke_light(Sequence, evaluate_state,{InterId, Intersection, Time}),
     traverse_network(Intersections, Time).
     
 %% Receive traffic light list as param and tabulates the results for ech one
 tabulate_network([], _DataLog) ->
     [];
-tabulate_network([{_InterId, Intersection, Sequence}|Intersections],DataLog) ->
+tabulate_network([{_InterId, Intersection, Sequence, Sensor}|Intersections],DataLog) ->
     %%io:format("Evaluating state for light_fsm: ~w continue.~n",[InterId]),
     %%light_fsm:tabulate_data(Intersection, DataLog),
     invoke_light(Sequence, tabulate_data,{Intersection, DataLog}),
     tabulate_network(Intersections, DataLog).    
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%     END  MAIN          %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Generate random obstrucctions on streets
 %%create_obstruction(LaneCap) ->
@@ -461,7 +482,7 @@ checkpoint_sources(Sources, CheckFile) ->
 
 checkpoint_lights([], _CheckPointLog) ->
     [];
-checkpoint_lights([{_InterId, Intersection, Sequence} | Intersections], CheckPointLog) ->
+checkpoint_lights([{_InterId, Intersection, Sequence, _Sensor} | Intersections], CheckPointLog) ->
 	%%light_fsm:checkpoint_data(Intersection, CheckPointLog),
 	invoke_light(Sequence, checkpoint_data,{Intersection, CheckPointLog}),
     checkpoint_lights(Intersections, CheckPointLog).    
@@ -517,10 +538,12 @@ restore_map({LightSource, LaneSource, ArrivaLog, DataLog, CheckPointLog, AvgCar}
     LightsFSM = connect({AllocatedLights, AllocatedLanes, [],Path}, restore), 
     io:format("LightsFSM ~w.~n",[LightsFSM]),
     set_connection_to_light_siblings(LightsFSM,LightsFSM),
-
+	
+	FinalLightsFSM = light_final_format(LightsFSM),
+	
 	restore_lights(LightsFSM, LightsFile),	
 	
-    {LightsFSM, RestoredSources, {NewPath,DataPath, NewCheckLogPath}}.
+    {FinalLightsFSM, RestoredSources, {NewPath,DataPath, NewCheckLogPath}}.
 
 restore_lights(Lights, LightFile)->
 	LightsData =filemanager:get_data(LightFile),

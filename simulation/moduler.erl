@@ -399,6 +399,7 @@ get_sensor(ModulerPid) ->
 		{reply, Sensor} -> {reply, Sensor};
 		_Other			-> {error, sensor}
 	end.
+	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% CHECKPOINT
 %%%%%%%%%%%%%

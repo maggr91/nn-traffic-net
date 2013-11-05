@@ -767,8 +767,8 @@ update_moduler(StateData, Siblings) ->
 				  	end,
 				  	%moduler:connect(Dir, {SenderId, CtrlModSender}, {ReceiverId, CtrlModReciever}),
 				  	moduler:connect(Dir, {SenderId, CtrlModSender,SenderLocation}, {ReceiverId, CtrlModReciever, RecieverLocation}),
-				  	io:format("moduler connected~w~n",[ReceiverId]),
-				  	moduler:status(CtrlModSender)
+				  	io:format("moduler connected~w~n",[ReceiverId])
+				  	%moduler:status(CtrlModSender)
 				  	%moduler:status(CtrlModReciever)
 				end,
 				SiblingsList	
@@ -835,7 +835,17 @@ next_state_dir(redgreen) ->
 	av;	
 next_state_dir(_CurrentState) ->	
 	null.
-
+	
+%%INPUT: CurrentState... state of the traffic light
+%%OUTPUT: current state dir(av, ca, avf, etc..) the key to find the data for the next lanes to move
+%%DESC: according to the current state gets the direction of the next state.
+current_state_dir(greenred) ->
+	av;
+current_state_dir(redgreen) ->
+	ca;	
+current_state_dir(_CurrentState) ->	
+	null.
+	
 %%INPUT: moduler response to state
 %%OUTPUT: none
 %%DESC:  Update for the light with the information received from the moduler
