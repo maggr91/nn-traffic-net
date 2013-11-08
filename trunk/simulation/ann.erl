@@ -207,7 +207,7 @@ set_input_aux([{NeuronId, NeuronPid} | NeuronTail], [Val | InputTail]) ->
 save(Layers, NNFile, IsCheck) ->
 	io:format("Saving training of layers ~w~n", [Layers]),
 	file:delete(NNFile),
-	io:format("Old file deleted~n"),			
+	%io:format("Old file deleted~n"),			
 	save_training(Layers, NNFile, IsCheck).
 	
 save_training([], _LogPath, _IsCheck) ->
@@ -226,13 +226,13 @@ save_training([{Type, Layer} | LayersTail], LogPath, IsCheck) ->
 save_training_aux([], _LogPath, _IsCheck) ->
 	io:format("No more neurons to save~n"),
 	{ok, []};
-save_training_aux([{NeuronId, NeuronPid} | NeuronTail], LogPath, IsCheck) ->
-	io:format("Saving neuron ~w: ~w on ~p~n", [NeuronId, NeuronPid, LogPath]),
+save_training_aux([{_NeuronId, NeuronPid} | NeuronTail], LogPath, IsCheck) ->
+	%io:format("Saving neuron ~w: ~w on ~p~n", [NeuronId, NeuronPid, LogPath]),
 	Res = perceptron:save(NeuronPid, LogPath, IsCheck),
-	io:format("Saving neuron result ~w. Next ~w~n", [Res, NeuronTail]),
+	%io:format("Saving neuron result ~w. Next ~w~n", [Res, NeuronTail]),
 	case Res of
 		{ok, saved} ->
-			io:format("Reply save succesful, continue~n"),
+			%io:format("Reply save succesful, continue~n"),
 			save_training_aux(NeuronTail, LogPath, IsCheck);
 		_Other ->
 			io:format("ERROR!!!!!!~n"),

@@ -113,11 +113,11 @@ set_map({MaxSpeed, LightSource, LaneSource, ObsSource, AvgCar, ArrivaLog,DataLog
 %% modify to avoid this step
 allocate_lights({[],Spawned})->
     {[],Spawned};
-allocate_lights({[{LightId, Sequence, Siblings, Times}|Tail], Spawned}) ->
+allocate_lights({[{LightId, Sequence, LightMode, Siblings, Times}|Tail], Spawned}) ->
     %%Pid = spawn(traffic,light, [ManagedLanes,Siblings, Cycle_time, Go_time]),
     %%Replace Go_time for  AllRed_time (Go_time set by default to 0
     %%allocate_lights({Tail, [{LightId,Siblings, Cycle_time,Go_time, AllRed_time} | Spawned]}). 
-    allocate_lights({Tail, [{LightId,Sequence, Siblings, Times} | Spawned]}). 
+    allocate_lights({Tail, [{LightId,Sequence, LightMode, Siblings, Times} | Spawned]}). 
  
  
 %% Spawn every lane on the area with the respective data         
@@ -141,13 +141,13 @@ allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes,
 %%connect lights with its lanes
 connect({[], _LaneList, LightsFSM,_LogData}, _Mode) -> 
     LightsFSM;
-connect({[{LightId,Sequence,Siblings, Times} | TailLight], LaneList,LightsFSM, LogData}, Mode) -> 
+connect({[{LightId,Sequence, LightMode,Siblings, Times} | TailLight], LaneList,LightsFSM, LogData}, Mode) -> 
     %%io:format("Luz: ~w / lineas: ~w.~n",[LightId, LaneList]),
     %%{ManagedLanes, RemLanes} = find_lanes({LightId, {[],[]}}, LaneList, []),
     {ManagedLanes, RemLanes} = find_lanesO({LightId, []}, LaneList, []),
     %%io:format("Managed Lanes: ~w.~n~n",[ManagedLanes]),
     PathLog = (LogData ++ lists:flatten(io_lib:format("~p",[LightId]))) ++ ".txt",
-    {ok, LightPid} = invoke_light(Sequence, start_link, {Mode, LightId, ManagedLanes,Siblings, Times, PathLog}),
+    {ok, LightPid} = invoke_light(Sequence, start_link, {Mode, LightId, ManagedLanes,Siblings, Times, PathLog, LightMode}),
     connect({TailLight, RemLanes, [{LightId,LightPid, Sequence}|LightsFSM], LogData}, Mode).
 
 %%invoke_light(twoDir, Args) ->
