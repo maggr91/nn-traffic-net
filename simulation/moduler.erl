@@ -1,6 +1,6 @@
 -module(moduler).
 -export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/3, request_updates/1, 
-	checkpoint/1, stop/1, get_sensor/1, estimation_proc/2]).
+	checkpoint/1, stop/1, get_sensor/1, reset_sensor/2, estimation_proc/2, check_sensor_standby/2]).
 -export([init/1, update_dm/3, delete_old/1]).
 
 %% Used to comunicate traffic lights 
@@ -53,7 +53,7 @@ init({normal, LightId, Lanes}) ->
 	
 	Sensor = create_sens(Lanes, FormatSens),
 	
-	listen(LightId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}, {net_input, []}],NewCheckpointLog, Sensor).
+	listen(LightId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}, {net_input, []}, {sensor_input, []}],NewCheckpointLog, Sensor).
 		
 %%CREATES The decision maker for the light in this case is a Neuronal Network
 %%Input: None
@@ -97,7 +97,11 @@ format_dm_file(NNFile, LightId) ->
 formated_log(File) ->
 	{ok, Cwd} = file:get_cwd(),
 	Cwd ++ File.
-	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%         MAIN           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 	receive
 		%%call siblings
@@ -110,11 +114,15 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 			UpdateData = update_siblings_data(CallerPid, Data, NewData),
 			listen(Light, Siblings, NN, UpdateData, CheckpointLog, Sensor);
 		{response, CallerPid, Dir} ->
+			%%%EVALUAR SI LO QUE RETORNA EL SENSOR ES ACTIVO O IDLE(-1 o numeros negativos) si es malo retornar
+			%%% el que tenga almacenado el modulador, si no dar version reciente			 
 			SensorInputs = sensor:get_records(Sensor, Dir),
+			{SensorRespond, UpdatedData} = eval_sensor_input(SensorInputs, Data,Dir),
+			
 			{_Key, ResponseData} = lists:keyfind(net_values,1,Data),
-			Return = lists:append([ResponseData, SensorInputs]),
+			Return = lists:append([ResponseData, SensorRespond]),
 			reply(CallerPid, Return),
-			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
+			listen(Light, Siblings, NN, UpdatedData, CheckpointLog, Sensor);
 			%% send info to caller
 		{update_nn, CallerPid, NewVals, Dir} ->
 			NewData = update_nn_data(net_values, Data, NewVals,Dir),
@@ -141,19 +149,27 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 						 listen(Light, UpdatedSiblings, NN, Data, CheckpointLog, Sensor);
 				true  -> listen(Light, NewSiblings, NN, Data, CheckpointLog, Sensor)
 			end;
-		{proc, CallerPid, Dir} ->
-			%%First update data from siblings
-			NewData = request_update_from_Siblings(Siblings, Data),
-			
-			%%second, get data from related sensor
+		{proc, CallerPid, Dir} ->			
+			%%First, get data from related sensor
 			%%return is [{real_count, Val}, {rain, Val}]
 			SensorInputs = sensor:get_records(Sensor, Dir),
+			sensor:idle(Sensor, Dir),
+			
+			%FirstData = update_nn_data(sensor_inputs, Data, SensorInputs, Dir),
+			NewData = update_nn_data(sensor_inputs, Data, SensorInputs, Dir),
+			
+			%%second update data from siblings
+			%NewData = request_update_from_Siblings(Siblings, FirstData),
+			
+			
 			%%Third format all reladted inputs from siblings 
 			SiblingsInput = format_siblings_inputs(Dir, Siblings, NewData),
 			FormatedInputs = format_inputs(Dir, NewData, SensorInputs, SiblingsInput),
 			
 			%%call nn with the new inputs
-			Desition = ann:input(FormatedInputs),			
+			%Desition = ann:input(FormatedInputs),
+			Desition = [10,3,1],
+			
 			NetInputs = find_element(net_input, NewData),
 			%%Calculate extra outputs according to nn desition and the input data
 			FinalDesition = calculate_outputs(Desition, NetInputs),
@@ -180,13 +196,21 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 		{active_sensor, CallerPid} ->
 			reply(CallerPid, Sensor),
 			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
-		{change_sensor, _CallerPid} ->
-			true,
+		{change_sensor, _CallerPid, Dir} ->
+			sensor:change(Sensor, Dir),
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
+		{check_sensor_standby, CallerPid, Limit} ->
+			Res = sensor:check_standby(Sensor, Limit),
+			reply(CallerPid, Res),
 			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
 		{status, _CallerPid} ->
 			io:format("Status of moduler ~w ~n Siblings: ~w~n Data: ~w~n~n",[{Light,self()}, Siblings, Data]),
 			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor)
 	end.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%     END  MAIN          %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%     GENERAL FUNCTIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -351,7 +375,22 @@ filter_elements_aux([Item | List], Data, Result) ->
 		false ->	filter_elements_aux(List, Data, [{Item, -1} | Result]);
 		_Other ->	filter_elements_aux(List, Data, [{Item, Info} | Result])
 	end.
-	
+
+
+eval_sensor_input(SensorInputs, CurrentData, Dir) ->
+	SensorVal = find_element(real_count, SensorInputs),
+	CacheVals = find_element(sensor_input, CurrentData),
+	if 
+		SensorVal < 0 ->			
+			ResponseVals = find_element(Dir, CacheVals),
+			{{real_count, ResponseVals},  CurrentData};
+		true		 ->
+			ResponseVals = {real_count, SensorVal},
+			NewSensorData = lists:keyreplace(Dir, 1, CacheVals, {Dir, SensorVal}),
+			NewData = lists:keyreplace(sensor_input, 1, CurrentData, {sensor_input, NewSensorData}),
+			{ResponseVals, NewData}
+	end.
+		
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%     CLIENT INTERFACE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -399,7 +438,17 @@ get_sensor(ModulerPid) ->
 		{reply, Sensor} -> {reply, Sensor};
 		_Other			-> {error, sensor}
 	end.
-	
+
+reset_sensor(ModulerPid, Dir) ->
+	ModulerPid ! {change_sensor, self(), Dir},
+	{normal, moduler}.
+
+check_sensor_standby(ModulerPid, Limit) ->
+	ModulerPid ! {check_sensor_standby, self(), Limit},
+	receive
+		{reply, Status} -> {reply, Status};
+		_Other		 	-> {reply, continue}
+	end.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% CHECKPOINT
 %%%%%%%%%%%%%

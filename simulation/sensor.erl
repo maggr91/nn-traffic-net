@@ -1,6 +1,6 @@
 -module(sensor).
 
--export([start/1, get_records/2, car_pass/4, standby/1, change/2]).
+-export([start/1, get_records/2, car_pass/4, standby/1, change/2, idle/2, check_standby/2]).
 
 -export([init/1]).
 
@@ -21,18 +21,24 @@ init({restore, Args}) ->
 
 sensor(Lanes, File, StandBy) ->
 	receive 
-		{update, CallerPid, CallerId, Value, Dir} ->
+		{update, _CallerPid, CallerId, Value, Dir} ->
 			io:format("Sensor msg ~w for lane: ~w with data: ~w~n", [self(), CallerId, {Dir, Value}]),
-			NewLanes = update_count(CallerId, Lanes, Lanes, Value, Dir),
-			reply(CallerPid, ok),
+			NewLanes = update_count(CallerId, Lanes, Lanes, Value, Dir),			
 			sensor(NewLanes, File, 0);
 		{standby, _CallerPid} ->
 			sensor(Lanes, File, StandBy + 1);
-		{change, CallerPid, Dir} ->
+		{change, _CallerPid, Dir} ->
 			io:format("Change Sensor targets ~n", []),
-			NewLanes = reset_count(Lanes, Dir),
-			reply(CallerPid, ok),
+			NewLanes = reset_count(Lanes, Dir,0),			
 			sensor(NewLanes, File, StandBy);
+		{idle, _CallerPid, Dir} ->
+			io:format("Idle Sensor targets ~n", []),
+			NewLanes = reset_count(Lanes, Dir,-1),
+			sensor(NewLanes, File, StandBy);
+		{check_standby, CallerPid, Limit} ->
+			Status = evaluate_standby(Limit, StandBy),
+			reply(CallerPid, Status),
+			sensor(Lanes, File, StandBy);
 		{checkpoint, _CallerPid} ->
 			filelib:ensure_dir("checkpoint/sensors/"),
 			write_checkpoint(Lanes, File, StandBy),
@@ -71,8 +77,17 @@ update_count(LaneId, [{Dir, LanesList} | Lanes], OldLanes, Value, CounterId) ->
 				  lists:keyreplace(Dir,1, OldLanes, {Dir, NewLaneList})
 	end.
 
-reset_count(Lanes, Dir) ->
-	true.
+reset_count(Lanes, Dir, ResetVal) ->
+	DirLanes = find_element(Dir, Lanes),
+	ResetLanes = lists:map(fun({LaneId, LaneData}) ->
+		TmpList = lists:keyreplace(dsp_str, 1, LaneData, {dsp_str, ResetVal}),
+		FinalList = lists:keyreplace(dsp_str, 1, TmpList, {dsp_trn, ResetVal}),
+		{LaneId, FinalList}
+		end,
+		DirLanes
+	),
+	lists:keyreplace(Dir, 1, Lanes, {Dir, ResetLanes}).
+	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%% GENERAL %%%%%%%%%%%%%%%%%
 find_element(_Id, []) ->
@@ -100,6 +115,12 @@ update_data_count([{ElementId, NewValue} | UpdateTail], OldData) ->
 	{ElementId, OldValue} = lists:keyfind(ElementId, 1, OldData),
 	NewData = lists:keyreplace(ElementId,1, OldData, {ElementId, OldValue + NewValue}),
 	update_data_count(UpdateTail, NewData).
+
+evaluate_standby(Limit, StandBy) when StandBy >= Limit ->
+	stop;
+evaluate_standby(_Limit, _StandBy) ->
+	continue.
+
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Checkpoint
@@ -180,8 +201,19 @@ car_pass(SensorPid, LaneId, Count, Dir) ->
 change(SensorPid, Dir) ->
 	SensorPid ! {change, self(), Dir},
 	{ok, sensor}.
+
+idle(SensorPid, Dir) ->
+	SensorPid ! {idle, self(), Dir},
+	{ok, sensor}.
 	
 standby(SensorPid) ->
 	SensorPid ! {standby, self()},
 	{ok, sensor}.
+	
+check_standby(SensorPid, Limit) ->
+	SensorPid ! {check_standby, self(),Limit},
+	receive
+		{reply, Status} -> {reply, Status};
+		_Other			-> {reply, error}
+	end.	
 	

@@ -300,7 +300,7 @@ save(NeuronPid, LogPath, IsCheckpoint) ->
 	end,
 	receive
 		{reply, saved} ->
-			io:format("Save Neuron ~w~n", [NeuronPid]),
+			%io:format("Save Neuron ~w~n", [NeuronPid]),
 			{ok, saved};
 		Other ->
 			io:format("Error on neuron WAAAAAAAAAA ~w~n", [Other]),

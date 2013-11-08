@@ -60,14 +60,14 @@ start_link(Args) ->
 
 init(Args) ->
     %%{LightId, {Av, Ca, AvF},Siblings, Cycle_time, Go_time, LogData} = Args,
-    {Mode, LightId, ManagedLanes,Siblings, Times, LogData} = Args,
+    {Mode, LightId, ManagedLanes,Siblings, Times, LogData, LightMode} = Args,
     file:delete(LogData), %% delete old log
     NewTimes = [{allred_timer, 0} | Times],
     
     CtrlMod = moduler:start({Mode, LightId, ManagedLanes}),
     %{ok, allred,{LightId, ManagedLanes,Siblings, NewTimes, LogData, allred, CtrlMod}}.
     StateData = [{id,LightId}, {managed_lanes, ManagedLanes},{siblings, Siblings}, 
-    	{times, NewTimes}, {log_data, LogData}, {old_state, allred}, {ctrl_mod, CtrlMod}],
+    	{times, NewTimes}, {log_data, LogData}, {old_state, allred}, {ctrl_mod, CtrlMod}, {light_mode, LightMode}],
     
     case Mode of
     	normal -> scan_lanes(StateData);
