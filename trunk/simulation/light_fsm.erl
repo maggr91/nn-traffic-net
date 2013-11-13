@@ -174,8 +174,8 @@ redred({restore, RestoredData}, _From, StateData) ->
     NewStateData = update_state_data([{times, RestoredTimes}, {old_state, RestoredOldState}], StateData),
     {reply, {redred,RestoredData}, RestoredState, NewStateData};
 redred({change_times, NewTimes}, _From, StateData) ->
-	io:format("New Times update~n",[]),
-    NewStateData = update_state_data(NewTimes, StateData),
+	io:format("New Times update ~w~n",[NewTimes]),
+    NewStateData = update_state_data_times(NewTimes, StateData),
     {reply, {redred,NewTimes}, redred, NewStateData};
 redred(move_avenue,_From, StateData) ->
     io:format("Changing for red to green on avenue. Start Moving avenue lanes. Data: ~w~n",[StateData]),
@@ -294,8 +294,8 @@ greenred({restore, RestoredData}, _From, StateData) ->
     NewStateData = update_state_data([{times, RestoredTimes}, {old_state, RestoredOldState}], StateData),
     {reply, {greenred,RestoredData}, RestoredState, NewStateData};
 greenred({change_times, NewTimes}, _From, StateData) ->
-	io:format("New Times update~n",[]),
-    NewStateData = update_state_data(NewTimes, StateData),
+	io:format("New Times update ~w~n",[NewTimes]),
+    NewStateData = update_state_data_times(NewTimes, StateData),    
     {reply, {greenred,NewTimes}, greenred, NewStateData};
 greenred(move_avenue, _From, StateData) ->
     io:format("continue moving avenue lanes. Data: ~w~n",[StateData]),
@@ -386,8 +386,8 @@ redgreen({restore, RestoredData}, _From, StateData) ->
     NewStateData = update_state_data([{times, RestoredTimes}, {old_state, RestoredOldState}], StateData),
     {reply, {redgreen,RestoredData}, RestoredState, NewStateData};
 redgreen({change_times, NewTimes}, _From, StateData) ->
-	io:format("New Times update~n",[]),
-    NewStateData = update_state_data(NewTimes, StateData),
+	io:format("New Times update ~w~n",[NewTimes]),
+    NewStateData = update_state_data_times(NewTimes, StateData),    
     {reply, {redgreen,NewTimes}, redgreen, NewStateData};
 redgreen(move_street,_From, StateData) ->
     io:format("continue moving street lanes. Data: ~w~n",[StateData]),
@@ -433,19 +433,27 @@ test() ->
 %%Desc: CLIENT interface function to put each light to evaluate its state
 evaluate_state({LightId, LightPid, Time}) ->
     io:format("Evaluating state ~w~n",[LightPid]),
-   {State, Times, _Siblings, LogData, OldState, _CtrlMod} = get_state(LightPid),
+   {State, Times, _Siblings, LogData, OldState, CtrlMod, LightMode} = get_state(LightPid),
    
    {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
    {go_time, GTime} = lists:keyfind(go_time, 1, Times),
    {allred_time, ARTime} = lists:keyfind(allred_time, 1, Times),
    {allred_timer, ARTimer} = lists:keyfind(allred_timer, 1, Times),
-   
+   Delay = find_element(delay, Times),
+   MaxWait = find_element(umbral, Times),
+					
    write_result(LogData, 
        io_lib:format("Running simulation iteration: ~w continue",[Time])),
    write_result(LogData, io_lib:format("Evaluating state for light_fsm: ~w continue",[LightId])),
 
-   NextTime = GTime + 1,   
-   evaluate_state(State, OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid),
+   NextTime = GTime + 1,
+   io:format("LightMode: ~w~n",[LightMode]),
+   case LightMode of
+		default ->  evaluate_state(State, OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid);
+		dm		->  evaluate_state_dm(State, OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, CtrlMod, Delay, MaxWait);
+		dual	->  evaluate_state_dual(State, OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, CtrlMod, Delay, MaxWait)
+   end,
+   
    write_endline(LogData).
 
 %%INPUT: State =  current state, Nextime = number of the next iteration, ARTimer =  timer for all red lights
@@ -483,62 +491,43 @@ evaluate_state(State = redgreen, _OldState, NextTime, CTime, _ARTime, _ARTimer, 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% WORKING
 
-evaluate_state_new({LightId, LightPid, Time}) ->
-    io:format("Evaluating state ~w~n",[LightPid]),
-   {State, Times, _Siblings, LogData, OldState, CtrlMod} = get_state(LightPid),
-   
-   {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
-   {go_time, GTime} = lists:keyfind(go_time, 1, Times),
-   {allred_time, ARTime} = lists:keyfind(allred_time, 1, Times),
-   {allred_timer, ARTimer} = lists:keyfind(allred_timer, 1, Times),
-   Delay = find_element(delay, Times),
-   MaxWait = find_element(umbral, Times),
-   
-   write_result(LogData, 
-       io_lib:format("Running simulation iteration: ~w continue",[Time])),
-   write_result(LogData, io_lib:format("Evaluating state for light_fsm: ~w continue",[LightId])),
-
-   NextTime = GTime + 1,   
-   evaluate_state_new(State, OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, CtrlMod, Delay, MaxWait),
-   write_endline(LogData).
-
-
-evaluate_state_new(State, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, 
+evaluate_state_dm(State, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, 
   CtrlMod, _Delay, _MaxWait) when NextTime >= CTime, ARTimer <  ARTime->
-  	io:format("Estimating time results for next state", []),
+  	io:format("Estimating time results for next state~n", []),
 	Dir = next_state_dir(State),
-   	NewData = moduler:estimation_proc(CtrlMod, Dir),
+   	{reply, NewData} = moduler:estimation_proc(CtrlMod, Dir),
+   	io:format("NewData after moduler call ~w~n",[NewData]),
    	change_times({LightPid, NewData}),
    	io:format("Finishing ~w way cycle moving to idle~n",[State]),
    	write_result(LogData, io_lib:format("Finishing ~w way cycle moving to idle",[State])),   
 	idle(LightPid);
    
-evaluate_state_new(_State, greenred, NextTime, CTime, ARTime, ARTimer, _LogData, LightPid, 
+evaluate_state_dm(_State, greenred, NextTime, CTime, ARTime, ARTimer, _LogData, LightPid, 
   CtrlMod, _Delay, _MaxWait) when NextTime >= CTime, ARTimer >=  ARTime->
     Dir = current_state_dir(greenred),
     moduler:reset_sensor(CtrlMod, Dir),
     move_street(LightPid);
    
-evaluate_state_new(_State, redgreen, NextTime, CTime, ARTime, ARTimer, _LogData, LightPid, 
+evaluate_state_dm(_State, redgreen, NextTime, CTime, ARTime, ARTimer, _LogData, LightPid, 
   CtrlMod, _Delay, _MaxWait) when NextTime >= CTime, ARTimer >=  ARTime->
     Dir = current_state_dir(greenred),
     moduler:reset_sensor(CtrlMod, Dir),
     move_avenue(LightPid);   
 
-evaluate_state_new(State = redred, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid, 
+evaluate_state_dm(State = redred, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid, 
   _CtrlMod, _Delay, _MaxWait) when NextTime < CTime ->
     io:format("Continuing ~w way cycle~n",[State]),
     write_result(LogData, io_lib:format("Continuing ~w way cycle",[State])),
     estimate_after_idle(LightPid, LogData);
 
-evaluate_state_new(State = greenred, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid, 
+evaluate_state_dm(State = greenred, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid, 
   CtrlMod, _Delay, MaxWait) when NextTime < CTime ->
     io:format("Continuing ~w way cycle~n",[State]),
     write_result(LogData, io_lib:format("Continuing ~w way cycle",[State])),
     move_avenue(LightPid),
     evaluate_umbral(CtrlMod, MaxWait, LightPid);
    
-evaluate_state_new(State = redgreen, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid, 
+evaluate_state_dm(State = redgreen, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid, 
   CtrlMod, _Delay, MaxWait) when NextTime < CTime ->
     io:format("Continuing ~w way cycle~n",[State]),
     write_result(LogData, io_lib:format("Continuing ~w way cycle",[State])),
@@ -563,7 +552,8 @@ evaluate_umbral(CtrlMod, MaxWait, LightPid) ->
 
 
 
-
+evaluate_state_dual(_State, _OldState, _NextTime, _CTime, _ARTime, _ARTimer, _LogData, _LightPid, 
+  _CtrlMod, _Delay, _MaxWait) -> true.
 
 
 
@@ -781,7 +771,8 @@ get_state_data(State, StateData) ->
     LogData = find_element(log_data, StateData),
     OldState = find_element(old_state, StateData),
     CtrlMod = find_element(ctrl_mod, StateData),
-	{State,Times,Siblings, LogData, OldState, CtrlMod}.
+    LightMode = find_element(light_mode, StateData),
+	{State,Times,Siblings, LogData, OldState, CtrlMod, LightMode}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% MODULER interface
@@ -889,3 +880,17 @@ force_time(StateData)->
 	Cycle_Time = find_element(cycle_time, Times),
 	NewTimes = lists:keyreplace(go_time, 1, Times, {go_time,Cycle_Time}),	
 	update_state_data([{times, NewTimes}], StateData).
+	
+
+%%INPUT: CurrentStateData... data of the light for the current state
+%%		 NewVals : new times to update in stateData
+%%OUTPUT: Updated statedata
+%%DESC: gets target times for param newvals and update times with them.
+update_state_data_times(NewVals, StateData) ->
+	Times = find_element(times, StateData),
+	PreFilterVals = [{X, Y} || {X, Y} <- NewVals, (X == cycle_time) or (X == delay) or (X == umbral)],
+	NewCycleTime = find_element(cycle_time, PreFilterVals),
+	FilterVals = [{go_time, NewCycleTime} | PreFilterVals],
+	NewTimes = update_state_data(FilterVals, Times),
+	update_state_data([{times, NewTimes}], StateData).
+	

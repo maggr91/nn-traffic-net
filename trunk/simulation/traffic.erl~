@@ -240,7 +240,7 @@ find_adjLanes(AdjLaneId, [_LHead | LTail]) ->
 set_connection_to_light_siblings([], _LightsList) -> [];
 set_connection_to_light_siblings([{_Id, Pid,Sequence}|LightsRem], LightsList) ->
     %%{_State, _Times, Siblings, _LogData, _OldState} = light_fsm:get_state(Pid),
-   {_State, _Times, Siblings, _LogData, _OldState, _CtrlMod} = invoke_light(Sequence, get_state, Pid),
+   {_State, _Times, Siblings, _LogData, _OldState, _CtrlMod, _LightMode} = invoke_light(Sequence, get_state, Pid),
 %% The siblings list is a list of tuples that contaings LightId use this to find the corresponding PID
     CompleteSiblings = find_siblings(Siblings,LightsList,[]),
 %% After getting the list with all PIDs, update the corresponding FSM    
@@ -266,7 +266,7 @@ find_siblings_aux([{SiblingId, Location}|Tail], LightsList,CompleteSiblings) ->
 		false ->  find_siblings_aux(Tail,LightsList, CompleteSiblings);
 				
 		_Other -> {Id, Pid,Sequence} = SiblingData,
-    			  {_State, _Times, _Siblings, _LogData, _OldState, CtrlMod} = invoke_light(Sequence, get_state, Pid),
+    			  {_State, _Times, _Siblings, _LogData, _OldState, CtrlMod, _LightMode} = invoke_light(Sequence, get_state, Pid),
     			  NewSiblingData = {Id, Pid,Sequence, CtrlMod,Location},
     			  %%NewSiblingData = {Id, Pid,Sequence, CtrlMod},
 				  find_siblings_aux(Tail,LightsList, [NewSiblingData|CompleteSiblings])
@@ -275,7 +275,7 @@ find_siblings_aux([{SiblingId, Location}|Tail], LightsList,CompleteSiblings) ->
 
 light_final_format(LightsList) ->
 	lists:map(fun({Id, Pid,Sequence}) ->
-		{_State, _Times, _Siblings, _LogData, _OldState, CtrlMod} = invoke_light(Sequence, get_state, Pid),
+		{_State, _Times, _Siblings, _LogData, _OldState, CtrlMod, _LightMode} = invoke_light(Sequence, get_state, Pid),
 		Res = moduler:get_sensor(CtrlMod),
 		case Res of
 			{reply, Sensor} -> {Id, Pid, Sequence, Sensor};

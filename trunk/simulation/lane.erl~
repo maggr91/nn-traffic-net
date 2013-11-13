@@ -291,7 +291,7 @@ move_cars([{CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMov
         				  %%update the sensor counter by the amount specified
         				  %io:format("Calling sensor ~w for lane: ~w with data: ~w~n", [Sensor, LaneId, {dsp_str, 1}]),
 						  %safe_sensor_update(Sensor, dsp_str, LaneId, 1),
-        			      timer:apply_after(50, lane, safe_sensor_update, [Sensor, dsp_str, LaneId, 1]),
+        			      timer:apply_after(10, lane, safe_sensor_update, [Sensor, dsp_str, LaneId, 1]),
         			      {dsp_str, StrCounter} = lists:keyfind(dsp_str, 1, Stats),
          			      NewStats = lists:keyreplace(dsp_str,1, Stats, {dsp_str, StrCounter + 1}),         			      
 						  %timer:apply_after(100, moduler, update_dm, [NN, NNFile, LightId]),

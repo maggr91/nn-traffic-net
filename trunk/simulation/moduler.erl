@@ -116,18 +116,19 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 		{response, CallerPid, Dir} ->
 			%%%EVALUAR SI LO QUE RETORNA EL SENSOR ES ACTIVO O IDLE(-1 o numeros negativos) si es malo retornar
 			%%% el que tenga almacenado el modulador, si no dar version reciente			 
-			SensorInputs = sensor:get_records(Sensor, Dir),
-			{SensorRespond, UpdatedData} = eval_sensor_input(SensorInputs, Data,Dir),
-			
-			{_Key, ResponseData} = lists:keyfind(net_values,1,Data),
-			Return = lists:append([ResponseData, SensorRespond]),
+			{reply, SensorInputs} = sensor:get_records(Sensor, Dir),
+			%{SensorRespond, UpdatedData} = eval_sensor_input(SensorInputs, Data,Dir),
+			{Return, UpdatedData} = eval_sensor_input(SensorInputs, Data, Dir),
+						
+			%Return = lists:append([ResponseData, SensorRespond]),
+			io:format("~n~n~n~nRETURN DATA ~w~n~n~n~n",[Return]),
 			reply(CallerPid, Return),
 			listen(Light, Siblings, NN, UpdatedData, CheckpointLog, Sensor);
 			%% send info to caller
 		{update_nn, CallerPid, NewVals, Dir} ->
 			NewData = update_nn_data(net_values, Data, NewVals,Dir),
 			reply(CallerPid, ok),
-			send_update_to_Siblings(Siblings, NewVals),
+			send_update_to_Siblings(Light, Siblings, NewVals),
 			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
 		{inputs, _CallerPid, NewVals} ->
 			NewData = update_nn_data(net_input, Data, NewVals),			
@@ -152,35 +153,42 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 		{proc, CallerPid, Dir} ->			
 			%%First, get data from related sensor
 			%%return is [{real_count, Val}, {rain, Val}]
-			SensorInputs = sensor:get_records(Sensor, Dir),
+			{reply, SensorInputs} = sensor:get_records(Sensor, Dir),
 			sensor:idle(Sensor, Dir),
 			
 			%FirstData = update_nn_data(sensor_inputs, Data, SensorInputs, Dir),
-			NewData = update_nn_data(sensor_inputs, Data, SensorInputs, Dir),
+			FirstData = update_nn_data(sensor_input, Data, SensorInputs, Dir),
 			
 			%%second update data from siblings
-			%NewData = request_update_from_Siblings(Siblings, FirstData),
+			NewData = request_update_from_Siblings(Siblings, FirstData),
 			
 			
-			%%Third format all reladted inputs from siblings 
+			%%Third format all reladted inputs from siblings				
 			SiblingsInput = format_siblings_inputs(Dir, Siblings, NewData),
-			FormatedInputs = format_inputs(Dir, NewData, SensorInputs, SiblingsInput),
+			io:format("SiblingsInput ~w",[SiblingsInput]),
+			FormatedInputs = format_inputs(Dir, NewData,SensorInputs, SiblingsInput),
 			
 			%%call nn with the new inputs
 			%Desition = ann:input(FormatedInputs),
 			Desition = [10,3,1],
 			
+			%io:format("Desition~n"),
 			NetInputs = find_element(net_input, NewData),
 			%%Calculate extra outputs according to nn desition and the input data
 			FinalDesition = calculate_outputs(Desition, NetInputs),
+			%FinalDesition = calculate_outputs(Desition, NetInputs,SensorInputs),
+			
+			%io:format("FinalDesition of NN: ~w~n",[FinalDesition]),
 			%%Send the info back to the light
 			reply(CallerPid, FinalDesition),
 
 			%%updateValues
 			%update_from_nn(self(), FinalDesition,Dir),
 			
-			FinalData = update_nn_data(net_values, NewData, FinalDesition, Dir),			
-			send_update_to_Siblings(Siblings, FinalDesition),
+			FinalData = update_nn_data(net_values, NewData, FinalDesition, Dir),
+			%io:format("Data after network update: FinalData .. ~w~n",[FinalData]),
+					
+			send_update_to_Siblings(Light, Siblings, FinalDesition),
 			
 			%listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
 			listen(Light, Siblings, NN, FinalData, CheckpointLog, Sensor);
@@ -256,13 +264,13 @@ update_from_Siblings_aux([{Sid, S, _SibLocation} | Siblings], Data, Dir) ->
 	end.
 
 
-send_update_to_Siblings(Siblings, Data) ->
+send_update_to_Siblings(Id, Siblings, Data) ->
 	lists:map(
 		fun({Dir, SiblingsList}) ->
 			io:format("Sending update to siblings on ~w. List: ~w~n~n", [Dir, SiblingsList]),
 			lists:map(
 				fun({_SiblingId, SiblingPid, _SiblingLocation}) ->
-					SiblingPid ! {broadcast_update, self(), Data}
+					SiblingPid ! {broadcast_update, Id, Data}
 				end,
 				SiblingsList
 			)
@@ -289,11 +297,13 @@ update_nn_data(Id, Data, NewVals) ->
 	%lists:keyreplace(net_values, 1, Data, {net_values, NewVals}).	
 	lists:keyreplace(Id, 1, Data, {Id, NewVals}).
 	
-update_nn_data(Id, Data, NewVals, Dir) ->
+update_nn_data(Id, Data, NewVals, Dir) ->   
+	io:format("target ~w, UPDATE DATA NN ~w ... NewVal = ~w~n",[Id, Data, NewVals]),
 	{Id, Values} = lists:keyfind(Id, 1, Data),
 	DirData = lists:keyfind(Dir, 1, Values),
 	case DirData of
-		false 	   -> lists:keyreplace(Id, 1, Data, {Id, [{Dir, NewVals} | Values]});
+		false 	   -> io:format("No record for dir ~w, UPDATE DATA with ~w~n",[Dir, {Dir, NewVals}]),					  
+					  lists:keyreplace(Id, 1, Data, {Id, [{Dir, NewVals} | Values]});
 		_Other 	   -> NewValues = lists:keyreplace(Dir, 1, Values, {Dir, NewVals}),
 					  lists:keyreplace(Id, 1, Data, {Id, NewValues})
 	end.
@@ -311,34 +321,39 @@ get_config() ->
 	filemanager:get_data("/config_mod.txt").
 
 calculate_outputs(NetValues, _NetInputs) ->
+%%calculate_outputs(NetValues, _NetInputs, SensorInputs) ->
 	PromCars = random:uniform(5),
-	ExtraOutputs = [{estimated_cars, PromCars}],
-	NewValues = lists:append(NetValues, ExtraOutputs),
-	reformat_net_values([],NewValues,[]).
+	ExtraOutputs = [{estimate_count, PromCars}],
+	NewValues = lists:append([NetValues, ExtraOutputs]),
+	reformat_net_values([cycle_time,umbral, delay],NewValues,[]).
 
 reformat_net_values([], [], Reformated) ->
 	lists:reverse(Reformated);
 reformat_net_values([_Value | _Values], [], Reformated) ->
 	lists:reverse(Reformated);
 reformat_net_values([], [Value | Values], Reformated) ->
-	reformat_net_values([], Values, [ {other, Value} | Reformated]);
+	reformat_net_values([], Values, [ Value | Reformated]);
 reformat_net_values([Key | Keys], [Value | Values], Reformated) ->
 	reformat_net_values(Keys, Values, [ {Key, Value} | Reformated]).
 
 
 format_inputs(Dir, Data, SensorInputs, SiblingsData) ->
-	NetInputs = find_element(net_inputs, Data),
+	NetInputs = find_element(net_input, Data),
 	LoadedInputs = find_element(Dir, NetInputs),
+	
+	io:format("List to append LoadInputs ~w, SensorInp: ~w , SiblingData ~w ~n",[LoadedInputs, SensorInputs, SiblingsData]),
 	Merged = lists:append([LoadedInputs, SensorInputs, SiblingsData]),
+	io:format("Merged List ~w ~n",[Merged]),
 	lists:map(fun({_Key, Value}) -> Value end, Merged).
 
 format_siblings_inputs(Dir, Siblings, Data) ->
 	TargetSiblings = find_element(Dir, Siblings),
 	ElementsData = find_element(siblings_data,Data),
-	
+	io:format("Target siblings: ~w  , ElementsData : ~w~n",[TargetSiblings, ElementsData]),
 	%%Get the info about sibling before this one
 	FilteredSiblings = lists:filter(fun({_SiblingId, _SiblingPid, Location}) -> Location == antes end, TargetSiblings),
-		
+	
+	io:format("FilteredSiblings: ~w~n",[FilteredSiblings]),
 	FilteredItems = filter_elements([real_count, estimate_count], ElementsData, FilteredSiblings),
 	
 	Diff = lists:map(fun({SiblingId, _SiblingPid, _SiblingIdLocation}) ->
@@ -346,12 +361,16 @@ format_siblings_inputs(Dir, Siblings, Data) ->
 		CarCount = find_element(real_count, Element),
 		Estimate = find_element(estimate_count, Element),
 		
-		Estimate - CarCount
+		io:format("Element: ~w~n CarCount: ~w~n Estimate: ~w~n",[Element,CarCount,Estimate]),
+		if CarCount =/= [], Estimate =/= [] -> CarCount - Estimate;
+			true  -> 0
+			
+		end
 		end,
 		TargetSiblings
 	),
-	
-	lists:append([{anomally, lists:any(fun(Value) -> Value > 0 end, Diff)} , FilteredItems]).
+	io:format("Sibling input to merge ~w~n",[FilteredItems]),
+	lists:append([{anomally, lists:any(fun(Value) -> Value < 0 end, Diff)}] , FilteredItems).
 	
 	%%TODO: recorrer lista Elements y sacar un estimado de si los carros de los
 	%% semaforos vecinos se estan atascando o no -> carros a pasar - real y pasarlo como parametro a la red
@@ -360,37 +379,63 @@ format_siblings_inputs(Dir, Siblings, Data) ->
 
 
 filter_elements(Filters, ElementsData, FilteredSiblings) ->
-	lists:map(fun({SiblingId, _SiblingPid, _SiblingIdLocation}) ->
+	lists:append(lists:map(fun({SiblingId, _SiblingPid, _SiblingIdLocation}) ->
+		io:format("Looking data for ~w in ~w~n",[SiblingId, ElementsData]),
 		Data = find_element(SiblingId, ElementsData),
+		io:format("FIlters: ~w   Data found data for ~w~n",[Filters, Data]),
 		filter_elements_aux(Filters, Data, [])
 		end,
 		FilteredSiblings
-	).
+	)).
 	
 filter_elements_aux([], _Data, Result) ->
 	Result;
 filter_elements_aux([Item | List], Data, Result) ->
-	Info = find_element(Item, Data),
+	Info = lists:keyfind(Item,1, Data),
 	case Info of
 		false ->	filter_elements_aux(List, Data, [{Item, -1} | Result]);
 		_Other ->	filter_elements_aux(List, Data, [{Item, Info} | Result])
 	end.
 
 
-eval_sensor_input(SensorInputs, CurrentData, Dir) ->
+eval_sensor_input(SensorInputs, CurrentData, Dir) ->	
+	io:format("Eval sensorinputs ~n~n SensorInputs ~w~n CurrentData: ~w~n",[SensorInputs, CurrentData]),
 	SensorVal = find_element(real_count, SensorInputs),
-	CacheVals = find_element(sensor_input, CurrentData),
+	Rain = find_element(rain, SensorInputs),
+	
+	io:format("Looking for sensor input on current data ~n"),
+	SensorInput = find_element(sensor_input, CurrentData),	
+	
+	DirNetValues = get_safe_net_values(CurrentData, Dir),
+	TempDirCache = find_element(Dir, SensorInput),
+	CacheVals = lists:keyreplace(rain, 1, TempDirCache, {rain, Rain}),
+	
 	if 
 		SensorVal < 0 ->			
-			ResponseVals = find_element(Dir, CacheVals),
-			{{real_count, ResponseVals},  CurrentData};
+			ResponseVals = lists:append([DirNetValues, CacheVals]),
+			UpdatedSensor = lists:keyreplace(Dir, 1, SensorInput, {Dir, CacheVals}),
+			UpdatedData = lists:keyreplace(sensor_input, 1, CurrentData, {sensor_input, UpdatedSensor}),
+			{ResponseVals,  UpdatedData};
 		true		 ->
-			ResponseVals = {real_count, SensorVal},
-			NewSensorData = lists:keyreplace(Dir, 1, CacheVals, {Dir, SensorVal}),
-			NewData = lists:keyreplace(sensor_input, 1, CurrentData, {sensor_input, NewSensorData}),
-			{ResponseVals, NewData}
+			NewSensorData = lists:keyreplace(real_count,1, CacheVals, {real_count, SensorVal}),			 
+			UpdatedSensor = lists:keyreplace(Dir, 1, SensorInput, {Dir, NewSensorData}),
+			UpdatedData = lists:keyreplace(sensor_input, 1, CurrentData, {sensor_input, UpdatedSensor}),
+			ResponseVals = lists:append([DirNetValues, NewSensorData]),
+			{ResponseVals, UpdatedData}
 	end.
-		
+
+
+get_safe_net_values(CurrentData, Dir) ->
+	NetValues = find_element(net_values, CurrentData),
+	io:format("Looking for netval input of ~w on current data ~w ~n",[Dir, NetValues]),
+	DirNetValues = find_element(Dir, NetValues),
+	io:format("Get Net values for DIR ~w, Result: ~w",[Dir, DirNetValues]),
+	if 
+		DirNetValues == []; DirNetValues == false ->
+			[{cycle_time,-1},{umbral,-1},{delay,-1},{estimate_count,1}];
+		true ->
+			DirNetValues
+	end.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%     CLIENT INTERFACE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -484,12 +529,15 @@ format_siblings(Data) ->
 restore(File, LightId) ->
 	Data = filemanager:get_data(File),
 	find_element(LightId, Data).
-	
+
+find_element(_Id, []) ->
+	[];
 find_element(Id, Data) ->
-	{Id, Element} = lists:keyfind(Id, 1, Data),
+	Element = lists:keyfind(Id, 1, Data),
 	case Element of
 		false ->	[];
-		_Other ->	Element
+		_Other ->	{Id, Value} = Element,
+					Value
 	end.
 
 force_stop(NN, Sensor) ->
