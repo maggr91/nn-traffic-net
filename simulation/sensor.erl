@@ -34,6 +34,7 @@ sensor(Lanes, File, StandBy) ->
 		{idle, _CallerPid, Dir} ->
 			io:format("Idle Sensor targets ~n", []),
 			NewLanes = reset_count(Lanes, Dir,-1),
+			io:format("Sensor new lanes count ~w~n",[NewLanes]),
 			sensor(NewLanes, File, StandBy);
 		{check_standby, CallerPid, Limit} ->
 			Status = evaluate_standby(Limit, StandBy),
@@ -81,7 +82,7 @@ reset_count(Lanes, Dir, ResetVal) ->
 	DirLanes = find_element(Dir, Lanes),
 	ResetLanes = lists:map(fun({LaneId, LaneData}) ->
 		TmpList = lists:keyreplace(dsp_str, 1, LaneData, {dsp_str, ResetVal}),
-		FinalList = lists:keyreplace(dsp_str, 1, TmpList, {dsp_trn, ResetVal}),
+		FinalList = lists:keyreplace(dsp_trn, 1, TmpList, {dsp_trn, ResetVal}),
 		{LaneId, FinalList}
 		end,
 		DirLanes
