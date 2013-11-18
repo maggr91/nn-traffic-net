@@ -302,7 +302,7 @@ move_cars([{CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMov
          			      NewStats = lists:keyreplace(dsp_trn,1, Stats, {dsp_trn, TrnCounter + 1}),
          			      %%update the sensor counter by the amount specified
          			      %safe_sensor_update(Sensor, dsp_trn, LaneId, 1),
-         			      timer:apply_after(50, lane, safe_sensor_update, [Sensor, dsp_trn, LaneId, 1]),
+         			      timer:apply_after(10, lane, safe_sensor_update, [Sensor, dsp_trn, LaneId, 1]),
         			      move_cars(Tail, ConnectedLanes, Obs, UpdatedCars, LanCap,NewProbData, LaneId,NewOutArea, LogData, NewStats,-1, CedPos, Sensor);
         			      
         {reply, error, NewUpdated} -> io:format("CALL STOP MOVING ~w  position ~w.~n",[NewUpdated, EPos]),

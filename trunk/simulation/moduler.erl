@@ -1,5 +1,5 @@
 -module(moduler).
--export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/3, request_updates/1, 
+-export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/3, request_updates/2, 
 	checkpoint/1, stop/1, get_sensor/1, reset_sensor/2, estimation_proc/2, check_sensor_standby/2]).
 -export([init/1, update_dm/3, delete_old/1]).
 
@@ -105,13 +105,13 @@ formated_log(File) ->
 listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 	receive
 		%%call siblings
-		{broadcast_request, _CallerPid} -> %%Ask siblings to send an update
+		{broadcast_request, _CallerPid, Dir} -> %%Ask siblings to send an update
 			io:format("Data before broadcast: ~w", [Data]),
-			NewData = request_update_from_Siblings(Siblings, Data),
+			NewData = request_update_from_Siblings(Siblings, Data, Dir),
 			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
-		{broadcast_update, CallerPid, NewData} -> %%Send siblings to an update
+		{broadcast_update, CallerPid, NewData, Dir} -> %%Send siblings to an update
 			io:format("Update triggered by siblings ~w Light: ~w... NewData", [CallerPid,Light]),
-			UpdateData = update_siblings_data(CallerPid, Data, NewData),
+			UpdateData = update_siblings_data(CallerPid, Data, NewData, Dir),
 			listen(Light, Siblings, NN, UpdateData, CheckpointLog, Sensor);
 		{response, CallerPid, Dir} ->
 			%%%EVALUAR SI LO QUE RETORNA EL SENSOR ES ACTIVO O IDLE(-1 o numeros negativos) si es malo retornar
@@ -119,16 +119,16 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 			{reply, SensorInputs} = sensor:get_records(Sensor, Dir),
 			%{SensorRespond, UpdatedData} = eval_sensor_input(SensorInputs, Data,Dir),
 			{Return, UpdatedData} = eval_sensor_input(SensorInputs, Data, Dir),
-						
+					
 			%Return = lists:append([ResponseData, SensorRespond]),
-			io:format("~n~n~n~nRETURN DATA ~w~n~n~n~n",[Return]),
+			io:format("~n~n Return data from ~w ~w~n", [CallerPid, Return]),	
 			reply(CallerPid, Return),
 			listen(Light, Siblings, NN, UpdatedData, CheckpointLog, Sensor);
 			%% send info to caller
 		{update_nn, CallerPid, NewVals, Dir} ->
 			NewData = update_nn_data(net_values, Data, NewVals,Dir),
 			reply(CallerPid, ok),
-			send_update_to_Siblings(Light, Siblings, NewVals),
+			send_update_to_Siblings(Light, Siblings, NewVals, Dir),
 			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
 		{inputs, _CallerPid, NewVals} ->
 			NewData = update_nn_data(net_input, Data, NewVals),			
@@ -156,11 +156,13 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 			{reply, SensorInputs} = sensor:get_records(Sensor, Dir),
 			sensor:idle(Sensor, Dir),
 			
-			%FirstData = update_nn_data(sensor_inputs, Data, SensorInputs, Dir),
-			FirstData = update_nn_data(sensor_input, Data, SensorInputs, Dir),
+			%FirstData = update_nn_data(sensor_input, Data, SensorInputs, Dir),
+			{_Return, FirstData} = eval_sensor_input(SensorInputs, Data, Dir),
+			
+			io:format("~n~n~n~n PROC DATA SENSOR UPDATE ~w~n~n~n~n",[FirstData]),
 			
 			%%second update data from siblings
-			NewData = request_update_from_Siblings(Siblings, FirstData),
+			NewData = request_update_from_Siblings(Siblings, FirstData, Dir),
 			
 			
 			%%Third format all reladted inputs from siblings				
@@ -178,7 +180,7 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 			FinalDesition = calculate_outputs(Desition, NetInputs),
 			%FinalDesition = calculate_outputs(Desition, NetInputs,SensorInputs),
 			
-			%io:format("FinalDesition of NN: ~w~n",[FinalDesition]),
+			io:format("FinalDesition of NN: ~w~n",[FinalDesition]),
 			%%Send the info back to the light
 			reply(CallerPid, FinalDesition),
 
@@ -186,9 +188,10 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 			%update_from_nn(self(), FinalDesition,Dir),
 			
 			FinalData = update_nn_data(net_values, NewData, FinalDesition, Dir),
-			%io:format("Data after network update: FinalData .. ~w~n",[FinalData]),
-					
-			send_update_to_Siblings(Light, Siblings, FinalDesition),
+			SiblingUpdateData = lists:append(FinalDesition, SensorInputs),
+			io:format("Data after network update: FinalData .. ~w~n",[SiblingUpdateData]),
+				
+			send_update_to_Siblings(Light, Siblings, SiblingUpdateData, Dir),
 			
 			%listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
 			listen(Light, Siblings, NN, FinalData, CheckpointLog, Sensor);
@@ -237,21 +240,25 @@ connect(Dir, {SenderId, SenderPid, SenderLocation}, {ReceiverId, ReceiverPid, Re
 %connect(Dir, SenderPid, ReceiverPid) ->
 %	SenderPid ! {connect, ReceiverPid, Dir}.
 
-request_update_from_Siblings([], Data) ->
+request_update_from_Siblings([], Data, _TargetDir) ->
 	io:format("Data after broadcast: ~w~n", [Data]),
 	Data;
-request_update_from_Siblings([{Dir, SiblingsList} | Siblings], Data) ->
-	io:format("Updating ~w~n", [Dir]),
+request_update_from_Siblings([{Dir, SiblingsList} | Siblings], Data, Dir) ->
+	io:format("Updating ~w List: ~w~n", [Dir, SiblingsList]),
 	NewData = update_from_Siblings_aux(SiblingsList, Data, Dir),
-	request_update_from_Siblings(Siblings, NewData).
+	request_update_from_Siblings(Siblings, NewData, Dir);
+request_update_from_Siblings([_OtherDir | Siblings], Data, TargetDir) ->	
+	request_update_from_Siblings(Siblings, Data, TargetDir).
 	
 update_from_Siblings_aux([], Data, _Dir) ->
 	Data;
 update_from_Siblings_aux([{Sid, S, _SibLocation} | Siblings], Data, Dir) ->
+	io:format("~nAsking for update from ~w~n~n",[Sid]),
 	S ! {response, self(), Dir},
 	receive
 		{reply, NewData} ->
-			UpdatedData = update_siblings_data(Sid, Data, NewData),
+			io:format("Response of data update from ~w NewData ~w~n",[Sid, NewData]),
+			UpdatedData = update_siblings_data(Sid, Data, NewData, Dir),
 			update_from_Siblings_aux(Siblings, UpdatedData, Dir);
 			%Res = lists:keyfind(S,1, Data),
 			%case Res of
@@ -264,13 +271,13 @@ update_from_Siblings_aux([{Sid, S, _SibLocation} | Siblings], Data, Dir) ->
 	end.
 
 
-send_update_to_Siblings(Id, Siblings, Data) ->
+send_update_to_Siblings(Id, Siblings, Data, TargetDir) ->
 	lists:map(
 		fun({Dir, SiblingsList}) ->
 			io:format("Sending update to siblings on ~w. List: ~w~n~n", [Dir, SiblingsList]),
 			lists:map(
 				fun({_SiblingId, SiblingPid, _SiblingLocation}) ->
-					SiblingPid ! {broadcast_update, Id, Data}
+					SiblingPid ! {broadcast_update, Id, Data, TargetDir}
 				end,
 				SiblingsList
 			)
@@ -279,16 +286,17 @@ send_update_to_Siblings(Id, Siblings, Data) ->
 	).								
 
 
-update_siblings_data(Sibling, Data, NewData) ->
+update_siblings_data(Sibling, Data, NewData, Dir) ->
 	{_Key, SiblingList} = lists:keyfind(siblings_data,1, Data),
 	Item = lists:keyfind(Sibling,1, SiblingList),
 	case Item of
 		false ->
 			io:format("No data founded, adding info for sibling"),
-			NewSiblingData = [{Sibling,NewData} | SiblingList];
-		{Sibling, _Value} ->
-			io:format("Previous data founded, updating for sibling"),
-			NewSiblingData = lists:keyreplace(Sibling, 1, SiblingList, {Sibling, NewData})
+			NewSiblingData = [{Sibling,[{Dir, NewData}]} | SiblingList];
+		{Sibling, Value} ->
+			io:format("Previous data founded, updating for sibling"),			
+			UpdatedData = safe_data_update(Dir, NewData, Value),
+			NewSiblingData = lists:keyreplace(Sibling, 1, SiblingList, {Sibling, UpdatedData})
 	end,
 	lists:keyreplace(siblings_data, 1, Data, {siblings_data, NewSiblingData}).
 
@@ -402,28 +410,58 @@ eval_sensor_input(SensorInputs, CurrentData, Dir) ->
 	io:format("Eval sensorinputs ~n~n SensorInputs ~w~n CurrentData: ~w~n",[SensorInputs, CurrentData]),
 	SensorVal = find_element(real_count, SensorInputs),
 	Rain = find_element(rain, SensorInputs),
-	
-	io:format("Looking for sensor input on current data ~n"),
+		
 	SensorInput = find_element(sensor_input, CurrentData),	
 	
 	DirNetValues = get_safe_net_values(CurrentData, Dir),
-	TempDirCache = find_element(Dir, SensorInput),
+	TempDirCache = get_safe_sensor_inputs(Dir, SensorInput),
+	
+	io:format("~n~nSAFE sensor input on ~w with ~w~n~n", [Dir, TempDirCache]),
 	CacheVals = lists:keyreplace(rain, 1, TempDirCache, {rain, Rain}),
 	
 	if 
 		SensorVal < 0 ->			
 			ResponseVals = lists:append([DirNetValues, CacheVals]),
-			UpdatedSensor = lists:keyreplace(Dir, 1, SensorInput, {Dir, CacheVals}),
-			UpdatedData = lists:keyreplace(sensor_input, 1, CurrentData, {sensor_input, UpdatedSensor}),
+			%UpdatedSensor = lists:keyreplace(Dir, 1, SensorInput, {Dir, CacheVals}),			
+			%UpdatedData = lists:keyreplace(sensor_input, 1, CurrentData, {sensor_input, UpdatedSensor}),
+			UpdatedData = update_nn_data(sensor_input, CurrentData, CacheVals, Dir),
+			io:format("ResponseVals when sensor -1: ~w~n~n",[ResponseVals]),
 			{ResponseVals,  UpdatedData};
 		true		 ->
 			NewSensorData = lists:keyreplace(real_count,1, CacheVals, {real_count, SensorVal}),			 
-			UpdatedSensor = lists:keyreplace(Dir, 1, SensorInput, {Dir, NewSensorData}),
-			UpdatedData = lists:keyreplace(sensor_input, 1, CurrentData, {sensor_input, UpdatedSensor}),
+			%UpdatedSensor = lists:keyreplace(Dir, 1, SensorInput, {Dir, NewSensorData}),
+			%UpdatedData = lists:keyreplace(sensor_input, 1, CurrentData, {sensor_input, UpdatedSensor}),
+			UpdatedData = update_nn_data(sensor_input, CurrentData, NewSensorData, Dir),
 			ResponseVals = lists:append([DirNetValues, NewSensorData]),
+			io:format("ResponseVals when sensor is old: ~w~n~n",[ResponseVals]),
 			{ResponseVals, UpdatedData}
 	end.
 
+%eval_sensor_input(SensorInputs, CurrentData, Dir) ->	
+%	io:format("Eval sensorinputs ~n~n SensorInputs ~w~n CurrentData: ~w~n",[SensorInputs, CurrentData]),
+%	SensorVal = find_element(real_count, SensorInputs),
+%	Rain = find_element(rain, SensorInputs),
+%	
+%	io:format("Looking for sensor input on current data ~n"),
+%	SensorInput = find_element(sensor_input, CurrentData),	
+	%
+%	DirNetValues = get_safe_net_values(CurrentData, Dir),
+%	TempDirCache = find_element(Dir, SensorInput),
+%	CacheVals = lists:keyreplace(rain, 1, TempDirCache, {rain, Rain}),
+%	
+%	if 
+%		SensorVal < 0 ->			
+%			ResponseVals = lists:append([DirNetValues, CacheVals]),
+%			UpdatedSensor = lists:keyreplace(Dir, 1, SensorInput, {Dir, CacheVals}),
+%			UpdatedData = lists:keyreplace(sensor_input, 1, CurrentData, {sensor_input, UpdatedSensor}),
+%			{ResponseVals,  UpdatedData};
+%		true		 ->
+%			NewSensorData = lists:keyreplace(real_count,1, CacheVals, {real_count, SensorVal}),			 
+%			UpdatedSensor = lists:keyreplace(Dir, 1, SensorInput, {Dir, NewSensorData}),
+%			UpdatedData = lists:keyreplace(sensor_input, 1, CurrentData, {sensor_input, UpdatedSensor}),
+%			ResponseVals = lists:append([DirNetValues, NewSensorData]),
+%			{ResponseVals, UpdatedData}
+%	end.
 
 get_safe_net_values(CurrentData, Dir) ->
 	NetValues = find_element(net_values, CurrentData),
@@ -435,6 +473,15 @@ get_safe_net_values(CurrentData, Dir) ->
 			[{cycle_time,-1},{umbral,-1},{delay,-1},{estimate_count,1}];
 		true ->
 			DirNetValues
+	end.
+	
+get_safe_sensor_inputs(_Dir, []) ->
+	[{real_count, 0}, {rain, 0}];
+get_safe_sensor_inputs(Dir, SensorData) ->
+	TempDirCache = find_element(Dir, SensorData),
+	case TempDirCache of
+		[] 		->	[{real_count, 0}, {rain, 0}];
+		_Other 	->	TempDirCache
 	end.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%     CLIENT INTERFACE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -451,8 +498,8 @@ update_from_nn(ModulerPid, Values, Dir) ->
 			{error, []}
 	end.
 	
-request_updates(ModulerPid) ->
-	ModulerPid ! {broadcast_request, self()},
+request_updates(ModulerPid, Dir) ->
+	ModulerPid ! {broadcast_request, self(), Dir},
 	{ok, updated}.
 
 status(Pid) ->
@@ -546,6 +593,19 @@ force_stop(NN, Sensor) ->
 
 delete_old(List) ->
 	lists:map(fun(File) -> file:delete(File) end, List). %% delete old log
+
+
+%%INPUT: Key to look for
+%%		 Data: New data to add or update
+%%		 List: Container of the key value
+%%OUTPUT: Updated List
+%%%DESC: Update data for the key value, if its found replace it, if not add new data
+safe_data_update(Key, Data, List) ->
+	Element = lists:keyfind(Key, 1, List),
+	case Element of
+		false  -> [{Key, Data} | List];
+		_Other -> lists:keyreplace(Key, 1, List, {Key, Data})
+	end.
 	
 test() ->
 	M1 = moduler:start(),
