@@ -387,7 +387,7 @@ redgreen({restore, RestoredData}, _From, StateData) ->
     {reply, {redgreen,RestoredData}, RestoredState, NewStateData};
 redgreen({change_times, NewTimes}, _From, StateData) ->
 	io:format("New Times update ~w~n",[NewTimes]),
-    NewStateData = update_state_data_times(NewTimes, StateData),    
+    NewStateData = update_state_data_times(NewTimes, StateData),
     {reply, {redgreen,NewTimes}, redgreen, NewStateData};
 redgreen(move_street,_From, StateData) ->
     io:format("continue moving street lanes. Data: ~w~n",[StateData]),
