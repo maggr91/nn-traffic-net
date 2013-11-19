@@ -63,12 +63,13 @@ start_probServers() ->
 	register(poissonServer,prob:start({poisson,6})),
     register(geoServer,prob:start({geometrica,0.5})),
     register(geoCedServer,prob:start({geometrica,0.25})),
-    register(trainerServer, trainer:start()),
+    register(trainerServer, trainer:start()).
 
 stop_probServers() ->
     poissonServer ! killyou,
     geoServer ! killyou,
-    geoCedServer ! killyou.
+    geoCedServer ! killyou,
+    trainerServer.
     
 call(Message) ->
     io:format("CALLING PROCESS LOOP.~n",[]),

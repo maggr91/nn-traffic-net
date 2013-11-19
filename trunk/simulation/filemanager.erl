@@ -1,13 +1,16 @@
 -module(filemanager).
 
--export([get_data/1, write_result/2, write_raw/2]).
+-export([get_data/1, get_data_by_fullpath/1, write_result/2, write_raw/2]).
 
 get_data(SourceFile) -> 
 %% Get the working directory, set complete path y read all lines
     {ok, Cwd} = file:get_cwd(),
     Path = Cwd ++ SourceFile,
     readlines(Path).
-
+    
+get_data_by_fullpath(SourceFile) ->
+	readlines(SourceFile).
+	
 %% Read files to get lanes/ lights config
 readlines(FileName) ->
     {ok, Device} =  file:open(FileName, [read]),
