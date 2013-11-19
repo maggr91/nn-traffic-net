@@ -1,8 +1,2 @@
 {light212,twoDir,dm,[{av, [{light210,despues}]}, {ca, [{light412,antes}]}],[{cycle_time, 5}, {go_time,0}, {allred_time,1}, {delay, 0}, {umbral, 2}]}
 {light210,twoDir,dm,[{av, [{light212,antes},{light208,despues}]}, {ca, [{light410,despues}]}], [{cycle_time, 5}, {go_time,0}, {allred_time,1}, {delay, 2}, {umbral, 2}]}
-{light208,twoDir,dm,[{av, [{light210,antes},{light206,despues}]}, {ca, [{light408,antes}]}], [{cycle_time, 5}, {go_time,0}, {allred_time,1}, {delay, 3}, {umbral, 2}]}
-{light206,twoDir,dm,[{av, [{light208,antes}]}, {ca, [{light406,despues}]}], [{cycle_time, 5}, {go_time,0}, {allred_time,1}, {delay, 4}, {umbral, 2}]}
-{light412,twoDir,dm,[{av, []}, {ca, [{light212,despues}, {light612,antes}]}], [{cycle_time, 5}, {go_time,0}, {allred_time,1}, {delay, 3}, {umbral, 2}]}
-{light410,twoDir,dm,[{av, []}, {ca, [{light210,antes}, {light610,despues}]}], [{cycle_time, 5}, {go_time,0}, {allred_time,1}, {delay, 1}, {umbral, 2}]}
-{light408,twoDir,dm,[{av, []}, {ca, [{light208,despues}, {light608,antes}]}], [{cycle_time, 5}, {go_time,0}, {allred_time,1}, {delay, 3}, {umbral, 2}]}
-{light406,twoDir,dm,[{av, []}, {ca, [{light206,antes},{light606,despues}]}], [{cycle_time, 5}, {go_time,0}, {allred_time,1}, {delay, 1}, {umbral, 2}]}

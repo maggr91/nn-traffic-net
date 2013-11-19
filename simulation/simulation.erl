@@ -68,7 +68,8 @@ start_probServers() ->
 stop_probServers() ->
     poissonServer ! killyou,
     geoServer ! killyou,
-    geoCedServer ! killyou.
+    geoCedServer ! killyou,
+    trainerServer ! killyou.
     
 call(Message) ->
     io:format("CALLING PROCESS LOOP.~n",[]),
