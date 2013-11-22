@@ -893,4 +893,12 @@ update_state_data_times(NewVals, StateData) ->
 	FilterVals = [{go_time, NewCycleTime} | PreFilterVals],
 	NewTimes = update_state_data(FilterVals, Times),
 	update_state_data([{times, NewTimes}], StateData).
-	
+
+
+
+%%INPUT: CurrentStateData... data of the light for the current state
+%%		 
+%%OUTPUT: Desired Light Time to reduce delay
+%%DESC: analyze behaivior of cars that passed by that lane and determine if the delay is reduced or if it have to be reduced
+%% 		according to the desired delay for the lane.
+eval_delay(CurrentData) ->
