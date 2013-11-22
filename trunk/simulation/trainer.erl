@@ -1,5 +1,5 @@
 -module(trainer).
--export([start/0, get_log/1, evaluate/2, update/3]).
+-export([start/0, get_log/1, evaluate/2, update/3, update/4]).
 
 -export([init/0]).
 
@@ -9,7 +9,8 @@ start()->
 init() ->
 	%%start the trainer server (Used by all NN) in the network
 	%%load the training sets
-	TrainerReg = formated_log("/logs/training_set.txt"),
+	filelib:ensure_dir("logs/training/"),
+	TrainerReg = formated_log("/logs/training/training_rec_"),
 	TrainingData = load_training_set(),
 	%register(network, ann:start()),
 	%timer:apply_after(200, trainer, train, [TrainingData, TrainerReg]).
@@ -30,10 +31,16 @@ train(TrainingData, TrainerReg) ->
 			reply(CallerPid, Res),
 			train(TrainingData, TrainerReg);
 		{rec, Data, _Location} ->
-			io:format("Trainer Data ~w",[Data]),
 			write(TrainerReg, Data),
 			train(TrainingData, TrainerReg);
-		killyou -> 		    
+		{rec_ind, Data,_Location, ParentLaneId} ->
+			io:format("Rec called with parentLane"),
+			write(TrainerReg, Data, ParentLaneId),
+			train(TrainingData, TrainerReg);
+		{test, Data} ->
+			io:format("TEST called with parentLane"),			
+			train(TrainingData, TrainerReg);
+		killyou ->
 		    {normal, ok}
 	end.
 
@@ -67,6 +74,12 @@ update(TrainerPid, Data, Location) ->
 	%io:format("after Updating trainer"),
 	{ok, update}.
 
+update(TrainerPid, Data, Location, ParentLaneId) ->
+	io:format("Using ParentLaneId ~w trainer ~w~n",[ParentLaneId, {Data, Location}]),
+	TrainerPid ! {rec_ind, Data,Location, ParentLaneId},
+	io:format("after Updating trainer"),
+	{ok, update}.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%     GENERAL FUNCTIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -79,7 +92,12 @@ write(TrainerReg, Data) ->
 	%io:format("Saving to trainer log ~p ... Data ~w", [TrainerReg, Data]),
 	filemanager:write_raw(TrainerReg, io_lib:format("~w", [Data])).
 	
-	
+write(TrainerReg, Data, ParentLaneId) ->
+	Extension = atom_to_list(ParentLaneId) ++ ".txt",
+	FinalRegFile = TrainerReg ++ Extension,
+	%io:format("Saving to trainer log ~p ... Data ~w", [TrainerReg, Data]),
+	filemanager:write_raw(FinalRegFile, io_lib:format("~w", [Data])).
+
 
 load_training_set() ->
 	filemanager:get_data("/ann/training/training_set.txt").

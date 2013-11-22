@@ -268,7 +268,7 @@ move_cars([], _ConnectedLanes, _Obstruction, UpdatedCars, _LanCap, ProbData, _La
     {lists:reverse(UpdatedCars), ProbData, NewOutArea, Stats};
 
 %% if car has reached the end of line, dispatch (send) car to one of connected lanes
-move_cars([{CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}}|Tail], ConnectedLanes, Obs, UpdatedCars, LanCap, 
+move_cars([CarInfo = {CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMove, TopMove}}|Tail], ConnectedLanes, Obs, UpdatedCars, LanCap, 
   ProbData, LaneId, NewOutArea, LogData, Stats, _LastCarPos, CedPos, Sensor) when BPos == 0  -> 
     %%Dispatch Cars
     io:format("CAR GOING TO DISPATCH Prob dispatch: ~w.~n",[ProbData]),
@@ -288,10 +288,11 @@ move_cars([{CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMov
     case Res of 
         {reply, transfered, Car}   -> 
         				%% RECORD the data in the trainer logs
-        				  trainer:update(trainerServer, Car, outside),
+        				  trainer:update(trainerServer, Car, outside, ParentLaneId),
         				  move_cars(Tail, ConnectedLanes, Obs, UpdatedCars, LanCap,NewProbData, LaneId, [Car|NewOutArea], LogData, Stats,-1, CedPos, Sensor);
         {reply, transfered} when Dir == str ->
         				  %%update the sensor counter by the amount specified
+        				  trainer:update(trainerServer, CarInfo, lane, ParentLaneId),
         			      timer:apply_after(10, lane, safe_sensor_update, [Sensor, dsp_str, LaneId, 1]),
         			      {dsp_str, StrCounter} = lists:keyfind(dsp_str, 1, Stats),
          			      NewStats = lists:keyreplace(dsp_str,1, Stats, {dsp_str, StrCounter + 1}),         			      
@@ -300,6 +301,7 @@ move_cars([{CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLanes, NextMov
         			      
         {reply, transfered} when Dir == trn ->
         				  %%update the sensor counter by the amount specified
+        				  trainer:update(trainerServer, CarInfo, lane, ParentLaneId),
          			      timer:apply_after(10, lane, safe_sensor_update, [Sensor, dsp_trn, LaneId, 1]),
         			      {dsp_trn, TrnCounter} = lists:keyfind(dsp_trn, 1, Stats),
          			      NewStats = lists:keyreplace(dsp_trn,1, Stats, {dsp_trn, TrnCounter + 1}),         			      
