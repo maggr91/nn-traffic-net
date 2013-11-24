@@ -1,6 +1,6 @@
 -module(moduler).
 -export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/3, request_updates/2, 
-	checkpoint/1, stop/1, get_sensor/1, reset_sensor/2, estimation_proc/2, check_sensor_standby/2]).
+	checkpoint/1, stop/1, get_sensor/1, reset_sensor/2, estimation_proc/3, check_sensor_standby/2]).
 -export([init/1, update_dm/3, delete_old/1]).
 
 %% Used to comunicate traffic lights 
@@ -34,8 +34,9 @@ init({restore, LightId, Lanes}) ->
 	timer:apply_after(100, moduler,delete_old,[[FormatLog, FormatSens]]),
 	
 	NewCheckpointLog = {FormatLog, NNFile, FormatSens},
+	Trainer = trainer:start(),
 	
-	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,NewCheckpointLog, Sensor);
+	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,NewCheckpointLog, Sensor, {Trainer, false});
 
 init({normal, LightId, Lanes}) ->
 	[Config | _Junk] = get_config(),
@@ -52,8 +53,10 @@ init({normal, LightId, Lanes}) ->
 	update_dm(NN, NNFile, LightId),	
 	
 	Sensor = create_sens(Lanes, FormatSens),
+	Trainer = trainer:start(),
 	
-	listen(LightId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}, {net_input, []}, {sensor_input, []}],NewCheckpointLog, Sensor).
+	listen(LightId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}, {net_input, []}, {sensor_input, []}],
+		NewCheckpointLog, Sensor, {Trainer, false}).
 		
 %%CREATES The decision maker for the light in this case is a Neuronal Network
 %%Input: None
@@ -102,17 +105,17 @@ formated_log(File) ->
 %%%%%%%%%%%%%%%%%%%%%%%%%         MAIN           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
+listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer) ->
 	receive
 		%%call siblings
 		{broadcast_request, _CallerPid, Dir} -> %%Ask siblings to send an update
 			io:format("Data before broadcast: ~w", [Data]),
 			NewData = request_update_from_Siblings(Siblings, Data, Dir),
-			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
+			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor, Trainer);
 		{broadcast_update, CallerPid, NewData, Dir} -> %%Send siblings to an update
 			io:format("Update triggered by siblings ~w Light: ~w... NewData", [CallerPid,Light]),
 			UpdateData = update_siblings_data(CallerPid, Data, NewData, Dir),
-			listen(Light, Siblings, NN, UpdateData, CheckpointLog, Sensor);
+			listen(Light, Siblings, NN, UpdateData, CheckpointLog, Sensor, Trainer);
 		{response, CallerPid, Dir} ->
 			%%%EVALUAR SI LO QUE RETORNA EL SENSOR ES ACTIVO O IDLE(-1 o numeros negativos) si es malo retornar
 			%%% el que tenga almacenado el modulador, si no dar version reciente			 
@@ -123,16 +126,16 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 			%Return = lists:append([ResponseData, SensorRespond]),
 			io:format("~n~n Return data from ~w ~w~n", [CallerPid, Return]),	
 			reply(CallerPid, Return),
-			listen(Light, Siblings, NN, UpdatedData, CheckpointLog, Sensor);
+			listen(Light, Siblings, NN, UpdatedData, CheckpointLog, Sensor, Trainer);
 			%% send info to caller
 		{update_nn, CallerPid, NewVals, Dir} ->
 			NewData = update_nn_data(net_values, Data, NewVals,Dir),
 			reply(CallerPid, ok),
 			send_update_to_Siblings(Light, Siblings, NewVals, Dir),
-			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
+			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor, Trainer);
 		{inputs, _CallerPid, NewVals} ->
 			NewData = update_nn_data(net_input, Data, NewVals),			
-			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
+			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor, Trainer);
 		{connect, SiblingData, Dir} ->
 			%%add connection to siblings list but not the data
 			%{Dir, List} = lists:keyfind(Dir, 1, Siblings),
@@ -147,10 +150,10 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 			Exist = lists:any(fun(Item) -> Item == SiblingData end, List),
 			case Exist of
 				false -> UpdatedSiblings = lists:keyreplace(Dir, 1, NewSiblings, {Dir, [SiblingData | List]}),
-						 listen(Light, UpdatedSiblings, NN, Data, CheckpointLog, Sensor);
-				true  -> listen(Light, NewSiblings, NN, Data, CheckpointLog, Sensor)
+						 listen(Light, UpdatedSiblings, NN, Data, CheckpointLog, Sensor, Trainer);
+				true  -> listen(Light, NewSiblings, NN, Data, CheckpointLog, Sensor, Trainer)
 			end;
-		{proc, CallerPid, Dir} ->			
+		{proc, CallerPid, Dir, Stats} ->			
 			%%First, get data from related sensor
 			%%return is [{real_count, Val}, {rain, Val}]
 			{reply, SensorInputs} = sensor:get_records(Sensor, Dir),
@@ -170,9 +173,7 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 			io:format("SiblingsInput ~w",[SiblingsInput]),
 			FormatedInputs = format_inputs(Dir, NewData,SensorInputs, SiblingsInput),
 			
-			%%call nn with the new inputs
-			%Desition = ann:input(FormatedInputs),
-			Desition = [10,3,1],
+			Desition = get_desition(FormatedInputs, NN, Stats, Trainer),
 			
 			%io:format("Desition~n"),
 			NetInputs = find_element(net_input, NewData),
@@ -194,7 +195,7 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 			send_update_to_Siblings(Light, Siblings, SiblingUpdateData, Dir),
 			
 			%listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
-			listen(Light, Siblings, NN, FinalData, CheckpointLog, Sensor);
+			listen(Light, Siblings, NN, FinalData, CheckpointLog, Sensor, Trainer);
 			
 		{stop, _CallerPid} ->
 			force_stop(NN, Sensor),
@@ -203,20 +204,20 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 		{checkpoint, CallerPid} ->
 			write_checkpoint(NN, Data, CheckpointLog, Light, Sensor),
 			reply(CallerPid, ok),
-			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer);
 		{active_sensor, CallerPid} ->
 			reply(CallerPid, Sensor),
-			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer);
 		{change_sensor, _CallerPid, Dir} ->
 			sensor:change(Sensor, Dir),
-			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer);
 		{check_sensor_standby, CallerPid, Limit} ->
 			Res = sensor:check_standby(Sensor, Limit),
 			reply(CallerPid, Res),
-			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor);
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer);
 		{status, _CallerPid} ->
 			io:format("Status of moduler ~w ~n Siblings: ~w~n Data: ~w~n~n",[{Light,self()}, Siblings, Data]),
-			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor)
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer)
 	end.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -226,6 +227,22 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor) ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%     GENERAL FUNCTIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+get_desition(_FormatedInputs, _NN, CarStats, {TrainerPid, true}) ->
+	%%Call trainer prior calling the NN to get a waitedResult
+	%%call nn with the new inputs
+	%Desition = ann:input(FormatedInputs),
+	trainer:analyse(TrainerPid, CarStats),	
+	[10,3,1];
+	
+
+get_desition(_FormatedInputs, _NN, _CarStats, {_TrainerPid, false}) ->
+	%%Call trainer prior calling the NN to get a waitedResult
+	%%call nn with the new inputs
+	%Desition = ann:input(FormatedInputs),
+	[10,3,1].
+
+
 
 reply(Pid, Reply) ->
     Pid ! {reply, Reply}.
@@ -483,6 +500,7 @@ get_safe_sensor_inputs(Dir, SensorData) ->
 		[] 		->	[{real_count, 0}, {rain, 0}];
 		_Other 	->	TempDirCache
 	end.
+	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%     CLIENT INTERFACE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -517,8 +535,8 @@ stop(ModulerPid) ->
 %%INPUT: ModulerPid related to the traffic light, Dir direction where to look for info
 %%OUTPUT: returns the new data to use by the light (mostly times)
 %%DESC: Called from Lights, in order to ask the DM (nn) what would be the next cycle
-estimation_proc(ModulerPid, Dir) ->
-	ModulerPid ! {proc, self(), Dir},
+estimation_proc(ModulerPid, Dir, Stats) ->
+	ModulerPid ! {proc, self(), Dir, Stats},
 	receive
 		{reply, NewDesition} -> {reply, NewDesition};
 		_Other ->	{error, moduler}		

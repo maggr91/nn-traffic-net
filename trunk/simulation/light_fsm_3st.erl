@@ -79,6 +79,14 @@ init(Args) ->
     
     {ok, allred, StateData}.
 
+get_state({LightPid, TargetsList}) ->
+    try
+        gen_fsm:sync_send_event(LightPid, {get_state, TargetsList})
+    catch 
+	exit : { noproc, _ } -> closed
+    end;
+
+
 get_state(LightPid) ->
     try
         %io:fwrite("Getting state ~w~n", [LightPid]),
@@ -86,6 +94,7 @@ get_state(LightPid) ->
     catch 
 	exit : { noproc, _ } -> closed
     end.
+
 
 handle_event(shutdown, _StateName, StateData) ->
     {stop, normal, StateData};
@@ -154,6 +163,11 @@ allred(Event, StateData) ->
 allred(get_state, _From, StateData) ->
 	ReturnData = get_state_data(allred, StateData),
     {reply, ReturnData, allred, StateData};
+
+allred({get_state, TargetList}, _From, StateData) ->
+	ReturnData = get_state_data(allred, StateData, TargetList),
+    {reply, ReturnData,allred, StateData};
+
 allred({update_siblings, Siblings},_From, StateData) ->
     %io:format("Updating StateData: ~w~n",[Siblings]),
     %{LightId,ManagedLanes,_Siblings, Times, LogData, OldState, CtrlMod} = StateData,
@@ -305,6 +319,11 @@ greenredred(Event, StateData) ->
 greenredred(get_state, _From, StateData) ->
 	ReturnData = get_state_data(greenredred, StateData),
     {reply, ReturnData,greenredred, StateData};
+
+greenredred({get_state, TargetList}, _From, StateData) ->
+	ReturnData = get_state_data(greenredred, StateData, TargetList),
+    {reply, ReturnData,greenredred, StateData};    
+ 
 greenredred({tabulate_data, DataLog},_From, StateData) ->
     io:format("Writing down data results: ~p~n",[DataLog]),
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,
@@ -400,6 +419,11 @@ redgreenred(Event, StateData) ->
 redgreenred(get_state, _From, StateData) ->
 	ReturnData = get_state_data(redgreenred, StateData),
     {reply, ReturnData,redgreenred, StateData};
+    
+redgreenred({get_state, TargetList}, _From, StateData) ->
+	ReturnData = get_state_data(redgreenred, StateData, TargetList),
+    {reply, ReturnData,redgreenred, StateData};    
+    
 redgreenred({tabulate_data, DataLog},_From, StateData) ->
     io:format("Writing down data results: ~p~n",[DataLog]),
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,
@@ -490,6 +514,11 @@ redredgreen(Event, StateData) ->
 redredgreen(get_state, _From, StateData) ->
 	ReturnData = get_state_data(redredgreen, StateData),
     {reply, ReturnData,redredgreen, StateData};
+    
+redredgreen({get_state, TargetList}, _From, StateData) ->
+	ReturnData = get_state_data(redredgreen, StateData, TargetList),
+    {reply, ReturnData,redredgreen, StateData}; 
+    
 redredgreen({tabulate_data, DataLog},_From, StateData) ->
     io:format("Writing down data results: ~p~n",[DataLog]),
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState, CtrlMod} = StateData,
@@ -561,7 +590,7 @@ test() ->
 %%Desc: CLIENT interface function to put each light to evaluate its state
 evaluate_state({LightId, LightPid, Time}) ->
     io:format("Evaluating state ~w~n",[LightPid]),
-   {State, Times, _Siblings, LogData, OldState, CtrlMod, LightMode} = get_state(LightPid),
+   {State, Times, _Siblings, LogData, OldState, CtrlMod, LightMode, ManagedLanes} = get_state(LightPid),
    
    {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
    {go_time, GTime} = lists:keyfind(go_time, 1, Times),
@@ -577,9 +606,9 @@ evaluate_state({LightId, LightPid, Time}) ->
    NextTime = GTime + 1,
    io:format("LightMode: ~w~n",[LightMode]),
    case LightMode of
-		default ->  evaluate_state(State, OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid);
-		dm		->  evaluate_state_dm(State, OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, CtrlMod, Delay, MaxWait);
-		dual	->  evaluate_state_dual(State, OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, CtrlMod, Delay, MaxWait)
+	default ->  evaluate_state(State, OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid);
+		dm		->  evaluate_state_dm(State, OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, CtrlMod, Delay, MaxWait, ManagedLanes);
+		dual	->  evaluate_state_dual(State, OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, CtrlMod, Delay, MaxWait, ManagedLanes)
    end,
    
    write_endline(LogData).
@@ -628,10 +657,12 @@ evaluate_state(State = redredgreen, _OldState, NextTime, CTime, _ARTime, _ARTime
 %%%%%%%%%%%%%%%%% WORKING
 
 evaluate_state_dm(State, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, 
-  CtrlMod, _Delay, _MaxWait) when NextTime >= CTime, ARTimer <  ARTime->
+  CtrlMod, _Delay, _MaxWait, ManagedLanes) when NextTime >= CTime, ARTimer <  ARTime->
   	io:format("Estimating time results for next state~n", []),
+  	%CarStats = eval_delay(ManagedLanes),
+  	CarStats = [],
 	Dir = next_state_dir(State),
-   	{reply, NewData} = moduler:estimation_proc(CtrlMod, Dir),
+   	{reply, NewData} = moduler:estimation_proc(CtrlMod, Dir,CarStats),
    	io:format("NewData after moduler call ~w~n",[NewData]),
    	change_times({LightPid, NewData}),
    	io:format("Finishing ~w way cycle moving to idle~n",[State]),
@@ -639,32 +670,32 @@ evaluate_state_dm(State, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, L
 	idle(LightPid);
    
 evaluate_state_dm(_State, greenred, NextTime, CTime, ARTime, ARTimer, _LogData, LightPid, 
-  CtrlMod, _Delay, _MaxWait) when NextTime >= CTime, ARTimer >=  ARTime->
+  CtrlMod, _Delay, _MaxWait, _ManagedLanes) when NextTime >= CTime, ARTimer >=  ARTime->
     Dir = current_state_dir(greenred),
     moduler:reset_sensor(CtrlMod, Dir),
     move_street(LightPid);
    
 evaluate_state_dm(_State, redgreen, NextTime, CTime, ARTime, ARTimer, _LogData, LightPid, 
-  CtrlMod, _Delay, _MaxWait) when NextTime >= CTime, ARTimer >=  ARTime->
+  CtrlMod, _Delay, _MaxWait, _ManagedLanes) when NextTime >= CTime, ARTimer >=  ARTime->
     Dir = current_state_dir(greenred),
     moduler:reset_sensor(CtrlMod, Dir),
     move_avenue(LightPid);   
 
 evaluate_state_dm(State = redred, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid, 
-  _CtrlMod, _Delay, _MaxWait) when NextTime < CTime ->
+  _CtrlMod, _Delay, _MaxWait, _ManagedLanes) when NextTime < CTime ->
     io:format("Continuing ~w way cycle~n",[State]),
     write_result(LogData, io_lib:format("Continuing ~w way cycle",[State])),
     estimate_after_idle(LightPid, LogData);
 
 evaluate_state_dm(State = greenred, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid, 
-  CtrlMod, _Delay, MaxWait) when NextTime < CTime ->
+  CtrlMod, _Delay, MaxWait, _ManagedLanes) when NextTime < CTime ->
     io:format("Continuing ~w way cycle~n",[State]),
     write_result(LogData, io_lib:format("Continuing ~w way cycle",[State])),
     move_avenue(LightPid),
     evaluate_umbral(CtrlMod, MaxWait, LightPid);
    
 evaluate_state_dm(State = redgreen, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid, 
-  CtrlMod, _Delay, MaxWait) when NextTime < CTime ->
+  CtrlMod, _Delay, MaxWait, _ManagedLanes) when NextTime < CTime ->
     io:format("Continuing ~w way cycle~n",[State]),
     write_result(LogData, io_lib:format("Continuing ~w way cycle",[State])),
     move_street(LightPid),
@@ -689,7 +720,7 @@ evaluate_umbral(CtrlMod, MaxWait, LightPid) ->
 
 
 evaluate_state_dual(_State, _OldState, _NextTime, _CTime, _ARTime, _ARTimer, _LogData, _LightPid, 
-  _CtrlMod, _Delay, _MaxWait) -> true.
+  _CtrlMod, _Delay, _MaxWait, _ManagedLanes) -> true.
 
 
 
@@ -922,6 +953,9 @@ get_state_data(State, StateData) ->
     LightMode = find_element(light_mode, StateData),
 	{State,Times,Siblings, LogData, OldState, CtrlMod, LightMode}.
 	
+get_state_data(State, StateData, TargetList) ->
+	Res = lists:map(fun(Key) ->	find_element(Key, StateData) end, TargetList),
+	list_to_tuple([State | Res]).	
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% MODULER interface
@@ -1040,3 +1074,19 @@ update_state_data_times(NewVals, StateData) ->
 	FilterVals = [{X, Y} || {X, Y} <- NewVals, (X == cycle_time) or (X == delay) or (X == umbral)],
 	NewTimes = update_state_data(FilterVals, Times),
 	update_state_data([{times, NewTimes}], StateData).
+	
+%%INPUT: CurrentStateData... data of the light for the current state
+%%		 
+%%OUTPUT: list all cars that are in the current lane
+%%DESC:	iterate through all lanes and get a unique list of cars with all information
+%% 		according to the desired delay for the lane.
+eval_delay(ManagedLanes) ->
+	List = lists:map(fun({_LaneId,LanePid})->
+		LanePid ! {info_cars, self()},
+		receive
+			{reply, Cars} -> Cars			 
+		end
+	 end,ManagedLanes),
+	 
+	 lists:append(List).
+
