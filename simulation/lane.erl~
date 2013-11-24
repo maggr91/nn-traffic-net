@@ -181,6 +181,10 @@ lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstructio
 	 	reply(CallerPid, {LaneId, Type,Capacity, Obstruction, TopSpeed}),
 	 	lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, 
 	 		Obstruction, ProbData, Stats, TopSpeed);
+	 {info_cars, CallerPid} ->
+	 	reply(CallerPid, CarsQueque),
+	 	lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, 
+	 		Obstruction, ProbData, Stats, TopSpeed);
 	stop -> {ok, normal}
     end.  
 
@@ -288,11 +292,11 @@ move_cars([CarInfo = {CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLane
     case Res of 
         {reply, transfered, Car}   -> 
         				%% RECORD the data in the trainer logs
-        				  trainer:update(trainerServer, Car, outside, ParentLaneId),
+        				  trainer_server:update(trainerServer, Car, outside, ParentLaneId),
         				  move_cars(Tail, ConnectedLanes, Obs, UpdatedCars, LanCap,NewProbData, LaneId, [Car|NewOutArea], LogData, Stats,-1, CedPos, Sensor);
         {reply, transfered} when Dir == str ->
         				  %%update the sensor counter by the amount specified
-        				  trainer:update(trainerServer, CarInfo, lane, ParentLaneId),
+        				  trainer_server:update(trainerServer, CarInfo, lane, ParentLaneId),
         			      timer:apply_after(10, lane, safe_sensor_update, [Sensor, dsp_str, LaneId, 1]),
         			      {dsp_str, StrCounter} = lists:keyfind(dsp_str, 1, Stats),
          			      NewStats = lists:keyreplace(dsp_str,1, Stats, {dsp_str, StrCounter + 1}),         			      
@@ -301,7 +305,7 @@ move_cars([CarInfo = {CarType,{Wait,Delay, {BPos, EPos, Length}, Route, PrefLane
         			      
         {reply, transfered} when Dir == trn ->
         				  %%update the sensor counter by the amount specified
-        				  trainer:update(trainerServer, CarInfo, lane, ParentLaneId),
+        				  trainer_server:update(trainerServer, CarInfo, lane, ParentLaneId),
          			      timer:apply_after(10, lane, safe_sensor_update, [Sensor, dsp_trn, LaneId, 1]),
         			      {dsp_trn, TrnCounter} = lists:keyfind(dsp_trn, 1, Stats),
          			      NewStats = lists:keyreplace(dsp_trn,1, Stats, {dsp_trn, TrnCounter + 1}),         			      

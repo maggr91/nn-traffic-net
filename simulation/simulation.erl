@@ -63,7 +63,7 @@ start_probServers() ->
 	register(poissonServer,prob:start({poisson,6})),
     register(geoServer,prob:start({geometrica,0.5})),
     register(geoCedServer,prob:start({geometrica,0.25})),
-    register(trainerServer, trainer:start()).
+    register(trainerServer, trainer_server:start()).
 
 stop_probServers() ->
     poissonServer ! killyou,

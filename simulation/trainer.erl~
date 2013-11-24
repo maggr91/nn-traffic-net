@@ -57,7 +57,3 @@ load_training_set() ->
 	
 reply(Pid, Reply) ->
     Pid ! {reply, Reply}.
-    
-formated_log(File) ->
-	{ok, Cwd} = file:get_cwd(),
-	Cwd ++ File.
