@@ -89,7 +89,8 @@ get_state(LightPid) ->
         %io:fwrite("Getting state ~w~n", [LightPid]),
         gen_fsm:sync_send_event(LightPid, get_state)
     catch 
-	exit : { noproc, _ } -> closed
+		%exit : { noproc, _ } -> closed
+		Exception:Reason -> {caught, Exception, Reason}
     end.
 
 handle_event(shutdown, _StateName, StateData) ->
@@ -509,7 +510,7 @@ evaluate_state_dm(State, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, L
   CtrlMod, _Delay, _MaxWait, ManagedLanes) when NextTime >= CTime, ARTimer <  ARTime->
   	io:format("Estimating time results for next state~n", []),
   	%CarStats = eval_delay(ManagedLanes),
-  	CarStats = eval_delay(ManagedLanes),
+  	CarStats = [],
 	Dir = next_state_dir(State),
    	{reply, NewData} = moduler:estimation_proc(CtrlMod, Dir,CarStats),
    	io:format("NewData after moduler call ~w~n",[NewData]),
