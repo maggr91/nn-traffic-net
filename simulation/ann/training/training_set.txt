@@ -1,1 +1,12 @@
-[{input,[1,2]}, {output, 8.9}]
+{av212, [{delay, 212}]}
+{ca212, [{delay, 212}]}
+{av210, [{delay, 210}]}
+{ca210, [{delay, 210}]}
+{av208, [{delay, 208}]}
+{ca208, [{delay, 10}]}
+{av206, [{delay, 10}]}
+{ca206, [{delay, 10}]}
+{ca412, [{delay, 10}]}
+{ca410, [{delay, 10}]}
+{ca408, [{delay, 10}]}
+{ca406, [{delay, 10}]}

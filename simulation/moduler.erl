@@ -36,7 +36,7 @@ init({restore, LightId, Lanes}) ->
 	NewCheckpointLog = {FormatLog, NNFile, FormatSens},
 	Trainer = trainer:start(),
 	
-	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,NewCheckpointLog, Sensor, {Trainer, false});
+	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,NewCheckpointLog, Sensor, {Trainer, true});
 
 init({normal, LightId, Lanes}) ->
 	[Config | _Junk] = get_config(),
@@ -56,7 +56,7 @@ init({normal, LightId, Lanes}) ->
 	Trainer = trainer:start(),
 	
 	listen(LightId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}, {net_input, []}, {sensor_input, []}],
-		NewCheckpointLog, Sensor, {Trainer, false}).
+		NewCheckpointLog, Sensor, {Trainer, true}).
 		
 %%CREATES The decision maker for the light in this case is a Neuronal Network
 %%Input: None
@@ -173,7 +173,7 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer) ->
 			io:format("SiblingsInput ~w",[SiblingsInput]),
 			FormatedInputs = format_inputs(Dir, NewData,SensorInputs, SiblingsInput),
 			
-			Desition = get_desition(FormatedInputs, NN, Stats, Trainer),
+			Desition = get_desition(FormatedInputs,Dir, Light, NN, Stats, Trainer),
 			
 			%io:format("Desition~n"),
 			NetInputs = find_element(net_input, NewData),
@@ -228,15 +228,18 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer) ->
 %%%%%%%%%%%%%%     GENERAL FUNCTIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-get_desition(_FormatedInputs, _NN, CarStats, {TrainerPid, true}) ->
+get_desition(_FormatedInputs,Dir, Light, _NN, CarStats, {TrainerPid, true}) ->
 	%%Call trainer prior calling the NN to get a waitedResult
 	%%call nn with the new inputs
 	%Desition = ann:input(FormatedInputs),
-	trainer:analyse(TrainerPid, CarStats),	
+	io:format("GETTING TRAINER INFO", []),
+	S = atom_to_list(Light),
+    ParentLaneId = list_to_atom(string:concat(atom_to_list(Dir), string:substr(S,6,3))),
+	trainer:evaluate(TrainerPid, ParentLaneId, CarStats),	
 	[10,3,1];
 	
 
-get_desition(_FormatedInputs, _NN, _CarStats, {_TrainerPid, false}) ->
+get_desition(_FormatedInputs,Dir, Light, _NN, _CarStats, {_TrainerPid, false}) ->
 	%%Call trainer prior calling the NN to get a waitedResult
 	%%call nn with the new inputs
 	%Desition = ann:input(FormatedInputs),
