@@ -435,12 +435,14 @@ allocate_obs([_NotMatchObs | Tail] , TargetLaneId, ObsList) ->
 max_car_move(MaxSpeeds, CarAvgLength) when length(MaxSpeeds) == 0 ->
 	MaxSpeedMS = (40 * 1000) / 3600,
     MaxPos = MaxSpeedMS / CarAvgLength,
-    [{all, erlang:round(MaxPos)}];
+    [{all, {40, erlang:round(MaxPos)}}];
+
 max_car_move(MaxSpeed, CarAvgLength) ->
     %MaxSpeedMS = (MaxSpeed * 1000) / 3600,
     %MaxPos = MaxSpeedMS / CarAvgLength,
     %erlang:round(MaxPos).
-    lists:map(fun({Target, Speed}) -> {Target, erlang:round(((Speed * 1000) / 3600)/CarAvgLength)} end, MaxSpeed).
+    lists:map(fun({Target, Speed}) -> {Target, {Speed, erlang:round(((Speed * 1000) / 3600)/CarAvgLength)}} end, MaxSpeed).
+    %lists:map(fun({Target, Speed}) -> {Target, erlang:round(((Speed * 1000) / 3600)/CarAvgLength)} end, MaxSpeed).
 
 %%FUNCTION to get the determined MAX movement for the lane according to parameters
 %%INPUT: LaneId : id of the lane (ex: lane212av1)

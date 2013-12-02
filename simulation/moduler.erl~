@@ -18,6 +18,8 @@ start(Args) ->
 init({restore, LightId, Lanes}) ->
 	[Config | _Junk] = get_config(),
 	CheckpointLog = find_config_data(Config, checkpoint_data),
+	FixedCarLength = find_config_data(Config, fixed_car_length),
+	
 	{ModFile, NNFile, SensorFile} = CheckpointLog,
 	
 	NN = restore_dm(NNFile, LightId),
@@ -36,11 +38,12 @@ init({restore, LightId, Lanes}) ->
 	NewCheckpointLog = {FormatLog, NNFile, FormatSens},
 	Trainer = trainer:start(),
 	
-	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,NewCheckpointLog, Sensor, {Trainer, true});
+	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,NewCheckpointLog, Sensor, {Trainer, false}, FixedCarLength);
 
 init({normal, LightId, Lanes}) ->
 	[Config | _Junk] = get_config(),
 	CheckpointLog = find_config_data(Config, checkpoint_data),
+	FixedCarLength = find_config_data(Config, fixed_car_length),
 	{Other, NNFile, SensorFile} = CheckpointLog,
 	
 	FormatLog = formated_log(Other),
@@ -56,7 +59,7 @@ init({normal, LightId, Lanes}) ->
 	Trainer = trainer:start(),
 	
 	listen(LightId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}, {net_input, []}, {sensor_input, []}],
-		NewCheckpointLog, Sensor, {Trainer, true}).
+		NewCheckpointLog, Sensor, {Trainer, false}, FixedCarLength).
 		
 %%CREATES The decision maker for the light in this case is a Neuronal Network
 %%Input: None
@@ -105,17 +108,17 @@ formated_log(File) ->
 %%%%%%%%%%%%%%%%%%%%%%%%%         MAIN           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer) ->
+listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength) ->
 	receive
 		%%call siblings
 		{broadcast_request, _CallerPid, Dir} -> %%Ask siblings to send an update
 			io:format("Data before broadcast: ~w", [Data]),
 			NewData = request_update_from_Siblings(Siblings, Data, Dir),
-			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor, Trainer);
+			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor, Trainer, FixedCarLength);
 		{broadcast_update, CallerPid, NewData, Dir} -> %%Send siblings to an update
 			io:format("Update triggered by siblings ~w Light: ~w... NewData", [CallerPid,Light]),
 			UpdateData = update_siblings_data(CallerPid, Data, NewData, Dir),
-			listen(Light, Siblings, NN, UpdateData, CheckpointLog, Sensor, Trainer);
+			listen(Light, Siblings, NN, UpdateData, CheckpointLog, Sensor, Trainer, FixedCarLength);
 		{response, CallerPid, Dir} ->
 			%%%EVALUAR SI LO QUE RETORNA EL SENSOR ES ACTIVO O IDLE(-1 o numeros negativos) si es malo retornar
 			%%% el que tenga almacenado el modulador, si no dar version reciente			 
@@ -126,16 +129,16 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer) ->
 			%Return = lists:append([ResponseData, SensorRespond]),
 			io:format("~n~n Return data from ~w ~w~n", [CallerPid, Return]),	
 			reply(CallerPid, Return),
-			listen(Light, Siblings, NN, UpdatedData, CheckpointLog, Sensor, Trainer);
+			listen(Light, Siblings, NN, UpdatedData, CheckpointLog, Sensor, Trainer, FixedCarLength);
 			%% send info to caller
 		{update_nn, CallerPid, NewVals, Dir} ->
 			NewData = update_nn_data(net_values, Data, NewVals,Dir),
 			reply(CallerPid, ok),
 			send_update_to_Siblings(Light, Siblings, NewVals, Dir),
-			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor, Trainer);
+			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor, Trainer, FixedCarLength);
 		{inputs, _CallerPid, NewVals} ->
 			NewData = update_nn_data(net_input, Data, NewVals),			
-			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor, Trainer);
+			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor, Trainer, FixedCarLength);
 		{connect, SiblingData, Dir} ->
 			%%add connection to siblings list but not the data
 			%{Dir, List} = lists:keyfind(Dir, 1, Siblings),
@@ -150,8 +153,8 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer) ->
 			Exist = lists:any(fun(Item) -> Item == SiblingData end, List),
 			case Exist of
 				false -> UpdatedSiblings = lists:keyreplace(Dir, 1, NewSiblings, {Dir, [SiblingData | List]}),
-						 listen(Light, UpdatedSiblings, NN, Data, CheckpointLog, Sensor, Trainer);
-				true  -> listen(Light, NewSiblings, NN, Data, CheckpointLog, Sensor, Trainer)
+						 listen(Light, UpdatedSiblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength);
+				true  -> listen(Light, NewSiblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength)
 			end;
 		{proc, CallerPid, Dir, Stats} ->			
 			%%First, get data from related sensor
@@ -178,7 +181,7 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer) ->
 			%io:format("Desition~n"),
 			NetInputs = find_element(net_input, NewData),
 			%%Calculate extra outputs according to nn desition and the input data
-			FinalDesition = calculate_outputs(Desition, NetInputs),
+			FinalDesition = calculate_outputs(Desition, NetInputs, FixedCarLength, Dir),
 			%FinalDesition = calculate_outputs(Desition, NetInputs,SensorInputs),
 			
 			io:format("FinalDesition of NN: ~w~n",[FinalDesition]),
@@ -195,7 +198,7 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer) ->
 			send_update_to_Siblings(Light, Siblings, SiblingUpdateData, Dir),
 			
 			%listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
-			listen(Light, Siblings, NN, FinalData, CheckpointLog, Sensor, Trainer);
+			listen(Light, Siblings, NN, FinalData, CheckpointLog, Sensor, Trainer, FixedCarLength);
 			
 		{stop, _CallerPid} ->
 			force_stop(NN, Sensor),
@@ -204,20 +207,20 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer) ->
 		{checkpoint, CallerPid} ->
 			write_checkpoint(NN, Data, CheckpointLog, Light, Sensor),
 			reply(CallerPid, ok),
-			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer);
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength);
 		{active_sensor, CallerPid} ->
 			reply(CallerPid, Sensor),
-			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer);
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength);
 		{change_sensor, _CallerPid, Dir} ->
 			sensor:change(Sensor, Dir),
-			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer);
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength);
 		{check_sensor_standby, CallerPid, Limit} ->
 			Res = sensor:check_standby(Sensor, Limit),
 			reply(CallerPid, Res),
-			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer);
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength);
 		{status, _CallerPid} ->
 			io:format("Status of moduler ~w ~n Siblings: ~w~n Data: ~w~n~n",[{Light,self()}, Siblings, Data]),
-			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer)
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength)
 	end.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -228,23 +231,22 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer) ->
 %%%%%%%%%%%%%%     GENERAL FUNCTIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-get_desition(_FormatedInputs,Dir, Light, _NN, CarStats, {TrainerPid, true}) ->
+get_desition(FormatedInputs,Dir, Light, NN, CarStats, {TrainerPid, true}) ->
 	%%Call trainer prior calling the NN to get a waitedResult
 	%%call nn with the new inputs
-	%Desition = ann:input(FormatedInputs),
-	io:format("GETTING TRAINER INFO", []); 
+	Desition = ann:input_set(NN, {normal, [{inputs, FormatedInputs}]}),
+	io:format("GETTING TRAINER INFO", []),
 	S = atom_to_list(Light),
     ParentLaneId = list_to_atom(string:concat(atom_to_list(Dir), string:substr(S,6,3))),
 	trainer:evaluate(TrainerPid, ParentLaneId, CarStats),	
 	[10,3,1];
 	
 
-get_desition(_FormatedInputs,Dir, Light, _NN, _CarStats, {_TrainerPid, false}) ->
+get_desition(FormatedInputs, _Dir, _Light, NN, _CarStats, {_TrainerPid, false}) ->
 	%%Call trainer prior calling the NN to get a waitedResult
 	%%call nn with the new inputs
-	%Desition = ann:input(FormatedInputs),
+	Desition = ann:input_set(NN, {normal, [{inputs, FormatedInputs}]}),
 	[10,3,1].
-
 
 
 reply(Pid, Reply) ->
@@ -348,12 +350,29 @@ find_config_data(ConfigData, Key) ->
 get_config() ->
 	filemanager:get_data("/config_mod.txt").
 
-calculate_outputs(NetValues, _NetInputs) ->
+calculate_outputs(NetValues, NetInputs, FixedCarLength, Dir) ->
 %%calculate_outputs(NetValues, _NetInputs, SensorInputs) ->
-	PromCars = random:uniform(5),
+	TargetInputs = find_element(Dir, NetInputs),
+	PromCars = calculate_promcars(FixedCarLength, TargetInputs, lists:nth(1,NetValues)),
+	%PromCars = random:uniform(5),
 	ExtraOutputs = [{estimate_count, PromCars}],
 	NewValues = lists:append([NetValues, ExtraOutputs]),
 	reformat_net_values([cycle_time,umbral, delay],NewValues,[]).
+
+calculate_promcars(FixedCarLength, NetInputs, CycleTime) ->
+	io:format("Calculating promcars ~w~n", [{FixedCarLength, CycleTime}]),
+	%BCapacity = find_element(capacity, NetInputs),
+	
+	io:format("Looking for top_speed on ~w, ~n~n", [NetInputs]),
+	{BTopSpeed, _BTopMove} = find_element(top_speed, NetInputs),
+	XmtsTop = (BTopSpeed * 1000 * CycleTime) / 3600,
+	XmtsHalf = XmtsTop / 2,
+	
+	io:format("~nUn carro va a recorrer max unos ~w metros y min ~w aprox en ~w, ~n~n", [XmtsTop, XmtsHalf, CycleTime]),
+	CarsTop = XmtsTop / FixedCarLength,%%calcular carros a pasar desde cada extremo
+	CarsHalf = XmtsHalf / FixedCarLength,%%calcular carros a pasar desde cada extremo
+	%random:uniform(5)
+	CarsTop + CarsHalf / 2 .
 
 reformat_net_values([], [], Reformated) ->
 	lists:reverse(Reformated);
@@ -372,7 +391,7 @@ format_inputs(Dir, Data, SensorInputs, SiblingsData) ->
 	io:format("List to append LoadInputs ~w, SensorInp: ~w , SiblingData ~w ~n",[LoadedInputs, SensorInputs, SiblingsData]),
 	Merged = lists:append([LoadedInputs, SensorInputs, SiblingsData]),
 	io:format("Merged List ~w ~n",[Merged]),
-	lists:map(fun({_Key, Value}) -> Value end, Merged).
+	lists:map(fun({Key, Value}) -> Value end, Merged).
 
 format_siblings_inputs(Dir, Siblings, Data) ->
 	TargetSiblings = find_element(Dir, Siblings),

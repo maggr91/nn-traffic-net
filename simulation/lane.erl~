@@ -77,7 +77,8 @@ lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstructio
     	    
     	    %% determine wether the car can pass or not (false if not space, CarData is there is space)
     	    %% set car to the las position (capacity -1)
-    	    NewCarData = available_space(Car, TopSpeed, LastPosition, LaneLastPos), 	    	    
+    	    {_MaxSpeed, MaxMoves} = TopSpeed,
+    	    NewCarData = available_space(Car, MaxMoves, LastPosition, LaneLastPos), 	    	    
 	    %%NewCarData = {CarType,{0,0,Capacity - 1, Route, PrefLanes, NextMove, TopSpeed}},
 	    io:format("Car data ~w... Carqueque ~w~n", [NewCarData, CarsQueque]),
     	    
