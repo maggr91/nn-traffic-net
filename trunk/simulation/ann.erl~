@@ -1,5 +1,5 @@
 -module(ann).
--export([start/1, start/3, test_run/0, train_inputs/2, stop/1]).
+-export([start/1, start/3, test_run/0, input_set/2, stop/1]).
 
 -export([init/1, init/3]).
 
@@ -166,42 +166,53 @@ network(Layers, NNFile) ->
 	end.			
 
 %% set a new training set for the network
-send_input(Layers, Data) ->
+send_input(Layers, {Mode, Data}) ->
 	io:format("Layers = ~w~n",[Layers]),
 	{_InType, InputLayer} = lists:keyfind(input, 1,Layers),
-	{_OutType, OutputLayer} = lists:keyfind(output, 1,Layers),
-	{_Train, TrainInput} = lists:keyfind(input, 1,Data),
-	{_DesairedOut, TargetOutput} = lists:keyfind(output, 1,Data),
+	{_OutType, OutputLayer} = lists:keyfind(output, 1,Layers),	
+	%set_input_aux(InputLayer, TrainInput),
+	{_Train, TrainInput} = lists:keyfind(inputs, 1,Data),	
 	io:format("Neuron: ~w pass val: ~w",[InputLayer,TrainInput]),
-	%set_input_aux(InputLayer, TrainInput),	
-	set_input(first, InputLayer, TrainInput, TargetOutput, OutputLayer),	
+	
+	case Mode of
+		normal ->			
+			set_input(first, InputLayer, TrainInput, OutputLayer);
+		_Other ->
+			{_DesairedOut, TargetOutput} = lists:keyfind(output, 1,Data),
+			set_input(first, InputLayer, TrainInput, TargetOutput, OutputLayer)
+	end,
 	true.
 
-set_input(first, InputLayer, TrainInput, TargetOutput, OutputLayer)->
-	set_input_aux(InputLayer, TrainInput);
+set_input(first, InputLayer, TrainInput, TargetOutput, _OutputLayer)->
+	set_input_aux(InputLayer, TrainInput, {true, TargetOutput}).
 	%%set_input(wait, InputLayer, TrainInput, TargetOutput, OutputLayer);
-set_input(wait, InputLayer, TrainInput, TargetOutput, OutputLayer)->
-	receive
-		{desired_output, CallerPid, CallerId} ->
-			io:format("~n~n~n~nCall from neuron: ~w to get Desired output: ~w ~n~n",[CallerId,TargetOutput]),
-			{Last, _Pid} = lists:last(OutputLayer), %string:to_integer([lists:last(L)])
-			io:format("Call from ~w, output ~w... Last: ~w~n",[CallerId, TargetOutput,Last]),
-			reply(CallerPid, TargetOutput),
-			if Last =/= CallerId ->
-					io:format("Waiting for next output call~n"),
-					set_input(wait, InputLayer, TrainInput, TargetOutput, OutputLayer);
-			   Last =:= CallerId ->
-			   		io:format("Last output call~n"),
-			   		{normal, ok}
-			end			
-	end.
+%set_input(wait, InputLayer, TrainInput, TargetOutput, OutputLayer)->
+%	receive
+%		{desired_output, CallerPid, CallerId} ->
+%			io:format("~n~n~n~nCall from neuron: ~w to get Desired output: ~w ~n~n",[CallerId,TargetOutput]),
+%			{Last, _Pid} = lists:last(OutputLayer), %string:to_integer([lists:last(L)])
+%			io:format("Call from ~w, output ~w... Last: ~w~n",[CallerId, TargetOutput,Last]),
+%			reply(CallerPid, TargetOutput),
+%			if Last =/= CallerId ->
+%					io:format("Waiting for next output call~n"),
+%					set_input(wait, InputLayer, TrainInput, TargetOutput, OutputLayer);
+%			   Last =:= CallerId ->
+%			   		io:format("Last output call~n"),
+%			   		{normal, ok}
+%			end			
+%	end.
 
-set_input_aux([], []) ->
+set_input(first, InputLayer, TrainInput, _OutputLayer)->
+	set_input_aux(InputLayer, TrainInput, {false, null}).
+
+set_input_aux([], _RInputs, _TargetOutput) ->
+	{ok, missingneurons};
+set_input_aux([], [], _TargetOutput) ->
 	{ok, []};
-set_input_aux([{NeuronId, NeuronPid} | NeuronTail], [Val | InputTail]) ->
+set_input_aux([{NeuronId, NeuronPid} | NeuronTail], [Val | InputTail], TargetOutput) ->
 	io:format("Neuron: ~w pass val: ~w",[NeuronId,Val]),
-	NeuronPid ! {propagate, Val},
-	set_input_aux(NeuronTail,InputTail).
+	NeuronPid ! {propagate, Val, TargetOutput},
+	set_input_aux(NeuronTail,InputTail, TargetOutput).
 
 
 save(Layers, NNFile, IsCheck) ->
@@ -226,7 +237,7 @@ save_training([{Type, Layer} | LayersTail], LogPath, IsCheck) ->
 save_training_aux([], _LogPath, _IsCheck) ->
 	io:format("No more neurons to save~n"),
 	{ok, []};
-save_training_aux([{NeuronId, NeuronPid} | NeuronTail], LogPath, IsCheck) ->
+save_training_aux([{_NeuronId, NeuronPid} | NeuronTail], LogPath, IsCheck) ->
 	%io:format("Saving neuron ~w: ~w on ~p~n", [NeuronId, NeuronPid, LogPath]),
 	Res = perceptron:save(NeuronPid, LogPath, IsCheck),
 	%io:format("Saving neuron result ~w. Next ~w~n", [Res, NeuronTail]),
@@ -265,9 +276,9 @@ display_status(Layer) ->
 %%%%%client interface functions%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-train_inputs(NetworkPid, Inputs) ->
-	io:format("Train network ~w... Data ~w~n", [NetworkPid, Inputs]),
-	NetworkPid ! {train, self(), Inputs},
+input_set(NetworkPid, InputSet) ->
+	io:format("Train network ~w... Data ~w~n", [NetworkPid, InputSet]),
+	NetworkPid ! {train, self(), InputSet},
 	receive
 		{reply, ok} -> {reply, ok};
 		_Error		-> {fail, []}

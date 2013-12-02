@@ -119,7 +119,7 @@ perceptron(LayerId, Weights, Inputs, Sensitivities) ->
 					math:exp(-X) / (1 + math:exp(-2 * X))
 				 end,
 	receive
-		{stimulate, Input} ->
+		{stimulate, Input, IsTraining} ->
 			%%add input to the list
 			io:format("STIMULATE CALLED ON ~w~n", [{{LayerId, self()},Inputs, Sensitivities}]),
 			io:format("Replace input ~w on ~w for ~w~n~n", [Input, Inputs, {LayerId,self()}]),
@@ -133,7 +133,7 @@ perceptron(LayerId, Weights, Inputs, Sensitivities) ->
 			%%stimulate next layer
 			if 	Sensitivities =/= [] ->
 					%% the output is sended to at least one perceptron
-					stimulate_next_layer(LayerId, convert_to_keys(Sensitivities), Output);
+					stimulate_next_layer(LayerId, convert_to_keys(Sensitivities), Output, IsTraining);
 				Sensitivities =:= [] ->
 					%% there are no perceptron connected i.e output neuron
 					io:format("LEARNING ~w", [{LayerId,self()}]),
@@ -147,7 +147,13 @@ perceptron(LayerId, Weights, Inputs, Sensitivities) ->
 					%		self() ! {learn, {{LayerId, self()}, TargetOutput}}						
 					%end,
 					
-					self() ! {learn, {{LayerId, self()}, 1}}				
+					%self() ! {learn, {{LayerId, self()}, 1}}				
+					
+					%%% NEW FOR NN DATE 01/12/2013
+					case IsTraining of
+						{true, DesiredOutput} -> self() ! {learn, {{LayerId, self()}, DesiredOutput}};
+						{false, null} -> true
+					end								
 			end,
 			perceptron(LayerId,Weights, New_Inputs, Sensitivities);
 		{connect_input, SenderNeuron_PID} ->
@@ -158,9 +164,9 @@ perceptron(LayerId, Weights, Inputs, Sensitivities) ->
 			NewOutput_PIDs = [{ReceiverNeuron_PID, 0} | Sensitivities],
 			io:format("~w output connected to ~w: ~w~n", [{LayerId,self()}, ReceiverNeuron_PID, NewOutput_PIDs]),
 			perceptron(LayerId, Weights, Inputs, NewOutput_PIDs);
-		{propagate, Input} ->
+		{propagate, Input, IsTraining} ->
 			io:format("Propagating input ~w ~n", [Input]),
-			stimulate_next_layer(LayerId, convert_to_keys(Sensitivities), Input),
+			stimulate_next_layer(LayerId, convert_to_keys(Sensitivities), Input, IsTraining),
 			perceptron(LayerId, Weights, Inputs, Sensitivities);
 		{learn, Backprop} ->
 			LearnRate = 0.5,
@@ -243,13 +249,13 @@ convert_to_keys(Inputs) ->
 			  end,
 			  Inputs).
 
-stimulate_next_layer(_LayerId, [], _Output) ->
+stimulate_next_layer(_LayerId, [], _Output, _IsTraining) ->
 	io:format("Stimulating ENDED~n"),
 	[];
-stimulate_next_layer(LayerId, [{_N_id, N_Pid} | N_Tail], Input) ->
+stimulate_next_layer(LayerId, [{_N_id, N_Pid} | N_Tail], Input, IsTraining) ->
 	io:format("Stimulating ~w with ~w~n", [N_Pid, Input]),
-	N_Pid ! {stimulate, {{LayerId, self()}, Input}},
-	stimulate_next_layer(LayerId, N_Tail, Input).
+	N_Pid ! {stimulate, {{LayerId, self()}, Input}, IsTraining},
+	stimulate_next_layer(LayerId, N_Tail, Input, IsTraining).
 	
 add_sensitivity(Sensitivities, Backprop) when Sensitivities =/= [] ->
 	replace_input(Sensitivities, Backprop);

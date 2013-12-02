@@ -1,1 +1,1 @@
-[{nn_config, {2,2,1}}, {checkpoint_data, {"/checkpoint/modulers.txt", "/checkpoint/nn_saving/nn_saving_", "/checkpoint/sensors/sensor_"}}]
+[{nn_config, {2,2,1}}, {avg_car_length, 3.6}, {checkpoint_data, {"/checkpoint/modulers.txt", "/checkpoint/nn_saving/nn_saving_", "/checkpoint/sensors/sensor_"}}]
