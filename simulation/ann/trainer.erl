@@ -1,3 +1,5 @@
+%%THIS IS A DIFFERENT TRAINER USED TO TRAIN A SINGLE NN 
+%%IT IS AN IMITATION OF THE MODULER module SO THE CHANGE ON SIMULATION IS MINIMUN
 -module(trainer).
 -export([train/1, start/0, start/3, finish/0]).
 
