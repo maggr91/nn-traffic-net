@@ -102,12 +102,12 @@ train([Data | TrainingData]) ->
 		{reply, ok} -> train(TrainingData);
 		{reply, ended} -> {ok, []};
 		_Error		-> {fail, []}
-	end.	
+	end.
 
 
 train(_TrainerID, NN, [], CheckpointLog, _BeginTime) ->
 	checkpoint(NN, [], CheckpointLog),
-	timer:apply_after(100, trainer_mod, stop, [{internal, NN}]);
+	timer:apply_after(5500, trainer_mod, stop, [{internal, NN}]);
 
 train(TrainerID, NN, [Data | TrainingData], CheckpointLog, BeginTime) ->
 	CurrentTime = now(),
@@ -115,7 +115,11 @@ train(TrainerID, NN, [Data | TrainingData], CheckpointLog, BeginTime) ->
 		false ->
 				io:format("CONTINUING with run for data ~w.~n",[Data]),
 				%%CONTINUE TO TRAIN
-				train(TrainerID, NN,  TrainingData, CheckpointLog, BeginTime);
+				Res = ann:input_set(NN, {train, Data}),
+				case Res of
+					{reply, ok} ->	train(TrainerID, NN,  TrainingData, CheckpointLog, BeginTime);
+					_Other -> {error, unspected}
+				end;
 		true ->
 				io:format("SAVING CHECKPOINT.~n",[]),
 				write_checkpoint(NN, Data, CheckpointLog, TrainerID),
