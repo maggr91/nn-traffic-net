@@ -151,7 +151,11 @@ perceptron(LayerId, Weights, Inputs, Sensitivities) ->
 					
 					%%% NEW FOR NN DATE 01/12/2013
 					case IsTraining of
-						{true, DesiredOutput} -> self() ! {learn, {{LayerId, self()}, DesiredOutput}};
+						{true, DesiredOutputList} -> 
+							io:format("~nIs Training to output ~w to neuron ~w~n~n", [DesiredOutputList, LayerId]),
+							DesiredOutput = get_desired_output(LayerId, DesiredOutputList),
+							io:format("Desired Output retrieved ~w~n~n", [DesiredOutput]),
+							self() ! {learn, {{LayerId, self()}, DesiredOutput}};
 						{false, null} -> true
 					end								
 			end,
@@ -295,6 +299,22 @@ format_connections_saving(Layer) ->
 %		{collect_input, CallerPid, Value} ->
 %			collect(Tail, [ {Neuron, Value} | Values])
 %	end.
+
+get_desired_output(_LayerId, DesiredOutputList) when length(DesiredOutputList) == 0 ->
+	30;
+get_desired_output(_LayerId, DesiredOutputList) when length(DesiredOutputList) == 1 ->
+	[Output | _Tail] = DesiredOutputList,
+	Output;
+get_desired_output(NeuronId, DesiredOutputList) ->
+	NeuronIdTemp = atom_to_list(NeuronId),
+	OutputIndex = string:to_integer(string:substr(NeuronIdTemp,2,length(NeuronIdTemp))),
+	N = length(DesiredOutputList),
+	if OutputIndex > N ->
+		lists:nth(N, DesiredOutputList);
+	   true ->
+		lists:nth(OutputIndex, DesiredOutputList)
+	end.
+	
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%client interface functions%%%%%%%%%%%
