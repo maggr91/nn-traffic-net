@@ -6,9 +6,11 @@
 -export([init/1]).
 
 start()->
+	register(loggerId, logger:start()),
 	spawn(trainer_mod, init, [{normal, trainer_ann}]).
 	
 restore() ->
+	register(loggerId, logger:start()),
 	spawn(trainer_mod, init, [{restore, trainer_ann}]).
 
 %init() ->
@@ -29,12 +31,22 @@ init({restore, TrainerID}) ->
 	[Config | _Junk] = get_config(),
 	CheckpointLog = find_config_data(Config, checkpoint_data),
 	
-	
 	{ModFile, NNFile} = CheckpointLog,
-	
+		
 	NN = restore_dm(NNFile, TrainerID),
-	RestoredData = restore(ModFile),
 	
+	io:format("After restore nn~n"),
+	io:format("Restore data ~p ~n",[ModFile]),
+	
+	RestoredData =
+		try
+			restore(ModFile)
+		catch 
+		%exit : { noproc, _ } -> closed
+			Exception:Reason -> io:format("NO TRAINER Data found. Exception ~p , Reason ~p ~n",[Exception, Reason]),
+								load_training_set()
+    	end,
+    	
 	timer:apply_after(100, trainer_mod, update_dm, [NN, NNFile,TrainerID]),
 	
 	%format log files
@@ -46,7 +58,7 @@ init({restore, TrainerID}) ->
 	NewCheckpointLog = {FormatLog, NNFile},
 	
 	%train(TrainerID,NN, RestoredData, NewCheckpointLog, now());
-	timer:apply_after(100, trainer_mod, train, [TrainerID,NN, RestoredData, NewCheckpointLog, now()]);
+	timer:apply_after(300, trainer_mod, train, [TrainerID,NN, RestoredData, NewCheckpointLog, now()]);
 
 init({normal, TrainerID}) ->
 	TrainingData = load_training_set(),
@@ -64,7 +76,7 @@ init({normal, TrainerID}) ->
 	update_dm(NN, NNFile, TrainerID),
 		
 	%train(TrainerID,NN, TrainingData, NewCheckpointLog, now()).
-	timer:apply_after(100, trainer_mod, train, [TrainerID,NN, TrainingData, NewCheckpointLog, now()]).
+	timer:apply_after(300, trainer_mod, train, [TrainerID,NN, TrainingData, NewCheckpointLog, now()]).
 		
 %%CREATES The decision maker for the light in this case is a Neuronal Network
 %%Input: None
@@ -97,7 +109,10 @@ train([]) ->
 
 train([Data | TrainingData]) ->
 	Res = ann:train_inputs(network, Data),
-	io:format("Train network Res ~w... Data ~w~n", [Res, Data]),
+	%io:format("Train network Res ~w... Data ~w~n", [Res, Data]),
+	loggerId ! status,
+	%logger:debug_ann(loggerId, 
+	%	io_lib:format("Train network Res ~w... Data ~w", [Res, Data])),
 	case Res of
 		{reply, ok} -> train(TrainingData);
 		{reply, ended} -> {ok, []};
@@ -105,15 +120,16 @@ train([Data | TrainingData]) ->
 	end.
 
 
-train(_TrainerID, NN, [], CheckpointLog, _BeginTime) ->
-	checkpoint(NN, [], CheckpointLog),
-	timer:apply_after(1500, trainer_mod, stop, [{internal, NN}]);
+train(_TrainerID, NN, [], _CheckpointLog, _BeginTime) ->
+	%checkpoint(NN, [], CheckpointLog),
+	timer:apply_after(8500, trainer_mod, stop, [{internal, NN}]);
 
 train(TrainerID, NN, [Data | TrainingData], CheckpointLog, BeginTime) ->
 	CurrentTime = now(),
-	case microsec_to_minutes(timer:now_diff(CurrentTime,BeginTime)) >= 1 of
+	case microsec_to_minutes(timer:now_diff(CurrentTime,BeginTime)) >= 20 of
 		false ->
-				io:format("CONTINUING with run for data ~w.~n",[Data]),
+				%io:format("CONTINUING with run for data ~w.~n",[Data]),
+				logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] CONTINUING with run for data ~w",[?MODULE, Data])),
 				%%CONTINUE TO TRAIN
 				Res = ann:input_set(NN, {train, Data}),
 				case Res of
@@ -121,11 +137,13 @@ train(TrainerID, NN, [Data | TrainingData], CheckpointLog, BeginTime) ->
 					_Other -> {error, unspected}
 				end;
 		true ->
-				io:format("SAVING CHECKPOINT.~n",[]),
-				write_checkpoint(NN, Data, CheckpointLog, TrainerID),
+				%io:format("SAVING CHECKPOINT.~n",[]),
+				logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] SAVING CHECKPOINT", [?MODULE])),
+				%write_checkpoint(NN, Data, CheckpointLog, TrainerID),
+				checkpoint(NN, [], CheckpointLog),
 				%%CHECKPOINT DATA
 				
-				train(TrainerID, NN, TrainingData, CheckpointLog, BeginTime)
+				train(TrainerID, NN, TrainingData, CheckpointLog, now())
 	end.
 
 finish() ->
@@ -187,14 +205,14 @@ checkpoint(NN, Data, CheckpointLog) ->
 	NN ! {checkpoint, self()}.
 	
 
-write_checkpoint(NN, Data, CheckpointLog, TrainerID) ->
-	{TrainerFile, _NNFile} = CheckpointLog,
+%write_checkpoint(NN, Data, CheckpointLog, TrainerID) ->
+%	{TrainerFile, _NNFile} = CheckpointLog,
 	%io:format("moduler file: ~p", [ModulerFile]),
-	filemanager:write_raw(TrainerFile, io_lib:format("~w", [{TrainerID, Data}])),
-	write_checkpoint_nn(NN).
+%	filemanager:write_raw(TrainerFile, io_lib:format("~w", [{TrainerID, Data}])),
+%	write_checkpoint_nn(NN).
 
-write_checkpoint_nn(NN) ->
-	NN ! {checkpoint, self()}.
+%write_checkpoint_nn(NN) ->
+%	NN ! {checkpoint, self()}.
 	
 %%Uses the default file load in the Process to restore the data
 restore(File) ->
