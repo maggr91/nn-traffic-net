@@ -1,0 +1,142 @@
+"[DEBUG][ann] Update connections Data {[{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}],[{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>}],[{o1,<0.53.0>}]}".
+"[DEBUG][ann] Update connections for input".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[],[],[{h1,2.582421805770677e-10},{h2,2.5828716295933796e-10},{h3,2.0696903146657658e-10}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,2.582421805770677e-10},{h2,2.5828716295933796e-10},{h3,2.0696903146657658e-10}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON i1 new connections {[],[],[{{h1,<0.50.0>},2.582421805770677e-10},{{h2,<0.51.0>},2.5828716295933796e-10},{{h3,<0.52.0>},2.0696903146657658e-10}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[],[],[{h1,2.58226919088037e-10},{h2,2.5827795059172787e-10},{h3,2.0696355241792896e-10}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,2.58226919088037e-10},{h2,2.5827795059172787e-10},{h3,2.0696355241792896e-10}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON i2 new connections {[],[],[{{h1,<0.50.0>},2.58226919088037e-10},{{h2,<0.51.0>},2.5827795059172787e-10},{{h3,<0.52.0>},2.0696355241792896e-10}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[],[],[{h1,2.5821941522266916e-10},{h2,2.582705047023042e-10},{h3,2.0696025787041335e-10}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,2.5821941522266916e-10},{h2,2.582705047023042e-10},{h3,2.0696025787041335e-10}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON i3 new connections {[],[],[{{h1,<0.50.0>},2.5821941522266916e-10},{{h2,<0.51.0>},2.582705047023042e-10},{{h3,<0.52.0>},2.0696025787041335e-10}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[],[],[{h1,2.582187053750409e-10},{h2,2.5826901224980115e-10},{h3,2.0695915977610843e-10}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,2.582187053750409e-10},{h2,2.5826901224980115e-10},{h3,2.0695915977610843e-10}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON i4 new connections {[],[],[{{h1,<0.50.0>},2.582187053750409e-10},{{h2,<0.51.0>},2.5826901224980115e-10},{{h3,<0.52.0>},2.0695915977610843e-10}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[],[],[{h1,2.582186870126748e-10},{h2,2.5826937332028717e-10},{h3,2.0695930723130035e-10}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,2.582186870126748e-10},{h2,2.5826937332028717e-10},{h3,2.0695930723130035e-10}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON i5 new connections {[],[],[{{h1,<0.50.0>},2.582186870126748e-10},{{h2,<0.51.0>},2.5826937332028717e-10},{{h3,<0.52.0>},2.0695930723130035e-10}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[],[],[{h1,2.5821764483032666e-10},{h2,2.5826915028377487e-10},{h3,2.0695940068866363e-10}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,2.5821764483032666e-10},{h2,2.5826915028377487e-10},{h3,2.0695940068866363e-10}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON i6 new connections {[],[],[{{h1,<0.50.0>},2.5821764483032666e-10},{{h2,<0.51.0>},2.5826915028377487e-10},{{h3,<0.52.0>},2.0695940068866363e-10}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[],[],[{h1,2.582179450743831e-10},{h2,2.5826896277782263e-10},{h3,2.069591520124427e-10}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,2.582179450743831e-10},{h2,2.5826896277782263e-10},{h3,2.069591520124427e-10}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>}]\n".
+"[DEBUG][ann] Update connections for hidden".
+"[DEBUG][perceptron] PERCEPTRON i7 new connections {[],[],[{{h1,<0.50.0>},2.582179450743831e-10},{{h2,<0.51.0>},2.5826896277782263e-10},{{h3,<0.52.0>},2.069591520124427e-10}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[0.5000479454193325,0.5000183937937352,0.5000038636637173,0.5000024891483408,0.5000024535923235,0.5000004355597125,0.500001016938104],[{i1,17},{i2,6},{i3,6},{i4,0},{i5,1},{i6,0},{i7,1}],[{o1,0.0027860791366892987}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{i1,17},{i2,6},{i3,6},{i4,0},{i5,1},{i6,0},{i7,1}], SOURCES: [{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]\n".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{o1,0.0027860791366892987}], SOURCES: [{o1,<0.53.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON h1 new connections {[0.5000479454193325,0.5000183937937352,0.5000038636637173,0.5000024891483408,0.5000024535923235,0.5000004355597125,0.500001016938104],[{{i1,<0.43.0>},17},{{i2,<0.44.0>},6},{{i3,<0.45.0>},6},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},0},{{i7,<0.49.0>},1}],[{{o1,<0.53.0>},0.0027860791366892987}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[0.5000362829741767,0.500018448103855,0.5000040330828831,0.5000011437391247,0.5000018427608711,0.5000014109688018,0.5000010479628424],[{i1,17},{i2,6},{i3,6},{i4,0},{i5,1},{i6,0},{i7,1}],[{o1,0.002786079124297842}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{i1,17},{i2,6},{i3,6},{i4,0},{i5,1},{i6,0},{i7,1}], SOURCES: [{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]\n".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{o1,0.002786079124297842}], SOURCES: [{o1,<0.53.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON h2 new connections {[0.5000362829741767,0.500018448103855,0.5000040330828831,0.5000011437391247,0.5000018427608711,0.5000014109688018,0.5000010479628424],[{{i1,<0.43.0>},17},{{i2,<0.44.0>},6},{{i3,<0.45.0>},6},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},0},{{i7,<0.49.0>},1}],[{{o1,<0.53.0>},0.002786079124297842}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[0.500024251641556,0.5000110146022737,0.5000030551812709,0.500000402254023,0.5000007584965558,0.5000009842837077,0.5000003834974915],[{i1,17},{i2,6},{i3,6},{i4,0},{i5,1},{i6,0},{i7,1}],[{o1,0.002232003874967047}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{i1,17},{i2,6},{i3,6},{i4,0},{i5,1},{i6,0},{i7,1}], SOURCES: [{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]\n".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{o1,0.002232003874967047}], SOURCES: [{o1,<0.53.0>}]\n".
+"[DEBUG][ann] Update connections for output".
+"[DEBUG][perceptron] PERCEPTRON h3 new connections {[0.500024251641556,0.5000110146022737,0.5000030551812709,0.500000402254023,0.5000007584965558,0.5000009842837077,0.5000003834974915],[{{i1,<0.43.0>},17},{{i2,<0.44.0>},6},{{i3,<0.45.0>},6},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},0},{{i7,<0.49.0>},1}],[{{o1,<0.53.0>},0.002232003874967047}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[3.4381171762751714,3.438116190801167,2.844231146989212],[{h1,0.9999998146366548},{h2,0.999999814600042},{h3,0.9999998145525959}],[]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,0.9999998146366548},{h2,0.999999814600042},{h3,0.9999998145525959}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON o1 new connections {[3.4381171762751714,3.438116190801167,2.844231146989212],[{{h1,<0.50.0>},0.9999998146366548},{{h2,<0.51.0>},0.999999814600042},{{h3,<0.52.0>},0.9999998145525959}],[]}\n".
+"[STATUS][perceptron] Status of Node {o1,<0.53.0>} \n W: [3.4381171762751714,3.438116190801167,2.844231146989212]\n I: [{{h1,<0.50.0>},0.9999998146366548},{{h2,<0.51.0>},0.999999814600042},{{h3,<0.52.0>},0.9999998145525959}]\n S: []".
+"[STATUS][perceptron] Status of Node {i1,<0.43.0>} \n W: []\n I: []\n S: [{{h1,<0.50.0>},2.582421805770677e-10},{{h2,<0.51.0>},2.5828716295933796e-10},{{h3,<0.52.0>},2.0696903146657658e-10}]".
+"[STATUS][perceptron] Status of Node {i2,<0.44.0>} \n W: []\n I: []\n S: [{{h1,<0.50.0>},2.58226919088037e-10},{{h2,<0.51.0>},2.5827795059172787e-10},{{h3,<0.52.0>},2.0696355241792896e-10}]".
+"[STATUS][perceptron] Status of Node {i3,<0.45.0>} \n W: []\n I: []\n S: [{{h1,<0.50.0>},2.5821941522266916e-10},{{h2,<0.51.0>},2.582705047023042e-10},{{h3,<0.52.0>},2.0696025787041335e-10}]".
+"[STATUS][perceptron] Status of Node {i4,<0.46.0>} \n W: []\n I: []\n S: [{{h1,<0.50.0>},2.582187053750409e-10},{{h2,<0.51.0>},2.5826901224980115e-10},{{h3,<0.52.0>},2.0695915977610843e-10}]".
+"[STATUS][perceptron] Status of Node {i5,<0.47.0>} \n W: []\n I: []\n S: [{{h1,<0.50.0>},2.582186870126748e-10},{{h2,<0.51.0>},2.5826937332028717e-10},{{h3,<0.52.0>},2.0695930723130035e-10}]".
+"[STATUS][perceptron] Status of Node {i6,<0.48.0>} \n W: []\n I: []\n S: [{{h1,<0.50.0>},2.5821764483032666e-10},{{h2,<0.51.0>},2.5826915028377487e-10},{{h3,<0.52.0>},2.0695940068866363e-10}]".
+"[STATUS][perceptron] Status of Node {h3,<0.52.0>} \n W: [0.500024251641556,0.5000110146022737,0.5000030551812709,0.500000402254023,0.5000007584965558,0.5000009842837077,0.5000003834974915]\n I: [{{i1,<0.43.0>},17},{{i2,<0.44.0>},6},{{i3,<0.45.0>},6},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},0},{{i7,<0.49.0>},1}]\n S: [{{o1,<0.53.0>},0.002232003874967047}]".
+"[STATUS][perceptron] Status of Node {i7,<0.49.0>} \n W: []\n I: []\n S: [{{h1,<0.50.0>},2.582179450743831e-10},{{h2,<0.51.0>},2.5826896277782263e-10},{{h3,<0.52.0>},2.069591520124427e-10}]".
+"[STATUS][perceptron] Status of Node {h1,<0.50.0>} \n W: [0.5000479454193325,0.5000183937937352,0.5000038636637173,0.5000024891483408,0.5000024535923235,0.5000004355597125,0.500001016938104]\n I: [{{i1,<0.43.0>},17},{{i2,<0.44.0>},6},{{i3,<0.45.0>},6},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},0},{{i7,<0.49.0>},1}]\n S: [{{o1,<0.53.0>},0.0027860791366892987}]".
+"[STATUS][perceptron] Status of Node {h2,<0.51.0>} \n W: [0.5000362829741767,0.500018448103855,0.5000040330828831,0.5000011437391247,0.5000018427608711,0.5000014109688018,0.5000010479628424]\n I: [{{i1,<0.43.0>},17},{{i2,<0.44.0>},6},{{i3,<0.45.0>},6},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},0},{{i7,<0.49.0>},1}]\n S: [{{o1,<0.53.0>},0.002786079124297842}]".
+"[DEBUG][trainer_mod] CONTINUING with run for data [{inputs,[20,20,13,0,1,1,0]},{output,[9]}]".
+"[DEBUG][ann] Train network <0.38.0>... Data {train,[{inputs,[20,20,13,0,1,1,0]},{output,[9]}]}\n".
+"[DEBUG][ann] SENDING INPUTS\n".
+"[DEBUG][ann] Sending inputs according mode train . Data [{inputs,[20,20,13,0,1,1,0]},{output,[9]}]".
+"[DEBUG][ann] Neuron: i1 pass val: 20".
+"[DEBUG][ann] Neuron: i2 pass val: 20".
+"[DEBUG][ann] Neuron: i3 pass val: 13".
+"[DEBUG][ann] Neuron: i4 pass val: 0".
+"[DEBUG][ann] Neuron: i5 pass val: 1".
+"[DEBUG][ann] Neuron: i6 pass val: 1".
+"[DEBUG][ann] Neuron: i7 pass val: 0".
+"[DEBUG][ann] All inputs passed to neurons".
+"[DEBUG][ann] FINISH Sending inputs\n".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999998875719793".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999998146373558".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Propagating input 13 ".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999998146373558".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 13".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999998875498823".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Propagating input 20 ".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999998146373558".
+"[DEBUG][perceptron] Propagating input 20 ".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 13".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999998146009184".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999999944026836".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.999999887520959".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 13".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999998146009184".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999999999948972".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.999999887520959".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999998146009184".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999998145533551".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999999999988616".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999999944015898".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999998145533551".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999999944001152".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999999999948963".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999999999948943".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999999999988614".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0.9999999999988609".
+"[DEBUG][ann] Saving training of layers [{input,[{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]},{hidden,[{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>}]},{output,[{o1,<0.53.0>}]}]\n".
+"[DEBUG][ann] Saving Layer input: [{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}] on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"\n".
+"[DEBUG][ann] Saving neuron i1: <0.43.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]".
+"[DEBUG][ann] Saving neuron i2: <0.44.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]".
+"[DEBUG][ann] Saving neuron i3: <0.45.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]".
+"[DEBUG][ann] Saving neuron i4: <0.46.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]".
+"[DEBUG][ann] Saving neuron i5: <0.47.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i6,<0.48.0>},{i7,<0.49.0>}]".
+"[DEBUG][ann] Saving neuron i6: <0.48.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i7,<0.49.0>}]".
+"[DEBUG][ann] Saving neuron i7: <0.49.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next []".
+"[DEBUG][ann] No more neurons to save".
+"[DEBUG][ann] Saving Layer hidden: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>}] on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"\n".
+"[DEBUG][ann] Saving neuron h1: <0.50.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h2,<0.51.0>},{h3,<0.52.0>}]".
+"[DEBUG][ann] Saving neuron h2: <0.51.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h3,<0.52.0>}]".
+"[DEBUG][ann] Saving neuron h3: <0.52.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next []".
+"[DEBUG][ann] No more neurons to save".
+"[DEBUG][ann] Saving Layer output: [{o1,<0.53.0>}] on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"\n".
+"[DEBUG][ann] Saving neuron o1: <0.53.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next []".
+"[DEBUG][ann] No more neurons to save".
