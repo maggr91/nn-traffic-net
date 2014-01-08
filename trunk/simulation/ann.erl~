@@ -5,10 +5,12 @@
 
 start(Args)->
 	filelib:ensure_dir("logs/"),
+	perceptron:set_random_seed(),
 	spawn(ann, init, [Args]).
 	
 start(Input, Hiden, Output) ->
 	filelib:ensure_dir("logs/"),
+	perceptron:set_random_seed(),
 	spawn(ann, init, [Input, Hiden, Output]).
 
 init(NNFile) ->
@@ -30,15 +32,17 @@ load_layers(NNFile) ->
 	[{input, InputLay},{hidden, HiddenLay},{output, OutputLay}].
 
 load_layer(LayerItems) ->
-	lists:map(fun({Id, _Type, Weights,Inputs,Sensitivites}) -> 
-					{Id, spawn(perceptron, perceptron, [Id,Weights,Inputs,Sensitivites])} 
+	lists:map(fun({Id, _Type, Weights,Inputs,Sensitivites, Bias}) -> 
+					%{Id, spawn(perceptron, perceptron, [Id,Weights,Inputs,Sensitivites,{0.5, 1}])} 
+					{Id, perceptron:start({Id,Weights,Inputs,Sensitivites,Bias})}
 			  end, 
 			  LayerItems
 			 ).
 	
 custom_load_layer(HiddenLayerItems) ->
-	lists:map(fun({Id, _Type, Weights,Inputs,Sensitivites}) -> 
-				{Id, spawn(perceptron, perceptron, [Id,Weights,Inputs,Sensitivites])} 
+	lists:map(fun({Id, _Type, Weights,Inputs,Sensitivites, Bias}) -> 
+				%{Id, spawn(perceptron, perceptron, [Id,Weights,Inputs,Sensitivites,{0.5, 1}])} 
+				{Id, perceptron:start({Id,Weights,Inputs,Sensitivites,{0.5, 1}})}
 			  end, 
 			  HiddenLayerItems).
 
@@ -123,7 +127,8 @@ layer_from_scratch(LayerConfig) ->
 	layer_from_scratch(LayerConfig,1, []).	
 layer_from_scratch({Type, Max},Index, Layer) when Index =< Max->
 	NeuronId = list_to_atom(lists:flatten(io_lib:format("~w~w",[Type, Index]))),
-	NeuronPid = spawn(perceptron, perceptron, [NeuronId,[],[],[]]),
+	NeuronPid = perceptron:start(NeuronId),
+	%NeuronPid = spawn(perceptron, perceptron, [NeuronId,[],[],[],{0.5, 1}]),
 	layer_from_scratch({Type, Max},Index + 1, [{NeuronId, NeuronPid} | Layer]);
 layer_from_scratch(_LayerConfig, _Index, Layer) ->
 	Layer.
@@ -295,11 +300,57 @@ check_for_learning(NNFile) ->
 	Output = filter_neurons(o, Data),	
 	{Input, Hidden, Output}.
 filter_neurons(Filter, Data) ->
-	lists:filter(fun({_Id, Type, _,_,_}) -> Type =:= Filter end, Data).
+	lists:filter(fun({_Id, Type, _,_,_,_}) -> Type =:= Filter end, Data).
 
 display_status(Layer) ->
 	lists:map(fun({_Id, Pid}) -> Pid ! {status} end, Layer).
+
+%%===========================================
+%%===========================================
+%% NGUYEN - WIDROW WEIGHT INIT
+nguyen_widrow(Input, Hidden, Output) ->
+	%% get count of hidden nodes
+	H = length(Hidden),
+	I = length(Input),
 	
+	Beta = nguyen_widrow_beta(H, I),
+	HLayerWeights = get_layer_weights(Hidden),
+	OLayerWeights = get_layer_weights(Output),
+	
+	HNorm = euclidean_norm(HLayerWeights),
+	ONorm = euclidean_norm(OLayerWeights).
+
+nguyen_widrow_beta(H, I) ->
+	0.7 * math:pow(H, 1/I).
+	
+euclidean_norm(LayerWeights) ->
+	math:sqrt(lists:foldl(fun(Wi, Sum) -> Sum + math:pow(Wi) end, 0, LayerWeights)).
+
+
+nguyen_widrow_adjust_weights(Layer, Beta, Norm) ->
+	lists:map(fun(NeuronPid) ->
+		{ok, {Weights, Inputs, Sensitivities}} = perceptron:get_connections(NeuronPid),
+		NewWeights = nguyen_widrow_adjust_weights_aux(Weights, Beta, Norm),
+		perceptron:update_connections(NeuronPid, {NewWeights, Inputs, Sensitivities}) 
+		end,
+		Layer		
+	).
+
+
+%%Updates weights for each neuron on the layer
+%%INPUT: Weights neuron weights
+%%OUTPUT Adjusted weights using NGUYEN-WIDROW Algorithm
+nguyen_widrow_adjust_weights_aux(Weights, Beta, Norm) ->
+	lists:map(fun(Wi) -> (Beta * Wi) / Norm end, Weights).
+
+get_layer_weights(Layer) ->
+	Temp = lists:reverse(
+		lists:foldl(fun(NeuronPid, List) ->
+			{ok, {Weights, _Inputs, _Sensitivities}} = perceptron:get_connections(NeuronPid),
+			[Weights | List] end, [], Layer)
+	),
+	
+	lists:append(Temp).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%client interface functions%%%%%%%%%%%

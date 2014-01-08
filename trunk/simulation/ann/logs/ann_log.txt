@@ -140,3 +140,1820 @@
 "[DEBUG][ann] Saving neuron o1: <0.53.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
 "[DEBUG][ann] Saving neuron result {ok,saved}. Next []".
 "[DEBUG][ann] No more neurons to save".
+"[DEBUG][ann] New network".
+"[DEBUG][ann] Input: [{i7,<0.46.0>},{i6,<0.45.0>},{i5,<0.44.0>},{i4,<0.43.0>},{i3,<0.42.0>},{i2,<0.41.0>},{i1,<0.40.0>}]\n Hidden: [{h8,<0.54.0>},{h7,<0.53.0>},{h6,<0.52.0>},{h5,<0.51.0>},{h4,<0.50.0>},{h3,<0.49.0>},{h2,<0.48.0>},{h1,<0.47.0>}]\n Output: [{o1,<0.55.0>}]\n".
+"[DEBUG][ann] Connecting... Input: [{i7,<0.46.0>},{i6,<0.45.0>},{i5,<0.44.0>},{i4,<0.43.0>},{i3,<0.42.0>},{i2,<0.41.0>},{i1,<0.40.0>}]\n  with Hidden: [{h8,<0.54.0>},{h7,<0.53.0>},{h6,<0.52.0>},{h5,<0.51.0>},{h4,<0.50.0>},{h3,<0.49.0>},{h2,<0.48.0>},{h1,<0.47.0>}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][ann] Connecting... Hidden: [{h8,<0.54.0>},{h7,<0.53.0>},{h6,<0.52.0>},{h5,<0.51.0>},{h4,<0.50.0>},{h3,<0.49.0>},{h2,<0.48.0>},{h1,<0.47.0>}]\n  with Output: [{o1,<0.55.0>}]\n".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0.5},{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0.5},{{h3,<0.49.0>},0.5},{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0.5},{{h2,<0.48.0>},0.5},{{h3,<0.49.0>},0.5},{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][trainer_mod] CONTINUING with run for data [{inputs,[20,1,0,0,1,1,0]},{output,[1]}]".
+"[DEBUG][ann] Train network <0.39.0>... Data {train,[{inputs,[20,1,0,0,1,1,0]},{output,[1]}]}\n".
+"[DEBUG][ann] SENDING INPUTS\n".
+"[DEBUG][ann] Sending inputs according mode train . Data [{inputs,[20,1,0,0,1,1,0]},{output,[1]}]".
+"[DEBUG][ann] Neuron: i1 pass val: 20".
+"[DEBUG][perceptron] Propagating input 20 ".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 20".
+"[DEBUG][ann] Neuron: i2 pass val: 1".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][ann] Neuron: i3 pass val: 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 20".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][ann] Neuron: i4 pass val: 0".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][ann] Neuron: i5 pass val: 1".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][ann] Neuron: i6 pass val: 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][ann] Neuron: i7 pass val: 0".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][ann] All inputs passed to neurons".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][ann] FINISH Sending inputs\n".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999991473482206".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999990194840627".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999993169561261".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999990194840627".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999993169561261".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999989039513405".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999993169561261".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999990194840627".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999989039513405".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999989039513405".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999993169561261".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999990194840627".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999989039513405".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999990194840627".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999993169561261".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999993169561261".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999989039513405".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998852182883".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999989039513405".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998852182883".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998852182883".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998852182883".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998852182883".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998427194929".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998852182883".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998904357369".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999990194840627".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999993169561261".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999989039513405".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998852182883".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][trainer_mod] CONTINUING with run for data [{inputs,[20,0,1,0,1,1,0]},{output,[0]}]".
+"[DEBUG][ann] Train network <0.39.0>... Data {train,[{inputs,[20,0,1,0,1,1,0]},{output,[0]}]}\n".
+"[DEBUG][ann] SENDING INPUTS\n".
+"[DEBUG][ann] Sending inputs according mode train . Data [{inputs,[20,0,1,0,1,1,0]},{output,[0]}]".
+"[DEBUG][ann] Neuron: i1 pass val: 20".
+"[DEBUG][ann] Neuron: i2 pass val: 0".
+"[DEBUG][ann] Neuron: i3 pass val: 1".
+"[DEBUG][ann] Neuron: i4 pass val: 0".
+"[DEBUG][ann] Neuron: i5 pass val: 1".
+"[DEBUG][ann] Neuron: i6 pass val: 1".
+"[DEBUG][ann] Neuron: i7 pass val: 0".
+"[DEBUG][ann] All inputs passed to neurons".
+"[DEBUG][ann] FINISH Sending inputs\n".
+"[DEBUG][ann] Saving training of layers [{input,[{i1,<0.40.0>},{i2,<0.41.0>},{i3,<0.42.0>},{i4,<0.43.0>},{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}]},{hidden,[{h1,<0.47.0>},{h2,<0.48.0>},{h3,<0.49.0>},{h4,<0.50.0>},{h5,<0.51.0>},{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}]},{output,[{o1,<0.55.0>}]}]\n".
+"[DEBUG][ann] Saving Layer input: [{i1,<0.40.0>},{i2,<0.41.0>},{i3,<0.42.0>},{i4,<0.43.0>},{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}] on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"\n".
+"[DEBUG][ann] Saving neuron i1: <0.40.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] New network".
+"[DEBUG][ann] Input: [{i7,<0.46.0>},{i6,<0.45.0>},{i5,<0.44.0>},{i4,<0.43.0>},{i3,<0.42.0>},{i2,<0.41.0>},{i1,<0.40.0>}]\n Hidden: [{h8,<0.54.0>},{h7,<0.53.0>},{h6,<0.52.0>},{h5,<0.51.0>},{h4,<0.50.0>},{h3,<0.49.0>},{h2,<0.48.0>},{h1,<0.47.0>}]\n Output: [{o1,<0.55.0>}]\n".
+"[DEBUG][ann] Connecting... Input: [{i7,<0.46.0>},{i6,<0.45.0>},{i5,<0.44.0>},{i4,<0.43.0>},{i3,<0.42.0>},{i2,<0.41.0>},{i1,<0.40.0>}]\n  with Hidden: [{h8,<0.54.0>},{h7,<0.53.0>},{h6,<0.52.0>},{h5,<0.51.0>},{h4,<0.50.0>},{h3,<0.49.0>},{h2,<0.48.0>},{h1,<0.47.0>}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][ann] Connecting... Hidden: [{h8,<0.54.0>},{h7,<0.53.0>},{h6,<0.52.0>},{h5,<0.51.0>},{h4,<0.50.0>},{h3,<0.49.0>},{h2,<0.48.0>},{h1,<0.47.0>}]\n  with Output: [{o1,<0.55.0>}]\n".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0.5},{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0.5},{{h3,<0.49.0>},0.5},{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0.5},{{h2,<0.48.0>},0.5},{{h3,<0.49.0>},0.5},{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][trainer_mod] CONTINUING with run for data [{inputs,[20,1,0,0,1,1,0]},{output,[1]}]".
+"[DEBUG][ann] Train network <0.39.0>... Data {train,[{inputs,[20,1,0,0,1,1,0]},{output,[1]}]}\n".
+"[DEBUG][ann] SENDING INPUTS\n".
+"[DEBUG][ann] Sending inputs according mode train . Data [{inputs,[20,1,0,0,1,1,0]},{output,[1]}]".
+"[DEBUG][ann] Neuron: i1 pass val: 20".
+"[DEBUG][ann] Neuron: i2 pass val: 1".
+"[DEBUG][ann] Neuron: i3 pass val: 0".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][ann] Neuron: i4 pass val: 0".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][ann] Neuron: i5 pass val: 1".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][ann] Neuron: i6 pass val: 1".
+"[DEBUG][perceptron] Propagating input 20 ".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8258876806526103".
+"[DEBUG][ann] Neuron: i7 pass val: 0".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][ann] All inputs passed to neurons".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8258876806526103".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][ann] FINISH Sending inputs\n".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8258876806526103".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8258876806526103".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8258876806526103".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8258876806526103".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8191512554693314".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8258876806526103".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8191512554693314".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8191512554693314".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8258876806526103".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8497191545954481".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8497191545954481".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8497191545954481".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8191512554693314".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8903108431634947".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8903108431634947".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8903108431634947".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8555177883338808".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8497191545954481".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8349346445757233".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8349346445757233".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8552858521166434".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8552858521166434".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8555177883338808".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8497191545954481".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8903108431634947".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8903108431634947".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8349346445757233".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8349346445757233".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8555177883338808".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8349346445757233".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8497191545954481".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8552858521166434".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8552858521166434".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8497191545954481".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8552858521166434".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8903108431634947".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8555177883338808".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8903108431634947".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8497191545954481".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.90461460455511".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8903108431634947".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8349346445757233".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8552858521166434".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8349346445757233".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8552858521166434".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.8552858521166434".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][trainer_mod] CONTINUING with run for data [{inputs,[20,0,1,0,1,1,0]},{output,[0]}]".
+"[DEBUG][ann] Train network <0.39.0>... Data {train,[{inputs,[20,0,1,0,1,1,0]},{output,[0]}]}\n".
+"[DEBUG][ann] SENDING INPUTS\n".
+"[DEBUG][ann] Sending inputs according mode train . Data [{inputs,[20,0,1,0,1,1,0]},{output,[0]}]".
+"[DEBUG][ann] Neuron: i1 pass val: 20".
+"[DEBUG][ann] Neuron: i2 pass val: 0".
+"[DEBUG][ann] Neuron: i3 pass val: 1".
+"[DEBUG][ann] Neuron: i4 pass val: 0".
+"[DEBUG][ann] Neuron: i5 pass val: 1".
+"[DEBUG][ann] Neuron: i6 pass val: 1".
+"[DEBUG][ann] Neuron: i7 pass val: 0".
+"[DEBUG][ann] All inputs passed to neurons".
+"[DEBUG][ann] FINISH Sending inputs\n".
+"[DEBUG][ann] Saving training of layers [{input,[{i1,<0.40.0>},{i2,<0.41.0>},{i3,<0.42.0>},{i4,<0.43.0>},{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}]},{hidden,[{h1,<0.47.0>},{h2,<0.48.0>},{h3,<0.49.0>},{h4,<0.50.0>},{h5,<0.51.0>},{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}]},{output,[{o1,<0.55.0>}]}]\n".
+"[DEBUG][ann] Saving Layer input: [{i1,<0.40.0>},{i2,<0.41.0>},{i3,<0.42.0>},{i4,<0.43.0>},{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}] on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"\n".
+"[DEBUG][ann] Saving neuron i1: <0.40.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] New network".
+"[DEBUG][ann] Input: [{i7,<0.46.0>},{i6,<0.45.0>},{i5,<0.44.0>},{i4,<0.43.0>},{i3,<0.42.0>},{i2,<0.41.0>},{i1,<0.40.0>}]\n Hidden: [{h8,<0.54.0>},{h7,<0.53.0>},{h6,<0.52.0>},{h5,<0.51.0>},{h4,<0.50.0>},{h3,<0.49.0>},{h2,<0.48.0>},{h1,<0.47.0>}]\n Output: [{o1,<0.55.0>}]\n".
+"[DEBUG][ann] Connecting... Input: [{i7,<0.46.0>},{i6,<0.45.0>},{i5,<0.44.0>},{i4,<0.43.0>},{i3,<0.42.0>},{i2,<0.41.0>},{i1,<0.40.0>}]\n  with Hidden: [{h8,<0.54.0>},{h7,<0.53.0>},{h6,<0.52.0>},{h5,<0.51.0>},{h4,<0.50.0>},{h3,<0.49.0>},{h2,<0.48.0>},{h1,<0.47.0>}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][ann] Connecting... Hidden: [{h8,<0.54.0>},{h7,<0.53.0>},{h6,<0.52.0>},{h5,<0.51.0>},{h4,<0.50.0>},{h3,<0.49.0>},{h2,<0.48.0>},{h1,<0.47.0>}]\n  with Output: [{o1,<0.55.0>}]\n".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0.5},{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0.5},{{h3,<0.49.0>},0.5},{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0.5},{{h2,<0.48.0>},0.5},{{h3,<0.49.0>},0.5},{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][trainer_mod] CONTINUING with run for data [{inputs,[20,1,0,0,1,1,0]},{output,[1]}]".
+"[DEBUG][ann] Train network <0.39.0>... Data {train,[{inputs,[20,1,0,0,1,1,0]},{output,[1]}]}\n".
+"[DEBUG][ann] SENDING INPUTS\n".
+"[DEBUG][ann] Sending inputs according mode train . Data [{inputs,[20,1,0,0,1,1,0]},{output,[1]}]".
+"[DEBUG][ann] Neuron: i1 pass val: 20".
+"[DEBUG][perceptron] Propagating input 20 ".
+"[DEBUG][ann] Neuron: i2 pass val: 1".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][ann] Neuron: i3 pass val: 0".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][ann] Neuron: i4 pass val: 0".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][ann] Neuron: i5 pass val: 1".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][ann] Neuron: i6 pass val: 1".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998427194929".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998427194929".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][ann] Neuron: i7 pass val: 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998427194929".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999974761943882".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999974761943882".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][ann] All inputs passed to neurons".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998427194929".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999974761943882".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][ann] FINISH Sending inputs\n".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999974761943882".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998427194929".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998427194929".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999974761943882".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999974761943882".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998427194929".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998427194929".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999974761943882".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999974761943882".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][trainer_mod] CONTINUING with run for data [{inputs,[20,0,1,0,1,1,0]},{output,[0]}]".
+"[DEBUG][ann] Train network <0.39.0>... Data {train,[{inputs,[20,0,1,0,1,1,0]},{output,[0]}]}\n".
+"[DEBUG][ann] SENDING INPUTS\n".
+"[DEBUG][ann] Sending inputs according mode train . Data [{inputs,[20,0,1,0,1,1,0]},{output,[0]}]".
+"[DEBUG][ann] Neuron: i1 pass val: 20".
+"[DEBUG][perceptron] Propagating input 20 ".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250759857".
+"[DEBUG][ann] Neuron: i2 pass val: 0".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250758587".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863828335".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863826606".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998525075317".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250757819".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863819227".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863825558".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250761518".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863830596".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998525076407".
+"[DEBUG][ann] Neuron: i3 pass val: 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250756072".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250764467".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863834613".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863823177".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863834071".
+"[DEBUG][ann] Neuron: i4 pass val: 0".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998780498114".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998780498114".
+"[DEBUG][ann] Neuron: i5 pass val: 1".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][ann] Neuron: i6 pass val: 1".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804977667".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][ann] Neuron: i7 pass val: 0".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][ann] All inputs passed to neurons".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804977667".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][ann] FINISH Sending inputs\n".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998780498114".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863834613".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804977667".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863830596".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863825558".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998780498114".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863819227".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863834613".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804977667".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863830596".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863819227".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804976619".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863825558".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804974543".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804976619".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804974543".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863834613".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998780498114".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804976619".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804974543".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804981468".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804977667".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863830596".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804974543".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863825558".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804976619".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804979037".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863819227".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804974543".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804975986".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804976619".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804972151".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804981468".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804979037".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804975986".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804972151".
+"[DEBUG][ann] Saving training of layers [{input,[{i1,<0.40.0>},{i2,<0.41.0>},{i3,<0.42.0>},{i4,<0.43.0>},{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}]},{hidden,[{h1,<0.47.0>},{h2,<0.48.0>},{h3,<0.49.0>},{h4,<0.50.0>},{h5,<0.51.0>},{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}]},{output,[{o1,<0.55.0>}]}]\n".
+"[DEBUG][ann] Saving Layer input: [{i1,<0.40.0>},{i2,<0.41.0>},{i3,<0.42.0>},{i4,<0.43.0>},{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}] on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"\n".
+"[DEBUG][ann] Saving neuron i1: <0.40.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i2,<0.41.0>},{i3,<0.42.0>},{i4,<0.43.0>},{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}]".
+"[DEBUG][ann] Saving neuron i2: <0.41.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i3,<0.42.0>},{i4,<0.43.0>},{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}]".
+"[DEBUG][ann] Saving neuron i3: <0.42.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i4,<0.43.0>},{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}]".
+"[DEBUG][ann] Saving neuron i4: <0.43.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}]".
+"[DEBUG][ann] Saving neuron i5: <0.44.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i6,<0.45.0>},{i7,<0.46.0>}]".
+"[DEBUG][ann] Saving neuron i6: <0.45.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i7,<0.46.0>}]".
+"[DEBUG][ann] Saving neuron i7: <0.46.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next []".
+"[DEBUG][ann] No more neurons to save".
+"[DEBUG][ann] Saving Layer hidden: [{h1,<0.47.0>},{h2,<0.48.0>},{h3,<0.49.0>},{h4,<0.50.0>},{h5,<0.51.0>},{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}] on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"\n".
+"[DEBUG][ann] Saving neuron h1: <0.47.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h2,<0.48.0>},{h3,<0.49.0>},{h4,<0.50.0>},{h5,<0.51.0>},{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}]".
+"[DEBUG][ann] Saving neuron h2: <0.48.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h3,<0.49.0>},{h4,<0.50.0>},{h5,<0.51.0>},{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}]".
+"[DEBUG][ann] Saving neuron h3: <0.49.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h4,<0.50.0>},{h5,<0.51.0>},{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}]".
+"[DEBUG][ann] Saving neuron h4: <0.50.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h5,<0.51.0>},{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}]".
+"[DEBUG][ann] Saving neuron h5: <0.51.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}]".
+"[DEBUG][ann] Saving neuron h6: <0.52.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h7,<0.53.0>},{h8,<0.54.0>}]".
+"[DEBUG][ann] Saving neuron h7: <0.53.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h8,<0.54.0>}]".
+"[DEBUG][ann] Saving neuron h8: <0.54.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next []".
+"[DEBUG][ann] No more neurons to save".
+"[DEBUG][ann] Saving Layer output: [{o1,<0.55.0>}] on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"\n".
+"[DEBUG][ann] Saving neuron o1: <0.55.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next []".
+"[DEBUG][ann] No more neurons to save".
+"[DEBUG][trainer_mod] CONTINUING with run for data [{inputs,[20,1,0,0,1,1,0]},{output,[1]}]".
+"[DEBUG][ann] Train network <0.38.0>... Data {train,[{inputs,[20,1,0,0,1,1,0]},{output,[1]}]}\n".
+"[DEBUG][trainer_mod] CONTINUING with run for data [{inputs,[20,1,0,0,1,1,0]},{output,[1]}]".
+"[DEBUG][ann] Train network <0.38.0>... Data {train,[{inputs,[20,1,0,0,1,1,0]},{output,[1]}]}\n".
+"[DEBUG][ann] New network".
+"[DEBUG][ann] Input: [{i7,<0.46.0>},{i6,<0.45.0>},{i5,<0.44.0>},{i4,<0.43.0>},{i3,<0.42.0>},{i2,<0.41.0>},{i1,<0.40.0>}]\n Hidden: [{h8,<0.54.0>},{h7,<0.53.0>},{h6,<0.52.0>},{h5,<0.51.0>},{h4,<0.50.0>},{h3,<0.49.0>},{h2,<0.48.0>},{h1,<0.47.0>}]\n Output: [{o1,<0.55.0>}]\n".
+"[DEBUG][ann] Connecting... Input: [{i7,<0.46.0>},{i6,<0.45.0>},{i5,<0.44.0>},{i4,<0.43.0>},{i3,<0.42.0>},{i2,<0.41.0>},{i1,<0.40.0>}]\n  with Hidden: [{h8,<0.54.0>},{h7,<0.53.0>},{h6,<0.52.0>},{h5,<0.51.0>},{h4,<0.50.0>},{h3,<0.49.0>},{h2,<0.48.0>},{h1,<0.47.0>}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][ann] Connecting... Hidden: [{h8,<0.54.0>},{h7,<0.53.0>},{h6,<0.52.0>},{h5,<0.51.0>},{h4,<0.50.0>},{h3,<0.49.0>},{h2,<0.48.0>},{h1,<0.47.0>}]\n  with Output: [{o1,<0.55.0>}]\n".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h6,<0.52.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i7,<0.46.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0.5},{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0.5},{{h3,<0.49.0>},0.5},{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {o1,<0.55.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0.5},{{h2,<0.48.0>},0.5},{{h3,<0.49.0>},0.5},{{h4,<0.50.0>},0.5},{{h5,<0.51.0>},0.5},{{h6,<0.52.0>},0.5},{{h7,<0.53.0>},0.5},{{h8,<0.54.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h8,<0.54.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h1,<0.47.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i6,<0.45.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i5,<0.44.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h2,<0.48.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i4,<0.43.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h3,<0.49.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h8,<0.54.0>}: [{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h7,<0.53.0>}: [{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h6,<0.52.0>}: [{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h4,<0.50.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h5,<0.51.0>}: [{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i2,<0.41.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {i3,<0.42.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h4,<0.50.0>}: [{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i7,<0.46.0>}: [{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h3,<0.49.0>}: [{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i6,<0.45.0>}: [{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h2,<0.48.0>}: [{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i5,<0.44.0>}: [{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {i1,<0.40.0>} output connected to {h1,<0.47.0>}: [{{h1,<0.47.0>},0},{{h2,<0.48.0>},0},{{h3,<0.49.0>},0},{{h4,<0.50.0>},0},{{h5,<0.51.0>},0},{{h6,<0.52.0>},0},{{h7,<0.53.0>},0},{{h8,<0.54.0>},0}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i4,<0.43.0>}: [{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i3,<0.42.0>}: [{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h7,<0.53.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i2,<0.41.0>}: [{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {i1,<0.40.0>}: [{{i1,<0.40.0>},0.5},{{i2,<0.41.0>},0.5},{{i3,<0.42.0>},0.5},{{i4,<0.43.0>},0.5},{{i5,<0.44.0>},0.5},{{i6,<0.45.0>},0.5},{{i7,<0.46.0>},0.5}]".
+"[DEBUG][perceptron] {h5,<0.51.0>} output connected to {o1,<0.55.0>}: [{{o1,<0.55.0>},0}]".
+"[DEBUG][trainer_mod] CONTINUING with run for data [{inputs,[20,1,0,0,1,1,0]},{output,[1]}]".
+"[DEBUG][ann] Train network <0.39.0>... Data {train,[{inputs,[20,1,0,0,1,1,0]},{output,[1]}]}\n".
+"[DEBUG][ann] SENDING INPUTS\n".
+"[DEBUG][ann] Sending inputs according mode train . Data [{inputs,[20,1,0,0,1,1,0]},{output,[1]}]".
+"[DEBUG][ann] Neuron: i1 pass val: 20".
+"[DEBUG][ann] Neuron: i2 pass val: 1".
+"[DEBUG][perceptron] Propagating input 20 ".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 20".
+"[DEBUG][ann] Neuron: i3 pass val: 0".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][ann] Neuron: i4 pass val: 0".
+"[DEBUG][ann] Neuron: i5 pass val: 1".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 20".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][ann] Neuron: i6 pass val: 1".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][ann] Neuron: i7 pass val: 0".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][ann] All inputs passed to neurons".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999980359215985".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999980359215985".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999980359215985".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][ann] FINISH Sending inputs\n".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999986317895823".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999986317895823".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999980359215985".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999986317895823".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999980359215985".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999986317895823".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985698506814".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999986317895823".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999980359215985".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987760104014".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999980359215985".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999986317895823".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999986317895823".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999980359215985".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999982418737897".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999986317895823".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999989039513405".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985915967308".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999985250751939".
+"[DEBUG][trainer_mod] CONTINUING with run for data [{inputs,[20,0,1,0,1,1,0]},{output,[0]}]".
+"[DEBUG][ann] Train network <0.39.0>... Data {train,[{inputs,[20,0,1,0,1,1,0]},{output,[0]}]}\n".
+"[DEBUG][ann] SENDING INPUTS\n".
+"[DEBUG][ann] Sending inputs according mode train . Data [{inputs,[20,0,1,0,1,1,0]},{output,[0]}]".
+"[DEBUG][ann] Neuron: i1 pass val: 20".
+"[DEBUG][perceptron] Propagating input 20 ".
+"[DEBUG][ann] Neuron: i2 pass val: 0".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][ann] Neuron: i3 pass val: 1".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][ann] Neuron: i4 pass val: 0".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 20".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][ann] Neuron: i5 pass val: 1".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863832192".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][ann] Neuron: i6 pass val: 1".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 20".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863827108".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863832192".
+"[DEBUG][ann] Neuron: i7 pass val: 0".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863822536".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 1".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][ann] All inputs passed to neurons".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804980003".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863827108".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863822536".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863825575".
+"[DEBUG][perceptron] Stimulating <0.47.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][ann] FINISH Sending inputs\n".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804980003".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804976923".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804974154".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863832674".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863825575".
+"[DEBUG][perceptron] Stimulating <0.48.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804976923".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804980003".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804974154".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863829115".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863832674".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804975995".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804976923".
+"[DEBUG][perceptron] Stimulating <0.49.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804980003".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804974154".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863829115".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804976923".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804980296".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804975995".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804980003".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804974154".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804976923".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998780497814".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804975995".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863819036".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804980296".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804974154".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998780497814".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804975995".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999979863819036".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804980296".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804972036".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998780497814".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804975995".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804980296".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804972036".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998780497814".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804972036".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804980296".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999997986382465".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999998780497814".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804972036".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.999997986382465".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804972036".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804975435".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804975435".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804975435".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804975435".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0.9999987804975435".
+"[DEBUG][ann] Saving training of layers [{input,[{i1,<0.40.0>},{i2,<0.41.0>},{i3,<0.42.0>},{i4,<0.43.0>},{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}]},{hidden,[{h1,<0.47.0>},{h2,<0.48.0>},{h3,<0.49.0>},{h4,<0.50.0>},{h5,<0.51.0>},{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}]},{output,[{o1,<0.55.0>}]}]\n".
+"[DEBUG][ann] Saving Layer input: [{i1,<0.40.0>},{i2,<0.41.0>},{i3,<0.42.0>},{i4,<0.43.0>},{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}] on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"\n".
+"[DEBUG][ann] Saving neuron i1: <0.40.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i2,<0.41.0>},{i3,<0.42.0>},{i4,<0.43.0>},{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}]".
+"[DEBUG][ann] Saving neuron i2: <0.41.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i3,<0.42.0>},{i4,<0.43.0>},{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}]".
+"[DEBUG][ann] Saving neuron i3: <0.42.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i4,<0.43.0>},{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}]".
+"[DEBUG][ann] Saving neuron i4: <0.43.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i5,<0.44.0>},{i6,<0.45.0>},{i7,<0.46.0>}]".
+"[DEBUG][ann] Saving neuron i5: <0.44.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i6,<0.45.0>},{i7,<0.46.0>}]".
+"[DEBUG][ann] Saving neuron i6: <0.45.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i7,<0.46.0>}]".
+"[DEBUG][ann] Saving neuron i7: <0.46.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next []".
+"[DEBUG][ann] No more neurons to save".
+"[DEBUG][ann] Saving Layer hidden: [{h1,<0.47.0>},{h2,<0.48.0>},{h3,<0.49.0>},{h4,<0.50.0>},{h5,<0.51.0>},{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}] on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"\n".
+"[DEBUG][ann] Saving neuron h1: <0.47.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h2,<0.48.0>},{h3,<0.49.0>},{h4,<0.50.0>},{h5,<0.51.0>},{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}]".
+"[DEBUG][ann] Saving neuron h2: <0.48.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h3,<0.49.0>},{h4,<0.50.0>},{h5,<0.51.0>},{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}]".
+"[DEBUG][ann] Saving neuron h3: <0.49.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h4,<0.50.0>},{h5,<0.51.0>},{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}]".
+"[DEBUG][ann] Saving neuron h4: <0.50.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h5,<0.51.0>},{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}]".
+"[DEBUG][ann] Saving neuron h5: <0.51.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h6,<0.52.0>},{h7,<0.53.0>},{h8,<0.54.0>}]".
+"[DEBUG][ann] Saving neuron h6: <0.52.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h7,<0.53.0>},{h8,<0.54.0>}]".
+"[DEBUG][ann] Saving neuron h7: <0.53.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h8,<0.54.0>}]".
+"[DEBUG][ann] Saving neuron h8: <0.54.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next []".
+"[DEBUG][ann] No more neurons to save".
+"[DEBUG][ann] Saving Layer output: [{o1,<0.55.0>}] on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"\n".
+"[DEBUG][ann] Saving neuron o1: <0.55.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next []".
+"[DEBUG][ann] No more neurons to save".
+"[DEBUG][trainer_mod] CONTINUING with run for data [{inputs,[20,1,0,0,1,1,0]},{output,[1]}]".
+"[DEBUG][ann] Train network <0.38.0>... Data {train,[{inputs,[20,1,0,0,1,1,0]},{output,[1]}]}\n".
+"[DEBUG][trainer_mod] CONTINUING with run for data [{inputs,[20,1,0,0,1,1,0]},{output,[1]}]".
+"[DEBUG][ann] Train network <0.38.0>... Data {train,[{inputs,[20,1,0,0,1,1,0]},{output,[1]}]}\n".
+"[DEBUG][ann] Update connections Data {[{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}],[{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>},{h4,<0.53.0>},{h5,<0.54.0>},{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}],[{o1,<0.58.0>}]}".
+"[DEBUG][ann] Update connections for input".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[],[],[{h1,-4.101827687325843e-8},{h2,-1.986362299152342e-8},{h3,-8.436301098674007e-10},{h4,-1.3484703439264389e-8},{h5,-4.3023425299151854e-8},{h6,-2.821021574317375e-8},{h7,-9.632692678198703e-9},{h8,1.372128202937368e-8}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,-4.101827687325843e-8},{h2,-1.986362299152342e-8},{h3,-8.436301098674007e-10},{h4,-1.3484703439264389e-8},{h5,-4.3023425299151854e-8},{h6,-2.821021574317375e-8},{h7,-9.632692678198703e-9},{h8,1.372128202937368e-8}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>},{h4,<0.53.0>},{h5,<0.54.0>},{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON i1 new connections {[],[],[{{h1,<0.50.0>},-4.101827687325843e-8},{{h2,<0.51.0>},-1.986362299152342e-8},{{h3,<0.52.0>},-8.436301098674007e-10},{{h4,<0.53.0>},-1.3484703439264389e-8},{{h5,<0.54.0>},-4.3023425299151854e-8},{{h6,<0.55.0>},-2.821021574317375e-8},{{h7,<0.56.0>},-9.632692678198703e-9},{{h8,<0.57.0>},1.372128202937368e-8}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[],[],[{h1,-2.1374606350030067e-8},{h2,-1.0350885213052893e-8},{h3,-4.39612047827458e-10},{h4,-7.026837665183732e-9},{h5,-2.2419496569215868e-8},{h6,-1.470029671437354e-8},{h7,-5.019563109656177e-9},{h8,7.1500823811060336e-9}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,-2.1374606350030067e-8},{h2,-1.0350885213052893e-8},{h3,-4.39612047827458e-10},{h4,-7.026837665183732e-9},{h5,-2.2419496569215868e-8},{h6,-1.470029671437354e-8},{h7,-5.019563109656177e-9},{h8,7.1500823811060336e-9}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>},{h4,<0.53.0>},{h5,<0.54.0>},{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON i2 new connections {[],[],[{{h1,<0.50.0>},-2.1374606350030067e-8},{{h2,<0.51.0>},-1.0350885213052893e-8},{{h3,<0.52.0>},-4.39612047827458e-10},{{h4,<0.53.0>},-7.026837665183732e-9},{{h5,<0.54.0>},-2.2419496569215868e-8},{{h6,<0.55.0>},-1.470029671437354e-8},{{h7,<0.56.0>},-5.019563109656177e-9},{{h8,<0.57.0>},7.1500823811060336e-9}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[],[],[{h1,-3.443057948021051e-8},{h2,-1.6673385868903537e-8},{h3,-7.081348791318288e-10},{h4,-1.1318953083809293e-8},{h5,-3.611370561682235e-8},{h6,-2.3679491349414436e-8},{h7,-8.085600446345008e-9},{h8,1.1517481297616823e-8}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,-3.443057948021051e-8},{h2,-1.6673385868903537e-8},{h3,-7.081348791318288e-10},{h4,-1.1318953083809293e-8},{h5,-3.611370561682235e-8},{h6,-2.3679491349414436e-8},{h7,-8.085600446345008e-9},{h8,1.1517481297616823e-8}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>},{h4,<0.53.0>},{h5,<0.54.0>},{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON i3 new connections {[],[],[{{h1,<0.50.0>},-3.443057948021051e-8},{{h2,<0.51.0>},-1.6673385868903537e-8},{{h3,<0.52.0>},-7.081348791318288e-10},{{h4,<0.53.0>},-1.1318953083809293e-8},{{h5,<0.54.0>},-3.611370561682235e-8},{{h6,<0.55.0>},-2.3679491349414436e-8},{{h7,<0.56.0>},-8.085600446345008e-9},{{h8,<0.57.0>},1.1517481297616823e-8}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[],[],[{h1,-6.493644391814582e-8},{h2,-3.144617811853728e-8},{h3,-1.3355494239934817e-9},{h4,-2.134766103726097e-8},{h5,-6.811083944755355e-8},{h6,-4.465976957454949e-8},{h7,-1.5249524318795625e-8},{h8,2.172208078930152e-8}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,-6.493644391814582e-8},{h2,-3.144617811853728e-8},{h3,-1.3355494239934817e-9},{h4,-2.134766103726097e-8},{h5,-6.811083944755355e-8},{h6,-4.465976957454949e-8},{h7,-1.5249524318795625e-8},{h8,2.172208078930152e-8}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>},{h4,<0.53.0>},{h5,<0.54.0>},{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON i4 new connections {[],[],[{{h1,<0.50.0>},-6.493644391814582e-8},{{h2,<0.51.0>},-3.144617811853728e-8},{{h3,<0.52.0>},-1.3355494239934817e-9},{{h4,<0.53.0>},-2.134766103726097e-8},{{h5,<0.54.0>},-6.811083944755355e-8},{{h6,<0.55.0>},-4.465976957454949e-8},{{h7,<0.56.0>},-1.5249524318795625e-8},{{h8,<0.57.0>},2.172208078930152e-8}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[],[],[{h1,-4.9641392891292986e-8},{h2,-2.4039387418042634e-8},{h3,-1.0209760474266284e-9},{h4,-1.6319462320377828e-8},{h5,-5.206809436797199e-8},{h6,-3.41406650729198e-8},{h7,-1.1657672676503919e-8},{h8,1.660569517916169e-8}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,-4.9641392891292986e-8},{h2,-2.4039387418042634e-8},{h3,-1.0209760474266284e-9},{h4,-1.6319462320377828e-8},{h5,-5.206809436797199e-8},{h6,-3.41406650729198e-8},{h7,-1.1657672676503919e-8},{h8,1.660569517916169e-8}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>},{h4,<0.53.0>},{h5,<0.54.0>},{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON i5 new connections {[],[],[{{h1,<0.50.0>},-4.9641392891292986e-8},{{h2,<0.51.0>},-2.4039387418042634e-8},{{h3,<0.52.0>},-1.0209760474266284e-9},{{h4,<0.53.0>},-1.6319462320377828e-8},{{h5,<0.54.0>},-5.206809436797199e-8},{{h6,<0.55.0>},-3.41406650729198e-8},{{h7,<0.56.0>},-1.1657672676503919e-8},{{h8,<0.57.0>},1.660569517916169e-8}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[],[],[{h1,-3.045494950760234e-8},{h2,-1.474814386203122e-8},{h3,-6.263679989496902e-10},{h4,-1.0011976644354031e-8},{h5,-3.194372835674734e-8},{h6,-2.094526833159431e-8},{h7,-7.151972682528324e-9},{h8,1.0187581588506197e-8}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,-3.045494950760234e-8},{h2,-1.474814386203122e-8},{h3,-6.263679989496902e-10},{h4,-1.0011976644354031e-8},{h5,-3.194372835674734e-8},{h6,-2.094526833159431e-8},{h7,-7.151972682528324e-9},{h8,1.0187581588506197e-8}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>},{h4,<0.53.0>},{h5,<0.54.0>},{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON i6 new connections {[],[],[{{h1,<0.50.0>},-3.045494950760234e-8},{{h2,<0.51.0>},-1.474814386203122e-8},{{h3,<0.52.0>},-6.263679989496902e-10},{{h4,<0.53.0>},-1.0011976644354031e-8},{{h5,<0.54.0>},-3.194372835674734e-8},{{h6,<0.55.0>},-2.094526833159431e-8},{{h7,<0.56.0>},-7.151972682528324e-9},{{h8,<0.57.0>},1.0187581588506197e-8}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[],[],[{h1,-6.337056508334649e-9},{h2,-3.068788428875478e-9},{h3,-1.303343955851494e-10},{h4,-2.0832883070163573e-9},{h5,-6.6468413169240895e-9},{h6,-4.358284291019514e-9},{h7,-1.4881796954456737e-9},{h8,2.119827405608028e-9}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,-6.337056508334649e-9},{h2,-3.068788428875478e-9},{h3,-1.303343955851494e-10},{h4,-2.0832883070163573e-9},{h5,-6.6468413169240895e-9},{h6,-4.358284291019514e-9},{h7,-1.4881796954456737e-9},{h8,2.119827405608028e-9}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>},{h4,<0.53.0>},{h5,<0.54.0>},{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}]\n".
+"[DEBUG][ann] Update connections for hidden".
+"[DEBUG][perceptron] PERCEPTRON i7 new connections {[],[],[{{h1,<0.50.0>},-6.337056508334649e-9},{{h2,<0.51.0>},-3.068788428875478e-9},{{h3,<0.52.0>},-1.303343955851494e-10},{{h4,<0.53.0>},-2.0832883070163573e-9},{{h5,<0.54.0>},-6.6468413169240895e-9},{{h6,<0.55.0>},-4.358284291019514e-9},{{h7,<0.56.0>},-1.4881796954456737e-9},{{h8,<0.57.0>},2.119827405608028e-9}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[0.5974419781908271,0.311326756613161,0.5014904350680832,0.94581636451987,0.7230399282924869,0.4435843401160969,0.09230089279334841],[{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}],[{o1,-0.05629271301047095}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}], SOURCES: [{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]\n".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{o1,-0.05629271301047095}], SOURCES: [{o1,<0.58.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON h1 new connections {[0.5974419781908271,0.311326756613161,0.5014904350680832,0.94581636451987,0.7230399282924869,0.4435843401160969,0.09230089279334841],[{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}],[{{o1,<0.58.0>},-0.05629271301047095}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[0.5974442939684614,0.31132675598504655,0.50149055148508,0.94581636451987,0.7230400440813693,0.44358445590497864,0.09230089279334841],[{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}],[{o1,-0.02726155185474978}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}], SOURCES: [{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]\n".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{o1,-0.02726155185474978}], SOURCES: [{o1,<0.58.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON h2 new connections {[0.5974442939684614,0.31132675598504655,0.50149055148508,0.94581636451987,0.7230400440813693,0.44358445590497864,0.09230089279334841],[{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}],[{{o1,<0.58.0>},-0.02726155185474978}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[0.5974463761351431,0.3113267554202703,0.50149065615819,0.94581636451987,0.7230401481897034,0.4435845600133126,0.09230089279334841],[{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}],[{o1,-0.0011578699304626255}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}], SOURCES: [{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]\n".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{o1,-0.0011578699304626255}], SOURCES: [{o1,<0.58.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON h3 new connections {[0.5974463761351431,0.3113267554202703,0.50149065615819,0.94581636451987,0.7230401481897034,0.4435845600133126,0.09230089279334841],[{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}],[{{o1,<0.58.0>},-0.0011578699304626255}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[0.5974449922777137,0.3113267557956364,0.5014905865899524,0.94581636451987,0.7230400789968316,0.44358449082044105,0.09230089279334841],[{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}],[{o1,-0.018507115693089583}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}], SOURCES: [{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]\n".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{o1,-0.018507115693089583}], SOURCES: [{o1,<0.58.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON h4 new connections {[0.5974449922777137,0.3113267557956364,0.5014905865899524,0.94581636451987,0.7230400789968316,0.44358449082044105,0.09230089279334841],[{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}],[{{o1,<0.58.0>},-0.018507115693089583}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[0.5974417586934851,0.3113267566726942,0.5014904240336828,0.94581636451987,0.7230399173176195,0.4435843291412297,0.09230089279334841],[{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}],[{o1,-0.059044317576489556}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}], SOURCES: [{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]\n".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{o1,-0.059044317576489556}], SOURCES: [{o1,<0.58.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON h5 new connections {[0.5974417586934851,0.3113267566726942,0.5014904240336828,0.94581636451987,0.7230399173176195,0.4435843291412297,0.09230089279334841],[{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}],[{{o1,<0.58.0>},-0.059044317576489556}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[0.5974433802662303,0.31132675623287576,0.5014905055521393,0.94581636451987,0.7230399983962578,0.4435844102198669,0.09230089279334841],[{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}],[{o1,-0.03871610644976042}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}], SOURCES: [{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]\n".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{o1,-0.03871610644976042}], SOURCES: [{o1,<0.58.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON h6 new connections {[0.5974433802662303,0.31132675623287576,0.5014905055521393,0.94581636451987,0.7230399983962578,0.4435844102198669,0.09230089279334841],[{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}],[{{o1,<0.58.0>},-0.03871610644976042}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[0.5974454139662381,0.3113267556812561,0.5014906077887586,0.94581636451987,0.7230401000812575,0.4435845119048673,0.09230089279334841],[{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}],[{o1,-0.013220509815492793}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}], SOURCES: [{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]\n".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{o1,-0.013220509815492793}], SOURCES: [{o1,<0.58.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON h7 new connections {[0.5974454139662381,0.3113267556812561,0.5014906077887586,0.94581636451987,0.7230401000812575,0.4435845119048673,0.09230089279334841],[{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}],[{{o1,<0.58.0>},-0.013220509815492793}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[0.5974479706366722,0.31132675498776374,0.5014907363157735,0.94581636451987,0.7230402279147802,0.44358463973838885,0.09230089279334841],[{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}],[{o1,0.018832775797008632}]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{i1,20},{i2,0},{i3,1},{i4,0},{i5,1},{i6,1},{i7,0}], SOURCES: [{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]\n".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{o1,0.018832775797008632}], SOURCES: [{o1,<0.58.0>}]\n".
+"[DEBUG][ann] Update connections for output".
+"[DEBUG][perceptron] PERCEPTRON h8 new connections {[0.5974479706366722,0.31132675498776374,0.5014907363157735,0.94581636451987,0.7230402279147802,0.44358463973838885,0.09230089279334841],[{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}],[{{o1,<0.58.0>},0.018832775797008632}]}\n".
+"[DEBUG][ann] PERCEPTRON CONNECTIONS: {[0.6170207880048949,0.29881210743076403,0.012691337451942168,0.20285529863383567,0.6471809477628171,0.424364739813998,0.1449091533865933,-0.20642483797908825],[{h1,0.9999987804980003},{h2,0.9999987804976923},{h3,0.9999987804974154},{h4,0.9999987804975995},{h5,0.9999987804980296},{h6,0.999998780497814},{h7,0.9999987804975435},{h8,0.9999987804972036}],[]}  ".
+"[DEBUG][ann] GET CONNECTIONS PIDS ANN TARGET: [{h1,0.9999987804980003},{h2,0.9999987804976923},{h3,0.9999987804974154},{h4,0.9999987804975995},{h5,0.9999987804980296},{h6,0.999998780497814},{h7,0.9999987804975435},{h8,0.9999987804972036}], SOURCES: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>},{h4,<0.53.0>},{h5,<0.54.0>},{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}]\n".
+"[DEBUG][perceptron] PERCEPTRON o1 new connections {[0.6170207880048949,0.29881210743076403,0.012691337451942168,0.20285529863383567,0.6471809477628171,0.424364739813998,0.1449091533865933,-0.20642483797908825],[{{h1,<0.50.0>},0.9999987804980003},{{h2,<0.51.0>},0.9999987804976923},{{h3,<0.52.0>},0.9999987804974154},{{h4,<0.53.0>},0.9999987804975995},{{h5,<0.54.0>},0.9999987804980296},{{h6,<0.55.0>},0.999998780497814},{{h7,<0.56.0>},0.9999987804975435},{{h8,<0.57.0>},0.9999987804972036}],[]}\n".
+"[STATUS][perceptron] Status of Node {i6,<0.48.0>} \n W: []\n I: []\n S: [{{h1,<0.50.0>},-3.045494950760234e-8},{{h2,<0.51.0>},-1.474814386203122e-8},{{h3,<0.52.0>},-6.263679989496902e-10},{{h4,<0.53.0>},-1.0011976644354031e-8},{{h5,<0.54.0>},-3.194372835674734e-8},{{h6,<0.55.0>},-2.094526833159431e-8},{{h7,<0.56.0>},-7.151972682528324e-9},{{h8,<0.57.0>},1.0187581588506197e-8}]".
+"[STATUS][perceptron] Status of Node {i4,<0.46.0>} \n W: []\n I: []\n S: [{{h1,<0.50.0>},-6.493644391814582e-8},{{h2,<0.51.0>},-3.144617811853728e-8},{{h3,<0.52.0>},-1.3355494239934817e-9},{{h4,<0.53.0>},-2.134766103726097e-8},{{h5,<0.54.0>},-6.811083944755355e-8},{{h6,<0.55.0>},-4.465976957454949e-8},{{h7,<0.56.0>},-1.5249524318795625e-8},{{h8,<0.57.0>},2.172208078930152e-8}]".
+"[STATUS][perceptron] Status of Node {i1,<0.43.0>} \n W: []\n I: []\n S: [{{h1,<0.50.0>},-4.101827687325843e-8},{{h2,<0.51.0>},-1.986362299152342e-8},{{h3,<0.52.0>},-8.436301098674007e-10},{{h4,<0.53.0>},-1.3484703439264389e-8},{{h5,<0.54.0>},-4.3023425299151854e-8},{{h6,<0.55.0>},-2.821021574317375e-8},{{h7,<0.56.0>},-9.632692678198703e-9},{{h8,<0.57.0>},1.372128202937368e-8}]".
+"[STATUS][perceptron] Status of Node {i2,<0.44.0>} \n W: []\n I: []\n S: [{{h1,<0.50.0>},-2.1374606350030067e-8},{{h2,<0.51.0>},-1.0350885213052893e-8},{{h3,<0.52.0>},-4.39612047827458e-10},{{h4,<0.53.0>},-7.026837665183732e-9},{{h5,<0.54.0>},-2.2419496569215868e-8},{{h6,<0.55.0>},-1.470029671437354e-8},{{h7,<0.56.0>},-5.019563109656177e-9},{{h8,<0.57.0>},7.1500823811060336e-9}]".
+"[STATUS][perceptron] Status of Node {i3,<0.45.0>} \n W: []\n I: []\n S: [{{h1,<0.50.0>},-3.443057948021051e-8},{{h2,<0.51.0>},-1.6673385868903537e-8},{{h3,<0.52.0>},-7.081348791318288e-10},{{h4,<0.53.0>},-1.1318953083809293e-8},{{h5,<0.54.0>},-3.611370561682235e-8},{{h6,<0.55.0>},-2.3679491349414436e-8},{{h7,<0.56.0>},-8.085600446345008e-9},{{h8,<0.57.0>},1.1517481297616823e-8}]".
+"[STATUS][perceptron] Status of Node {o1,<0.58.0>} \n W: [0.6170207880048949,0.29881210743076403,0.012691337451942168,0.20285529863383567,0.6471809477628171,0.424364739813998,0.1449091533865933,-0.20642483797908825]\n I: [{{h1,<0.50.0>},0.9999987804980003},{{h2,<0.51.0>},0.9999987804976923},{{h3,<0.52.0>},0.9999987804974154},{{h4,<0.53.0>},0.9999987804975995},{{h5,<0.54.0>},0.9999987804980296},{{h6,<0.55.0>},0.999998780497814},{{h7,<0.56.0>},0.9999987804975435},{{h8,<0.57.0>},0.9999987804972036}]\n S: []".
+"[STATUS][perceptron] Status of Node {h8,<0.57.0>} \n W: [0.5974479706366722,0.31132675498776374,0.5014907363157735,0.94581636451987,0.7230402279147802,0.44358463973838885,0.09230089279334841]\n I: [{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}]\n S: [{{o1,<0.58.0>},0.018832775797008632}]".
+"[STATUS][perceptron] Status of Node {h7,<0.56.0>} \n W: [0.5974454139662381,0.3113267556812561,0.5014906077887586,0.94581636451987,0.7230401000812575,0.4435845119048673,0.09230089279334841]\n I: [{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}]\n S: [{{o1,<0.58.0>},-0.013220509815492793}]".
+"[STATUS][perceptron] Status of Node {i5,<0.47.0>} \n W: []\n I: []\n S: [{{h1,<0.50.0>},-4.9641392891292986e-8},{{h2,<0.51.0>},-2.4039387418042634e-8},{{h3,<0.52.0>},-1.0209760474266284e-9},{{h4,<0.53.0>},-1.6319462320377828e-8},{{h5,<0.54.0>},-5.206809436797199e-8},{{h6,<0.55.0>},-3.41406650729198e-8},{{h7,<0.56.0>},-1.1657672676503919e-8},{{h8,<0.57.0>},1.660569517916169e-8}]".
+"[STATUS][perceptron] Status of Node {h6,<0.55.0>} \n W: [0.5974433802662303,0.31132675623287576,0.5014905055521393,0.94581636451987,0.7230399983962578,0.4435844102198669,0.09230089279334841]\n I: [{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}]\n S: [{{o1,<0.58.0>},-0.03871610644976042}]".
+"[STATUS][perceptron] Status of Node {h5,<0.54.0>} \n W: [0.5974417586934851,0.3113267566726942,0.5014904240336828,0.94581636451987,0.7230399173176195,0.4435843291412297,0.09230089279334841]\n I: [{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}]\n S: [{{o1,<0.58.0>},-0.059044317576489556}]".
+"[STATUS][perceptron] Status of Node {h4,<0.53.0>} \n W: [0.5974449922777137,0.3113267557956364,0.5014905865899524,0.94581636451987,0.7230400789968316,0.44358449082044105,0.09230089279334841]\n I: [{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}]\n S: [{{o1,<0.58.0>},-0.018507115693089583}]".
+"[STATUS][perceptron] Status of Node {i7,<0.49.0>} \n W: []\n I: []\n S: [{{h1,<0.50.0>},-6.337056508334649e-9},{{h2,<0.51.0>},-3.068788428875478e-9},{{h3,<0.52.0>},-1.303343955851494e-10},{{h4,<0.53.0>},-2.0832883070163573e-9},{{h5,<0.54.0>},-6.6468413169240895e-9},{{h6,<0.55.0>},-4.358284291019514e-9},{{h7,<0.56.0>},-1.4881796954456737e-9},{{h8,<0.57.0>},2.119827405608028e-9}]".
+"[STATUS][perceptron] Status of Node {h3,<0.52.0>} \n W: [0.5974463761351431,0.3113267554202703,0.50149065615819,0.94581636451987,0.7230401481897034,0.4435845600133126,0.09230089279334841]\n I: [{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}]\n S: [{{o1,<0.58.0>},-0.0011578699304626255}]".
+"[STATUS][perceptron] Status of Node {h1,<0.50.0>} \n W: [0.5974419781908271,0.311326756613161,0.5014904350680832,0.94581636451987,0.7230399282924869,0.4435843401160969,0.09230089279334841]\n I: [{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}]\n S: [{{o1,<0.58.0>},-0.05629271301047095}]".
+"[STATUS][perceptron] Status of Node {h2,<0.51.0>} \n W: [0.5974442939684614,0.31132675598504655,0.50149055148508,0.94581636451987,0.7230400440813693,0.44358445590497864,0.09230089279334841]\n I: [{{i1,<0.43.0>},20},{{i2,<0.44.0>},0},{{i3,<0.45.0>},1},{{i4,<0.46.0>},0},{{i5,<0.47.0>},1},{{i6,<0.48.0>},1},{{i7,<0.49.0>},0}]\n S: [{{o1,<0.58.0>},-0.02726155185474978}]".
+"[DEBUG][trainer_mod] CONTINUING with run for data [{inputs,[20,1,0,0,1,1,0]},{output,[1]}]".
+"[DEBUG][ann] Train network <0.38.0>... Data {train,[{inputs,[20,1,0,0,1,1,0]},{output,[1]}]}\n".
+"[DEBUG][ann] SENDING INPUTS\n".
+"[DEBUG][ann] Sending inputs according mode train . Data [{inputs,[20,1,0,0,1,1,0]},{output,[1]}]".
+"[DEBUG][ann] Neuron: i1 pass val: 20".
+"[DEBUG][ann] Neuron: i2 pass val: 1".
+"[DEBUG][perceptron] Propagating input 20 ".
+"[DEBUG][ann] Neuron: i3 pass val: 0".
+"[DEBUG][ann] Neuron: i4 pass val: 0".
+"[DEBUG][ann] Neuron: i5 pass val: 1".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 20".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][ann] Neuron: i6 pass val: 1".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][ann] Neuron: i7 pass val: 0".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][ann] All inputs passed to neurons".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][ann] FINISH Sending inputs\n".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987803608077".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.999998780417719".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987804688868".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987803608077".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.999998780417719".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987804688868".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987804348797".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999991066451059".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999991066867915".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999991067242703".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987804348797".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987803554132".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249107536".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.999998524979412".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250411417".
+"[DEBUG][perceptron] Stimulating <0.56.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999991066993612".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987803554132".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249107536".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.999998524979412".
+"[DEBUG][perceptron] Stimulating <0.56.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.56.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250411417".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250001151".
+"[DEBUG][perceptron] Stimulating <0.57.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999991066411548".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249107536".
+"[DEBUG][perceptron] Stimulating <0.56.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.57.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.999998524979412".
+"[DEBUG][perceptron] Stimulating <0.56.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.57.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250411417".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249042457".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249042457".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249042457".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249042457".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250411417".
+"[DEBUG][perceptron] Stimulating <0.57.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987805080693".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987804452425".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987803952646".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987805080693".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987804452425".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987803952646".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.99999910675297".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999991067069516".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999991066703444".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.99999910675297".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249523229".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250126169".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249523229".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.999998524979412".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250001151".
+"[DEBUG][perceptron] Stimulating <0.56.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250126169".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249107536".
+"[DEBUG][perceptron] Stimulating <0.57.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249523229".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250001151".
+"[DEBUG][perceptron] Stimulating <0.57.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.56.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250126169".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249523229".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.999998525088412".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250001151".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250126169".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.999998525088412".
+"[DEBUG][perceptron] Stimulating <0.57.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.999998525088412".
+"[DEBUG][trainer_mod] CONTINUING with run for data [{inputs,[20,0,1,0,1,1,0]},{output,[0]}]".
+"[DEBUG][ann] Train network <0.38.0>... Data {train,[{inputs,[20,0,1,0,1,1,0]},{output,[0]}]}\n".
+"[DEBUG][ann] SENDING INPUTS\n".
+"[DEBUG][ann] Sending inputs according mode train . Data [{inputs,[20,0,1,0,1,1,0]},{output,[0]}]".
+"[DEBUG][ann] Neuron: i1 pass val: 20".
+"[DEBUG][perceptron] Propagating input 20 ".
+"[DEBUG][ann] Neuron: i2 pass val: 0".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 20".
+"[DEBUG][ann] Neuron: i3 pass val: 1".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 20".
+"[DEBUG][ann] Neuron: i4 pass val: 0".
+"[DEBUG][ann] Neuron: i5 pass val: 1".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 20".
+"[DEBUG][ann] Neuron: i6 pass val: 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250013879".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 20".
+"[DEBUG][ann] Neuron: i7 pass val: 0".
+"[DEBUG][ann] All inputs passed to neurons".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 20".
+"[DEBUG][ann] FINISH Sending inputs\n".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.56.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.57.0> with 20".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250013879".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.56.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.57.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250774197".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250774197".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249824926".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249824926".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250158288".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250444464".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250158288".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250444464".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Propagating input 1 ".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249489582".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250245491".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Propagating input 0 ".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249489582".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250245491".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250013879".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249534975".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.50.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250444464".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250013879".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249534975".
+"[DEBUG][perceptron] Stimulating <0.51.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250158288".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250444464".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250013879".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249534975".
+"[DEBUG][perceptron] Stimulating <0.52.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250158288".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249489582".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999991067001006".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250444464".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249534975".
+"[DEBUG][perceptron] Stimulating <0.53.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.56.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249824926".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250158288".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249489582".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.999998780435844".
+"[DEBUG][perceptron] Stimulating <0.56.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999991067262716".
+"[DEBUG][perceptron] Stimulating <0.56.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.56.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249534975".
+"[DEBUG][perceptron] Stimulating <0.54.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250245491".
+"[DEBUG][perceptron] Stimulating <0.57.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999991067088777".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249824926".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249489582".
+"[DEBUG][perceptron] Stimulating <0.57.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987804716124".
+"[DEBUG][perceptron] Stimulating <0.57.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.57.0> with 1".
+"[DEBUG][perceptron] Stimulating <0.55.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999991066709928".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250245491".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250774197".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987804478399".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985249824926".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999991066682339".
+"[DEBUG][perceptron] Stimulating <0.56.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987803960617".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250245491".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250774197".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.999999106688616".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.999998780392291".
+"[DEBUG][perceptron] Stimulating <0.57.0> with 0".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999991067141779".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999985250774197".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987804201477".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999987804550838".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.9999991067463126".
+"[DEBUG][perceptron] Stimulating <0.58.0> with 0.999998780499003".
+"[DEBUG][ann] Saving training of layers [{input,[{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]},{hidden,[{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>},{h4,<0.53.0>},{h5,<0.54.0>},{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}]},{output,[{o1,<0.58.0>}]}]\n".
+"[DEBUG][ann] Saving Layer input: [{i1,<0.43.0>},{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}] on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"\n".
+"[DEBUG][ann] Saving neuron i1: <0.43.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i2,<0.44.0>},{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]".
+"[DEBUG][ann] Saving neuron i2: <0.44.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i3,<0.45.0>},{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]".
+"[DEBUG][ann] Saving neuron i3: <0.45.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i4,<0.46.0>},{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]".
+"[DEBUG][ann] Saving neuron i4: <0.46.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i5,<0.47.0>},{i6,<0.48.0>},{i7,<0.49.0>}]".
+"[DEBUG][ann] Saving neuron i5: <0.47.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i6,<0.48.0>},{i7,<0.49.0>}]".
+"[DEBUG][ann] Saving neuron i6: <0.48.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{i7,<0.49.0>}]".
+"[DEBUG][ann] Saving neuron i7: <0.49.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next []".
+"[DEBUG][ann] No more neurons to save".
+"[DEBUG][ann] Saving Layer hidden: [{h1,<0.50.0>},{h2,<0.51.0>},{h3,<0.52.0>},{h4,<0.53.0>},{h5,<0.54.0>},{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}] on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"\n".
+"[DEBUG][ann] Saving neuron h1: <0.50.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h2,<0.51.0>},{h3,<0.52.0>},{h4,<0.53.0>},{h5,<0.54.0>},{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}]".
+"[DEBUG][ann] Saving neuron h2: <0.51.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h3,<0.52.0>},{h4,<0.53.0>},{h5,<0.54.0>},{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}]".
+"[DEBUG][ann] Saving neuron h3: <0.52.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h4,<0.53.0>},{h5,<0.54.0>},{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}]".
+"[DEBUG][ann] Saving neuron h4: <0.53.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h5,<0.54.0>},{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}]".
+"[DEBUG][ann] Saving neuron h5: <0.54.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h6,<0.55.0>},{h7,<0.56.0>},{h8,<0.57.0>}]".
+"[DEBUG][ann] Saving neuron h6: <0.55.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h7,<0.56.0>},{h8,<0.57.0>}]".
+"[DEBUG][ann] Saving neuron h7: <0.56.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next [{h8,<0.57.0>}]".
+"[DEBUG][ann] Saving neuron h8: <0.57.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next []".
+"[DEBUG][ann] No more neurons to save".
+"[DEBUG][ann] Saving Layer output: [{o1,<0.58.0>}] on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"\n".
+"[DEBUG][ann] Saving neuron o1: <0.58.0> on \"/home/mag/nn-traffic-net/simulation/ann/checkpoint/nn_saving/nn_saving_trainer_ann.txt\"".
+"[DEBUG][ann] Saving neuron result {ok,saved}. Next []".
+"[DEBUG][ann] No more neurons to save".

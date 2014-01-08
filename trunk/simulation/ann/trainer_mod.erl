@@ -133,7 +133,8 @@ train(TrainerID, NN, [Data | TrainingData], CheckpointLog, BeginTime) ->
 				%%CONTINUE TO TRAIN
 				Res = ann:input_set(NN, {train, Data}),
 				case Res of
-					{reply, ok} ->	train(TrainerID, NN,  TrainingData, CheckpointLog, BeginTime);
+					{reply, ok} ->	timer:sleep(600),	
+									train(TrainerID, NN,  TrainingData, CheckpointLog, BeginTime);
 					_Other -> {error, unspected}
 				end;
 		true ->
