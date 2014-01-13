@@ -73,6 +73,8 @@ init({normal, TrainerID}) ->
 	delete_old([FormatLog]),
 	
 	NewCheckpointLog = {FormatLog, NNFile},
+	
+	timer:sleep(300),
 	update_dm(NN, NNFile, TrainerID),
 		
 	%train(TrainerID,NN, TrainingData, NewCheckpointLog, now()).
@@ -88,6 +90,7 @@ create_dm(Config) ->
 
 update_dm(NN, NNFile, TrainerID)->
 	NewNNFile = format_dm_file(NNFile, TrainerID),
+	io:format("calling update_file ~n"),
 	NN ! {update_file, NewNNFile}.
 
 restore_dm(NNFile, TrainerID) ->
@@ -133,7 +136,7 @@ train(TrainerID, NN, [Data | TrainingData], CheckpointLog, BeginTime) ->
 				%%CONTINUE TO TRAIN
 				Res = ann:input_set(NN, {train, Data}),
 				case Res of
-					{reply, ok} ->	timer:sleep(500),	
+					{reply, ok} ->	timer:sleep(600),	
 									train(TrainerID, NN,  TrainingData, CheckpointLog, BeginTime);
 					_Other -> {error, unspected}
 				end;

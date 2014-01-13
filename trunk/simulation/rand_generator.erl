@@ -1,0 +1,117 @@
+-module(rand_generator).
+-export([start/1, next_neuron_weight/1, next_bias_weight/1, gen_biases/2, reset_weights/2, get_random_weight/1]).
+
+-export([init/1]).
+
+start(Args) ->
+	spawn(rand_generator, init, [Args]).
+
+init(_Args) ->
+	InitWeights = get_random_weights(1, "initWeights.txt"),
+	set_random_seed(),
+	listen(InitWeights, queue:new()).
+	
+listen(WeightsQueue, BiasQueue) ->
+	receive
+		{dummy_weight, CallerPid} ->
+			reply(CallerPid, random:uniform()),
+			listen(WeightsQueue, BiasQueue);
+		{next, weight, CallerPid} ->
+			{NextVal, NewQueue} = get_next(WeightsQueue),
+			reply(CallerPid, NextVal),
+			listen(NewQueue, BiasQueue);
+		{next, bias, CallerPid} ->
+			{NextVal, NewQueue} = get_next(BiasQueue),
+			reply(CallerPid, NextVal),
+			listen(WeightsQueue, NewQueue);
+		{gen_bias, Beta, File} ->
+			NewBiasQueue = get_random_weights(Beta, File),
+			listen(WeightsQueue, NewBiasQueue);
+		{reset_weights, Limit} ->
+			ResetedWeights = get_random_weights(Limit, "initWeights.txt"),
+			listen(ResetedWeights, BiasQueue);
+		status ->
+			LenW = queue:len(WeightsQueue),
+			LenB = queue:len(BiasQueue),
+			
+			io:format("Remaining Weights: ~w   Remaining Biases: ~w~n",[LenW, LenB]),
+			io:format("WeightsQueue: ~n~w~n~n  BiasesQueue: ~n~w~n~n",[WeightsQueue, BiasQueue]),
+			listen(WeightsQueue, BiasQueue);
+		stop ->
+			{normal, rand_generator}			
+	end.
+	
+
+get_next(Queue) ->
+	IsEmpty = queue:is_empty(Queue),
+	if 
+		 IsEmpty =:= false ->
+			{queue:get(Queue), queue:drop(Queue)};
+		true ->
+			{random:uniform(), Queue}
+	end.
+
+%%INPUT: Beta = Nguyen-Widrow Beta Value
+%%Output: None
+%%DESC: Run a C++ program to write to a file
+%% 		list of uniform random values between -|Beta| and |Beta|
+nguyen_widrow_random_weights(Beta, File) ->
+	{OsFamily, _OsName} = os:type(),
+	if 	OsFamily =:= win32 ->
+			%is windows
+			io:format("OS Windows"),
+			Cmd = lists:flatten(io_lib:format("initWeights.exe ~w ~p",[Beta, File])),
+			os:cmd(Cmd);
+		true ->
+			io:format("OS ~w~n",[OsFamily]),
+			Cmd = lists:flatten(io_lib:format("./initWeights ~w ~p",[Beta, File])),
+			os:cmd(Cmd)
+	end.
+
+%%DESC: return list of weights
+get_random_weights(Beta, File) ->
+	nguyen_widrow_random_weights(Beta, File),
+	Weights = filemanager:get_data("/" ++ File),
+	queue:from_list(Weights).
+	
+reply (Pid, Reply) ->
+    Pid ! {reply, Reply}.
+
+
+%% Generate random obstrucctions on streets
+set_random_seed() ->
+	{A1,A2,A3} = now(), 
+	random:seed(A1, A2, A3).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%client interface functions%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+next_neuron_weight(GeneratorPid) ->
+	GeneratorPid ! {next, weight, self()},
+	receive
+		{reply, Value} -> Value;
+		Other -> io:format("Other: ~w", [Other]),
+					error_Wi
+	end.
+	
+next_bias_weight(GeneratorPid) ->
+	GeneratorPid ! {next, bias, self()},
+	receive
+		{reply, Value} -> Value;
+		_Other -> error_Bi
+	end.
+	
+gen_biases(GeneratorPid, Beta) ->
+	GeneratorPid ! {gen_bias, Beta, "initBiases.txt"},
+	ok.
+	
+reset_weights(GeneratorPid, Limit) ->
+	GeneratorPid ! {reset_weights, Limit},
+	reseted.
+	
+get_random_weight(GeneratorPid) ->
+	GeneratorPid ! {dummy_weight, self()},
+	receive
+		{reply, Value} -> Value;
+		_Other -> error
+	end.

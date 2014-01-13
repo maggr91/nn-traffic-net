@@ -1,34 +1,31 @@
--module(perceptron).
--export([perceptron/5, sigmoid/1, dot_prod/2, feed_forward/3, replace_input/2, convert_to_list/1, connect_neuron/2]).
-%%client interface
--export([start/1, save/3, update_connections/2, get_connections/1, init/1, reverse_connections/1]).
+-module(bias).
+-export([test/0, nguyen_widrow_random_weights/2, bias/4, replace_input/2, convert_to_list/1, connect_neuron/2]).
 
-start(Args) ->
-	spawn(perceptron, init, [Args]).
+test() ->
+	L = [1,2,3,4,5,6,7,8],
+	test(L).
 	
-init({NeuronId,Weights,Inputs,Sensitivites, Bias}) ->
-	perceptron(NeuronId,Weights,Inputs,Sensitivites, Bias);
+test([]) ->
+	io:format("Finished list~n");
+test([I | Tail]) ->
+	io:format("Calling before sleep ~n"),
+	timer:sleep(2000),
+	io:format("Calling after sleep for ~w~n", [I]),
+	test(Tail).
 	
-init(NeuronId) ->
-	Layer = atom_to_list(NeuronId),
-	LayerType = string:substr(Layer,1,1),
-	if 
-		LayerType =/= "i" ->
-			Wbi = get_random_weight(),
-			perceptron(NeuronId,[],[],[],{Wbi, 1});
-		true -> 
-			perceptron(NeuronId,[],[],[],null)
+nguyen_widrow_random_weights(Beta, File) ->
+	{OsFamily, _OsName} = os:type(),
+	if 	OsFamily =:= win32 ->
+			%is windows
+			io:format("OS Windows"),
+			Cmd = lists:flatten(io_lib:format("initWeights.exe ~w ~p",[Beta, File])),
+			os:cmd(Cmd);
+		true ->
+			io:format("OS ~w~n",[OsFamily]),
+			Cmd = lists:flatten(io_lib:format("./initWeights ~w ~p",[Beta, File])),
+			os:cmd(Cmd)
 	end.
-
-dot_prod([],[]) ->
-	0;
-dot_prod(Weights, Inputs) ->
-	dot_prod(Weights, Inputs, 0).
-dot_prod([] , [], Sum) ->
-	Sum;
-dot_prod([Wj | WTail] , [Xi | XTail], Sum) ->
-	dot_prod(WTail, XTail, Sum + Wj * Xi).
-
+	
 %% The next dot product sum, first applies the product and after that sum all
 %% VERIFICAR INEFICIENCIA YA QUE TIENE QUE RECORRER LA LISTA DOS VECES 
 %% UNA PARA MULTIPLICAR Y OTRA PARA SUMAR
@@ -41,24 +38,10 @@ dot_product(X, Y) ->
 	lists:foldl(fun(Element, Sum) -> Element + Sum end, 0,
 		vector_map(fun(ElementX, ElementY) -> ElementX * ElementY end, X, Y)).
 		
-sigmoid(X) ->
-	1 / (1 + math:exp(-X)).
-		
-%%feed_forward(Weights, Inputs) ->
-%%	sigmoid(dot_product(Weights, Inputs)).
-
-%%sigmoid_dx(X) ->
-%%	math:exp(-X) / (1 + math:exp(-2 * X)).
-%%feed_forward_dx(Weights, Inputs) ->
-%%	sigmoid_dx(dot_product(Weights, Inputs)).
-	
 feed_forward(Func, Weights, Inputs) ->
 	Func(dot_product(Weights, Inputs)).
 	
-feed_forward(Func, Weights, Inputs, WeightBias) ->
-	Func(dot_product(Weights, Inputs) + WeightBias).
-	
-perceptron(LayerId, Weights, Inputs, Sensitivities, Bias) ->
+bias(LayerId, Weights, Inputs, Sensitivities) ->
 	Sigmoid = 	fun(X) ->
 					1 / (1 + math:exp(-X))
 				end,
@@ -74,8 +57,7 @@ perceptron(LayerId, Weights, Inputs, Sensitivities, Bias) ->
 			
 			%%calculate output of the perceptron
 			%io:format("Calculate new output on ~w for ~w~n", [{LayerId,self()}, {Sigmoid, Weights, convert_to_values(New_Inputs)}]),
-			{WeightBias, _InputBias} = Bias,
-			Output = feed_forward(Sigmoid, Weights, convert_to_values(New_Inputs), WeightBias),
+			Output = feed_forward(Sigmoid, Weights, convert_to_values(New_Inputs)),
 			%io:format("New output ~w on ~w~n", [Output, {LayerId,self()}]),
 			
 			%%stimulate next layer
@@ -110,38 +92,30 @@ perceptron(LayerId, Weights, Inputs, Sensitivities, Bias) ->
 						{false, null} -> true
 					end								
 			end,
-			perceptron(LayerId,Weights, New_Inputs, Sensitivities, Bias);
-		{connect_input, SenderNeuron_PID, Wi} ->
+			perceptron(LayerId,Weights, New_Inputs, Sensitivities);
+		{connect_input, SenderNeuron_PID} ->
 			NewInputs = [{SenderNeuron_PID, 0.5} | Inputs],
 			%io:format("~w output connected to ~w: ~w~n", [{LayerId,self()}, SenderNeuron_PID, NewInputs]),
-			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] ~w output connected to ~w: ~w", [?MODULE, {LayerId,self()}, SenderNeuron_PID, NewInputs])),			
-			perceptron(LayerId, [Wi | Weights], NewInputs, Sensitivities, Bias);
+			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] ~w output connected to ~w: ~w", [?MODULE, {LayerId,self()}, SenderNeuron_PID, NewInputs])),
+			perceptron(LayerId, [0.5 | Weights], NewInputs, Sensitivities);
 		{connecto_output, ReceiverNeuron_PID} ->
 			NewOutput_PIDs = [{ReceiverNeuron_PID, 0} | Sensitivities],
 			%io:format("~w output connected to ~w: ~w~n", [{LayerId,self()}, ReceiverNeuron_PID, NewOutput_PIDs]),
 			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] ~w output connected to ~w: ~w", [?MODULE, {LayerId,self()}, ReceiverNeuron_PID, NewOutput_PIDs])),
-			perceptron(LayerId, Weights, Inputs, NewOutput_PIDs, Bias);
+			perceptron(LayerId, Weights, Inputs, NewOutput_PIDs);
 		{propagate, Input, IsTraining} ->
 			%io:format("Propagating input ~w ~n", [Input]),
 			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] Propagating input ~w ", [?MODULE, Input])),
 			stimulate_next_layer(LayerId, convert_to_keys(Sensitivities), Input, IsTraining),
-			perceptron(LayerId, Weights, Inputs, Sensitivities, Bias);
+			perceptron(LayerId, Weights, Inputs, Sensitivities);
 		{learn, Backprop} ->
 			LearnRate = 0.2,
 			
 			%%get the new sensitivites
 			NewSensitivites = add_sensitivity(Sensitivities, Backprop),
 			%%calculate output of the perceptron
-			Output = feed_forward(Sigmoid, Weights, convert_to_values(Inputs)),
-			
-			WeightBias = 
-			if Bias =/= null ->
-				{Weight, _InputBias} = Bias,
-				Weight;
-			   true -> 0
-			end,
-				
-			DxValue = feed_forward(Sigmoid_dx, Weights, convert_to_values(Inputs), WeightBias),
+			Output = feed_forward(Sigmoid, Weights, convert_to_values(Inputs)),			
+			DxValue = feed_forward(Sigmoid_dx, Weights, convert_to_values(Inputs)),
 			Sensitivity = calculate_sensitivity(Backprop, Inputs, NewSensitivites, Output, DxValue),
 			
 			%io:format("(~w) New Sensitivities: ~w~n", [{LayerId,self()}, NewSensitivites]),
@@ -153,15 +127,6 @@ perceptron(LayerId, Weights, Inputs, Sensitivities, Bias) ->
 									   end,
 									   convert_to_values(Inputs)),
 			NewWeights = vector_map(fun(W, D) -> W + D end, Weights, WeightDif),
-			
-			%%Update bias weight
-			NewBias = 
-				if Bias =/= null ->
-					{BiasWeight, BiasInp} = Bias,
-					{BiasWeight + (LearnRate * Sensitivity), BiasInp};
-				   true -> Bias
-				end,
-			
 			%io:format("(~w) Adjusted Weights: ~w~n", [{LayerId,self()}, NewWeights]),
 			
 			%%propagate value and weights to previous layer
@@ -170,42 +135,36 @@ perceptron(LayerId, Weights, Inputs, Sensitivities, Bias) ->
 					   end,
 					   NewWeights, 
 					   convert_to_keys(Inputs)),
-			perceptron(LayerId, NewWeights, Inputs, NewSensitivites, NewBias);
+			perceptron(LayerId, NewWeights, Inputs, NewSensitivites);
 		{status} ->
 			io:format("Status of Node ~w ~n W: ~w~n I: ~w~n S: ~w~n",[{LayerId,self()}, Weights, Inputs, Sensitivities]),
 			logger:debug_ann(loggerId, io_lib:format("[STATUS][~w] Status of Node ~w ~n W: ~w~n I: ~w~n S: ~w",[?MODULE, {LayerId,self()}, Weights, Inputs, Sensitivities])),
-			perceptron(LayerId, Weights, Inputs, Sensitivities, Bias);
+			perceptron(LayerId, Weights, Inputs, Sensitivities);
 		{get_connections, CallerPid} ->
-			reply(CallerPid, {Weights, Inputs, Sensitivities,Bias}),
-			perceptron(LayerId, Weights, Inputs, Sensitivities, Bias);
+			reply(CallerPid, {Weights, Inputs, Sensitivities}),
+			perceptron(LayerId, Weights, Inputs, Sensitivities);
 		{get_id, CallerPid} ->
 			reply(CallerPid, LayerId),
-			perceptron(LayerId, Weights, Inputs, Sensitivities, Bias);
+			perceptron(LayerId, Weights, Inputs, Sensitivities);
 		{update_connections, Data} ->
 			%io:format("Update incoming~n"),
-			{NewWeights, NewInputs, NewSensitivities, NewBias} = Data,
+			{NewWeights, NewInputs, NewSensitivities} = Data,
 			%io:format("PERCEPTRON ~w new connections ~w~n", [LayerId, {NewWeights, NewInputs, NewSensitivities}]),
-			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] PERCEPTRON ~w new connections ~w~n", [?MODULE, LayerId, {NewWeights, NewInputs, NewSensitivities, NewBias}])),
-			perceptron(LayerId, NewWeights, NewInputs, NewSensitivities, NewBias);
+			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] PERCEPTRON ~w new connections ~w~n", [?MODULE, LayerId, {NewWeights, NewInputs, NewSensitivities}])),
+			perceptron(LayerId, NewWeights, NewInputs, NewSensitivities);
 		{checkpoint, CallerPid, LogData} ->
-			save_training(LayerId, Weights, Inputs, Sensitivities,Bias, LogData),
+			save_training(LayerId, Weights, Inputs, Sensitivities, LogData),
 			reply(CallerPid, saved),
-			perceptron(LayerId, Weights, Inputs, Sensitivities, Bias);
+			perceptron(LayerId, Weights, Inputs, Sensitivities);
 		{save_training, CallerPid, LogData} ->
-			save_training(LayerId, Weights, Inputs, Sensitivities,Bias, LogData),
+			save_training(LayerId, Weights, Inputs, Sensitivities, LogData),
 			reply(CallerPid, saved),
-			{normal, ok};
-		{reverse_connections, _CallerPid} -> %% used just to revert order of connections
-			NewWeights = lists:reverse(Weights),
-			NewInputs = lists:reverse(Inputs),
-			NewSensitivities = lists:reverse(Sensitivities),
-			perceptron(LayerId, NewWeights, NewInputs, NewSensitivities, Bias)
+			{normal, ok}
 	end.
 	
 connect_neuron({SenderId, SenderNeuron_PID}, {ReceiverId, ReceiverNeuron_PID}) ->
-	Wi = get_neuron_random_weight(),
 	SenderNeuron_PID ! {connecto_output, {ReceiverId, ReceiverNeuron_PID}},
-	ReceiverNeuron_PID ! {connect_input, {SenderId, SenderNeuron_PID}, Wi}.
+	ReceiverNeuron_PID ! {connect_input, {SenderId, SenderNeuron_PID}}.
 	
 replace_input(Inputs, Input) ->
 	{Input_PID, _} = Input,
@@ -262,12 +221,12 @@ calculate_sensitivity(_Backprop, Inputs, Sensitivities, _Output, DxValue)
 reply (Pid, Reply) ->
     Pid ! {reply, Reply}.
 
-save_training(LayerId, Weights, Inputs, Sensitivities,Bias, LogData) ->
+save_training(LayerId, Weights, Inputs, Sensitivities, LogData) ->
 	IdAux = atom_to_list(LayerId),
 	[Tmp | _Nothing] = IdAux,
 	FormatInput = format_connections_saving(Inputs),
 	FormatSens = format_connections_saving(Sensitivities),
-	filemanager:write_raw(LogData, io_lib:format("~w",[{LayerId, list_to_atom([Tmp]), Weights, FormatInput, FormatSens, Bias}])).
+	filemanager:write_raw(LogData, io_lib:format("~w",[{LayerId, list_to_atom([Tmp]), Weights, FormatInput, FormatSens}])).
 
 %%give format to inputs o sensitivities
 format_connections_saving(Layer) ->
@@ -301,24 +260,7 @@ logger(NeuronId, Output, DesiredOutput) ->
     Log = Cwd ++ "/logs/nn_train_log.txt",    
     filemanager:write_result(Log, io_lib:format("NeuronId ~w output: ~w ... Desired output: ~w",[NeuronId,Output, DesiredOutput])),
     true.
- 
-%%===========================================
-%%===========================================
-%% NYUGEN - WIDROW WEIGHT INIT
-get_random_weight() ->
-	Wi =
-		try
-			rand_generator:get_random_weight(randGen)
-		catch 
-			Exception:Reason -> io:format("NO RandGenerator was found. Exception ~p , Reason ~p ~n",[Exception, Reason]),
-								register(randGen, rand_generator:start({})),
-								rand_generator:get_random_weight(randGen)
-    	end,
-    Wi.
     
-get_neuron_random_weight() ->
-	rand_generator:next_neuron_weight(randGen).
-   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%client interface functions%%%%%%%%%%%
 
@@ -343,12 +285,8 @@ update_connections(NeuronPid, Data) ->
 get_connections(NeuronPid) ->
 	NeuronPid ! {get_connections, self()},
 	receive
-		{reply, {Weights, Inputs, Sensitivities, Bias}} ->
-			{ok, {Weights, Inputs, Sensitivities, Bias}};
-		Other ->
-			{error, Other}
+		{reply, {Weights, Inputs, Sensitivities}} ->
+			{ok, {Weights, Inputs, Sensitivities}};
+		_Other ->
+			{error, []}
 	end.
-	
-reverse_connections(NeuronPid) ->
-	NeuronPid ! {reverse_connections, self()},
-	{ok, revert}.
