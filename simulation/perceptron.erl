@@ -127,12 +127,7 @@ perceptron(LayerId, Weights, Inputs, Sensitivities, Bias) ->
 			stimulate_next_layer(LayerId, convert_to_keys(Sensitivities), Input, IsTraining),
 			perceptron(LayerId, Weights, Inputs, Sensitivities, Bias);
 		{learn, Backprop} ->
-			LearnRate = 0.2,
-			
-			%%get the new sensitivites
-			NewSensitivites = add_sensitivity(Sensitivities, Backprop),
-			%%calculate output of the perceptron
-			Output = feed_forward(Sigmoid, Weights, convert_to_values(Inputs)),
+			LearnRate = 0.5,
 			
 			WeightBias = 
 			if Bias =/= null ->
@@ -140,6 +135,11 @@ perceptron(LayerId, Weights, Inputs, Sensitivities, Bias) ->
 				Weight;
 			   true -> 0
 			end,
+			
+			%%get the new sensitivites
+			NewSensitivites = add_sensitivity(Sensitivities, Backprop),
+			%%calculate output of the perceptron
+			Output = feed_forward(Sigmoid, Weights, convert_to_values(Inputs), WeightBias),			
 				
 			DxValue = feed_forward(Sigmoid_dx, Weights, convert_to_values(Inputs), WeightBias),
 			Sensitivity = calculate_sensitivity(Backprop, Inputs, NewSensitivites, Output, DxValue),
