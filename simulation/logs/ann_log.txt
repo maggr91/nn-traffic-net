@@ -1,0 +1,1 @@
+"[STATUS][perceptron] Status of Node {i1,<0.38.0>} \n W: []\n I: []\n S: []".

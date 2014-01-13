@@ -4,13 +4,17 @@
 -export([init/1, init/3]).
 
 start(Args)->
+	register(randGen, rand_generator:start({})),
 	filelib:ensure_dir("logs/"),
-	perceptron:set_random_seed(),
+	%perceptron:set_random_seed(),	
+	%nguyen_widrow_random_weights(1, "initWeights.txt"),
 	spawn(ann, init, [Args]).
 	
 start(Input, Hiden, Output) ->
+	register(randGen, rand_generator:start({})),
 	filelib:ensure_dir("logs/"),
-	perceptron:set_random_seed(),
+	%perceptron:set_random_seed(),	
+	%nguyen_widrow_random_weights(1, "initWeights.txt"),
 	spawn(ann, init, [Input, Hiden, Output]).
 
 init(NNFile) ->
@@ -64,12 +68,12 @@ update_connections_aux([], _LayerA, _LayerB) ->
 update_connections_aux([{_NeuronId, NeuronPid} | NeuronsTail], LayerInput, LayerSensitivities) ->
 	Res = perceptron:get_connections(NeuronPid),
 	case Res of
-		{ok, {Weights, Inputs, Sensitivities}} ->	
+		{ok, {Weights, Inputs, Sensitivities, Bias}} ->	
 			%io:format("PERCEPTRON CONNECTIONS: ~w  ",[{Weights, Inputs, Sensitivities}]),
-			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] PERCEPTRON CONNECTIONS: ~w  ",[?MODULE, {Weights, Inputs, Sensitivities}])),
+			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] PERCEPTRON CONNECTIONS: ~w  ",[?MODULE, {Weights, Inputs, Sensitivities, Bias}])),
 			NewInputs = get_connections_pids(Inputs, LayerInput),
 			NewSensitivities = get_connections_pids(Sensitivities, LayerSensitivities),
-			perceptron:update_connections(NeuronPid, {Weights, NewInputs, NewSensitivities}),
+			perceptron:update_connections(NeuronPid, {Weights, NewInputs, NewSensitivities, Bias}),
 			update_connections_aux(NeuronsTail, LayerInput, LayerSensitivities);
 		_Other ->
 			{error, []}			
@@ -120,7 +124,12 @@ load_layers(Input, Hiden, Output) ->
 	io:format("Input: ~w~n Hidden: ~w~n Output: ~w~n", [InputLay, HiddenLay, OutputLay]),
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] Input: ~w~n Hidden: ~w~n Output: ~w~n", [?MODULE, InputLay, HiddenLay, OutputLay])),
 	connect_all({InputLay, HiddenLay, OutputLay}),
-	[{input, lists:reverse(InputLay)},{hidden, lists:reverse(HiddenLay)},{output, lists:reverse(OutputLay)}].
+	
+	%%set init weights values for the NN using NGUYEN-WIDROW
+	nguyen_widrow(InputLay, HiddenLay, OutputLay),
+	
+	%[{input, lists:reverse(InputLay)},{hidden, lists:reverse(HiddenLay)},{output, lists:reverse(OutputLay)}].
+	[{input, InputLay},{hidden, HiddenLay},{output, OutputLay}].
 
 %% When loading a network from 0
 layer_from_scratch(LayerConfig) ->
@@ -131,7 +140,7 @@ layer_from_scratch({Type, Max},Index, Layer) when Index =< Max->
 	%NeuronPid = spawn(perceptron, perceptron, [NeuronId,[],[],[],{0.5, 1}]),
 	layer_from_scratch({Type, Max},Index + 1, [{NeuronId, NeuronPid} | Layer]);
 layer_from_scratch(_LayerConfig, _Index, Layer) ->
-	Layer.
+	lists:reverse(Layer).
 
 %%create connection between the new layers
 connect_all({Input, Hidden, Output}) ->
@@ -140,7 +149,9 @@ connect_all({Input, Hidden, Output}) ->
 	connect_layers(Input, Hidden),
 	%io:format("Connecting... Hidden: ~w~n  with Output: ~w~n", [Hidden,Output]),
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] Connecting... Hidden: ~w~n  with Output: ~w~n", [?MODULE, Hidden,Output])),
-	connect_layers(Hidden, Output).
+	connect_layers(Hidden, Output), 
+	timer:sleep(200),
+	fix_connections({Input, Hidden, Output}).
 
 connect_layers(_SenderLayer, []) ->
 	{ok, []};
@@ -152,8 +163,15 @@ connect_layers(SenderLayer, [ReceiverNeuron | ReceiverTail]) ->
 			 ),
 	connect_layers(SenderLayer, ReceiverTail).
 				
-
-
+%% just reverse every connection for the neuron
+fix_connections({Input, Hidden, Output}) ->
+	FullList = lists:append([Input, Hidden, Output]),
+	lists:map(fun({_NeuronId, NeuronPid}) ->
+				perceptron:reverse_connections(NeuronPid)
+			  end,
+			  FullList
+			 ).
+	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
@@ -182,6 +200,7 @@ network(Layers, NNFile) ->
 			reply(CallerPid, ended),
 			network(Layers, NNFile);
 		{update_file, NewNNFile} ->
+			io:format("Updating NNFILe"),
 			network(Layers, NewNNFile)
 	end.			
 
@@ -313,28 +332,45 @@ nguyen_widrow(Input, Hidden, Output) ->
 	H = length(Hidden),
 	I = length(Input),
 	
-	Beta = nguyen_widrow_beta(H, I),
+	io:format("#H = ~w, #inputs ~w ~n",[H, I]),
+	Beta = nguyen_widrow_beta(H, I),	
+	io:format("Beta = ~w~n",[Beta]),
+	
+	%%Loading weights for bias
+	rand_generator:gen_biases(randGen, Beta),
+	
 	HLayerWeights = get_layer_weights(Hidden),
 	OLayerWeights = get_layer_weights(Output),
 	
+	%io:format("Hidden weights ~w~n~n",[HLayerWeights]),	
+	%io:format("Ouput weights ~w~n~n",[OLayerWeights]),
+	
 	HNorm = euclidean_norm(HLayerWeights),
-	ONorm = euclidean_norm(OLayerWeights).
+	ONorm = euclidean_norm(OLayerWeights),
+	
+	nguyen_widrow_adjust_weights(Hidden, Beta, HNorm),
+	nguyen_widrow_adjust_weights(Output, Beta, ONorm),
+	io:format("Finished adjusting weights TOTAL~n").
 
 nguyen_widrow_beta(H, I) ->
 	0.7 * math:pow(H, 1/I).
 	
 euclidean_norm(LayerWeights) ->
-	math:sqrt(lists:foldl(fun(Wi, Sum) -> Sum + math:pow(Wi) end, 0, LayerWeights)).
+	math:sqrt(lists:foldl(fun(Wi, Sum) -> Sum + math:pow(Wi, 2) end, 0, LayerWeights)).
 
 
 nguyen_widrow_adjust_weights(Layer, Beta, Norm) ->
-	lists:map(fun(NeuronPid) ->
-		{ok, {Weights, Inputs, Sensitivities}} = perceptron:get_connections(NeuronPid),
+	lists:map(fun({_NeuronId, NeuronPid}) ->
+		%%Call rand_generator and get a new bias weight based on the beta value
+		NewBias = rand_generator:next_bias_weight(randGen),
+		
+		{ok, {Weights, Inputs, Sensitivities, _Bias}} = perceptron:get_connections(NeuronPid),
 		NewWeights = nguyen_widrow_adjust_weights_aux(Weights, Beta, Norm),
-		perceptron:update_connections(NeuronPid, {NewWeights, Inputs, Sensitivities}) 
+		perceptron:update_connections(NeuronPid, {NewWeights, Inputs, Sensitivities, {NewBias, 1}}) 
 		end,
 		Layer		
-	).
+	),
+	io:format("Finished adjusting weights for layer~n").
 
 
 %%Updates weights for each neuron on the layer
@@ -345,12 +381,12 @@ nguyen_widrow_adjust_weights_aux(Weights, Beta, Norm) ->
 
 get_layer_weights(Layer) ->
 	Temp = lists:reverse(
-		lists:foldl(fun(NeuronPid, List) ->
-			{ok, {Weights, _Inputs, _Sensitivities}} = perceptron:get_connections(NeuronPid),
+		lists:foldl(fun({_NeuronId, NeuronPid}, List) ->
+			{ok, {Weights, _Inputs, _Sensitivities, _Bias}} = perceptron:get_connections(NeuronPid),
 			[Weights | List] end, [], Layer)
 	),
 	
-	lists:append(Temp).
+	lists:append(Temp).	
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%client interface functions%%%%%%%%%%%
