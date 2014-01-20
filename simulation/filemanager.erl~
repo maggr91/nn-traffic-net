@@ -38,3 +38,6 @@ write_result(Path, Data) ->
 %% Write down the results as atoms
 write_raw(Path, Data) ->
     file:write_file(Path, io_lib:fwrite("~s\n", [lists:flatten(Data)]),[append]).
+    
+file_exist(Filename) ->
+	filelib:is_file(Filename).

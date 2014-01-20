@@ -1,6 +1,6 @@
 -module(filemanager).
 
--export([get_data/1, get_data_by_fullpath/1, write_result/2, write_raw/2]).
+-export([get_data/1, get_data_by_fullpath/1, write_result/2, write_raw/2, file_exist/1]).
 
 get_data(SourceFile) -> 
 %% Get the working directory, set complete path y read all lines
@@ -38,3 +38,6 @@ write_result(Path, Data) ->
 %% Write down the results as atoms
 write_raw(Path, Data) ->
     file:write_file(Path, io_lib:fwrite("~s\n", [lists:flatten(Data)]),[append]).
+    
+file_exist(Filename) ->
+	filelib:is_file(Filename).

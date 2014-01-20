@@ -1,21 +1,25 @@
 -module(ann).
--export([start/1, start/3, test_run/0, input_set/2, stop/1]).
+-export([start/1, start/3, start/4, test_run/0, input_set/2, stop/1]).
 
--export([init/1, init/3]).
+-export([init/1, init/3, init/4]).
 
-start(Args)->
-	register(randGen, rand_generator:start({})),
-	filelib:ensure_dir("logs/"),
+start(Args)->	
+	on_init(),
+	%timer:sleep(100),
 	%perceptron:set_random_seed(),	
 	%nguyen_widrow_random_weights(1, "initWeights.txt"),
 	spawn(ann, init, [Args]).
 	
 start(Input, Hiden, Output) ->
-	register(randGen, rand_generator:start({})),
-	filelib:ensure_dir("logs/"),
+	on_init(),
+	%timer:sleep(100),
 	%perceptron:set_random_seed(),	
 	%nguyen_widrow_random_weights(1, "initWeights.txt"),
 	spawn(ann, init, [Input, Hiden, Output]).
+	
+start(Input, Hiden, Output, NNFile) ->
+	on_init(),
+	spawn(ann, init, [Input, Hiden, Output, NNFile]).
 
 init(NNFile) ->
 	%% When not first training use the save configuration for the ann
@@ -115,6 +119,12 @@ init(Input, Hiden, Output) ->
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] New network", [?MODULE])),
 	Layers = load_layers(Input, Hiden, Output),
 	network(Layers, "test_saving.txt").
+	
+init(Input, Hiden, Output, NNFile) ->
+	io:format("New network~n"),
+	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] New network", [?MODULE])),
+	Layers = load_layers(Input, Hiden, Output),
+	network(Layers, NNFile).
 
 %% creates a new network from scratch
 load_layers(Input, Hiden, Output) ->
@@ -124,6 +134,9 @@ load_layers(Input, Hiden, Output) ->
 	io:format("Input: ~w~n Hidden: ~w~n Output: ~w~n", [InputLay, HiddenLay, OutputLay]),
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] Input: ~w~n Hidden: ~w~n Output: ~w~n", [?MODULE, InputLay, HiddenLay, OutputLay])),
 	connect_all({InputLay, HiddenLay, OutputLay}),
+
+	%%on a separate method, initialize weights
+	%init_weights({InputLay, HiddenLay, OutputLay}),
 	
 	%%set init weights values for the NN using NGUYEN-WIDROW
 	nguyen_widrow(InputLay, HiddenLay, OutputLay),
@@ -171,6 +184,15 @@ fix_connections({Input, Hidden, Output}) ->
 			  end,
 			  FullList
 			 ).
+			 
+			 
+init_weights({InputLay, HiddenLay, OutputLay}) ->
+	FullList = lists:append([HiddenLay, OutputLay]),
+	lists:map(fun({_NeuronId, NeuronPid}) ->
+				perceptron:init_weights(NeuronPid)
+			  end,
+			  FullList
+			 ).
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
@@ -189,10 +211,11 @@ network(Layers, NNFile) ->
 			send_input(Layers,Data),
 			reply(CallerPid, ok),
 			network(Layers, NNFile);
-		{stop, CallerPid} ->			
+		{stop, _CallerPid} ->			
 			filelib:ensure_dir("checkpoint/nn_saving/"),
 			save(Layers, NNFile, false),
-			reply(CallerPid, ended),
+			%reply(CallerPid, ended),
+			stop_helpers(),
 			{normal, ok};
 		{checkpoint, CallerPid} ->
 			filelib:ensure_dir("checkpoint/nn_saving/"),
@@ -312,8 +335,8 @@ reply (Pid, Reply) ->
 %load_structure() ->
 %	filemanager:get_data("structure.txt").
 check_for_learning(NNFile) ->
-	%Data = filemanager:get_data("/test_saving.txt"),
-	Data = filemanager:get_data(NNFile),
+	%Data = filemanager:get_data(NNFile),
+	Data = filemanager:get_data_by_fullpath(NNFile),
 	Input = filter_neurons(i, Data),
 	Hidden = filter_neurons(h, Data),
 	Output = filter_neurons(o, Data),	
@@ -342,8 +365,8 @@ nguyen_widrow(Input, Hidden, Output) ->
 	HLayerWeights = get_layer_weights(Hidden),
 	OLayerWeights = get_layer_weights(Output),
 	
-	io:format("Hidden weights ~w~n~n",[HLayerWeights]),	
-	io:format("Ouput weights ~w~n~n",[OLayerWeights]),
+	%io:format("Hidden weights ~w~n~n",[HLayerWeights]),	
+	%io:format("Ouput weights ~w~n~n",[OLayerWeights]),
 	
 	HNorm = euclidean_norm(HLayerWeights),
 	ONorm = euclidean_norm(OLayerWeights),
@@ -383,10 +406,46 @@ get_layer_weights(Layer) ->
 	Temp = lists:reverse(
 		lists:foldl(fun({_NeuronId, NeuronPid}, List) ->
 			{ok, {Weights, _Inputs, _Sensitivities, _Bias}} = perceptron:get_connections(NeuronPid),
+			%io:format("~n~n~n~nANN PID ~w~n~n", [self()]),
+			%NeuronPid ! {get_connections, self()},
+			%receive
+			%	{reply, {Weights, _Inputs, _Sensitivities, _Bias}} ->
+			%		[Weights | List];
+			%	Other ->
+			%		io:format("ERROR ~w~n~n", [Other]),
+			%		[error | List ]
+			%end
 			[Weights | List] end, [], Layer)
 	),
 	
 	lists:append(Temp).	
+
+on_init() ->
+	filelib:ensure_dir("logs/"),
+	safe_helper_init(loggerId, logger, null, logger),
+	safe_helper_init(randGen, randGen, {}, rand_generator).
+	
+safe_helper_init(RegName, LogName, Args, MODULE) ->
+	IsReg = whereis(RegName),
+	io:format("~n~n ~w REGISTER ~w~n", [LogName, IsReg]),
+	try
+		case IsReg of 
+		   undefined when Args == null ->		
+			register(RegName, MODULE:start());
+           undefined when Args /= null ->
+           	io:format("~nREGISTER RANDGENERATOR~n"),
+			register(RegName, MODULE:start(Args));
+	   	   _Other ->
+	   		ok
+		end
+	catch 		
+			Exception:Reason -> io:format("~w already registered, continue. Exception ~p , Reason ~p ~n",[LogName, Exception, Reason]),
+								continue
+    end.
+	
+stop_helpers() ->
+	logger:stop(loggerId),
+	rand_generator:stop(randGen).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%client interface functions%%%%%%%%%%%

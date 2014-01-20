@@ -22,11 +22,13 @@ init({restore, LightId, Lanes}) ->
 	
 	{ModFile, NNFile, SensorFile} = CheckpointLog,
 	
-	NN = restore_dm(NNFile, LightId),
+	FormatNNFile = format_dm_file(NNFile, LightId),	
+	NN = restore_dm(FormatNNFile),
+	
 	RestoredData = restore(ModFile, LightId),
 	
 	Sensor = restore_sens(SensorFile,Lanes, LightId),
-	timer:apply_after(100, moduler, update_dm, [NN, NNFile, LightId]),
+	%timer:apply_after(100, moduler, update_dm, [NN, NNFile, LightId]),
 	
 	%format log files
 	FormatLog = formated_log(ModFile),
@@ -48,12 +50,13 @@ init({normal, LightId, Lanes}) ->
 	
 	FormatLog = formated_log(Other),
 	FormatSens = format_dm_file(SensorFile, LightId),
+	FormatNNFile = format_dm_file(NNFile, LightId),
 	
 	delete_old([FormatLog, FormatSens]),
 	
-	NewCheckpointLog = {FormatLog, NNFile, FormatSens},
-	NN = create_dm(Config),
-	update_dm(NN, NNFile, LightId),	
+	NewCheckpointLog = {FormatLog, FormatNNFile, FormatSens},
+	NN = create_dm(Config,FormatNNFile, LightId),
+	%update_dm(NN, NNFile, LightId),	
 	
 	Sensor = create_sens(Lanes, FormatSens),
 	Trainer = trainer:start(),
@@ -64,19 +67,28 @@ init({normal, LightId, Lanes}) ->
 %%CREATES The decision maker for the light in this case is a Neuronal Network
 %%Input: None
 %%Output: Pid of the DM
-create_dm(Config) ->
-	NNConfig = find_config_data(Config, nn_config),
-	{Input, Hidden, Output} = NNConfig,
-	ann:start(Input, Hidden, Output).
+create_dm(Config, NNFile, Light)->
+	Exist = filelib:is_file(NNFile),
+	if	Exist =:= false ->
+			io:format("~n~n MISSING LEARNING FILE creating new network~n~n"),
+			%NNConfig = find_config_data(Config, nn_config),
+			NNConfig = find_dm_config_data(Config, Light),
+			{Input, Hidden, Output} = NNConfig,
+			ann:start(Input, Hidden, Output,NNFile);
+		true ->
+			io:format("~n~nLEARNING FILE ENCOUNTER ~p  restoring network~n~n",[NNFile]),
+			restore_dm(NNFile)
+	end.
 
 update_dm(NN, NNFile, LightId)->
 	NewNNFile = format_dm_file(NNFile, LightId),
 	NN ! {update_file, NewNNFile}.
 
-restore_dm(NNFile, LightId) ->
-	NewLight = atom_to_list(LightId) ++ ".txt",
-	NewNNFile = NNFile ++ NewLight,
-	ann:start(NewNNFile).
+restore_dm(NNFile) ->
+	%NewLight = atom_to_list(LightId) ++ ".txt",
+	%NewNNFile = NNFile ++ NewLight,
+	%NewNNFile = format_dm_file(NNFile, LightId),
+	ann:start(NNFile).
 
 %%%%%%%%%%%
 %% SENSOR
@@ -646,7 +658,19 @@ safe_data_update(Key, Data, List) ->
 		false  -> [{Key, Data} | List];
 		_Other -> lists:keyreplace(Key, 1, List, {Key, Data})
 	end.
-	
+
+
+find_dm_config_data(Config, Target) ->
+	NNConfigFile = find_config_data(Config, nn_config),
+	DMConfigs = filemanager:get_data(NNConfigFile),
+	Element = lists:keyfind(Target, 1, DMConfigs),
+	case Element of
+		false ->	{_Id, Value} = lists:keyfind(all, 1, DMConfigs),
+					Value;
+		_Other ->	{_Id, Value} = Element,
+					Value
+	end.
+
 test() ->
 	M1 = moduler:start(),
 	M2 = moduler:start(),

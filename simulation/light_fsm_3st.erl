@@ -265,23 +265,26 @@ allred(init_move_avenue,_From, StateData) ->
     io:format("First move of lights from red to green on avenue. Start Moving avenue lanes. Data: ~w~n",[StateData]),
     %{LightId,ManagedLanes,Siblings, Times, LogData, OldState} = StateData,
     LogData = find_element(log_data, StateData),
-    write_result(LogData, io_lib:format("First move of lights from red to green on avenue. Start Moving avenue lanes. Data: ~w~n",[StateData])),
-    Siblings = find_element(siblings, StateData),
-    {reply, {allred,Siblings},greenredred, StateData};
+    NewStateData = update_cycle_time_on_statedata(avenue, StateData),
+    write_result(LogData, io_lib:format("First move of lights from red to green on avenue. Start Moving avenue lanes. Data: ~w~n",[NewStateData])),
+    Siblings = find_element(siblings, NewStateData),
+    {reply, {allred,Siblings},greenredred, NewStateData};
 allred(init_move_street,_From, StateData) ->
     io:format("First move of lights from red to green on streets. Start Moving street lanes. Data: ~w~n",[StateData]),
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState} = StateData,
-    LogData = find_element(log_data, StateData), 
-    write_result(LogData, io_lib:format("First move of lights from red to green on streets. Start Moving street lanes. Data: ~w~n",[StateData])),
-    Siblings = find_element(siblings, StateData),
-    {reply, {allred,Siblings},redgreenred, StateData};
+    LogData = find_element(log_data, StateData),
+    NewStateData = update_cycle_time_on_statedata(street, StateData), 
+    write_result(LogData, io_lib:format("First move of lights from red to green on streets. Start Moving street lanes. Data: ~w~n",[NewStateData])),
+    Siblings = find_element(siblings, NewStateData),
+    {reply, {allred,Siblings},redgreenred, NewStateData};
 allred(init_move_avenueF,_From, StateData) ->
     io:format("First move of lights from red to green on avenueF. Start Moving avenueF lanes. Data: ~w~n",[StateData]),
     %{LightId,ManagedLanes, Siblings, Times, LogData, OldState} = StateData,
-    LogData = find_element(log_data, StateData), 
-    write_result(LogData, io_lib:format("First move of lights from red to green on avenueF. Start Moving avenueF lanes. Data: ~w~n",[StateData])),
-    Siblings = find_element(siblings, StateData),
-    {reply, {allred,Siblings},redredgreen, StateData}.
+    LogData = find_element(log_data, StateData),
+    NewStateData = update_cycle_time_on_statedata(avenueF, StateData),
+    write_result(LogData, io_lib:format("First move of lights from red to green on avenueF. Start Moving avenueF lanes. Data: ~w~n",[NewStateData])),
+    Siblings = find_element(siblings, NewStateData),
+    {reply, {allred,Siblings},redredgreen, NewStateData}.
 
 
 %% Moving AVENUES       
@@ -926,7 +929,9 @@ process_state(allred_move, StateData, OnActive, OnIdle, _FromState, Dir) ->
     write_result(LogData, io_lib:format("Changing for red to green on ~w. Start Moving ~w lanes. Data: ~w~n",[Dir, Dir,StateData])),    
     update_lanes(ManagedLanes, OnActive, OnIdle,CTime, 0, LogData, null),
     
-    NewTimesAux = lists:keyreplace(go_time,1, Times, {go_time, 0}),
+    %Change cycle_time for the next state
+    TempTimes = get_state_cycle_time(Dir, Times),
+    NewTimesAux = lists:keyreplace(go_time,1, TempTimes, {go_time, 0}),
     NewTimes = lists:keyreplace(allred_timer,1, NewTimesAux, {allred_timer, 0}),
     
     update_state_data([{times, NewTimes}], StateData);
@@ -1090,3 +1095,30 @@ eval_delay(ManagedLanes) ->
 	 
 	 lists:append(List).
 
+%%INPUT: Dir = (avenue, street, etc...), 
+%%		 Times = lists of all times for the light
+%%OUTPUT cycle time for the next state
+%%Get cycle time for next state	 
+get_state_cycle_time(avenue, Times)->
+	Time = find_element(avenue_time, Times),
+	Time;
+get_state_cycle_time(avenueF, Times)->
+	Time = find_element(avenueF_time, Times),
+	Time;
+get_state_cycle_time(street, Times)->
+	Time = find_element(street_time, Times),
+	Time.
+	
+%%Update cycle time for state on state
+update_cycle_time_on_statedata(avenue, StateData) ->
+	update_cycle_time_on_statedata_aux(avenue_time, StateData);
+update_cycle_time_on_statedata(avenueF, StateData) ->
+	update_cycle_time_on_statedata_aux(avenueF_time, StateData);
+update_cycle_time_on_statedata(street, StateData) ->
+	update_cycle_time_on_statedata_aux(street_time, StateData).
+
+update_cycle_time_on_statedata_aux(Key, StateData) ->
+	Times = find_element(times, StateData),
+	CycleTime = find_element(Key, Times),
+	NewTimes = lists:keyreplace(cycle_time, 1, Times, {cycle_time, CycleTime}),
+	update_state_data([{times, NewTimes}], StateData).	
