@@ -14,8 +14,8 @@ init(NeuronId) ->
 	LayerType = string:substr(Layer,1,1),
 	if 
 		LayerType =/= "i" ->
-			Wbi = get_random_weight(),
-			perceptron(NeuronId,[],[],[],{Wbi, 1});
+			%Wbi = get_random_weight(),
+			perceptron(NeuronId,[],[],[],{0.5, 1});
 		true -> 
 			perceptron(NeuronId,[],[],[],null)
 	end.
@@ -111,11 +111,19 @@ perceptron(LayerId, Weights, Inputs, Sensitivities, Bias) ->
 					end								
 			end,
 			perceptron(LayerId,Weights, New_Inputs, Sensitivities, Bias);
-		{connect_input, SenderNeuron_PID, Wi} ->
+		{connect_input, SenderNeuron_PID, CallerPid} ->
+			Wi = get_neuron_random_weight(),
+			Wbi = get_random_weight(),
+			NewInputs = [{SenderNeuron_PID, 0.5} | Inputs],			
+			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] ~w output connected to ~w: ~w", [?MODULE, {LayerId,self()}, SenderNeuron_PID, NewInputs])),
+			CallerPid ! {init, ok},	
+			perceptron(LayerId, [Wi | Weights], NewInputs, Sensitivities, {Wbi, 1});
+		{connect_input, SenderNeuron_PID} ->
+			%Wi = get_neuron_random_weight(),
 			NewInputs = [{SenderNeuron_PID, 0.5} | Inputs],
 			%io:format("~w output connected to ~w: ~w~n", [{LayerId,self()}, SenderNeuron_PID, NewInputs]),
 			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] ~w output connected to ~w: ~w", [?MODULE, {LayerId,self()}, SenderNeuron_PID, NewInputs])),			
-			perceptron(LayerId, [Wi | Weights], NewInputs, Sensitivities, Bias);
+			perceptron(LayerId, Weights, NewInputs, Sensitivities, Bias);
 		{connecto_output, ReceiverNeuron_PID} ->
 			NewOutput_PIDs = [{ReceiverNeuron_PID, 0} | Sensitivities],
 			%io:format("~w output connected to ~w: ~w~n", [{LayerId,self()}, ReceiverNeuron_PID, NewOutput_PIDs]),
@@ -203,9 +211,14 @@ perceptron(LayerId, Weights, Inputs, Sensitivities, Bias) ->
 	end.
 	
 connect_neuron({SenderId, SenderNeuron_PID}, {ReceiverId, ReceiverNeuron_PID}) ->
-	Wi = get_neuron_random_weight(),
+	%Wi = get_neuron_random_weight(ReceiverNeuron_PID),
 	SenderNeuron_PID ! {connecto_output, {ReceiverId, ReceiverNeuron_PID}},
-	ReceiverNeuron_PID ! {connect_input, {SenderId, SenderNeuron_PID}, Wi}.
+	%ReceiverNeuron_PID ! {connect_input, {SenderId, SenderNeuron_PID}, Wi}.
+	ReceiverNeuron_PID ! {connect_input, {SenderId, SenderNeuron_PID}, self()},
+	receive
+		{init, ok} -> true;
+		Other -> io:format("ERROR CONNECTING ~w~n~n",[Other])
+	end.
 	
 replace_input(Inputs, Input) ->
 	{Input_PID, _} = Input,
@@ -317,7 +330,13 @@ get_random_weight() ->
     Wi.
     
 get_neuron_random_weight() ->
-	rand_generator:next_neuron_weight(randGen).
+	%rand_generator:next_neuron_weight(randGen),
+	rand_generator:next_neuron_weight(randGen, self()),
+	receive
+		{reply, Value} -> Value;
+		Other -> io:format("Other perceptron: ~w", [Other]),
+					error_Wi
+	end.
    
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%client interface functions%%%%%%%%%%%

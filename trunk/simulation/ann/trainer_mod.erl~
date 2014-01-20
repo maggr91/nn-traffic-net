@@ -47,7 +47,7 @@ init({restore, TrainerID}) ->
 								load_training_set()
     	end,
     	
-	timer:apply_after(100, trainer_mod, update_dm, [NN, NNFile,TrainerID]),
+	%timer:apply_after(100, trainer_mod, update_dm, [NN, NNFile,TrainerID]),
 	
 	%format log files
 	FormatLog = formated_log(ModFile),
@@ -75,7 +75,7 @@ init({normal, TrainerID}) ->
 	NewCheckpointLog = {FormatLog, NNFile},
 	
 	timer:sleep(300),
-	update_dm(NN, NNFile, TrainerID),
+	%update_dm(NN, NNFile, TrainerID),
 		
 	%train(TrainerID,NN, TrainingData, NewCheckpointLog, now()).
 	timer:apply_after(300, trainer_mod, train, [TrainerID,NN, TrainingData, NewCheckpointLog, now()]).
@@ -83,21 +83,22 @@ init({normal, TrainerID}) ->
 %%CREATES The decision maker for the light in this case is a Neuronal Network
 %%Input: None
 %%Output: Pid of the DM
-create_dm(Config) ->
+create_dm(Config, NNFile, LightId)->
 	NNConfig = find_config_data(Config, nn_config),
+	NewNNFile = format_dm_file(NNFile, LightId)
 	{Input, Hidden, Output} = NNConfig,
-	ann:start(Input, Hidden, Output).
+	ann:start(Input, Hidden, Output,NewNNFile).
 
 update_dm(NN, NNFile, TrainerID)->
 	NewNNFile = format_dm_file(NNFile, TrainerID),
 	io:format("calling update_file ~n"),
 	NN ! {update_file, NewNNFile}.
 
-restore_dm(NNFile, TrainerID) ->
-	NewLight = atom_to_list(TrainerID) ++ ".txt",
-	NewNNFile = NNFile ++ NewLight,
+restore_dm(NNFile, LightId) ->
+	%NewLight = atom_to_list(LightId) ++ ".txt",
+	%NewNNFile = NNFile ++ NewLight,
+	NewNNFile = format_dm_file(NNFile, LightId),
 	ann:start(NewNNFile).
-
 
 train([]) ->
 	timer:apply_after(1500, trainer, finish, []);
@@ -136,7 +137,7 @@ train(TrainerID, NN, [Data | TrainingData], CheckpointLog, BeginTime) ->
 				%%CONTINUE TO TRAIN
 				Res = ann:input_set(NN, {train, Data}),
 				case Res of
-					{reply, ok} ->	timer:sleep(600),	
+					{reply, ok} ->	timer:sleep(800),	
 									train(TrainerID, NN,  TrainingData, CheckpointLog, BeginTime);
 					_Other -> {error, unspected}
 				end;

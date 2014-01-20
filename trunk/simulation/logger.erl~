@@ -1,5 +1,5 @@
 -module(logger).
--export([start/0, debug_sm/2, debug_ann/2, debug_lane/2]).
+-export([start/0, debug_sm/2, debug_ann/2, debug_lane/2, stop/1]).
 
 -export([init/0]).
 
@@ -12,7 +12,8 @@ init() ->
 	{ok, Cwd} = file:get_cwd(),
 	
 	Logs = lists:map(fun({Id, File}) -> {Id, Cwd ++ File} end, Files),
-	io:format("FILES READY ~p",[Logs]),
+	%io:format("FILES READY ~p",[Logs]),
+	io:format("Proceso iniciado ~p~n~n",[Logs]),
 	listen(Logs).
 	
 listen(Logs) ->
@@ -36,3 +37,16 @@ debug_ann(Logger, Data) ->
 	
 debug_lane(Logger, Data) ->
 	Logger ! {log, lane, Data}.
+	
+stop(Logger) ->
+	IsReg = whereis(Logger),	
+	if IsReg =:= undefined ->
+		try
+			Logger ! stop
+		catch 		
+			Exception:Reason -> io:format("Loger already stopped, continue. Exception ~p , Reason ~p ~n",[Exception, Reason]),
+								continue
+    	end;		
+	   true ->
+	   	ok
+	end.

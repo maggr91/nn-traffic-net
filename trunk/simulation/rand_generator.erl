@@ -1,5 +1,6 @@
 -module(rand_generator).
--export([start/1, next_neuron_weight/1, next_bias_weight/1, gen_biases/2, reset_weights/2, get_random_weight/1]).
+-export([start/1, next_neuron_weight/1, next_neuron_weight/2, next_bias_weight/1, 
+	gen_biases/2, reset_weights/2, get_random_weight/1, stop/1]).
 
 -export([init/1]).
 
@@ -17,7 +18,7 @@ listen(WeightsQueue, BiasQueue) ->
 			reply(CallerPid, random:uniform()),
 			listen(WeightsQueue, BiasQueue);
 		{next, weight, CallerPid} ->
-			{NextVal, NewQueue} = get_next(WeightsQueue),
+			{NextVal, NewQueue} = get_next(WeightsQueue),			
 			reply(CallerPid, NextVal),
 			listen(NewQueue, BiasQueue);
 		{next, bias, CallerPid} ->
@@ -87,12 +88,17 @@ set_random_seed() ->
 %%%%%client interface functions%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 next_neuron_weight(GeneratorPid) ->
+	io:format("CallerPid next weight ~w ~n", [self()]),
 	GeneratorPid ! {next, weight, self()},
 	receive
 		{reply, Value} -> Value;
 		Other -> io:format("Other: ~w", [Other]),
 					error_Wi
 	end.
+	
+next_neuron_weight(GeneratorPid, CallerPid) ->
+	%io:format("CallerPid param next weight ~w ~n", [CallerPid]),
+	GeneratorPid ! {next, weight, CallerPid}.
 	
 next_bias_weight(GeneratorPid) ->
 	GeneratorPid ! {next, bias, self()},
@@ -114,4 +120,18 @@ get_random_weight(GeneratorPid) ->
 	receive
 		{reply, Value} -> Value;
 		_Other -> error
+	end.
+	
+stop(GeneratorPid) -> 
+	IsReg = whereis(GeneratorPid),	
+	if IsReg =:= undefined ->
+		try
+			GeneratorPid ! stop
+		catch 		
+			Exception:Reason -> io:format("randGen already stopped, continue. Exception ~p , Reason ~p ~n",[Exception, Reason]),
+								continue
+    	end;
+		
+	   true ->
+	   	ok
 	end.
