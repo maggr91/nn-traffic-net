@@ -1,1 +1,1 @@
-[{nn_config, {7,11,1}}, {checkpoint_data, {"/checkpoint/trainer.txt", "/checkpoint/nn_saving/nn_saving_"}}]
+[{mode, normal}, {nn_config, "/config_dm.txt"}, {checkpoint_data, {"/checkpoint/trainer.txt", "/checkpoint/nn_saving/nn_saving_"}}]
