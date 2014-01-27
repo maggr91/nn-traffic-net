@@ -1,7 +1,7 @@
 -module(ann).
--export([start/1, start/3, start/4, test_run/0, input_set/2, stop/1]).
+-export([start/1, start/3, start/5, test_run/0, input_set/2, stop/1]).
 
--export([init/1, init/3, init/4]).
+-export([init/1, init/3, init/5]).
 
 start(Args)->	
 	on_init(),
@@ -17,14 +17,20 @@ start(Input, Hiden, Output) ->
 	%nguyen_widrow_random_weights(1, "initWeights.txt"),
 	spawn(ann, init, [Input, Hiden, Output]).
 	
-start(Input, Hiden, Output, NNFile) ->
+start(Input, Hiden, Output, NNFile, OutputsMapping) ->
 	on_init(),
-	spawn(ann, init, [Input, Hiden, Output, NNFile]).
+	spawn(ann, init, [Input, Hiden, Output, NNFile, OutputsMapping]).
 
-init(NNFile) ->
-	%% When not first training use the save configuration for the ann
+init({NNFile, OutputsMapping}) ->
+	%% When training use the save configuration for the ann was found
 	Layers = load_layers(NNFile),
-	network(Layers, NNFile).
+	network(Layers, NNFile, OutputsMapping);
+init(NNFile) ->
+	%% When training use the save configuration for the ann was found
+	Layers = load_layers(NNFile),
+	OutputsMapping = [],
+	network(Layers, NNFile, OutputsMapping).
+
 
 %%when loading a network from old process
 load_layers(NNFile) ->
@@ -40,17 +46,17 @@ load_layers(NNFile) ->
 	[{input, InputLay},{hidden, HiddenLay},{output, OutputLay}].
 
 load_layer(LayerItems) ->
-	lists:map(fun({Id, _Type, Weights,Inputs,Sensitivites, Bias}) -> 
+	lists:map(fun({Id, _Type, Weights,Inputs,Sensitivites, Bias, Output}) -> 
 					%{Id, spawn(perceptron, perceptron, [Id,Weights,Inputs,Sensitivites,{0.5, 1}])} 
-					{Id, perceptron:start({Id,Weights,Inputs,Sensitivites,Bias})}
+					{Id, perceptron:start({Id,Weights,Inputs,Sensitivites,Bias, Output})}
 			  end, 
 			  LayerItems
 			 ).
 	
 custom_load_layer(HiddenLayerItems) ->
-	lists:map(fun({Id, _Type, Weights,Inputs,Sensitivites, Bias}) -> 
+	lists:map(fun({Id, _Type, Weights,Inputs,Sensitivites, Bias, Output}) -> 
 				%{Id, spawn(perceptron, perceptron, [Id,Weights,Inputs,Sensitivites,{0.5, 1}])} 
-				{Id, perceptron:start({Id,Weights,Inputs,Sensitivites,Bias})}
+				{Id, perceptron:start({Id,Weights,Inputs,Sensitivites,Bias, Output})}
 			  end, 
 			  HiddenLayerItems).
 
@@ -116,15 +122,16 @@ get_connections_pids(Target, Source) ->
 %%train for the first time... Use new configuration
 init(Input, Hiden, Output) ->
 	io:format("New network~n"),
+	OutputsMapping = [],
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] New network", [?MODULE])),
 	Layers = load_layers(Input, Hiden, Output),
-	network(Layers, "test_saving.txt").
+	network(Layers, "test_saving.txt", OutputsMapping).
 	
-init(Input, Hiden, Output, NNFile) ->
+init(Input, Hiden, Output, NNFile, OutputsMapping) ->
 	io:format("New network~n"),
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] New network", [?MODULE])),
 	Layers = load_layers(Input, Hiden, Output),
-	network(Layers, NNFile).
+	network(Layers, NNFile, OutputsMapping).
 
 %% creates a new network from scratch
 load_layers(Input, Hiden, Output) ->
@@ -197,7 +204,7 @@ init_weights({InputLay, HiddenLay, OutputLay}) ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-network(Layers, NNFile) ->	
+network(Layers, NNFile, OutputsMapping) ->	
 % 	io:format("Saving training~n"),
 %	file:delete("test_saving.txt"),
 %	io:format("Old file deleted~n"),			
@@ -208,9 +215,9 @@ network(Layers, NNFile) ->
 		{train, CallerPid, Data} ->
 			io:format("SENDING INPUTS~n~n"),
 			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] SENDING INPUTS\n", [?MODULE])),
-			send_input(Layers,Data),
-			reply(CallerPid, ok),
-			network(Layers, NNFile);
+			Res = send_input(Layers,Data, OutputsMapping),
+			reply(CallerPid, Res),
+			network(Layers, NNFile, OutputsMapping);
 		{stop, _CallerPid} ->			
 			filelib:ensure_dir("checkpoint/nn_saving/"),
 			save(Layers, NNFile, false),
@@ -221,34 +228,37 @@ network(Layers, NNFile) ->
 			filelib:ensure_dir("checkpoint/nn_saving/"),
 			save(Layers, NNFile, true),
 			reply(CallerPid, ended),
-			network(Layers, NNFile);
+			network(Layers, NNFile, OutputsMapping);
 		{update_file, NewNNFile} ->
 			io:format("Updating NNFILe"),
-			network(Layers, NewNNFile)
+			network(Layers, NewNNFile, OutputsMapping)
 	end.			
 
 %% set a new training set for the network
-send_input(Layers, {Mode, Data}) ->
-	%io:format("Layers = ~w~n",[Layers]),
-	{_InType, InputLayer} = lists:keyfind(input, 1,Layers),
-	%%%{_OutType, OutputLayer} = lists:keyfind(output, 1,Layers),	
+send_input(Layers, {Mode, Data}, OutputsMapping) ->
+	{_InType, InputLayer} = lists:keyfind(input, 1,Layers),	
 	{_Train, TrainInput} = lists:keyfind(inputs, 1,Data),	
-	%io:format("Neuron: ~w pass val: ~w",[InputLayer,TrainInput]),
 	
 	io:format("Sending inputs according mode ~w . Data ~w~n", [Mode, Data]),
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] Sending inputs according mode ~w . Data ~w", [?MODULE, Mode, Data])),
-	case Mode of
-		normal ->			
-			%set_input(first, InputLayer, TrainInput, OutputLayer);
-			set_input_aux(InputLayer, TrainInput, {false, null});
-		_Other ->
-			{_DesairedOut, TargetOutput} = lists:keyfind(output, 1,Data),
-			%set_input(first, InputLayer, TrainInput, TargetOutput, OutputLayer)
-			set_input_aux(InputLayer, TrainInput, {true, TargetOutput})
+	Res = case Mode of
+		normal ->
+			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] Normal output call not learning", [?MODULE])),
+			{_OutType, OutputLayer} = lists:keyfind(output, 1,Layers),
+			set_input_aux(InputLayer, TrainInput, {false, null}),
+			%%Retrieve outputs from the output neurons
+			timer:sleep(200),
+			R = get_neurons_outputs(OutputLayer, OutputsMapping),
+			io:format("~n~n Outneurons ~w~n~n", [R]),
+			R;
+		_Other ->	%%training		
+			{_DesairedOut, TargetOutput} = lists:keyfind(output, 1,Data),			
+			set_input_aux(InputLayer, TrainInput, {true, TargetOutput}),
+			[]
 	end,
 	io:format("FINISH Sending inputs~n~n"),
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] FINISH Sending inputs\n", [?MODULE])),
-	true.
+	Res.
 
 %set_input(first, InputLayer, TrainInput, TargetOutput, _OutputLayer)->
 %	set_input_aux(InputLayer, TrainInput, {true, TargetOutput}).
@@ -284,6 +294,32 @@ set_input_aux([{NeuronId, NeuronPid} | NeuronTail], [Val | InputTail], TargetOut
 	NeuronPid ! {propagate, Val, TargetOutput},
 	set_input_aux(NeuronTail,InputTail, TargetOutput).
 
+%%INPUT: OutputLayer list of neurons from the output layer
+%%		 OutputsMapping determines the begining and end of custom outputs [1, N[
+%%OUTPUT: List of all outputs formated
+%%DESC: From each perceptron get its output value and combine any bits to represent decimal values
+get_neurons_outputs(OutputLayer, OutputsMapping) ->
+	%%GET all outputs
+	io:format("~n~n OutputLayer: ~w OutputsMapping: ~w~n~n",[OutputLayer,OutputsMapping]),
+	L = lists:map(fun({_NeuronId, NeuronPid}) ->
+						perceptron:get_output(NeuronPid, self()),
+						receive
+							{reply, Value} 	-> round(Value);
+							_Other			-> error
+						end
+					end,
+					OutputLayer
+				),
+	io:format("~n Outneurons bits ~w~n~n", [L]),
+	get_output_mapping(L, OutputsMapping).
+	
+get_output_mapping(List, OutputsMapping) ->
+	lists:map(fun({_Id, {Start, Len}}) ->
+				L = lists:sublist(List, Start, Len),
+				list_to_integer(lists:foldl(fun(Item, Complete) ->  Complete ++ integer_to_list(Item) end, "", L), 2)
+				end,
+				OutputsMapping
+	).
 
 save(Layers, NNFile, IsCheck) ->
 	io:format("Saving training of layers ~w~n", [Layers]),
@@ -342,7 +378,7 @@ check_for_learning(NNFile) ->
 	Output = filter_neurons(o, Data),	
 	{Input, Hidden, Output}.
 filter_neurons(Filter, Data) ->
-	lists:filter(fun({_Id, Type, _,_,_,_}) -> Type =:= Filter end, Data).
+	lists:filter(fun({_Id, Type, _,_,_,_,_}) -> Type =:= Filter end, Data).
 
 display_status(Layer) ->
 	lists:map(fun({_Id, Pid}) -> Pid ! {status} end, Layer).
@@ -455,7 +491,7 @@ input_set(NetworkPid, InputSet) ->
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] Train network ~w... Data ~w~n", [?MODULE, NetworkPid, InputSet])),
 	NetworkPid ! {train, self(), InputSet},
 	receive
-		{reply, ok} -> {reply, ok};
+		{reply, Res} -> {reply, Res};
 		_Error		-> {fail, []}
 	end.
 	

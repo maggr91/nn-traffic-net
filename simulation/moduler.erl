@@ -1,6 +1,6 @@
 -module(moduler).
 -export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/3, request_updates/2, 
-	checkpoint/1, stop/1, get_sensor/1, reset_sensor/2, estimation_proc/3, check_sensor_standby/2]).
+	checkpoint/1, stop/1, get_sensor/1, reset_sensor/2, estimation_proc/3, check_sensor_standby/2, change_mode/2]).
 -export([init/1, update_dm/3, delete_old/1]).
 
 %% Used to comunicate traffic lights 
@@ -19,11 +19,13 @@ init({restore, LightId, Lanes}) ->
 	[Config | _Junk] = get_config(),
 	CheckpointLog = find_config_data(Config, checkpoint_data),
 	FixedCarLength = find_config_data(Config, fixed_car_length),
+	Mode = find_config_data(Config, mode),
 	
 	{ModFile, NNFile, SensorFile} = CheckpointLog,
 	
-	FormatNNFile = format_dm_file(NNFile, LightId),	
-	NN = restore_dm(FormatNNFile),
+	FormatNNFile = format_dm_file(NNFile, LightId),
+	{_Struct, Mapping} = find_dm_config_data(Config, LightId),
+	NN = restore_dm(FormatNNFile, Mapping),
 	
 	RestoredData = restore(ModFile, LightId),
 	
@@ -37,15 +39,16 @@ init({restore, LightId, Lanes}) ->
 	%delete_old([FormatLog, FormatSens]),
 	timer:apply_after(100, moduler,delete_old,[[FormatLog, FormatSens]]),
 	
-	NewCheckpointLog = {FormatLog, NNFile, FormatSens},
+	NewCheckpointLog = {FormatLog, FormatNNFile, FormatSens},
 	Trainer = trainer:start(),
 	
-	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,NewCheckpointLog, Sensor, {Trainer, false}, FixedCarLength);
+	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,NewCheckpointLog, Sensor, {Trainer, Mode}, FixedCarLength);
 
 init({normal, LightId, Lanes}) ->
 	[Config | _Junk] = get_config(),
 	CheckpointLog = find_config_data(Config, checkpoint_data),
 	FixedCarLength = find_config_data(Config, fixed_car_length),
+	Mode = find_config_data(Config, mode),
 	{Other, NNFile, SensorFile} = CheckpointLog,
 	
 	FormatLog = formated_log(Other),
@@ -62,33 +65,33 @@ init({normal, LightId, Lanes}) ->
 	Trainer = trainer:start(),
 	
 	listen(LightId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}, {net_input, []}, {sensor_input, []}],
-		NewCheckpointLog, Sensor, {Trainer, false}, FixedCarLength).
+		NewCheckpointLog, Sensor, {Trainer, Mode}, FixedCarLength).
 		
 %%CREATES The decision maker for the light in this case is a Neuronal Network
 %%Input: None
 %%Output: Pid of the DM
 create_dm(Config, NNFile, Light)->
 	Exist = filelib:is_file(NNFile),
+	NNConfig = find_dm_config_data(Config, Light),
+	{{Input, Hidden, Output}, Mapping} = NNConfig,
 	if	Exist =:= false ->
 			io:format("~n~n MISSING LEARNING FILE creating new network~n~n"),
 			%NNConfig = find_config_data(Config, nn_config),
-			NNConfig = find_dm_config_data(Config, Light),
-			{Input, Hidden, Output} = NNConfig,
-			ann:start(Input, Hidden, Output,NNFile);
+			ann:start(Input, Hidden, Output, NNFile, Mapping);
 		true ->
 			io:format("~n~nLEARNING FILE ENCOUNTER ~p  restoring network~n~n",[NNFile]),
-			restore_dm(NNFile)
+			restore_dm(NNFile, Mapping)
 	end.
 
 update_dm(NN, NNFile, LightId)->
 	NewNNFile = format_dm_file(NNFile, LightId),
 	NN ! {update_file, NewNNFile}.
 
-restore_dm(NNFile) ->
+restore_dm(NNFile, Mapping) ->
 	%NewLight = atom_to_list(LightId) ++ ".txt",
 	%NewNNFile = NNFile ++ NewLight,
 	%NewNNFile = format_dm_file(NNFile, LightId),
-	ann:start(NNFile).
+	ann:start({NNFile, Mapping}).
 
 %%%%%%%%%%%
 %% SENSOR
@@ -214,7 +217,7 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 			
 		{stop, _CallerPid} ->
 			force_stop(NN, Sensor),
-			%reply(CallerPid, {normal, moduler}),
+			%reply(CallerPid, {normal, moduler}),find_dm_config_data(Config, Target) ->			
 			{normal, moduler};
 		{checkpoint, CallerPid} ->
 			write_checkpoint(NN, Data, CheckpointLog, Light, Sensor),
@@ -232,7 +235,11 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength);
 		{status, _CallerPid} ->
 			io:format("Status of moduler ~w ~n Siblings: ~w~n Data: ~w~n~n",[{Light,self()}, Siblings, Data]),
-			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength)
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength);
+		{update_mode, NewMode, CallerPid} ->
+			{TrainerPid, _OldMode} = Trainer,
+			reply(CallerPid, ok),
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, {TrainerPid, NewMode}, FixedCarLength)
 	end.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -243,10 +250,10 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 %%%%%%%%%%%%%%     GENERAL FUNCTIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-get_desition(FormatedInputs,Dir, Light, NN, CarStats, {TrainerPid, true}) ->
+get_desition(FormatedInputs,Dir, Light, NN, CarStats, {TrainerPid, train}) ->
 	%%Call trainer prior calling the NN to get a waitedResult
 	%%call nn with the new inputs
-	Desition = ann:input_set(NN, {normal, [{inputs, FormatedInputs}]}),
+	Desition = ann:input_set(NN, {train, [{inputs, FormatedInputs}]}),
 	io:format("GETTING TRAINER INFO", []),
 	S = atom_to_list(Light),
     ParentLaneId = list_to_atom(string:concat(atom_to_list(Dir), string:substr(S,6,3))),
@@ -254,11 +261,15 @@ get_desition(FormatedInputs,Dir, Light, NN, CarStats, {TrainerPid, true}) ->
 	[10,3,1];
 	
 
-get_desition(FormatedInputs, _Dir, _Light, NN, _CarStats, {_TrainerPid, false}) ->
+get_desition(FormatedInputs, _Dir, _Light, NN, _CarStats, {_TrainerPid, normal}) ->
 	%%Call trainer prior calling the NN to get a waitedResult
 	%%call nn with the new inputs
-	Desition = ann:input_set(NN, {normal, [{inputs, FormatedInputs}]}),
-	[10,3,1].
+	Res = ann:input_set(NN, {normal, [{inputs, FormatedInputs}]}),
+	case Res of
+				{reply, Value} ->	
+						  Value;			  
+				Other -> {error, Other}
+	end.
 
 
 reply(Pid, Reply) ->
@@ -593,6 +604,14 @@ check_sensor_standby(ModulerPid, Limit) ->
 		{reply, Status} -> {reply, Status};
 		_Other		 	-> {reply, continue}
 	end.
+	
+change_mode(ModulerPid, Mode) ->
+ 	ModulerPid ! {update_mode,self(), Mode},
+ 	receive
+ 		{reply, ok} -> ok;
+ 		Others -> Others
+ 	end.
+ 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% CHECKPOINT
 %%%%%%%%%%%%%
