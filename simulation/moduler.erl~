@@ -1,6 +1,6 @@
 -module(moduler).
 -export([start/0,start/1, test/0, connect/3,status/1, status_test/0, update_from_nn/3, request_updates/2, 
-	checkpoint/1, stop/1, get_sensor/1, reset_sensor/2, estimation_proc/3, check_sensor_standby/2]).
+	checkpoint/1, stop/1, get_sensor/1, reset_sensor/2, estimation_proc/3, check_sensor_standby/2, change_mode/2]).
 -export([init/1, update_dm/3, delete_old/1]).
 
 %% Used to comunicate traffic lights 

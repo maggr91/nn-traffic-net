@@ -40,7 +40,7 @@ init({restore, LightId, Lanes}) ->
 	timer:apply_after(100, moduler,delete_old,[[FormatLog, FormatSens]]),
 	
 	NewCheckpointLog = {FormatLog, FormatNNFile, FormatSens},
-	Trainer = trainer:start(),
+	Trainer = trainer_analyzer:start(),
 	
 	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,NewCheckpointLog, Sensor, {Trainer, Mode}, FixedCarLength);
 
@@ -62,7 +62,7 @@ init({normal, LightId, Lanes}) ->
 	%update_dm(NN, NNFile, LightId),	
 	
 	Sensor = create_sens(Lanes, FormatSens),
-	Trainer = trainer:start(),
+	Trainer = trainer_analyzer:start(),
 	
 	listen(LightId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}, {net_input, []}, {sensor_input, []}],
 		NewCheckpointLog, Sensor, {Trainer, Mode}, FixedCarLength).
@@ -257,7 +257,7 @@ get_desition(FormatedInputs,Dir, Light, NN, CarStats, {TrainerPid, train}) ->
 	io:format("GETTING TRAINER INFO", []),
 	S = atom_to_list(Light),
     ParentLaneId = list_to_atom(string:concat(atom_to_list(Dir), string:substr(S,6,3))),
-	trainer:evaluate(TrainerPid, ParentLaneId, CarStats),	
+	trainer_analyzer:evaluate(TrainerPid, ParentLaneId, CarStats),	
 	[10,3,1];
 	
 
