@@ -1,4 +1,4 @@
--module(trainer).
+-module(trainer_analyzer).
 -export([start/0, evaluate/3]).
 
 -export([init/0]).
