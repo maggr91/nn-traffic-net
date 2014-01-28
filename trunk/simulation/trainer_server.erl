@@ -1,3 +1,7 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Module dedicated to register car statistics in the nework
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 -module(trainer_server).
 -export([start/0, update/3, update/4]).
 
@@ -44,7 +48,7 @@ update(TrainerPid, Data, Location) ->
 	%io:format("Updating trainer ~w~n",[{Data, Location}]),
 	TrainerPid ! {rec, Data, Location},
 	%io:format("after Updating trainer"),
-	{ok, update}.
+	{ok, update}.trainer_server
 
 update(TrainerPid, Data, Location, ParentLaneId) ->
 	io:format("Using ParentLaneId ~w trainer ~w~n",[ParentLaneId, {Data, Location}]),
