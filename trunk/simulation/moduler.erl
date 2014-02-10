@@ -499,7 +499,8 @@ filter_elements_aux([], _Data, Result) ->
 filter_elements_aux([Item | List], Data, Result) ->
 	Info = lists:keyfind(Item,1, Data),
 	case Info of
-		false ->	filter_elements_aux(List, Data, [{Item, -1} | Result]);
+		%false ->	filter_elements_aux(List, Data, [{Item, -1} | Result]);
+		false ->	filter_elements_aux(List, Data, [{Item, 0} | Result]);
 		_Other ->	filter_elements_aux(List, Data, [{Item, Info} | Result])
 	end.
 
