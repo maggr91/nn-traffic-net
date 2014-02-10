@@ -372,7 +372,6 @@ get_config() ->
 calculate_outputs(NetValues, NetInputs, FixedCarLength, DirList) ->
 	io:format("NetValues ~w NetInputs ~w FixedCarLength ~w Dirlist ~w ~n~n", [NetValues, NetInputs, FixedCarLength, DirList]),
 	lists:map(fun(Dir) ->
-			io:format("Dir ~w ~n",[Dir]),
 			io:format("NetValues ~w NetInputs ~w FixedCarLength ~w Dir ~w ~n~n", [NetValues, NetInputs, FixedCarLength, Dir]),
 			DirValues = find_element(Dir, NetValues),
 			TargetInputs = find_element(Dir, NetInputs),
@@ -500,6 +499,7 @@ filter_elements_aux([], _Data, Result) ->
 filter_elements_aux([Item | List], Data, Result) ->
 	Info = lists:keyfind(Item,1, Data),
 	case Info of
+		%false ->	filter_elements_aux(List, Data, [{Item, -1} | Result]);
 		false ->	filter_elements_aux(List, Data, [{Item, -1} | Result]);
 		_Other ->	filter_elements_aux(List, Data, [{Item, Info} | Result])
 	end.

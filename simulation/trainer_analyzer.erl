@@ -80,13 +80,43 @@ evaluate_target(TargetLane, TrainerReg, CarsState, TrainingData) ->
 calculate_car_stats(CarList, OldRecords) ->
 	MergedCars = lists:append(CarList, OldRecords),
 	io:format("merged carlist ~w ~n~n",[MergedCars]),
-	{SumWait, SumDelay} = lists:foldl(fun({_CarType,{Wait,Delay, _Position, _Route, _PrefLanes, _NextMove, _TopMove}}, {Res1, Res2}) -> 
-		{Res1 + Wait, Res2 + Delay} end, {0,0}, MergedCars),
+	Default = [{wait, 0},{delay, 0}],
+	Keys = [wait, delay],
+	%{SumWait, SumDelay} = lists:foldl(fun({_CarType,{Wait,Delay, _Position, _Route, _PrefLanes, _NextMove, _TopMove}}, {Res1, Res2}) -> 
+	Res = lists:foldl(fun({_CarType,{_Position, _NextMove, _PrefLanes, Records}}, Acc) ->
+		 Times = get_safe_element(times, Records),
+		 NewAcc = acc_result(Times, Keys, Acc),
+		 NewAcc end, Default, MergedCars),
+		 %{Res1 + Wait, Res2 + Delay} end, {0,0}, MergedCars),
 	Count = length(MergedCars),
 	if Count > 0 ->
-			{erlang:round(SumWait/Count) , erlang:round(SumDelay / Count)};
-		true -> {SumWait, SumDelay}
+			post_acc_result(Res, Count);
+		true -> Res
 	end.
+
+acc_result(Records, Keys, Acc) ->
+	lists:map(fun(Key) ->
+		KeyValue = get_safe_element(Key, Records),
+		AccValue = get_safe_element(Key, Acc),
+		
+		NewValue = try
+					KeyValue + AccValue
+				catch
+					Exception:Reason -> AccValue
+				end,
+		{Key, NewValue}
+		end,
+		Keys
+	).
+
+post_acc_result(Acc, Count) ->
+	lists:map(fun(Item) ->
+			{Key, SumItem} = Item,
+			{Key, erlang:round(SumItem/Count)}
+		end,
+		Acc
+	).
+		
 
 
 load_training_set() ->
