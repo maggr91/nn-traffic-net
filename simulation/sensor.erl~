@@ -33,7 +33,7 @@ sensor(Lanes, File, StandBy) ->
 			sensor(NewLanes, File, StandBy);
 		{idle, _CallerPid, Dir} ->
 			io:format("Idle Sensor targets ~n", []),
-			NewLanes = reset_count(Lanes, Dir,-1),
+			NewLanes = reset_count(Lanes, Dir,-100),
 			io:format("Sensor new lanes count ~w~n",[NewLanes]),
 			sensor(NewLanes, File, StandBy);
 		{check_standby, CallerPid, Limit} ->

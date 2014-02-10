@@ -22,19 +22,19 @@ init({restore, Args}) ->
 sensor(Lanes, File, StandBy) ->
 	receive 
 		{update, _CallerPid, CallerId, Value, Dir} ->
-			io:format("Sensor msg ~w for lane: ~w with data: ~w~n", [self(), CallerId, {Dir, Value}]),
+			%%io:format("Sensor msg ~w for lane: ~w with data: ~w~n", [self(), CallerId, {Dir, Value}]),
 			NewLanes = update_count(CallerId, Lanes, Lanes, Value, Dir),			
 			sensor(NewLanes, File, 0);
 		{standby, _CallerPid} ->
 			sensor(Lanes, File, StandBy + 1);
 		{change, _CallerPid, Dir} ->
-			io:format("Change Sensor targets ~n", []),
+			%%io:format("Change Sensor targets ~n", []),
 			NewLanes = reset_count(Lanes, Dir,0),			
 			sensor(NewLanes, File, StandBy);
 		{idle, _CallerPid, Dir} ->
-			io:format("Idle Sensor targets ~n", []),
+			%%io:format("Idle Sensor targets ~n", []),
 			NewLanes = reset_count(Lanes, Dir,-100),
-			io:format("Sensor new lanes count ~w~n",[NewLanes]),
+			%%io:format("Sensor new lanes count ~w~n",[NewLanes]),
 			sensor(NewLanes, File, StandBy);
 		{check_standby, CallerPid, Limit} ->
 			Status = evaluate_standby(Limit, StandBy),
@@ -126,7 +126,7 @@ evaluate_standby(_Limit, _StandBy) ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Checkpoint
 write_checkpoint(Lanes, File, StandBy)->
-	io:format("CHECKPOINT SENSOR file : ~p ~n",[File]),
+	%%io:format("CHECKPOINT SENSOR file : ~p ~n",[File]),
 	FormatedLanes = format_for_check(Lanes, StandBy),
 	lists:map(fun(Data) -> 
 		filemanager:write_raw(File, io_lib:format("~w", [Data]))
