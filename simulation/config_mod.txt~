@@ -1,1 +1,1 @@
-[{nn_config, "/sources/config_dm.txt"}, {fixed_car_length, 3.6}, {checkpoint_data, {"/checkpoint/modulers.txt", "/checkpoint/nn_saving/nn_saving_", "/checkpoint/sensors/sensor_"}}]
+[{mode, normal}, {nn_config, "/sources/config_dm.txt"}, {fixed_car_length, 3.6}, {checkpoint_data, {"/checkpoint/modulers.txt", "/checkpoint/nn_saving/nn_saving_", "/checkpoint/sensors/sensor_"}}, {logs, {"/logs/nn/nn_log"}]

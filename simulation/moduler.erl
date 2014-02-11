@@ -18,14 +18,17 @@ start(Args) ->
 init({restore, LightId, Lanes}) ->
 	[Config | _Junk] = get_config(),
 	CheckpointLog = find_config_data(Config, checkpoint_data),
+	Logs = find_config_data(Config, logs),
 	FixedCarLength = find_config_data(Config, fixed_car_length),
 	Mode = find_config_data(Config, mode),
 	
+	{NNLog} = Logs,
 	{ModFile, NNFile, SensorFile} = CheckpointLog,
 	
 	FormatNNFile = format_dm_file(NNFile, LightId),
+	FormatNNLog = format_dm_file(NNLog, LightId),
 	{_Struct, Mapping, {_, SubMappingLength}} = find_dm_config_data(Config, LightId),
-	NN = restore_dm(FormatNNFile, Mapping),
+	NN = restore_dm(FormatNNFile, Mapping, FormatNNLog),
 	
 	RestoredData = restore(ModFile, LightId),
 	
@@ -48,18 +51,22 @@ init({restore, LightId, Lanes}) ->
 init({normal, LightId, Lanes}) ->
 	[Config | _Junk] = get_config(),
 	CheckpointLog = find_config_data(Config, checkpoint_data),
+	Logs = find_config_data(Config, logs),
+	
 	FixedCarLength = find_config_data(Config, fixed_car_length),
 	Mode = find_config_data(Config, mode),
 	{Other, NNFile, SensorFile} = CheckpointLog,
+	{NNLog} = Logs,
 	
 	FormatLog = formated_log(Other),
 	FormatSens = format_dm_file(SensorFile, LightId),
 	FormatNNFile = format_dm_file(NNFile, LightId),
+	FormatNNLog = format_dm_file(NNLog, LightId),
 	
 	delete_old([FormatLog, FormatSens]),
 	
 	NewCheckpointLog = {FormatLog, FormatNNFile, FormatSens},
-	{NN, SubMappingLength} = create_dm(Config,FormatNNFile, LightId),
+	{NN, SubMappingLength} = create_dm(Config,FormatNNFile,FormatNNLog, LightId),
 	%update_dm(NN, NNFile, LightId),	
 	
 	Sensor = create_sens(Lanes, FormatSens),
@@ -83,6 +90,22 @@ create_dm(Config, NNFile, Light)->
 			io:format("~n~nLEARNING FILE ENCOUNTER ~p  restoring network~n~n",[NNFile]),
 			{restore_dm(NNFile, Mapping), SubMappingLength}
 	end.
+	
+%%CREATES The decision maker for the light in this case is a Neuronal Network
+%%Input: None
+%%Output: Pid of the DM
+create_dm(Config, NNFile,NNLog, Light)->
+	Exist = filelib:is_file(NNFile),
+	NNConfig = find_dm_config_data(Config, Light),
+	{{Input, Hidden, Output}, Mapping, {_, SubMappingLength}} = NNConfig,
+	if	Exist =:= false ->
+			io:format("~n~n MISSING LEARNING FILE creating new network~n~n"),
+			%NNConfig = find_config_data(Config, nn_config),
+			{ann:start(Input, Hidden, Output, NNFile, Mapping, NNLog), SubMappingLength};
+		true ->
+			io:format("~n~nLEARNING FILE ENCOUNTER ~p  restoring network~n~n",[NNFile]),
+			{restore_dm(NNFile, Mapping, NNLog), SubMappingLength}
+	end.
 
 update_dm(NN, NNFile, LightId)->
 	NewNNFile = format_dm_file(NNFile, LightId),
@@ -93,6 +116,9 @@ restore_dm(NNFile, Mapping) ->
 	%NewNNFile = NNFile ++ NewLight,
 	%NewNNFile = format_dm_file(NNFile, LightId),
 	ann:start({NNFile, Mapping}).
+	
+restore_dm(NNFile, Mapping, NNLog) ->
+	ann:start({NNFile, Mapping, NNLog}).
 
 %%%%%%%%%%%
 %% SENSOR

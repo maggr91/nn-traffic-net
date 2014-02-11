@@ -1,7 +1,7 @@
 -module(ann).
--export([start/1, start/3, start/5, test_run/0, input_set/2, stop/1]).
+-export([start/1, start/3, start/5, start/6, test_run/0, input_set/2, stop/1]).
 
--export([init/1, init/3, init/5]).
+-export([init/1, init/3, init/5, init/6]).
 
 start(Args)->	
 	on_init(),
@@ -20,16 +20,26 @@ start(Input, Hiden, Output) ->
 start(Input, Hiden, Output, NNFile, OutputsMapping) ->
 	on_init(),
 	spawn(ann, init, [Input, Hiden, Output, NNFile, OutputsMapping]).
+	
+start(Input, Hiden, Output, NNFile, OutputsMapping, NNLog) ->
+	on_init(),
+	spawn(ann, init, [Input, Hiden, Output, NNFile, OutputsMapping, NNLog]).
 
 init({NNFile, OutputsMapping}) ->
 	%% When training use the save configuration for the ann was found
 	Layers = load_layers(NNFile),
-	network(Layers, NNFile, OutputsMapping);
+	NNLog = default_log(),
+	network(Layers, NNFile, OutputsMapping, NNLog);
+init({NNFile, OutputsMapping, NNLog}) ->
+	%% When training use the save configuration for the ann was found
+	Layers = load_layers(NNFile),
+	network(Layers, NNFile, OutputsMapping, NNLog);
 init(NNFile) ->
 	%% When training use the save configuration for the ann was found
 	Layers = load_layers(NNFile),
 	OutputsMapping = [],
-	network(Layers, NNFile, OutputsMapping).
+	NNLog = default_log(),
+	network(Layers, NNFile, OutputsMapping, NNLog).
 
 
 %%when loading a network from old process
@@ -123,15 +133,23 @@ get_connections_pids(Target, Source) ->
 init(Input, Hiden, Output) ->
 	io:format("New network~n"),
 	OutputsMapping = [],
+	NNLog = default_log(),
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] New network", [?MODULE])),
 	Layers = load_layers(Input, Hiden, Output),
-	network(Layers, "test_saving.txt", OutputsMapping).
+	network(Layers, "test_saving.txt", OutputsMapping, NNLog).
 	
 init(Input, Hiden, Output, NNFile, OutputsMapping) ->
 	io:format("New network~n"),
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] New network", [?MODULE])),
 	Layers = load_layers(Input, Hiden, Output),
-	network(Layers, NNFile, OutputsMapping).
+	NNLog = default_log(),
+	network(Layers, NNFile, OutputsMapping, NNLog).
+	
+init(Input, Hiden, Output, NNFile, OutputsMapping, NNLog) ->
+	io:format("New network~n"),
+	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] New network", [?MODULE])),
+	Layers = load_layers(Input, Hiden, Output),
+	network(Layers, NNFile, OutputsMapping, NNLog).
 
 %% creates a new network from scratch
 load_layers(Input, Hiden, Output) ->
@@ -204,20 +222,14 @@ init_weights({InputLay, HiddenLay, OutputLay}) ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-network(Layers, NNFile, OutputsMapping) ->	
-% 	io:format("Saving training~n"),
-%	file:delete("test_saving.txt"),
-%	io:format("Old file deleted~n"),			
-%	save_training(Layers, "test_saving.txt"),
-	%%reply(CallerPid, ended),
-%	{normal, ok}.
+network(Layers, NNFile, OutputsMapping, NNLog) ->	
 	receive
 		{train, CallerPid, Data} ->
 			io:format("SENDING INPUTS~n~n"),
 			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] SENDING INPUTS\n", [?MODULE])),
-			Res = send_input(Layers,Data, OutputsMapping),
+			Res = send_input(Layers,Data, OutputsMapping, NNLog),
 			reply(CallerPid, Res),
-			network(Layers, NNFile, OutputsMapping);
+			network(Layers, NNFile, OutputsMapping, NNLog);
 		{stop, _CallerPid} ->			
 			filelib:ensure_dir("checkpoint/nn_saving/"),
 			save(Layers, NNFile, false),
@@ -228,14 +240,14 @@ network(Layers, NNFile, OutputsMapping) ->
 			filelib:ensure_dir("checkpoint/nn_saving/"),
 			save(Layers, NNFile, true),
 			reply(CallerPid, ended),
-			network(Layers, NNFile, OutputsMapping);
+			network(Layers, NNFile, OutputsMapping, NNLog);
 		{update_file, NewNNFile} ->
 			io:format("Updating NNFILe"),
-			network(Layers, NewNNFile, OutputsMapping)
+			network(Layers, NewNNFile, OutputsMapping, NNLog)
 	end.			
 
 %% set a new training set for the network
-send_input(Layers, {Mode, Data}, OutputsMapping) ->
+send_input(Layers, {Mode, Data}, OutputsMapping, NNLog) ->
 	{_InType, InputLayer} = lists:keyfind(input, 1,Layers),	
 	{_Train, TrainInput} = lists:keyfind(inputs, 1,Data),	
 	
@@ -250,6 +262,7 @@ send_input(Layers, {Mode, Data}, OutputsMapping) ->
 			timer:sleep(200),
 			R = get_neurons_outputs(OutputLayer, OutputsMapping),
 			io:format("~n~n Outneurons ~w~n~n", [R]),
+			filemanager:write_raw(NNLog, io_lib:format("[~w, ~w]", [{inputs, TrainInput}, {outputs, R}])),
 			R;
 		_Other ->	%%training		
 			{_DesairedOut, TargetOutput} = lists:keyfind(output, 1,Data),			
@@ -458,6 +471,7 @@ get_layer_weights(Layer) ->
 
 on_init() ->
 	filelib:ensure_dir("logs/"),
+	filelib:ensure_dir("logs/nn/"),
 	safe_helper_init(loggerId, logger, null, logger),
 	safe_helper_init(randGen, randGen, {}, rand_generator).
 	
@@ -481,7 +495,16 @@ safe_helper_init(RegName, LogName, Args, MODULE) ->
 stop_helpers() ->
 	logger:stop(loggerId),
 	rand_generator:stop(randGen).
+	
+default_log() ->
+	{ok, Cwd} = file:get_cwd(),
+	Name = default_log_name() ++ ".txt",	
+	Cwd ++ Name.
 
+default_log_name() ->
+	Temp = tuple_to_list(calendar:local_time()),
+	DTL = lists:foldl(fun(Item, Acc) -> ItemList = tuple_to_list(Item), lists:append(Acc, ItemList) end, [], Temp),
+	lists:foldl(fun(Item, Acc) -> Str = Acc ++ "_", Str ++ lists:flatten(io_lib:format("~p", [Item])) end, "", DTL).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%client interface functions%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
