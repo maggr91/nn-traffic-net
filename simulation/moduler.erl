@@ -42,7 +42,7 @@ init({restore, LightId, Lanes}) ->
 	%delete_old([FormatLog, FormatSens]),
 	timer:apply_after(100, moduler,delete_old,[[FormatLog, FormatSens]]),
 	
-	NewCheckpointLog = {FormatLog, FormatNNFile, FormatSens},
+	NewCheckpointLog = {FormatLog, FormatNNFile, FormatSens, FormatNNLog},
 	Trainer = trainer_analyzer:start(),
 	
 	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,NewCheckpointLog, Sensor, 
@@ -65,7 +65,7 @@ init({normal, LightId, Lanes}) ->
 	
 	delete_old([FormatLog, FormatSens]),
 	
-	NewCheckpointLog = {FormatLog, FormatNNFile, FormatSens},
+	NewCheckpointLog = {FormatLog, FormatNNFile, FormatSens, FormatNNLog},
 	{NN, SubMappingLength} = create_dm(Config,FormatNNFile,FormatNNLog, LightId),
 	%update_dm(NN, NNFile, LightId),	
 	
@@ -201,7 +201,7 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 		{proc, CallerPid, Dir, Stats} ->			
 			%%First, get data from related sensor(s)
 			%%return is [{real_count, Val}, {rain, Val}]
-									
+						
 			%%%%%%%%%%NEW
 			%secure that Dir is a list
 			DirList = lists:append([Dir]),
@@ -227,7 +227,11 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 			
 			%listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor);
 			listen(Light, Siblings, NN, FinalData, CheckpointLog, Sensor, Trainer, FixedCarLength, Mapping);
-			
+		
+		{performance, CallerPid, Dir, Stats} ->
+			check_dm_performance(Trainer, NN, Dir, Stats, Light),
+			reply(CallerPid, ok),
+			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength, Mapping);
 		{stop, _CallerPid} ->
 			force_stop(NN, Sensor),
 			%reply(CallerPid, {normal, moduler}),find_dm_config_data(Config, Target) ->			
@@ -263,26 +267,63 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 %%%%%%%%%%%%%%     GENERAL FUNCTIONS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-get_desition(FormatedInputs,Dir, Light, NN, CarStats, {TrainerPid, train}) ->
+%%INPUTS: FormatedInputs: list of inputs to send to NN in order to get a result
+%%		  DirList: list of the lanes to evaluate
+%%		  Light: ID of the current Light
+%%		  NN: PID of the NN
+%%		  CarStats: list of cars with statistics
+%%		  Mode : tuple with trainerPid and mode (train for selftraining, train_performance with helped training, and normal)
+%%OUTPUTS: Desition: Decision taken by NN
+%%DESC:   Get all data from current state an asked the NN for a decision
+get_decision(FormatedInputs, _DirList, _Light, NN, _CarStats, {_TrainerPid, train}) ->
 	%%Call trainer prior calling the NN to get a waitedResult
 	%%call nn with the new inputs
-	Desition = ann:input_set(NN, {train, [{inputs, FormatedInputs}]}),
-	io:format("GETTING TRAINER INFO", []),
-	S = atom_to_list(Light),
-    ParentLaneId = list_to_atom(string:concat(atom_to_list(Dir), string:substr(S,6,3))),
-	trainer_analyzer:evaluate(TrainerPid, ParentLaneId, CarStats),	
-	[10,3,1];
+	get_dm_decision(NN, {train, [{inputs, FormatedInputs}]});
 	
-
-get_desition(FormatedInputs, _Dir, _Light, NN, _CarStats, {_TrainerPid, normal}) ->
+get_decision(FormatedInputs, DirList, Light, NN, CarStats, {TrainerPid, train_performance}) ->
 	%%Call trainer prior calling the NN to get a waitedResult
 	%%call nn with the new inputs
-	Res = ann:input_set(NN, {normal, [{inputs, FormatedInputs}]}),
+	%%First do a evaluation of performance
+	io:format("~n~nCHECKING TRAINER INFO~n~n", []),	
+	check_dm_performance(TrainerPid, NN, DirList, CarStats, Light),
+	timer:sleep(100),
+	io:format("~n~nAFTER CHECKING TRAINER INFO~n~n", []),	
+	%%After that get a de
+	get_dm_decision(NN, {normal, [{inputs, FormatedInputs}]});
+
+get_decision(FormatedInputs, _DirList, _Light, NN, _CarStats, {_TrainerPid, normal}) ->
+	%%Call trainer prior calling the NN to get a waitedResult
+	%%call nn with the new inputs
+	get_dm_decision(NN, {normal, [{inputs, FormatedInputs}]}).
+
+
+%%HELPER FUNCTION TO CALL NN WITH ARGS
+get_dm_decision(NN, Args) ->
+	io:format("GETTING TRAINER INFO", []),	
+	Res = ann:input_set(NN, Args),
 	case Res of
 				{reply, Value} ->	
 						  Value;			  
 				Other -> {error, Other}
 	end.
+
+check_dm_performance(TrainerPid, NN, DirList, CarStats, Light) ->
+	ParentLaneIds = 
+		lists:map(fun(Dir) ->
+			S = atom_to_list(Light),
+    		ParentLaneId = list_to_atom(string:concat(atom_to_list(Dir), string:substr(S,6,3))),
+    		ParentLaneId
+    		end,
+    		DirList),
+    %%{OutputsMapping, NNLog}
+    io:format("PARENTLANEIds ~w~n~n",[ParentLaneIds]),
+    NNData = ann:get_data(NN),
+    io:format("NNData ~w~n~n",[NNData]),
+	Adjustment = trainer_analyzer:evaluate(TrainerPid, ParentLaneIds, CarStats, NNData),
+	ann:input_set(NN, {train, Adjustment}),
+	io:format("~nAFTER TRAINING ANN~n", []),	
+	ok.
+
 
 
 reply(Pid, Reply) ->
@@ -644,14 +685,24 @@ manage_inputs_updates(Sensor, DirList, CurrentData, Siblings) ->
 			  end,
 			  CurrentData,
 			  DirList).
-	
+
+%%INPUTS: DirList: list of the lanes to evaluate
+%%		  NN: PID of the NN
+%%		  Stats: list of cars with statistics
+%%		  FormatedInputs: list of inputs to send to NN in order to get a result
+%%		  CurrentData: data at current state to be updated
+%%		  FixedCarLength: car length to do some estimations
+%%		  Light: ID of the current Light
+%%		  Mapping: map of the NN bits output to translate into decimal numbers
+%%OUTPUTS: FinalDesition: Decision taken by NN
+%%DESC:   Get all data from current state an asked the NN for a decision
 execute(DirList, NN, Stats, Trainer, FormatedInputs, CurrentData, FixedCarLength, Light, Mapping) ->
-	Desition = get_desition(FormatedInputs,DirList, Light, NN, Stats, Trainer),
+	Desition = get_decision(FormatedInputs,DirList, Light, NN, Stats, Trainer),
 	io:format("Desition ~w~n",[{Desition, Mapping, DirList}]),
 	DesitionFormated = split(Desition, Mapping, DirList),
 	io:format("SPLITED VALUES ~w~n~n", [DesitionFormated]),
 	NetInputs = find_element(net_input, CurrentData),
-	%%Calculate extra outputs according to nn desition and the input data
+	%%Calculate extra outputs according to nn decision and the input data
 	FinalDesition = calculate_outputs(DesitionFormated, NetInputs, FixedCarLength, DirList),
 	%FinalDesition = calculate_outputs(Desition, NetInputs,SensorInputs),
 			
@@ -682,6 +733,7 @@ split(List, Cs, KeyList, Acc) ->
 	{Chunk, Tail} = lists:split(Cs, List),
 	[Key | KeyTail] = KeyList,
 	split(Tail, Cs, KeyTail, [{Key, Chunk} | Acc]).
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%     CLIENT INTERFACE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -714,14 +766,23 @@ stop(ModulerPid) ->
 	ModulerPid ! {stop, self()},
 	{normal, moduler}.
 
-%%INPUT: ModulerPid related to the traffic light, Dir direction where to look for info
+%%INPUT: ModulerPid related to the traffic light, 
+%%		 Dir direction where to look for info
+%%		 Stats, list of cars in the current lane
 %%OUTPUT: returns the new data to use by the light (mostly times)
 %%DESC: Called from Lights, in order to ask the DM (nn) what would be the next cycle
 estimation_proc(ModulerPid, Dir, Stats) ->
+	
+	%ModulerPid ! {performance, self(), Dir, Stats},
+	%receive
+	%	{reply, ok} -> {reply, ok};
+	%	_OtherPerformance ->	{error, moduler}		
+	%end,
+	
 	ModulerPid ! {proc, self(), Dir, Stats},
 	receive
 		{reply, NewDesition} -> {reply, NewDesition};
-		_Other ->	{error, moduler}		
+		_OtherProc ->	{error, moduler}		
 	end.	
 
 get_sensor(ModulerPid) ->
@@ -763,7 +824,7 @@ checkpoint(Pid) ->
 write_checkpoint(NN, Data, CheckpointLog, LightId, Sensor) ->
 	FormatedSiblings = format_siblings(Data),
 	FormatedData = lists:keyreplace(siblings_data,1,Data, {siblings_data, FormatedSiblings}),
-	{ModulerFile, _NNFile, _SensorLight} = CheckpointLog,
+	{ModulerFile, _NNFile, _SensorLight, _NNLog} = CheckpointLog,
 	%io:format("moduler file: ~p", [ModulerFile]),
 	filemanager:write_raw(ModulerFile, io_lib:format("~w", [{LightId, FormatedData}])),
 	write_checkpoint_nn(NN),

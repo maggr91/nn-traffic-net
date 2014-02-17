@@ -1,5 +1,5 @@
 -module(ann).
--export([start/1, start/3, start/5, start/6, test_run/0, input_set/2, stop/1]).
+-export([start/1, start/3, start/5, start/6, test_run/0, input_set/2, stop/1, get_data/1]).
 
 -export([init/1, init/3, init/5, init/6]).
 
@@ -240,6 +240,9 @@ network(Layers, NNFile, OutputsMapping, NNLog) ->
 			filelib:ensure_dir("checkpoint/nn_saving/"),
 			save(Layers, NNFile, true),
 			reply(CallerPid, ended),
+			network(Layers, NNFile, OutputsMapping, NNLog);
+		{get_data, CallerPid} ->
+			reply(CallerPid, {OutputsMapping, NNLog}),
 			network(Layers, NNFile, OutputsMapping, NNLog);
 		{update_file, NewNNFile} ->
 			io:format("Updating NNFILe"),
@@ -525,4 +528,11 @@ stop(NetworkPid) ->
 			{ok, []};
 		_Other ->
 			{error, []}
+	end.
+	
+get_data(NetworkPid) ->
+	NetworkPid ! {get_data, self()},
+	receive 
+		{reply, Data} -> Data;
+		_Errors -> 	{error, no_data}
 	end.
