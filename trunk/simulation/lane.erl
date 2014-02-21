@@ -183,7 +183,9 @@ lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstructio
 	 	lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, 
 	 		Obstruction, ProbData, Stats, TopSpeed);
 	 {info_cars, CallerPid} ->
-	 	reply(CallerPid, CarsQueque),
+	 	S = atom_to_list(LaneId),
+	    ParentLaneId = list_to_atom(string:concat(string:substr(S,8,2), string:substr(S,5,3))),
+	 	reply(CallerPid, {ParentLaneId, CarsQueque}),
 	 	lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, 
 	 		Obstruction, ProbData, Stats, TopSpeed);
 	stop -> {ok, normal}

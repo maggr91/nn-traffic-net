@@ -524,7 +524,7 @@ evaluate_state(State = redgreen, _OldState, NextTime, CTime, _ARTime, _ARTimer, 
 evaluate_state_dm(State, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, 
   CtrlMod, _Delay, _MaxWait, ManagedLanes) when NextTime >= CTime, ARTimer <  ARTime->
   	%io:format("Estimating time results for next state~n", []),
-  	%CarStats = eval_delay(ManagedLanes),
+  	CarStats = eval_delay(ManagedLanes),  %%get cars on lane (all lanes)
   	CarStats = [],
 	DirList = next_state_dir(State),
    	{reply, NewData} = moduler:estimation_proc(CtrlMod, DirList,CarStats),
