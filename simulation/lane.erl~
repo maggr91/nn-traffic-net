@@ -183,7 +183,9 @@ lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstructio
 	 	lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, 
 	 		Obstruction, ProbData, Stats, TopSpeed);
 	 {info_cars, CallerPid} ->
-	 	reply(CallerPid, CarsQueque),
+	 	S = atom_to_list(LaneId),
+	    ParentLaneId = list_to_atom(string:concat(string:substr(S,8,2), string:substr(S,5,3))),
+	 	reply(CallerPid, {ParentLaneId, CarsQueque),
 	 	lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, 
 	 		Obstruction, ProbData, Stats, TopSpeed);
 	stop -> {ok, normal}
@@ -1174,7 +1176,7 @@ available_space({CarType,{{_BPos, _EPos, Length}, NextMove, PrefLanes, Records}}
   when LastPosition == -1 ;  LastPosition + 1 + Length =<  LaneCap->
     NBPos = LaneCap - Length,
     NEPos = LaneCap,
-    NewRecords = update_elements([{value, top_move, TopSpeed}], Records, null),
+    NewRecords = update_elements([{value_replace, top_move, TopSpeed}], Records, null),
     io:format("~n~nCHANGING TOP_MOVE TO TOP_SPEED ~w RES ~w~n~n",[TopSpeed, NewRecords]),
     {CarType,{{ NBPos, NEPos, Length}, NextMove, PrefLanes, NewRecords}};
 available_space(_Car,_TopSpeed, _LastPosition, _LaneCap) ->

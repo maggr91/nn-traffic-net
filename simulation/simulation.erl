@@ -79,7 +79,7 @@ call(Message) ->
     end.
 
 get_config() ->
-	filemanager:get_data("/config.txt").
+	filemanager:get_data("/config/config.txt").
 %% Get the working directory, set complete path y read all lines
 %%    {ok, Cwd} = file:get_cwd(),
 %%    Path = Cwd ++ "/config.txt",

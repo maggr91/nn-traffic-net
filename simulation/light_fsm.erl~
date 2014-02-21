@@ -524,7 +524,7 @@ evaluate_state(State = redgreen, _OldState, NextTime, CTime, _ARTime, _ARTimer, 
 evaluate_state_dm(State, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, 
   CtrlMod, _Delay, _MaxWait, ManagedLanes) when NextTime >= CTime, ARTimer <  ARTime->
   	%io:format("Estimating time results for next state~n", []),
-  	%CarStats = eval_delay(ManagedLanes),
+  	CarStats = eval_delay(ManagedLanes),  %%get cars on lane
   	CarStats = [],
 	DirList = next_state_dir(State),
    	{reply, NewData} = moduler:estimation_proc(CtrlMod, DirList,CarStats),
@@ -957,7 +957,7 @@ update_state_data_times(NewVals, StateData, DirList) ->
 		
 		%%Get the values to update for the current Dir in loop
 		UpdateVals = find_element(Dir, NewVals),
-		Times = find_element(times, StateData),
+		Times = find_element(times, Acc),
 		PreFilterVals = [{X, Y} || {X, Y} <- UpdateVals, (X == cycle_time) or (X == delay) or (X == umbral)],		
 		NewCycleTime = find_element(cycle_time, PreFilterVals),
 		

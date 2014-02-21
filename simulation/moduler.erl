@@ -425,7 +425,7 @@ find_config_data(ConfigData, Key) ->
 	end.
 
 get_config() ->
-	filemanager:get_data("/config_mod.txt").
+	filemanager:get_data("/config/config_mod.txt").
 
 %calculate_outputs(NetValues, NetInputs, FixedCarLength, Dir) ->
 %%calculate_outputs(NetValues, _NetInputs, SensorInputs) ->
