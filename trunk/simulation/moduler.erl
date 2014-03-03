@@ -216,7 +216,8 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 			%FormatedInputs = format_inputs(DirList, NewData,SensorInputs, SiblingsInput),
 			
 			%%EXECUTE
-			FinalDesition = execute(DirList, NN, Stats, Trainer, FormatedInputs, NewData, FixedCarLength, Light, Mapping),
+			FinalDesition = execute(DirList, NN, Stats, Trainer, FormatedInputs, NewData, FixedCarLength, Light, Mapping, Siblings),
+			%FormatDataResult = format_result_for_interface(Dir, FinalDesition, Mapping),
 			%%Send the info back to the light
 			reply(CallerPid, FinalDesition),
 			
@@ -229,7 +230,7 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 			listen(Light, Siblings, NN, FinalData, CheckpointLog, Sensor, Trainer, FixedCarLength, Mapping);
 		
 		{performance, CallerPid, Dir, Stats} ->
-			check_dm_performance(Trainer, NN, Dir, Stats, Light),
+			check_dm_performance(Trainer, NN, Dir, Stats, Light, []),
 			reply(CallerPid, ok),
 			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength, Mapping);
 		{stop, _CallerPid} ->
@@ -273,25 +274,26 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 %%		  NN: PID of the NN
 %%		  CarStats: list of cars with statistics
 %%		  Mode : tuple with trainerPid and mode (train for selftraining, train_performance with helped training, and normal)
+%%		  AnomalliesData: for each Dir in DirList indicates if theres a problem on lights located before (antes) current light
 %%OUTPUTS: Desition: Decision taken by NN
 %%DESC:   Get all data from current state an asked the NN for a decision
-get_decision(FormatedInputs, _DirList, _Light, NN, _CarStats, {_TrainerPid, train}) ->
+get_decision(FormatedInputs, _DirList, _Light, NN, _CarStats, {_TrainerPid, train}, _AnomalliesData) ->
 	%%Call trainer prior calling the NN to get a waitedResult
 	%%call nn with the new inputs
 	get_dm_decision(NN, {train, [{inputs, FormatedInputs}]});
 	
-get_decision(FormatedInputs, DirList, Light, NN, CarStats, {TrainerPid, train_performance}) ->
+get_decision(FormatedInputs, DirList, Light, NN, CarStats, {TrainerPid, train_performance}, AnomalliesData) ->
 	%%Call trainer prior calling the NN to get a waitedResult
 	%%call nn with the new inputs
 	%%First do a evaluation of performance
 	io:format("~n~nCHECKING TRAINER INFO~n~n", []),	
-	check_dm_performance(TrainerPid, NN, DirList, CarStats, Light),
+	check_dm_performance(TrainerPid, NN, DirList, CarStats, Light, AnomalliesData),
 	timer:sleep(100),
 	io:format("~n~nAFTER CHECKING TRAINER INFO~n~n", []),	
 	%%After that get a de
 	get_dm_decision(NN, {normal, [{inputs, FormatedInputs}]});
 
-get_decision(FormatedInputs, _DirList, _Light, NN, _CarStats, {_TrainerPid, normal}) ->
+get_decision(FormatedInputs, _DirList, _Light, NN, _CarStats, {_TrainerPid, normal}, _AnomalliesData) ->
 	%%Call trainer prior calling the NN to get a waitedResult
 	%%call nn with the new inputs
 	get_dm_decision(NN, {normal, [{inputs, FormatedInputs}]}).
@@ -307,20 +309,24 @@ get_dm_decision(NN, Args) ->
 				Other -> {error, Other}
 	end.
 
-check_dm_performance(TrainerPid, NN, DirList, CarStats, Light) ->
+check_dm_performance(TrainerPid, NN, DirList, CarStats, Light, AnomalliesData) ->
 	ParentLaneIds = 
 		lists:map(fun(Dir) ->
 			S = atom_to_list(Light),
     		ParentLaneId = list_to_atom(string:concat(atom_to_list(Dir), string:substr(S,6,3))),
-    		ParentLaneId
+    		%ParentLaneId
+    		{Dir, ParentLaneId}
     		end,
     		DirList),
     %%{OutputsMapping, NNLog}
     io:format("PARENTLANEIds ~w~n~n",[ParentLaneIds]),
     NNData = ann:get_data(NN),
     io:format("NNData ~w~n~n",[NNData]),
-	Adjustment = trainer_analyzer:evaluate(TrainerPid, ParentLaneIds, CarStats, NNData),
-	ann:input_set(NN, {train, Adjustment}),
+	Adjustment = trainer_analyzer:evaluate(TrainerPid, ParentLaneIds, CarStats, NNData, AnomalliesData),
+	case Adjustment of
+		null	-> skip;
+		_Other	-> ann:input_set(NN, {train, Adjustment})
+	end,
 	io:format("~nAFTER TRAINING ANN~n", []),	
 	ok.
 
@@ -671,13 +677,14 @@ manage_inputs_updates(Sensor, DirList, CurrentData, Siblings) ->
 				%%sensor:idle(Sensor, Dir),		
 				{_Return, FirstData} = eval_sensor_input(SensorInputs, Data, Dir),
 				
-				io:format("~n~n~n~n PROC DATA SENSOR UPDATE ~w~n~n~n~n",[FirstData]),
+				%io:format("~n~n~n~n PROC DATA SENSOR UPDATE ~w~n~n~n~n",[FirstData]),
 				
 				%%second update data from siblings
 				NewData = request_update_from_Siblings(Siblings, FirstData, Dir),
 				
 				%%Third format all reladted inputs from siblings				
 				SiblingsInput = format_siblings_inputs(Dir, Siblings, NewData),
+								
 				io:format("SiblingsInput ~w",[SiblingsInput]),
 				
 				{{Dir, [{sensor, SensorInputs}, {siblings, SiblingsInput}]}, NewData}
@@ -685,7 +692,7 @@ manage_inputs_updates(Sensor, DirList, CurrentData, Siblings) ->
 			  end,
 			  CurrentData,
 			  DirList).
-
+			  
 %%INPUTS: DirList: list of the lanes to evaluate
 %%		  NN: PID of the NN
 %%		  Stats: list of cars with statistics
@@ -696,8 +703,9 @@ manage_inputs_updates(Sensor, DirList, CurrentData, Siblings) ->
 %%		  Mapping: map of the NN bits output to translate into decimal numbers
 %%OUTPUTS: FinalDesition: Decision taken by NN
 %%DESC:   Get all data from current state an asked the NN for a decision
-execute(DirList, NN, Stats, Trainer, FormatedInputs, CurrentData, FixedCarLength, Light, Mapping) ->
-	Desition = get_decision(FormatedInputs,DirList, Light, NN, Stats, Trainer),
+execute(DirList, NN, Stats, Trainer, FormatedInputs, CurrentData, FixedCarLength, Light, Mapping, Siblings) ->
+	AnomalliesData = get_back_trouble_bit(DirList, CurrentData, Siblings),
+	Desition = get_decision(FormatedInputs,DirList, Light, NN, Stats, Trainer, AnomalliesData),
 	io:format("Desition ~w~n",[{Desition, Mapping, DirList}]),
 	DesitionFormated = split(Desition, Mapping, DirList),
 	io:format("SPLITED VALUES ~w~n~n", [DesitionFormated]),
@@ -711,12 +719,13 @@ execute(DirList, NN, Stats, Trainer, FormatedInputs, CurrentData, FixedCarLength
 			  
 manage_data_updates(Light, Siblings, DirList, CurrentData, FinalDesition, Updates) ->
 	lists:foldl(fun(Dir, NewData) -> 
-				FinalData = update_nn_data(net_values, NewData, FinalDesition, Dir),
+				FinalDesitionForDir = find_element(Dir, FinalDesition),
+				FinalData = update_nn_data(net_values, NewData, FinalDesitionForDir, Dir),
 				DirValues = find_element(Dir, Updates),
 				
 				SensorInputs = find_element(sensor, DirValues),
 				
-				SiblingUpdateData = lists:append(FinalDesition, SensorInputs),
+				SiblingUpdateData = lists:append(FinalDesitionForDir, SensorInputs),
 				io:format("Data after network update: FinalData .. ~w~n",[SiblingUpdateData]),
 				
 				send_update_to_Siblings(Light, Siblings, SiblingUpdateData, Dir),
@@ -735,6 +744,171 @@ split(List, Cs, KeyList, Acc) ->
 	split(Tail, Cs, KeyTail, [{Key, Chunk} | Acc]).
 
 
+%%INPUT: Dirlist: list of directions to evaluate
+%%		 
+%%DESC: for all dirs in Dirlist get the anomally field
+
+%%%%NOTA VER COMO AGREGAR NETVALUES, Y SENSOR INPUTS PARA OBTENER DATOS QUE PERMITAN SACAR LA EFICIENCIA
+%%%OJO
+
+get_back_trouble_bit(DirList, Data, SiblingsList) ->
+	io:format("DirList: ~w~n~n",[DirList]),
+	SensorInput = find_element (sensor_input, Data),
+	NetValues = find_element (net_values, Data),
+	Res = lists:map(
+		fun(Dir) ->
+			TargetSiblings = find_element(Dir, SiblingsList),
+			ElementsData = find_element(siblings_data,Data),
+			
+			FilteredSiblingsAntes = lists:filter(fun({_SiblingId, _SiblingPid, Location}) -> Location == antes end, TargetSiblings),
+			FilteredSiblingsDespues = lists:filter(fun({_SiblingId, _SiblingPid, Location}) -> Location == despues end, TargetSiblings),
+			
+			%FilteredItemsAntes = filter_elements([real_count, estimate_count], ElementsData, FilteredSiblingsAntes),
+			%FilteredItemsDespues = filter_elements([real_count, estimate_count], ElementsData, FilteredSiblingsDespues),
+			
+			ProcessedSiblingsAntes = {antes, evaluate_anomally_by_sibling(FilteredSiblingsAntes, ElementsData)},
+			ProcessedSiblingsDespues = {despues, evaluate_anomally_by_sibling(FilteredSiblingsDespues, ElementsData)},
+			
+			
+			%%EVALUATE EFFIENCY
+			DirEffiency = {effiency, evaluate_effiency(Dir, SensorInput, NetValues)},
+			{Dir, [ProcessedSiblingsAntes, ProcessedSiblingsDespues, DirEffiency]}
+		end,
+		DirList
+	),
+	io:format("get_back_trouble_bit result list: ~w~n~n",[Res]),
+	Res.
+	%%lists:map(fun(Dir) ->
+	%%		DirValues = find_element(Dir, Data),
+	%%		%TargetSiblings = find_element(Dir, SiblingsList),
+	%%		IsAnyANomally = find_element(anomally, DirValues),
+	%%		Anomally = 
+	%%			case IsAnyANomally of
+	%%				[] -> 0;
+	%%				Other -> Other
+	%%			end,
+	%%		{Dir, Anomally}
+	%%		end,
+	%%		DirList).
+
+	%%%%%%%%%%%%EVALUAR SI SE CUMPLE EL PORCENTAJE DE EFICIENCIA EFFIENCIE
+	%%%%%%%%%%%%VER SI HAY ANOMALIAS ANTES O DESPUES
+	%%%%%%%%%%%% LUEGO ENVIAR TODOS ESTOS DATOS JUNTOS AL TRAINER_ANALYZER EN EL METODO EXECUTE
+	
+%%
+evaluate_anomally_by_sibling(TargetSiblings, ElementsData) ->
+	
+	lists:map(fun({SiblingId, _SiblingPid, _SiblingIdLocation}) ->
+		Element = find_element(SiblingId, ElementsData),
+		CarCount = find_element(real_count, Element),
+		Estimate = find_element(estimate_count, Element),
+		
+		io:format("Element: ~w~n CarCount: ~w~n Estimate: ~w~n",[Element,CarCount,Estimate]),
+		Diff = if CarCount =/= [], Estimate =/= [] -> CarCount - Estimate;
+			true  -> 0
+			
+		end,
+		
+		CaseAnomally = Diff < 0,
+		Anomally = if  CaseAnomally == false ->	0;
+					true -> 1
+			   end,
+		{SiblingId, Anomally}
+		end,
+		TargetSiblings
+	).
+
+%%Return the effiency (%) for the current light
+%%INPUTS: Dir: avenue, street or anyother that represents the current Direction to evaluate
+%%		  SensorInputs: Data of the sensor for the current dir
+%%		  NetValues: Output of the network for the current dir
+%%OUTPUTS: effiency % for the current light on the indicated dir
+%%DESC: Evaluate the realcount and the estimated_count for the current lane and get the effiency %
+evaluate_effiency(Dir, SensorInputs, NetValues) ->
+	io:format("EVALUATING EFFIENCY DIR: ~w SensorInputs: ~w, NetValues: ~w~n~n",[Dir, SensorInputs, NetValues]),
+	SensorDirData = find_element(Dir, SensorInputs),
+	NetDirValues = find_element(Dir, NetValues),
+	
+	%%Get the target elements real_count (sensor) and estimate_count (net)
+	RealCount = find_element(real_count, SensorDirData),
+	io:format("Getting estimatedcount from NetDirValues: ~w~n~n",[NetDirValues]),
+	EstimatedCount = case NetDirValues of  [] -> 1; _Other -> find_element(estimate_count, NetDirValues) end,
+	
+	io:format("Estimatedcount from NetDirValues: ~w~n~n",[EstimatedCount]),
+	
+	(RealCount / EstimatedCount) * 100.
+	
+%%%%%%%HACE ARREGLO EN MODULER AL FINAL DEL PROC PARA QUE AGARRE BIEN LOS DATOS Y LOS MAPEE POR DIRECCIONES
+%%% ASI SE EVITA TENER QUE HACER GRANDES CAMBIOS POR TODO LADO
+	
+	
+%evaluate_anomally_by_location(FilteredItems) ->
+%	lists:map(fun({Location, Items}) ->
+%			{Location, evaluate_anomally_by_location(Location, Items)}
+%			end,
+%			FilteredItems
+%	).
+%evaluate_anomally_by_location(Location, FilteredItems) ->
+%	LocationItems = find_element(Location, FilteredItems),
+%	CarCount = find_element(real_count, LocationItems),
+%	Estimate = find_element(estimate_count, LocationItems),
+%	
+%	if CarCount =/= [], Estimate =/= [] -> CarCount - Estimate;
+%			true  -> 0
+%	end.
+
+
+%format_result_for_interface(DirList, FinalDesition, Mapping) ->
+%	Res = lists:map(
+%		fun(Dir) ->
+%			DirMappingValues = get_dir_dm_vals(Dir, Mapping),
+%			DesitionsForDir = get_dir_desitions(DirMappingValues, FinalDesition),
+%			{Dir, DesitionsForDir}
+%		end,
+%		DirList),
+		
+%	io:format("Formated Result ~w~n~n",[Res]),
+%	FinalDesition.
+	
+
+%get_dir_dm_vals(Dir, MappList) ->
+%	io:format("Dir ~w, MappList ~w~n~n", [Dir, MappList]),
+%	{Positions, _LastPos} = lists:mapfoldl(fun(Item, AccPos) ->
+%			{Key, _Value} = Item,
+%			{R, Attribute} = break_key(Key),
+%			if	R =:= Dir ->
+%					{{Attribute, AccPos}, AccPos + 1};
+%				true ->
+%					{null, AccPos + 1}
+%			end
+%			end,
+%			1,
+%			MappList),
+%	Res = [X || X <- Positions, X =/= null],
+%	Res.
+
+
+%%BREAKS down a key composed of "_" characters and gets the part before and after the _
+%%NOTE: the key MUST follow the format dir_attribute e.g av_cycletime
+%break_key(T) ->
+%	L =  atom_to_list(T),
+%	DirKey = list_to_atom(string:substr(L, 1, string:str(L, "_") - 1)),
+%	Attribute = list_to_atom(string:substr(L, string:str(L, "_") + 1, length(L) )),
+%	{DirKey, Attribute} .
+%	
+%get_list_item_by_index(Index, List) when Index < 1, Index > length(List) ->
+%	null;
+%get_list_item_by_index(Index, List) ->
+%	lists:nth(Index, List).
+%	
+%get_dir_desitions(DirMappingValues, FinalDesition) ->
+%	io:format("Getting desition values Index ~w FinalDesition ~w~n~n",[DirMappingValues, FinalDesition]),
+%	lists:map(fun(Index) ->
+%			Element = get_list_item_by_index(Index, FinalDesition),
+%			Element
+%			end,
+%			DirMappingValues).
+%	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%     CLIENT INTERFACE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

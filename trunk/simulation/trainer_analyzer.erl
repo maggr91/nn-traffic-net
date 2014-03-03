@@ -1,5 +1,5 @@
 -module(trainer_analyzer).
--export([start/0, evaluate/3, evaluate/4]).
+-export([start/0, evaluate/3, evaluate/5]).
 
 -export([init/0]).
 
@@ -27,13 +27,13 @@ train(TrainingData, TrainerReg, DecisionReg, Config) ->
 			Res = evaluate_target(TargetLane, TrainerReg, CarsState, TrainingData),
 			reply(CallerPid, Res),
 			train(TrainingData, TrainerReg, DecisionReg, Config);
-		{evaluate, CallerPid, TargetLane, CarsState, DMData} ->
+		{evaluate, CallerPid, TargetLane, CarsState, DMData, AnomalliesData} ->
 			io:format("Evaluate Performance~n"),
 			DMCriteria = get_safe_element(criteria, Config),
 			{Mapping, DecisionLogFile} = DMData,
 			NewDecisionReg = update_decision_reg(DecisionLogFile, DecisionReg),
 			io:format("NewDecisionReg ~w~n",[NewDecisionReg]),
-			Res = evaluate_target(TargetLane, TrainerReg, CarsState, TrainingData, NewDecisionReg, DMCriteria, Mapping),
+			Res = evaluate_target(TargetLane, TrainerReg, CarsState, TrainingData, NewDecisionReg, DMCriteria, Mapping, AnomalliesData),
 			io:format("Evaluate Target RES: ~w~n", [Res]),
 			reply(CallerPid, Res),
 			train(TrainingData, TrainerReg, DecisionReg, Config);
@@ -72,9 +72,9 @@ evaluate(TrainerPid, TargetLane, CarsState) ->
 %%		  DMData: data related to DM used for analisys
 %%OUTPUTS: List of ajust that the DM should apply [{inputs, [...]}, {output, [...]}]
 %%DESC:   Get all data from current state an evaluate if the results are good if not, do a ajustment 
-evaluate(TrainerPid, TargetLane, CarsState, DMData) ->
+evaluate(TrainerPid, TargetLane, CarsState, DMData, AnomalliesData) ->
 	io:format("EVALUATING PERFORMANCE ~w~n~n",[{TrainerPid, TargetLane, CarsState, DMData}]),
-	TrainerPid ! {evaluate, self(), TargetLane, CarsState, DMData},
+	TrainerPid ! {evaluate, self(), TargetLane, CarsState, DMData, AnomalliesData},
 	%TrainerPid ! test,
 	receive
 		{reply, Return} -> Return;
@@ -111,8 +111,8 @@ evaluate_target(TargetLane, TrainerReg, CarsState, TrainingData) ->
 	true.
 
 
-evaluate_target(TargetLanes, TrainerReg, CarsStateList, TrainingData, DecisionReg, DMCriteria, DMMapping) ->
-	CarStatsByLanes = lists:map(fun(TargetLane) ->
+evaluate_target(TargetLanes, TrainerReg, CarsStateList, TrainingData, DecisionReg, DMCriteria, DMMapping, AnomalliesData) ->
+	CarStatsByLanes = lists:map(fun({_Dir, TargetLane}) ->
 			FinalReg = TrainerReg ++ string:concat(atom_to_list(TargetLane), ".txt"),
 			io:format("~n~nTrainer lookup file: ~p~n~n",[FinalReg]),
 	
@@ -139,7 +139,7 @@ evaluate_target(TargetLanes, TrainerReg, CarsStateList, TrainingData, DecisionRe
 			end,
 			TargetLanes),
 	io:format("~n~nCARSTATS BY LANES ON ANALYZER ~w~n~n",[CarStatsByLanes]),
-	FinalAdjustment = get_final_adjustment(CarStatsByLanes, DecisionReg, DMCriteria, DMMapping),
+	FinalAdjustment = get_final_adjustment(TargetLanes, CarStatsByLanes, DecisionReg, DMCriteria, DMMapping, AnomalliesData),
 	FinalAdjustment.
 
 
@@ -149,21 +149,142 @@ evaluate_target(TargetLanes, TrainerReg, CarsStateList, TrainingData, DecisionRe
 %%		  CarStatsByLanes: average estimation of times in cars by each lane (ac, av, etc)
 %%OUTPUTS: Adjustment for the last decision taken by the DM
 %%DESC: specific method to get the corresponding value
-get_final_adjustment(CarStatsByLanes, DecisionReg, DMCriteria, DMMapping) ->
-	io:format("~n~nGETTING Needed adjusment for light ~w ~n", [{CarStatsByLanes, DecisionReg}]),
-	LastDecision = lists:last(DecisionReg),
-	
-	[{inputs, [1,0,1,0,1,1,0]} , {output, [1,1,1,0,1,1]}].
+get_final_adjustment(TargetLanes, CarStatsByLanes, DecisionReg, DMCriteria, DMMapping, AnomalliesData) ->
+	io:format("~n~nGETTING Needed adjusment for light ~w ~n", [{TargetLanes, CarStatsByLanes, DecisionReg, DMCriteria, DMMapping}]),
+	LastDecision = get_safe_last_reg(DecisionReg),
+	io:format("~n~nLAST DECISION ~w ~n", [LastDecision]),
+	case LastDecision of
+		[] 		->	null;
+		Other	-> 
+					LasDecisionOutputs = get_safe_element(outputs, Other),
+				  	OutputAdj = 
+				  		lists:foldl(fun({Dir, TargetLane}, Res) ->
+							DMValuesPos = get_dir_dm_vals(Dir, DMMapping),
+							CarStatsforLane = get_safe_element(TargetLane, CarStatsByLanes),
+							AnomalliesforLane = get_safe_element(Dir, AnomalliesData),
+							io:format("DMValuesPos for ~w ~w~n~n",[{Dir, DMMapping}, DMValuesPos]),
+							{FixedDecision, _EvalCriteria} = 
+								check_criteria_single_dir(DMCriteria, DMValuesPos, Res, CarStatsforLane, AnomalliesforLane, []),
+							
+							FixedDecision
+							%{Dir, TargetLane, {FixedDecision, EvalCriteria}}
+							end,
+							LasDecisionOutputs,
+							TargetLanes),
+					io:format("OutputAdj ~w~n",[OutputAdj]),
+					Inputs = get_safe_list_element(inputs, Other),
+					Outputs = decimals_to_binary(OutputAdj),
+					io:format("TRAINING FIXES Inputs ~w OutputAdj ~w~n~n",[Inputs, Outputs]),
+					%[{inputs, [1,0,1,0,1,1,0]} , {output, [1,1,1,0,1,1]}]
+					[{inputs, Inputs} , {output, [1,1,1,0,1,1]}]
+	end.
 	
 	
 %%INPUT: DMCriteria: this can be any criteria to evaluate in order to determine if the traffic is ok or not
 %%		 some examples for each Dir {max_delay, 15}, {jam_in_back, true}
-
-%%DESC: seguir cada
-check_criteria(DMCriteria, DMMapping, LastDecision) ->
+%%		 DMValuesPos: index inside the list of the elemets to be evaluated (wait, delay, etc).
+%%		 LastDe
+%%DESC: follow Criteria  list and determine the corresponding fix por
+check_criteria_single_dir([], _DMValuesPos, _LastDecision,_CarStatsForLane, _AnomalliesData, _EvalCriteria) ->
+	null;
+check_criteria_single_dir([{avg_delay, Value} | Tail], DMValuesPos, LastDecision,CarStatsForLane, AnomalliesData, EvalCriteria) ->
+	io:format("CarStatsForLane: ~w~n", [CarStatsForLane]),
+	AvgDelay = get_safe_element(delay, CarStatsForLane),
+	io:format("~nAvgDelay ~w Criteria Val: ~w~n",[AvgDelay, Value]),
+	if	AvgDelay >= Value ->
+			%%get the index
+			CycleTimeIndex = get_safe_element(cycletime, DMValuesPos),
+			%%get the value using the index
+			CycleTime = lists:nth(CycleTimeIndex, LastDecision),
+			FixedDecision = lists_replace(LastDecision, CycleTimeIndex, CycleTime + 1),
+			{FixedDecision, EvalCriteria};
+		true -> %%If it is low let it evaluate other criteria,
+			check_criteria_single_dir(Tail, DMValuesPos, LastDecision,CarStatsForLane, AnomalliesData, [{avg_delay, false} | EvalCriteria])
+	end;
+				 
+check_criteria_single_dir([{back_trouble_bit, true} | _Tail], DMValuesPos, LastDecision, _CarStatsForLane, AnomalliesData, EvalCriteria) ->
+	%IsDelayOk = lists:any(fun({Key, _Value}) -> Key =:= avg_delay end, EvalCriteria),
+	IsDelayPresent = lists:keyfind(avg_delay, 1, EvalCriteria),
+	%%get the index
+	CycleTimeIndex = get_safe_element(cycletime, DMValuesPos),
+	%%get the value using the index 
+	CycleTime = lists:nth(CycleTimeIndex, LastDecision),
+	io:format("~nIsDelayOk ~w ... Anomallies: ~w~n",[IsDelayPresent, AnomalliesData]),
+	{AnomalliesBefore, AnomalliesBeforeCount} = check_anomallies_by_location(antes, AnomalliesData),
+	{AnomalliesAfter, AnomalliesAfterCount} = check_anomallies_by_location(despues, AnomalliesData),
+	
+	io:format("Anomallies before result ~w Anomallis afeter result~w~n~n",[{AnomalliesBefore, AnomalliesBeforeCount}, {AnomalliesAfter, AnomalliesAfterCount}]),
+	
+	{avg_delay, IsDelayOk} = IsDelayPresent,
+	
+	TimeFix = check_delay_with_anomallies(IsDelayOk, AnomalliesBefore, AnomalliesAfter),
+	if CycleTime + TimeFix =< 0 ->
+		NewTimeFix = TimeFix / 2,
+		FixedDecision = lists_replace(LastDecision, CycleTimeIndex, CycleTime + NewTimeFix),
+		{FixedDecision, [{back_trouble_bit, true} | EvalCriteria]};
+	   true -> 
+	    FixedDecision = lists_replace(LastDecision, CycleTimeIndex, CycleTime + TimeFix),
+	   	{FixedDecision, [{back_trouble_bit, true} | EvalCriteria]}
+		%false ->
+		%	FixedDecision = lists_replace(LastDecision, CycleTimeIndex, CycleTime + 2),
+		%	{FixedDecision, [{back_trouble_bit, true} | EvalCriteria]};			
+		%{avg_delay, true} ->
+		%	FixedDecision = lists_replace(LastDecision, CycleTimeIndex, CycleTime + 3),
+		%	{FixedDecision, [{back_trouble_bit, true} | EvalCriteria]};
+			
+		%{avg_delay, false} ->
+		%	FixedDecision = lists_replace(LastDecision, CycleTimeIndex, CycleTime + 1),
+		%	{FixedDecision, [{back_trouble_bit, true} | EvalCriteria]};
+		%_Other ->
+		%	check_criteria_single_dir(Tail, DMValuesPos, LastDecision,CarStatsForLane, AnomalliesData, [{back_trouble_bit, true} | EvalCriteria])
+	end;
+		
+check_criteria_single_dir([{back_trouble_bit, false} | Tail], DMValuesPos, LastDecision, CarStatsForLane, AnomalliesData, EvalCriteria) ->
+	check_criteria_single_dir(Tail, DMValuesPos, LastDecision,CarStatsForLane, AnomalliesData, EvalCriteria);
+check_criteria_single_dir([{effectiveness, Value} | Tail], DMValuesPos, LastDecision, CarStatsForLane, AnomalliesData, EvalCriteria) ->
+	AnyOtherCriteria = length(EvalCriteria),
+	IsDelayPresent = lists:keyfind(avg_delay, 1, EvalCriteria),
+	case (AnyOtherCriteria == 0) of
+		 true when IsDelayPresent == {avg_delay, false}; IsDelayPresent == {} ->
+			CurrentEffictiveness = get_safe_element(effiency, AnomalliesData),
+			Diff = Value - CurrentEffictiveness,
+			CycleTimeIndex = get_safe_element(cycletime, DMValuesPos),
+			CycleTime = lists:nth(CycleTimeIndex, LastDecision),
+			TimeFix = if Diff > 5, Diff < 10 -> %%add 5 more seconds
+					5;
+			   Diff > 20 -> 10;
+			   true -> 0
+			end,
+			FixedDecision = lists_replace(LastDecision, CycleTimeIndex, CycleTime + TimeFix),
+	   		{FixedDecision, [{back_trouble_bit, true} | EvalCriteria]};
+	  	 false ->
+	   		check_criteria_single_dir(Tail, DMValuesPos, LastDecision,CarStatsForLane, AnomalliesData, [{effectiveness, false} | EvalCriteria])
+	end;
+check_criteria_single_dir(_DMCriteria, _DMValuesPos, _LastDecision, _CarStatsForLane, _AnomalliesData, _EvalCriteria) ->
 %	recorrer la lista de criterios y hacer un case para tratar de evaluar cada uno de forma dif... si se cumple el primero
 %	se retorna, si no se continua
 	true.
+	
+
+
+%%Eval delay with anomallies to see if more or less time is required to reduce the avg delay
+check_delay_with_anomallies(true, true, true) ->
+	-1;
+check_delay_with_anomallies(true, false, true) ->
+	1;
+check_delay_with_anomallies(true, true, false) ->
+	5;
+check_delay_with_anomallies(false, true, true) ->
+	1;
+check_delay_with_anomallies(false, false, true) ->
+	2;
+check_delay_with_anomallies(false, true, false) ->
+	10;
+check_delay_with_anomallies(false, false, false) ->
+	0;
+check_delay_with_anomallies(_IsAvgDelayPresent, _AnomallyBefore, _AnomallyAfter) ->
+	20.
+	
 
 %%INPUT: CarList CurrentCars on lane,
 %		 OldRecords cars records on textfile
@@ -261,8 +382,73 @@ convert_to_binary(Value) ->
 	lists:map(fun(Item) -> list_to_integer([Item]) end, L).
 	
 %%Gets all keys inside a list of tuples {key, value}
-convert_to_keys(List) ->
-	lists:map(fun({Key, _Value}) -> Key end, List).
+%convert_to_keys(List) ->
+%	lists:map(fun({Key, _Value}) -> Key end, List).
 	
 get_config() ->
 	filemanager:get_data("/config/config_analyzer.txt").
+	
+get_dir_dm_vals(Dir, MappList) -> 
+	{Positions, _LastPos} = lists:mapfoldl(fun(Item, AccPos) ->
+			{Key, _Value} = Item,
+			{R, Attribute} = break_key(Key),
+			if	R =:= Dir ->
+					{{Attribute, AccPos}, AccPos + 1};
+				true ->
+					{null, AccPos + 1}
+			end
+			end,
+			1,
+			MappList),
+	Res = [X || X <- Positions, X =/= null],
+	Res.
+
+
+%%BREAKS down a key composed of "_" characters and gets the part before and after the _
+%%NOTE: the key MUST follow the format dir_attribute e.g av_cycletime
+break_key(T) ->
+	L =  atom_to_list(T),
+	DirKey = list_to_atom(string:substr(L, 1, string:str(L, "_") - 1)),
+	Attribute = list_to_atom(string:substr(L, string:str(L, "_") + 1, length(L) )),
+	{DirKey, Attribute} .
+
+get_safe_last_reg([]) ->
+	[];
+get_safe_last_reg(List) ->
+	lists:last(List).
+	
+%%REPLACE value on index
+lists_replace(List, Indx, Value) ->
+	Length = length(List),
+	if Indx =< Length, Indx >= 1 ->
+		lists_replace_aux(List, Indx, Value, 1, []);
+	   true ->
+	   	List
+	end.
+	
+lists_replace_aux([_Item | List], Indx, Value, CurrIndx, AccList) when Indx == CurrIndx ->
+	ListPart = lists:reverse([Value | AccList]),
+	lists:append(ListPart, List);
+	
+lists_replace_aux([Item | List], Indx, Value, CurrIndx, AccList) when Indx > CurrIndx -> 
+	lists_replace_aux(List, Indx, Value, CurrIndx + 1, [Item | AccList]).
+	
+%check_anomallies_by_location(Location, AnomalliesData, Key) ->
+%	LocationAnomallies = get_safe_element(Location, AnomalliesData),
+%	Anomallies = get_safe_element(Key, AnomalliesData),
+%	case Anomallies of
+%		[] -> false;
+%		_Other -> lists:any(fun() -> Value == 1 end,Anomallies)	
+%	end.
+
+check_anomallies_by_location(Location, AnomalliesData) ->
+	Anomallies = get_safe_list_element(Location, AnomalliesData),
+	get_safe_anomally(Anomallies, false, 0).
+				
+get_safe_anomally([], ExistsAnomally, AnomalliesCount) ->
+	{ExistsAnomally, AnomalliesCount};
+get_safe_anomally([{_LightId, Value} | Tail], _ExistsAnomally, AnomalliesCount) when Value == 1; Value == true ->
+	get_safe_anomally(Tail, true, AnomalliesCount + 1);
+get_safe_anomally([_Item| Tail], ExistsAnomally, AnomalliesCount)->
+	get_safe_anomally(Tail, ExistsAnomally, AnomalliesCount).
+	
