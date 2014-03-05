@@ -524,8 +524,8 @@ evaluate_state(State = redgreen, _OldState, NextTime, CTime, _ARTime, _ARTimer, 
 evaluate_state_dm(State, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, 
   CtrlMod, _Delay, _MaxWait, ManagedLanes) when NextTime >= CTime, ARTimer <  ARTime->
   	%io:format("Estimating time results for next state~n", []),
-  	CarStats = eval_delay(ManagedLanes),  %%get cars on lane
-  	CarStats = [],
+  	CarStats = eval_delay(ManagedLanes),  %%get cars on lane (all lanes)
+  	%CarStats = [],
 	DirList = next_state_dir(State),
    	{reply, NewData} = moduler:estimation_proc(CtrlMod, DirList,CarStats),
    	io:format("NewData after moduler call ~w~n",[NewData]),
@@ -915,9 +915,11 @@ current_state_dir(_CurrentState) ->
 %%OUTPUT: current state dir(av, ca, avf, etc..) the key to find the data for the next lanes to move
 %%DESC: according to the current state gets the direction of the next state.
 current_dir_state_key(av) ->
-	avenue_time;
+	%avenue_time;
+	avenue;
 current_dir_state_key(ca) ->
-	street_time;	
+	%street_time;
+	street;
 current_dir_state_key(_CurrentState) ->	
 	null.
 	
@@ -958,11 +960,14 @@ update_state_data_times(NewVals, StateData, DirList) ->
 		%%Get the values to update for the current Dir in loop
 		UpdateVals = find_element(Dir, NewVals),
 		Times = find_element(times, Acc),
-		PreFilterVals = [{X, Y} || {X, Y} <- UpdateVals, (X == cycle_time) or (X == delay) or (X == umbral)],		
-		NewCycleTime = find_element(cycle_time, PreFilterVals),
+		PreFilterTempVals = [{X, Y} || {X, Y} <- UpdateVals, (X == cycle_time) or (X == delay) or (X == umbral)],		
+		NewCycleTime = find_element(cycle_time, PreFilterTempVals),
 		
 		%%Get the key to fin current Dir data
-		DirTimeKey = current_dir_state_key(Dir),
+		DirKey = current_dir_state_key(Dir),
+		DirTimeKey = list_to_atom(string:concat(atom_to_list(DirKey), "_time")),
+		PreFilterVals = fix_times_keys(PreFilterTempVals, DirTimeKey),
+		io:format("FILTERED VALS AFTER KEY FIX ~w~n~n",[PreFilterVals]),
 		FilterVals = [{DirTimeKey, NewCycleTime} | PreFilterVals],
 		io:format("TIMES TO UPDATE~w~n~n",[FilterVals]),
 		
@@ -976,7 +981,21 @@ update_state_data_times(NewVals, StateData, DirList) ->
 	io:format("New STATE DATA AFTER TIMES UPDATE: ~w~n~n",[NewStateData]),
 	NewStateData.
 		
-
+fix_times_keys(List, Dir) ->
+	SDir = atom_to_list(Dir),
+	lists:map(
+		fun({Key, Value}) ->
+			NewKey = 
+				if Key /= cycle_time ->
+					S = "_" ++ atom_to_list(Key),
+					list_to_atom(string:concat(SDir, S));
+				   true ->
+				   	Key
+				end,
+			{NewKey, Value}
+		end,
+		List
+	).
 
 %%INPUT: CurrentStateData... data of the light for the current state
 %%		 
@@ -984,16 +1003,33 @@ update_state_data_times(NewVals, StateData, DirList) ->
 %%DESC:	iterate through all lanes and get a unique list of cars with all information
 %% 		according to the desired delay for the lane.
 eval_delay(ManagedLanes) ->
-	List = lists:map(fun({_LaneId,LanePid})->
-		LanePid ! {info_cars, self()},
-		receive
-			{reply, Cars} -> Cars			 
-		end
-	 end,ManagedLanes),
-	 
-	 lists:append(List).
+	io:format("~nEVAL DELAY ~w ~n~n",[ManagedLanes]),
+	List = 
+		lists:foldl(fun({_Dir, Lanes}, Acc) ->
+			[eval_delay_aux(Lanes) | Acc]
+		 end,
+		 [],
+		 ManagedLanes),
+	
+	io:format("~nEVAL DELAY RESULT ~w ~n~n",[List]),
+	List.
+	 %lists:append(List).
 
 
+eval_delay_aux([]) -> [];
+eval_delay_aux(Lanes = [{LaneId,_LanePid} | _Tail]) ->
+	S = atom_to_list(LaneId),
+	ParentLaneId = list_to_atom(string:concat(string:substr(S,8,2), string:substr(S,5,3))),
+	CarStats = lists:append(lists:map(
+		fun({_LaneId,LanePid})->
+			LanePid ! {info_cars, self()},
+			receive
+				{reply, Cars} -> Cars			 
+			end
+		end,
+		Lanes
+	)),
+	{ParentLaneId, CarStats}.
 %%INPUT: Dir = (avenue, street, etc...), 
 %%		 Times = lists of all times for the light
 %%OUTPUT cycle time for the next state
