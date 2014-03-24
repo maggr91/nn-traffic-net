@@ -37,6 +37,18 @@ train(TrainingData, TrainerReg, DecisionReg, Config) ->
 			io:format("Evaluate Target RES: ~w~n", [Res]),
 			reply(CallerPid, Res),
 			train(TrainingData, TrainerReg, DecisionReg, Config);
+		{evaluate_intersection, CallerPid, TargetLanes, CarsStates, DMData, AnomalliesData} ->
+			io:format("Evaluate Performance for the intersection~n"),
+			DMCriteria = get_safe_element(criteria, Config),
+			FullCycle = get_safe_element(max_full_cycle, Config),
+			{Mapping, DecisionLogFile} = DMData,
+			NewDecisionReg = update_decision_reg(DecisionLogFile, DecisionReg),
+			io:format("NewDecisionReg ~w~n",[NewDecisionReg]),
+			Res = evaluate_target_intersection(TargetLanes, TrainerReg, CarsStates, TrainingData, NewDecisionReg, DMCriteria, 
+				Mapping, AnomalliesData, FullCycle),
+			io:format("Evaluate Target RES: ~w~n", [Res]),
+			reply(CallerPid, Res),
+			train(TrainingData, TrainerReg, DecisionReg, Config);
 		test ->
 			io:format("CALL TEST ~w~n", [Config]),
 			train(TrainingData, TrainerReg, DecisionReg, Config);
@@ -73,8 +85,9 @@ evaluate(TrainerPid, TargetLane, CarsState) ->
 %%OUTPUTS: List of ajust that the DM should apply [{inputs, [...]}, {output, [...]}]
 %%DESC:   Get all data from current state an evaluate if the results are good if not, do a ajustment 
 evaluate(TrainerPid, TargetLane, CarsState, DMData, AnomalliesData) ->
-	io:format("EVALUATING PERFORMANCE ~w~n~n",[{TrainerPid, TargetLane, CarsState, DMData}]),
-	TrainerPid ! {evaluate, self(), TargetLane, CarsState, DMData, AnomalliesData},
+	io:format("EVALUATING PERFORMANCE ~w~n~n",[{TrainerPid, TargetLane, CarsState, DMData}]),	
+	%TrainerPid ! {evaluate, self(), TargetLane, CarsState, DMData, AnomalliesData},
+	TrainerPid ! {evaluate_intersection, self(), TargetLane, CarsState, DMData, AnomalliesData},
 	%TrainerPid ! test,
 	receive
 		{reply, Return} -> Return;
@@ -176,7 +189,7 @@ get_final_adjustment(TargetLanes, CarStatsByLanes, DecisionReg, DMCriteria, DMMa
 					Outputs = decimals_to_binary(OutputAdj),
 					io:format("TRAINING FIXES Inputs ~w OutputAdj ~w~n~n",[Inputs, Outputs]),
 					%[{inputs, [1,0,1,0,1,1,0]} , {output, [1,1,1,0,1,1]}]
-					[{inputs, Inputs} , {output, [1,1,1,0,1,1]}]
+					[{inputs, Inputs} , {output, Outputs}]
 	end.
 	
 	
@@ -284,7 +297,239 @@ check_delay_with_anomallies(false, false, false) ->
 	0;
 check_delay_with_anomallies(_IsAvgDelayPresent, _AnomallyBefore, _AnomallyAfter) ->
 	20.
+
+
+%%=========================================================================================================
+%%============================EVALUATE FOR INTERSECTION====================================================	
+
+evaluate_target_intersection(TargetLanes, TrainerReg, CarsStateList, _TrainingData, DecisionReg, DMCriteria, 
+  DMMapping, AnomalliesData, FullCycle) ->
+	CarStatsByLanes = lists:map(fun({_Dir, TargetLane}) ->
+			FinalReg = TrainerReg ++ string:concat(atom_to_list(TargetLane), ".txt"),
+			io:format("~n~nTrainer lookup file: ~p~n~n",[FinalReg]),
 	
+			%Target = get_safe_element(TargetLane, TrainingData),
+			%io:format("Target lookup: ~w~n~n",[Target]),
+	
+			OldRecords =
+				try
+					filemanager:get_data_by_fullpath(FinalReg)
+					%io:format("~n~n~n~nTRAINER Data found: ~w ~n~n~n~n",[OldRecords])
+				catch 
+				%exit : { noproc, _ } -> closed
+					Exception:Reason -> io:format("NO TRAINER Data found. Exception ~p , Reason ~p ~n",[Exception, Reason]),
+										[]
+				end,
+		
+			%%Eval cars data
+			CarsState = get_safe_list_element(TargetLane, CarsStateList),
+			CarStats = calculate_car_stats(CarsState, OldRecords), %%SumWait, SumDelay, etc (a list)
+	
+			%%
+			%io:format("~nAveWait ~w, AveDelay ~w ~n~n",[SumWait, SumDelay]),
+			{TargetLane, CarStats}
+			end,
+			TargetLanes),
+	io:format("~n~nCARSTATS BY LANES ON ANALYZER ~w~n~n",[CarStatsByLanes]),
+	FinalAdjustment = get_final_adjustment_intersection(TargetLanes, CarStatsByLanes, DecisionReg, DMCriteria, 
+		DMMapping, AnomalliesData, FullCycle / length(CarStatsByLanes)),
+	FinalAdjustment.
+
+
+%%INPUTS: DMCriteria list of important aspects to evaluate in priority order (first most important)
+%%		  DMMapping: maplist of DM outputs and what does each one represents
+%%		  DecisionReg: list of all decisions taken so far by the DM
+%%		  CarStatsByLanes: average estimation of times in cars by each lane (ac, av, etc)
+%%OUTPUTS: Adjustment for the last decision taken by the DM
+%%DESC: specific method to get the corresponding value
+get_final_adjustment_intersection(TargetLanes, CarStatsByLanes, DecisionReg, DMCriteria, DMMapping, AnomalliesData, RefNormalTimePerLane) ->
+	io:format("~n~nGETTING Needed adjusment for light ~w ~n", [{TargetLanes, CarStatsByLanes, DecisionReg, DMCriteria, DMMapping}]),
+	LastDecision = get_safe_last_reg(DecisionReg),
+	io:format("~n~nLAST DECISION ~w ~n", [LastDecision]),
+	case LastDecision of
+		[] 		->	null;
+		Other	-> 
+					LasDecisionOutputs = get_safe_element(outputs, Other),
+					SortedCarStatsDesc = sort(CarStatsByLanes, desc),
+					
+					io:format("~n~nSorted Car stats ~w ~n", [SortedCarStatsDesc]),
+					DirDmVals = lists:map(fun ({Dir, TargetLane}) -> {TargetLane, get_dir_dm_vals(Dir, DMMapping)} end, TargetLanes),
+					
+					io:format("Direction values ~w ~n", [DirDmVals]),
+					SortedCarStatsDescWithAdj = get_adjustment_combined_values(SortedCarStatsDesc, DirDmVals, DMCriteria, 
+													AnomalliesData, LasDecisionOutputs, RefNormalTimePerLane),
+					%%update last decision with the corresponding adjustments
+					
+					io:format("SortedCarStatsDescWithAdj ~w ~n", [SortedCarStatsDescWithAdj]),
+					
+					OutputAdj  = 
+						lists:foldl(fun({_Dir, Data}, Res) ->
+							DMValuesPos = get_safe_element(val_pos, Data),
+							CycleTimeIndex = get_safe_element(cycletime, DMValuesPos),
+							%CycleTime = lists:nth(CycleTimeIndex, Res),
+							CycleTime = get_safe_element(cycletime, Data),
+							Adjustment = get_safe_element(adjust, Data),
+							NewCycleTime = CycleTime, %ceiling(CycleTime + (CycleTime * Adjustment)),
+							io:format("CycleTime ~w Adjustment ~w~n",[CycleTime, Adjustment]),
+							io:format("NewCycleTime ~w OldCycleTime ~w~n",[NewCycleTime, CycleTime]),
+							%%Change the old value for the current direction inside the lastDecision list
+							lists_replace(Res, CycleTimeIndex, NewCycleTime) 
+							end,
+							LasDecisionOutputs,
+							SortedCarStatsDescWithAdj
+						),
+						
+					%OutputAdj  = 
+					%	lists:foldl(fun({_Dir, Data}, Res) ->
+					%		DMValuesPos = get_safe_element(val_pos, Data),
+					%		CycleTimeIndex = get_safe_element(cycletime, DMValuesPos),
+					%		%CycleTime = lists:nth(CycleTimeIndex, Res),
+					%		CycleTime = get_safe_element(cycletime, Data),
+					%		Adjustment = get_safe_element(adjust, Data),
+					%		NewCycleTime = ceiling(CycleTime + (CycleTime * Adjustment)),
+					%		io:format("CycleTime ~w Adjustment ~w~n",[CycleTime, Adjustment]),
+					%		io:format("NewCycleTime ~w OldCycleTime ~w~n",[NewCycleTime, CycleTime]),
+					%		%%Change the old value for the current direction inside the lastDecision list
+					%		lists_replace(Res, CycleTimeIndex, NewCycleTime) 
+					%		end,
+					%		LasDecisionOutputs,
+					%		SortedCarStatsDescWithAdj
+					%	),				  	
+					io:format("OutputAdj ~w~n",[OutputAdj]),
+					Inputs = get_safe_list_element(inputs, Other),
+					Outputs = decimals_to_binary(OutputAdj),
+					io:format("TRAINING FIXES Inputs ~w OutputAdj ~w~n~n",[Inputs, Outputs]),
+					%[{inputs, [1,0,1,0,1,1,0]} , {output, [1,1,1,0,1,1]}]
+					[{inputs, Inputs} , {output, Outputs}]
+	end.
+
+
+%%%Get time fix for all using fixed adjustments
+get_adjustment_combined_values([], _DirDmValsPos, _DMCriteria, _AnomalliesData, _LasDecisionOutputs, _RefNormalTimePerLane) ->
+	[];
+get_adjustment_combined_values(CarStatsByLanes, DirDmValsPos, DMCriteria, AnomalliesData, LasDecisionOutputs, RefNormalTimePerLane) ->
+	AdjustmentFirst = 0.00,
+	[MostAffected | _LessAffected] = CarStatsByLanes, 
+	CarStatsWithValuePos = lists:map(
+		fun({Dir, Data}) -> 
+			ValsPos = get_safe_list_element(Dir, DirDmValsPos),
+			CycleTimeIndex = get_safe_element(cycletime, ValsPos),
+			CycleTime = lists:nth(CycleTimeIndex, LasDecisionOutputs),
+			if 	MostAffected == {Dir, Data} ->
+					{Dir, [{val_pos, ValsPos}, {adjust, AdjustmentFirst}, {cycletime, CycleTime} | Data]};
+				true ->
+					{Dir, [{val_pos, ValsPos}, {adjust, -AdjustmentFirst}, {cycletime, CycleTime} | Data]}
+			end
+		end,
+		CarStatsByLanes),
+		
+	io:format("~nCarStatsWithValuePos ~w ~n", [CarStatsWithValuePos]),
+	[UPDMostAffected | ListWithOutFirst] = CarStatsWithValuePos,
+	IsBoostAllowed = is_boost_allowed(CarStatsWithValuePos, RefNormalTimePerLane),
+	
+	%ListWithOutFirst = lists:sublist(CarStatsWithValuePos, 2, length(CarStatsWithValuePos) - 1),
+	
+	io:format("~ncheck_criteria_intersection ~w ~n", [{DMCriteria, UPDMostAffected, 
+		ListWithOutFirst, AnomalliesData}]),
+	ListWithCriteriaCheck = 
+		if IsBoostAllowed ->
+			%% if the lights has not yet reached the max ref value for time boost all of them
+		   	boost_intersection_times(CarStatsWithValuePos);
+		   true ->
+		    check_criteria_intersection(DMCriteria, UPDMostAffected, 
+				ListWithOutFirst, AnomalliesData, [])
+		end,
+	io:format("~nListWithCriteriaCheck ~w ~n", [ListWithCriteriaCheck]),
+	ListWithCriteriaCheck.
+
+%%INPUT: DMCriteria: this can be any criteria to evaluate in order to determine if the traffic is ok or not
+%%		 some examples for each Dir {max_delay, 15}, {jam_in_back, true}
+%%		 DMValuesPos: index inside the list of the elemets to be evaluated (wait, delay, etc).
+%%		 LastDe
+%%DESC: follow Criteria  list and determine the corresponding fix por
+check_criteria_intersection([], MainAffected, OtherAffected, _AnomalliesData, _EvalCriteria) ->
+	[MainAffected | OtherAffected];
+check_criteria_intersection([{avg_delay, Value} | Tail], MainAffected, OtherAffected, AnomalliesData, EvalCriteria) ->
+	{Dir, Data} = MainAffected,
+	Adjustment = get_safe_element(adjust, Data),
+	AvgDelay = get_safe_element(delay, Data),
+	Length = length(OtherAffected),
+	MaxAdjust = Length * 0.5,
+	io:format("~n~n AvgDelay ~w  Value ~w ~n", [AvgDelay, Value]),
+	
+	%%%PREGUNTAR SI VALUE ES MAYOR ENTONCES RESTAR EL 1 SI NO NO
+	%Difference = 
+	%	if AvgDelay > Value ->	abs(AvgDelay / Value - 1);
+	%		true ->				abs(AvgDelay / Value)
+	%	end,
+	%NewAdjust  = 
+	%	if 	Difference >= MaxAdjust -> MaxAdjust;
+	%		true ->
+	%			Difference
+	%	end,
+	NewAdjust = get_new_adjustment(AvgDelay / Value, MaxAdjust),
+	io:format("~n~n MaxAdjust ~w  NewAdjust~w ~n", [MaxAdjust, NewAdjust]),
+	NewData = lists:keyreplace(adjust,1, Data, {adjust, Adjustment + NewAdjust}),
+	NewOtherAffected = update_adjustment_for_others(OtherAffected, NewAdjust / Length),
+	check_criteria_intersection(Tail, {Dir, NewData}, NewOtherAffected, AnomalliesData, EvalCriteria);
+
+check_criteria_intersection([{back_trouble_bit, true} | Tail], MainAffected, OtherAffected, AnomalliesData, EvalCriteria) ->
+	check_criteria_intersection(Tail, MainAffected, OtherAffected, AnomalliesData, EvalCriteria);
+check_criteria_intersection([{back_trouble_bit, false} | Tail], MainAffected, OtherAffected, AnomalliesData, EvalCriteria) ->
+	check_criteria_intersection(Tail, MainAffected, OtherAffected, AnomalliesData, EvalCriteria);
+check_criteria_intersection([{effectiveness, _Value} | Tail], MainAffected, OtherAffected, AnomalliesData, EvalCriteria) ->
+	check_criteria_intersection(Tail, MainAffected, OtherAffected, AnomalliesData, EvalCriteria);
+check_criteria_intersection(_DMCriteria, _MainAffected, _OtherAffected, _AnomalliesData, _EvalCriteria) ->
+%	recorrer la lista de criterios y hacer un case para tratar de evaluar cada uno de forma dif... si se cumple el primero
+%	se retorna, si no se continua
+	true.
+
+update_adjustment_for_others(List, Adjustment) ->
+	lists:map(
+		fun({Dir, Data}) ->
+			Res = update_elements([{value, adjust, Adjustment * -1}], Data, null),
+			{Dir, Res}
+		end,
+		List
+	).
+			
+get_new_adjustment(TimePercentaje, MaxAdjust) when TimePercentaje > 1 ->
+	Difference = TimePercentaje - 1,
+	%%get fixed adjustment for over 
+	FixEvery40 = (Difference * 100) / 40,
+	if	FixEvery40 < 1 ->
+			0.2;
+		true ->
+			get_new_adjustment_aux(trunc(round(FixEvery40)) * 0.2, MaxAdjust)
+	end;
+	
+get_new_adjustment(_TimePercentaje, _MaxAdjust) ->
+	0.
+
+get_new_adjustment_aux(TempFix, MaxAdjust) when TempFix > MaxAdjust ->
+	MaxAdjust;
+get_new_adjustment_aux(TempFix, _MaxAdjust) ->
+	TempFix.
+
+
+%%return true if it is possible to boost all lanes because they can go up more
+is_boost_allowed(List, RefTime) ->
+	lists:all(fun({_Dir, Data}) -> CycleTime = get_safe_element(cycletime, Data),
+			CycleTime < RefTime end, List).
+
+%%When there is a window to boost time (until a limit i.e 30 seconds), boost a 20% of current time
+boost_intersection_times(List) ->
+	boost_intersection_times(List, []).
+boost_intersection_times([], UpdatedList) ->
+	lists:reverse(UpdatedList);
+boost_intersection_times([{Dir, Data} | Tail], UpdatedList) ->
+	CycleTime = get_safe_element(cycletime, Data),
+	NewCycleTime = ceiling(CycleTime + (CycleTime * 0.2)),
+	NewData = lists:keyreplace(cycletime, 1, Data, {cycletime, NewCycleTime}),
+	boost_intersection_times(Tail, [{Dir, NewData} |  UpdatedList]).
+
+%%=======================END OF EVALUATE FOR INTERSECTION=================================================
+%%========================================================================================================	
 
 %%INPUT: CarList CurrentCars on lane,
 %		 OldRecords cars records on textfile
@@ -418,21 +663,28 @@ get_safe_last_reg(List) ->
 	lists:last(List).
 	
 %%REPLACE value on index
-lists_replace(List, Indx, Value) ->
-	Length = length(List),
-	if Indx =< Length, Indx >= 1 ->
-		lists_replace_aux(List, Indx, Value, 1, []);
-	   true ->
-	   	List
-	end.
+%lists_replace(List, Indx, Value) ->
+%	Length = length(List),
+%	if Indx =< Length, Indx >= 1 ->
+%		lists_replace_aux(List, Indx, Value, 1, []);
+%	   true ->
+%	   	List
+%	end.
 	
-lists_replace_aux([_Item | List], Indx, Value, CurrIndx, AccList) when Indx == CurrIndx ->
-	ListPart = lists:reverse([Value | AccList]),
-	lists:append(ListPart, List);
+%lists_replace_aux([_Item | List], Indx, Value, CurrIndx, AccList) when Indx == CurrIndx ->
+%	ListPart = lists:reverse([Value | AccList]),
+%	lists:append(ListPart, List);
 	
-lists_replace_aux([Item | List], Indx, Value, CurrIndx, AccList) when Indx > CurrIndx -> 
-	lists_replace_aux(List, Indx, Value, CurrIndx + 1, [Item | AccList]).
+%lists_replace_aux([Item | List], Indx, Value, CurrIndx, AccList) when Indx > CurrIndx -> 
+%	lists_replace_aux(List, Indx, Value, CurrIndx + 1, [Item | AccList]).
 	
+
+%%REPLACE value on index
+%% lists_replace(List, Index, NewElement) -> List.
+lists_replace([_|Rest], 1, New) -> [New|Rest];
+lists_replace([E|Rest], I, New) -> [E|lists_replace(Rest, I-1, New)].
+
+
 %check_anomallies_by_location(Location, AnomalliesData, Key) ->
 %	LocationAnomallies = get_safe_element(Location, AnomalliesData),
 %	Anomallies = get_safe_element(Key, AnomalliesData),
@@ -452,3 +704,55 @@ get_safe_anomally([{_LightId, Value} | Tail], _ExistsAnomally, AnomalliesCount) 
 get_safe_anomally([_Item| Tail], ExistsAnomally, AnomalliesCount)->
 	get_safe_anomally(Tail, ExistsAnomally, AnomalliesCount).
 	
+
+%%%ORDER ELEMENTS IN A LIST
+sort(List) ->
+	sort(List, asc).
+sort(List, desc) ->
+	lists:sort(fun({_KeyA, ValueA}, {_KeyB, ValueB}) -> ValueA > ValueB end, List);
+sort(List, _Order) ->
+	lists:sort(fun({_KeyA, ValueA}, {_KeyB, ValueB}) -> ValueA < ValueB end, List).
+
+
+%%%%%UPDATE ELEMENTS
+update_elements(List, OldRecordList, null) ->
+	update_elements_aux(List, OldRecordList);
+update_elements(List, OldRecordList, Parent) ->
+	TargetList = get_safe_element(Parent, OldRecordList),
+	R = update_elements_aux(List, TargetList),
+	%io:format("Res = ~w~n~n", [R]),
+	lists:keyreplace(Parent, 1, OldRecordList, {Parent, R}).
+
+update_elements_aux([], UpdatedRecordList) ->
+	UpdatedRecordList;
+update_elements_aux([Element | Tail], OldRecordList) ->
+	UpdatedRecordList = update_element(Element, OldRecordList),
+	update_elements_aux(Tail, UpdatedRecordList).
+	
+
+update_element({lists, Key, []}, OldRecordList) ->
+	lists:keyreplace(Key, 1, OldRecordList, {Key, []});
+update_element({lists, Key, Value}, OldRecordList) ->
+	OldValue = get_safe_element(Key, OldRecordList),
+	NewValue = [Value | OldValue],
+	lists:keyreplace(Key, 1, OldRecordList, {Key, NewValue});
+	
+update_element({lists_replace, Key, []}, OldRecordList) ->
+	lists:keyreplace(Key, 1, OldRecordList, {Key, []});
+update_element({lists_replace, Key, NewValue}, OldRecordList) ->
+	lists:keyreplace(Key, 1, OldRecordList, {Key, NewValue});
+
+update_element({value_replace, Key, NewValue}, OldRecordList) ->
+	lists:keyreplace(Key, 1, OldRecordList, {Key, NewValue});
+update_element({value, Key, Value}, OldRecordList) ->
+	OldValue = get_safe_element(Key, OldRecordList),
+	NewValue = Value + OldValue,
+	lists:keyreplace(Key, 1, OldRecordList, {Key, NewValue}).
+	
+ceiling(X) ->
+    T = erlang:trunc(X),
+    case (X - T) of
+        Neg when Neg < 0 -> T;
+        Pos when Pos > 0 -> T + 1;
+        _ -> T
+    end.

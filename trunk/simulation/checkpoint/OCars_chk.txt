@@ -3,7 +3,7 @@
 {lane212av1,[]}
 {lane212av2,[]}
 {lane212av3,[]}
-{lane212av4,[]}
+{lane212av4,[{car,{{0,0,0},1,[],[{times,[{wait,6},{delay,6}]},{top_move,3},{route,[{av212,[{wait,6},{delay,6}]},{outav212,[{wait,0},{delay,0}]}]}]}},{car,{{0,0,0},1,[],[{times,[{wait,8},{delay,6}]},{top_move,3},{route,[{av212,[{wait,8},{delay,6}]},{outav212,[{wait,0},{delay,0}]}]}]}}]}
 {lane210av5,[]}
 {lane210av4,[]}
 {lane210av3,[]}

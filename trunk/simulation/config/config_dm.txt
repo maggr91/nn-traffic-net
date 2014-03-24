@@ -1,2 +1,2 @@
-{all, {{7,7,6}, [{av_cycletime, {1,2}}, {av_delaytime, {3,1}}, {ca_cycletime, {4,2}}, {ca_delaytime, {6,1}}], {submap_length, 2}}}
-{light612, {{7,7,1}, [], {submap_length, 2}}}
+{all, {{7,7,6}, [{av_cycletime, {1,2}}, {av_delaytime, {3,1}}, {ca_cycletime, {4,2}}, {ca_delaytime, {6,1}}], {submap, [{submap_length, 2},{output_keys,[cycle_time,delay]}]}}}
+{light612, {{7,7,1}, [], {submap, [{submap_length, 2},{output_keys,[cycle_time,delay]}]}}}

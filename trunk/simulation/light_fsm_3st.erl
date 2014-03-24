@@ -677,18 +677,39 @@ evaluate_state(State = redredgreen, _OldState, NextTime, CTime, _ARTime, _ARTime
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% WORKING
 
-evaluate_state_dm(State, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, 
+%%SPECIAL ORIG IS COMMENTED BELOW THIS WILL CALL THE MODULER ONLY IF THE LAST STATE
+%% IS FINISHED
+evaluate_state_dm(State = redgreen, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, 
   CtrlMod, _Delay, _MaxWait, ManagedLanes) when NextTime >= CTime, ARTimer <  ARTime->
-  	io:format("Estimating time results for next state~n", []),
+  	%io:format("Estimating time results for next state~n", []),
   	CarStats = eval_delay(ManagedLanes),  %%get cars on lane (all lanes)
   	%CarStats = [],
 	DirList = next_state_dir(State),
    	{reply, NewData} = moduler:estimation_proc(CtrlMod, DirList,CarStats),
-   	io:format("NewData after moduler call ~w~n",[NewData]),
+   	io:format("~n~n~n~nNewData after moduler call ~w~n~n~n",[NewData]),
    	change_times({LightPid, NewData, DirList}),
-   	io:format("Finishing ~w way cycle moving to idle~n",[State]),
+   	%io:format("Finishing ~w way cycle moving to idle~n",[State]),
    	write_result(LogData, io_lib:format("Finishing ~w way cycle moving to idle",[State])),   
 	idle(LightPid);
+
+evaluate_state_dm(State, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, 
+  _CtrlMod, _Delay, _MaxWait, _ManagedLanes) when NextTime >= CTime, ARTimer <  ARTime->
+  	%io:format("~n~n~nState ~w OLD STATE ~w~n~n~n",[State, OldState]),
+   	write_result(LogData, io_lib:format("Finishing ~w way cycle moving to idle",[State])),   
+	idle(LightPid);
+
+%evaluate_state_dm(State, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, 
+%  CtrlMod, _Delay, _MaxWait, ManagedLanes) when NextTime >= CTime, ARTimer <  ARTime->
+%  	io:format("Estimating time results for next state~n", []),
+%  	CarStats = eval_delay(ManagedLanes),  %%get cars on lane (all lanes)
+%  	%CarStats = [],
+%	DirList = next_state_dir(State),
+%   	{reply, NewData} = moduler:estimation_proc(CtrlMod, DirList,CarStats),
+%   	io:format("NewData after moduler call ~w~n",[NewData]),
+%   	change_times({LightPid, NewData, DirList}),
+%   	io:format("Finishing ~w way cycle moving to idle~n",[State]),
+%   	write_result(LogData, io_lib:format("Finishing ~w way cycle moving to idle",[State])),   
+%	idle(LightPid);
    
 evaluate_state_dm(_State, greenred, NextTime, CTime, ARTime, ARTimer, _LogData, LightPid, 
   CtrlMod, _Delay, _MaxWait, _ManagedLanes) when NextTime >= CTime, ARTimer >=  ARTime->

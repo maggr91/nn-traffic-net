@@ -27,7 +27,7 @@ init({restore, LightId, Lanes}) ->
 	
 	FormatNNFile = format_dm_file(NNFile, LightId),
 	FormatNNLog = format_dm_file(NNLog, LightId),
-	{_Struct, Mapping, {_, SubMappingLength}} = find_dm_config_data(Config, LightId),
+	{_Struct, Mapping, {_, SubMappingData}} = find_dm_config_data(Config, LightId),
 	NN = restore_dm(FormatNNFile, Mapping, FormatNNLog),
 	
 	RestoredData = restore(ModFile, LightId),
@@ -46,7 +46,7 @@ init({restore, LightId, Lanes}) ->
 	Trainer = trainer_analyzer:start(),
 	
 	listen(LightId,[{av, []}, {ca,[]}], NN,RestoredData,NewCheckpointLog, Sensor, 
-		{Trainer, Mode}, FixedCarLength, SubMappingLength);
+		{Trainer, Mode}, FixedCarLength, SubMappingData);
 
 init({normal, LightId, Lanes}) ->
 	[Config | _Junk] = get_config(),
@@ -66,14 +66,14 @@ init({normal, LightId, Lanes}) ->
 	delete_old([FormatLog, FormatSens]),
 	
 	NewCheckpointLog = {FormatLog, FormatNNFile, FormatSens, FormatNNLog},
-	{NN, SubMappingLength} = create_dm(Config,FormatNNFile,FormatNNLog, LightId),
+	{NN, SubMappingData} = create_dm(Config,FormatNNFile,FormatNNLog, LightId),
 	%update_dm(NN, NNFile, LightId),	
 	
 	Sensor = create_sens(Lanes, FormatSens),
 	Trainer = trainer_analyzer:start(),
 	
 	listen(LightId,[{av, []}, {ca,[]}], NN,[{siblings_data, []},{net_values, []}, {net_input, []}, {sensor_input, []}],
-		NewCheckpointLog, Sensor, {Trainer, Mode}, FixedCarLength, SubMappingLength).
+		NewCheckpointLog, Sensor, {Trainer, Mode}, FixedCarLength, SubMappingData).
 		
 %%CREATES The decision maker for the light in this case is a Neuronal Network
 %%Input: None
@@ -81,14 +81,14 @@ init({normal, LightId, Lanes}) ->
 create_dm(Config, NNFile, Light)->
 	Exist = filelib:is_file(NNFile),
 	NNConfig = find_dm_config_data(Config, Light),
-	{{Input, Hidden, Output}, Mapping, {_, SubMappingLength}} = NNConfig,
+	{{Input, Hidden, Output}, Mapping, {_, SubMappingData}} = NNConfig,
 	if	Exist =:= false ->
 			io:format("~n~n MISSING LEARNING FILE creating new network~n~n"),
 			%NNConfig = find_config_data(Config, nn_config),
-			{ann:start(Input, Hidden, Output, NNFile, Mapping), SubMappingLength};
+			{ann:start(Input, Hidden, Output, NNFile, Mapping), SubMappingData};
 		true ->
 			io:format("~n~nLEARNING FILE ENCOUNTER ~p  restoring network~n~n",[NNFile]),
-			{restore_dm(NNFile, Mapping), SubMappingLength}
+			{restore_dm(NNFile, Mapping), SubMappingData}
 	end.
 	
 %%CREATES The decision maker for the light in this case is a Neuronal Network
@@ -97,14 +97,14 @@ create_dm(Config, NNFile, Light)->
 create_dm(Config, NNFile,NNLog, Light)->
 	Exist = filelib:is_file(NNFile),
 	NNConfig = find_dm_config_data(Config, Light),
-	{{Input, Hidden, Output}, Mapping, {_, SubMappingLength}} = NNConfig,
+	{{Input, Hidden, Output}, Mapping, {_, SubMappingData}} = NNConfig,
 	if	Exist =:= false ->
 			io:format("~n~n MISSING LEARNING FILE creating new network~n~n"),
 			%NNConfig = find_config_data(Config, nn_config),
-			{ann:start(Input, Hidden, Output, NNFile, Mapping, NNLog), SubMappingLength};
+			{ann:start(Input, Hidden, Output, NNFile, Mapping, NNLog), SubMappingData};
 		true ->
 			io:format("~n~nLEARNING FILE ENCOUNTER ~p  restoring network~n~n",[NNFile]),
-			{restore_dm(NNFile, Mapping, NNLog), SubMappingLength}
+			{restore_dm(NNFile, Mapping, NNLog), SubMappingData}
 	end.
 
 update_dm(NN, NNFile, LightId)->
@@ -442,7 +442,7 @@ get_config() ->
 %	NewValues = lists:append([NetValues, ExtraOutputs]),
 %	reformat_net_values([cycle_time,umbral, delay],NewValues,[]).
 
-calculate_outputs(NetValues, NetInputs, FixedCarLength, DirList) ->
+calculate_outputs(NetValues, NetInputs, FixedCarLength, DirList, OutputKeyMapping) ->
 	io:format("NetValues ~w NetInputs ~w FixedCarLength ~w Dirlist ~w ~n~n", [NetValues, NetInputs, FixedCarLength, DirList]),
 	lists:map(fun(Dir) ->
 			io:format("NetValues ~w NetInputs ~w FixedCarLength ~w Dir ~w ~n~n", [NetValues, NetInputs, FixedCarLength, Dir]),
@@ -454,7 +454,8 @@ calculate_outputs(NetValues, NetInputs, FixedCarLength, DirList) ->
 			ExtraOutputs = [{estimate_count, PromCars}],
 			NewValues = lists:append([DirValues, ExtraOutputs]),
 			%reformat all values to a key, value pair
-			Final = reformat_net_values([cycle_time,umbral],NewValues,[]),
+			Final = reformat_net_values(OutputKeyMapping,NewValues,[]),
+			%Final = reformat_net_values([cycle_time,umbral],NewValues,[]),
 			{Dir, Final}
 			end,
 			DirList).
@@ -473,7 +474,7 @@ calculate_promcars(FixedCarLength, NetInputs, CycleTime) ->
 	CarsTop = XmtsTop / FixedCarLength,%%calcular carros a pasar desde cada extremo
 	CarsHalf = XmtsHalf / FixedCarLength,%%calcular carros a pasar desde cada extremo
 	%random:uniform(5)
-	CarsTop + CarsHalf / 2 .
+	trunc(CarsTop + CarsHalf / 2).
 
 reformat_net_values([], [], Reformated) ->
 	lists:reverse(Reformated);
@@ -700,19 +701,22 @@ manage_inputs_updates(Sensor, DirList, CurrentData, Siblings) ->
 %%		  CurrentData: data at current state to be updated
 %%		  FixedCarLength: car length to do some estimations
 %%		  Light: ID of the current Light
-%%		  Mapping: map of the NN bits output to translate into decimal numbers
+%%		  Mapping: map of the NN results output to translate into separete decimal numbers by each dir
 %%OUTPUTS: FinalDesition: Decision taken by NN
 %%DESC:   Get all data from current state an asked the NN for a decision
 execute(DirList, NN, Stats, Trainer, FormatedInputs, CurrentData, FixedCarLength, Light, Mapping, Siblings) ->
 	AnomalliesData = get_back_trouble_bit(DirList, CurrentData, Siblings),
 	Desition = get_decision(FormatedInputs,DirList, Light, NN, Stats, Trainer, AnomalliesData),
-	io:format("Desition ~w~n",[{Desition, Mapping, DirList}]),
-	DesitionFormated = split(Desition, Mapping, DirList),
+	%%Get the length and OutputKeys of each dir (it reapetes the same)
+	MappingDivLength = find_element(submap_length, Mapping),
+	MappingDivKeys = find_element(output_keys, Mapping),
+	io:format("Desition ~w~n",[{Desition, MappingDivLength, DirList}]),
+	DesitionFormated = split(Desition, MappingDivLength, DirList),
 	io:format("SPLITED VALUES ~w~n~n", [DesitionFormated]),
 	NetInputs = find_element(net_input, CurrentData),
 	%%Calculate extra outputs according to nn decision and the input data
-	FinalDesition = calculate_outputs(DesitionFormated, NetInputs, FixedCarLength, DirList),
-	%FinalDesition = calculate_outputs(Desition, NetInputs,SensorInputs),
+	FinalDesition = calculate_outputs(DesitionFormated, NetInputs, FixedCarLength, DirList, MappingDivKeys),
+	%FinalDesition = calculate_outputs(DesitionFormated, NetInputs, FixedCarLength, DirList),
 			
 	io:format("FinalDesition of NN: ~w~n",[FinalDesition]),
 	FinalDesition.
@@ -725,7 +729,7 @@ manage_data_updates(Light, Siblings, DirList, CurrentData, FinalDesition, Update
 				
 				SensorInputs = find_element(sensor, DirValues),
 				
-				SiblingUpdateData = lists:append(FinalDesition, SensorInputs),
+				SiblingUpdateData = lists:append(FinalDesitionForDir, SensorInputs),
 				io:format("Data after network update: FinalData .. ~w~n",[SiblingUpdateData]),
 				
 				send_update_to_Siblings(Light, Siblings, SiblingUpdateData, Dir),
@@ -832,7 +836,9 @@ evaluate_effiency(Dir, SensorInputs, NetValues) ->
 	%%Get the target elements real_count (sensor) and estimate_count (net)
 	RealCount = find_element(real_count, SensorDirData),
 	io:format("Getting estimatedcount from NetDirValues: ~w~n~n",[NetDirValues]),
-	EstimatedCount = case NetDirValues of  [] -> 1; _Other -> find_element(estimate_count, NetDirValues) end,
+	EstimatedCount = case NetDirValues of  [] -> 1; 
+						  _Other -> Val = find_element(estimate_count, NetDirValues), 
+									if Val == 0 -> 1; true -> Val  end,
 	
 	io:format("Estimatedcount from NetDirValues: ~w~n~n",[EstimatedCount]),
 	
