@@ -98,6 +98,9 @@ serverTabla(TablaAcum)->
 		    %%reply(Cliente, valorTabla(TablaAcum)), 	
 		    reply(Cliente, encuentraValorTabla(TablaAcum, random:uniform())),
 		    serverTabla(TablaAcum);
+		{valor, ClientPID, ClientID} ->
+			reply(ClientPID, encuentraValorTablaExt(TablaAcum, random:uniform())),
+			serverTabla(TablaAcum);
 		killyou -> 
 		    %%io:format("Saliendo... mi tabla era: ~p~n",[TablaAcum]);
 		    {normal, ok};
@@ -118,3 +121,9 @@ serverTabla(TablaAcum)->
 encuentraValorTabla([], _ValAleatorio) -> no_found;
 encuentraValorTabla([{X,Px}|_Resto], ValAleatorio) when ValAleatorio < Px ->X;
 encuentraValorTabla([{_X,_Px}|Resto], ValAleatorio)->encuentraValorTabla(Resto,ValAleatorio).
+
+get_raw_data(Distribution) ->
+	FileDistNamePath = "/sources/" ++ atom_to_list(Distribution),
+	FileRelPath = FileDistNamePath ++ ".txt",
+	filemanager:get_data(FileRelPath).
+	

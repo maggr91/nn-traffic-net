@@ -1,1 +1,1 @@
-{config, [{criteria, [{avg_delay, 14}, {back_trouble_bit, true}, {effectiveness, 0.9}]}]}
+{config, [{criteria, [{avg_delay, 14}, {back_trouble_bit, true}, {effectiveness, 0.9}]}, {max_full_cycle, 70}]}

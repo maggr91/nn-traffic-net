@@ -17,7 +17,8 @@ init({Distribution, ProbData}) ->
     random:seed(A1, A2, A3),
     io:format("Invocando prob para poisson: ~p~n",[{Distribution, ProbData}]),
     case Distribution of
-        poisson    -> serverTabla(tablaAcumulada(tablaPoisson(ProbData)));
+        poisson    -> 	RawData = 
+						serverTabla(tablaAcumulada(tablaPoisson(ProbData)));
         geometrica -> serverTabla(tablaAcumulada(tablaGeometrica(ProbData)))
     end.
 
@@ -98,9 +99,12 @@ serverTabla(TablaAcum)->
 		    %%reply(Cliente, valorTabla(TablaAcum)), 	
 		    reply(Cliente, encuentraValorTabla(TablaAcum, random:uniform())),
 		    serverTabla(TablaAcum);
+		{valor, ClientPID, ClientID} ->
+			reply(ClientPID, encuentraValorTablaExt(TablaAcum, random:uniform())),
+			serverTabla(TablaAcum);
 		killyou -> 
 		    %%io:format("Saliendo... mi tabla era: ~p~n",[TablaAcum]);
-		    {normal, ok}
+		    {normal, ok};
 		X -> 
 		    io:format("Llamado no esperado... ~p~n",[X]),
 		    serverTabla(TablaAcum)
@@ -118,3 +122,9 @@ serverTabla(TablaAcum)->
 encuentraValorTabla([], _ValAleatorio) -> no_found;
 encuentraValorTabla([{X,Px}|_Resto], ValAleatorio) when ValAleatorio < Px ->X;
 encuentraValorTabla([{_X,_Px}|Resto], ValAleatorio)->encuentraValorTabla(Resto,ValAleatorio).
+
+get_raw_data(Distribution) ->
+	FileDistNamePath = "/sources/" ++ atom_to_list(Distribution),
+	FileRelPath = FileDistNamePath ++ ".txt",
+	filemanager:get_data(FileRelPath).
+	
