@@ -5,7 +5,6 @@
 -export([init/1]).
 
 start(Args) ->
-	io:format("START RANDOM ~n"),
 	spawn(rand_generator, init, [Args]).
 
 init(_Args) ->

@@ -11,7 +11,7 @@
 
 %client calls
 -export([start_link/1,move_avenue/1, move_street/1, idle/1,update_siblings/1, evaluate_state/1, 
-			tabulate_data/1, checkpoint_data/1, restore/1, change_times/1]).
+			tabulate_data/1, checkpoint_data/1, restore/1, change_times/1, force/1, overwrite/1]).
 
 %test
 -export([test/0]).
@@ -57,6 +57,9 @@ change_times({Pid, NewTimes}) ->
     gen_fsm:sync_send_event(Pid,{change_times, NewTimes});
 change_times({Pid, NewTimes, DirList}) ->
     gen_fsm:sync_send_event(Pid,{change_times, NewTimes, DirList}).
+    
+overwrite({Pid, SourceFile, TargetFile}) ->
+    gen_fsm:sync_send_event(Pid,{overwrite_source, SourceFile,TargetFile}).
  
 %% gen_fsm functions
 
@@ -71,8 +74,10 @@ init(Args) ->
     
     CtrlMod = moduler:start({Mode, LightId, ManagedLanes}),
     %{ok, allred,{LightId, ManagedLanes,Siblings, NewTimes, LogData, allred, CtrlMod}}.
+    LogChanges = get_override_sources_log(LightId),
     StateData = [{id,LightId}, {managed_lanes, ManagedLanes},{siblings, Siblings}, 
-    	{times, NewTimes}, {log_data, LogData}, {old_state, allred}, {ctrl_mod, CtrlMod}, {light_mode, LightMode}],
+    	{times, NewTimes}, {log_data, LogData}, {old_state, allred}, {ctrl_mod, CtrlMod}, {light_mode, LightMode},
+    	{log_changes,  LogChanges}],
     
     case Mode of
     	normal -> scan_lanes(StateData);
@@ -266,6 +271,10 @@ allred(force, _From, StateData) ->
 	io:format("Force change on light ~n"),
 	NewStateData = force_time(StateData),
 	{reply, {allred, null},allred, NewStateData};
+allred({overwrite_source, SourceFile, TargetFile}, _From, StateData) ->
+	io:format("Force overwrite change on light ~n"),
+	override_sources(StateData, SourceFile, TargetFile),
+	{reply, {allred, null},allred, StateData};
     
 allred(init_move_avenue,_From, StateData) ->
     io:format("First move of lights from red to green on avenue. Start Moving avenue lanes. Data: ~w~n",[StateData]),
@@ -393,7 +402,11 @@ greenredred(idle, _From, StateData) ->
 greenredred(force, _From, StateData) ->
 	io:format("Force change on light ~n"),
 	NewStateData = force_time(StateData),
-	{reply, {greenredred, null},greenredred, NewStateData}.
+	{reply, {greenredred, null},greenredred, NewStateData};
+greenredred({overwrite_source, SourceFile, TargetFile}, _From, StateData) ->
+	io:format("Force overwrite change on light ~n"),
+	override_sources(StateData, SourceFile, TargetFile),
+	{reply, {greenredred, null},greenredred, StateData}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Moving STREETS    
@@ -493,7 +506,15 @@ redgreenred(idle,_From, StateData) ->
     %NewTimes = lists:keyreplace(allred_timer,1, Times, {allred_timer, ARTimer + 1}),
     NewStateData = process_state(idle, StateData, [], [ca,av,avf], redgreenred, street),
     Siblings = find_element(siblings, NewStateData),
-    {reply, {redgreenred,Siblings},allred, NewStateData}.
+    {reply, {redgreenred,Siblings},allred, NewStateData};
+redgreenred(force, _From, StateData) ->
+	%io:format("Force change on light ~n"),
+	NewStateData = force_time(StateData),
+	{reply, {redgreenred, null},redgreenred, NewStateData};
+redgreenred({overwrite_source, SourceFile, TargetFile}, _From, StateData) ->
+	io:format("Force overwrite change on light ~n"),
+	override_sources(StateData, SourceFile, TargetFile),
+	{reply, {redgreenred, null},redgreenred, StateData}.
     
 %% Moving OTHER AVENUES (LIGHT WITH to avenues different direction)
 redredgreen(move_avenueF, StateData) ->
@@ -596,8 +617,11 @@ redredgreen(idle, _From, StateData) ->
 redredgreen(force, _From, StateData) ->
 	io:format("Force change on light ~n"),
 	NewStateData = force_time(StateData),
-	{reply, {redredgreen, null},redredgreen, NewStateData}.   
-    
+	{reply, {redredgreen, null},redredgreen, NewStateData};
+redredgreen({overwrite_source, SourceFile, TargetFile}, _From, StateData) ->
+	io:format("Force overwrite change on light ~n"),
+	override_sources(StateData, SourceFile, TargetFile),
+	{reply, {redredgreen, null},redredgreen, StateData}.
     
 %% private functions
 unexpected_event(_CurrentState, _Event, _StateData) ->
@@ -1165,6 +1189,7 @@ update_state_data_times(NewVals, StateData, DirList) ->
 		StateData,
 		DirList),
 	io:format("New STATE DATA AFTER TIMES UPDATE: ~w~n~n",[NewStateData]),
+	write_changes_log(NewStateData),
 	NewStateData.
 		
 fix_times_keys(List, Dir) ->
@@ -1250,3 +1275,88 @@ update_next_cycle_on_allred(Dir, Times, StateData) ->
     NewTimes = lists:keyreplace(allred_timer,1, NewTimesAux, {allred_timer, 0}),
     TempStateData = update_state_data([{times, NewTimes}], StateData),    
     update_cycle_time_on_statedata(Dir, TempStateData).
+    
+%%Update source file using a temp file to write new light data to be used later
+override_sources(StateData, SourceData, TargetFile) ->
+	LightId = find_element(id, StateData),
+	Log = find_element(log_changes, StateData),
+	ChangesLogs = filemanager:get_data_by_fullpath(Log),
+	
+	Item = lists:keyfind(LightId, 1, SourceData),
+	LastItem = last(ChangesLogs),
+	case Item of
+		false ->
+			[];
+		_Other ->
+			{Id, Type, Mode, ManagedLanes, _Times} = Item,
+			{_LightId, NewTimes} = LastItem,
+			NewItem = {Id, Type, Mode, ManagedLanes, NewTimes},
+			filemanager:overwrite_raw(TargetFile, io_lib:format("~w", [NewItem])),
+			ok		
+	end.
+
+%%%Update original file with new decision
+%override_sources(StateData) ->
+%	LightId = find_element(id, StateData),
+%	Times = find_element(times, StateData),
+%	io:format("Updating SOURCE FILE with new Times ~w for Light ~w ~n", [Times, LightId]),
+%	override_sources(LightId, Times).
+	
+%override_sources(LightId, NewTimes) ->
+%	{ok, Cwd} = file:get_cwd(),
+%	Source = Cwd ++ "/sources/prueba2.txt",
+%	SourceData = filemanager:get_data_by_fullpath(Source),
+%	Item = lists:keyfind(LightId, 1, SourceData),
+	
+%	case Item of
+%		false ->
+%			[];
+%		_Other ->
+%			{Id, Type, Mode, ManagedLanes, _Times} = Item,
+%			NewItem = {Id, Type, Mode, ManagedLanes, NewTimes},
+%			FormatedData = lists:keyreplace(Id, 1, SourceData, NewItem),
+%			lists:foreach(
+%				fun (Record) -> 
+%					filemanager:overwrite_raw(Source, io_lib:format("~w", [Record]))
+%				end,
+%				FormatedData),
+%			ok		
+%	end.
+	
+	
+get_override_sources_log(LightId)->
+	Subfolder = "logs/light_changes/",
+	filelib:ensure_dir(Subfolder),
+	{ok, Cwd} = file:get_cwd(),
+	PartialName = "changes_" ++ atom_to_list(LightId) ++ ".txt",
+	PartialDir =  Cwd ++ "/" ++ Subfolder,
+	Source = PartialDir ++ PartialName,
+	Source.
+	
+write_changes_log(StateData) ->
+	Log = find_element(log_changes, StateData),
+	LightId = find_element(id, StateData),
+	Times = find_element(times, StateData),
+	%NewTimes = lists:keyreplace(go_time, 1, Times, {go_time,0}),
+	NewTimes = fix_times_changes_log(Times),
+	filemanager:write_raw(Log, io_lib:format("~w", [{LightId, NewTimes}])),
+	ok.
+
+last([]) ->
+	null;
+last(List) ->
+	lists:last(List).
+
+%% Fix times before save them to the log	
+fix_times_changes_log(Times) ->
+	fix_times_changes_log(Times, []).
+fix_times_changes_log([], Acc) ->
+	lists:reverse(Acc);
+fix_times_changes_log([{allred_timer, _Value} | Times], Acc) ->
+	fix_times_changes_log(Times, Acc);
+fix_times_changes_log([{go_time, _Value} | Times], Acc) ->
+	fix_times_changes_log(Times, [{go_time, 0} | Acc]);
+fix_times_changes_log([Item | Times], Acc) ->
+	fix_times_changes_log(Times, [Item | Acc]).
+	
+	

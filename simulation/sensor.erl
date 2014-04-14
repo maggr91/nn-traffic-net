@@ -48,7 +48,7 @@ sensor(Lanes, File, StandBy) ->
 			sensor(Lanes, NewFile, StandBy);
 		{records, CallerPid, Dir, FlowDir} ->
 			Data = records(Dir, Lanes, FlowDir),
-			reply(CallerPid, Data),
+			reply(reply_records, CallerPid, Data),
 			sensor(Lanes, File, StandBy);
 		{stop, _CallerPid} ->
 			%reply(CallerPid, ok),
@@ -57,6 +57,9 @@ sensor(Lanes, File, StandBy) ->
 	
 reply(Pid, Reply) ->
     Pid ! {reply, Reply}.
+    
+reply(ReplyKey, Pid, Reply) ->
+    Pid ! {ReplyKey, Reply}.
     
 format_lanes(Lanes) ->
 	lists:map(fun({Dir, List}) ->
@@ -178,10 +181,12 @@ records(Dir, Lanes, FlowDir) ->
 		false -> IsRaining = 0
 	end,
 		
-	[{real_count, lists:foldl(fun({_Lane, Data}, Sum) -> 
+	Res = [{real_count, lists:foldl(fun({_Lane, Data}, Sum) -> 
 		Counter = find_element(FlowDir, Data),
 		Sum + Counter
-		end, 0, Targets)}, {rain, IsRaining}].
+		end, 0, Targets)}, {rain, IsRaining}],
+	io:format("Sensor records ~w~n",[Res]),
+	Res.
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%     CLIENT INTERFACE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -190,8 +195,9 @@ records(Dir, Lanes, FlowDir) ->
 get_records(SensorPid, Dir) -> 
 	SensorPid ! {records, self(), Dir, dsp_str},
 	receive
-		{reply, Data} -> {reply, Data};
-		_Other		  -> {reply, error}
+		{reply_records, Data} -> {reply_records, Data};
+		Other		  -> io:format("Error returning records for sensor ~w~n", [Other]),
+						{reply, error}
 	end.
 
 car_pass(SensorPid, LaneId, Count, Dir) ->

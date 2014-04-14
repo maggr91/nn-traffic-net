@@ -1,0 +1,12 @@
+{lane212av1,light212,av, 1, [{main,[lane210av1]},{secondary, [lane210av2]}, {siblings, [lane212av2]}],[], source_lane, 5,		{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane212av2,light212,av, 1, [{main,[lane210av2]},{secondary, [lane210av3]}, {siblings, [lane212av1, lane212av3]}],[], source_lane, 5,	{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane212av3,light212,av, 1, [{main,[lane210av4]},{secondary, [lane210av5]}, {siblings, [lane212av2, lane212av4]}],[], source_lane, 5,		{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane212av4,light212,av, 2, [{main,[lane210av5]},{secondary, [lane212av4]}, {siblings, [lane212av3]} ],[], source_lane, 5,		{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane212ca1,light212,ca, 2, [{main,[lane212ca1]},{secondary, [lane210av1]}, {siblings, [lane212ca2]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane212ca2,light212,ca, 1, [{main,[lane212ca2]},{secondary, []},           {siblings, [lane212ca2]}],[], normal_lane, 5,	       	{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane210av1,light210,av, 2, [{main,[lane210av1]},{secondary, []}, {siblings,[lane210av2]}],[], normal_lane, 5,	       	{probList, [{arrival,[]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
+{lane210av2,light210,av, 1, [{main,[lane210av2]},{secondary, []},           {siblings, [lane210av1, lane210av3]}],[], normal_lane, 5, 	{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane210av3,light210,av, 1, [{main,[lane210av3]},{secondary, []},           {siblings, [lane210av2, lane210av4]}],[], normal_lane, 5,	{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane210av4,light210,av, 1, [{main,[lane210av4]},{secondary, []},           {siblings, [lane210av3, lane210av5]}],[], normal_lane, 5, 	{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane210av5,light210,av, 1, [{main,[lane210av5]},{secondary, [lane208ca1]},           {siblings, [lane210av4]}],[], normal_lane, 5,		{probList, [{arrival,[]},{dispatch, [0, 1, 2]}, {transfer, [0.1, 0.5]}]}}
+{lane210ca1,light210,ca, 2, [{main,[lane410ca1]},{secondary, [lane208av5]}, {siblings, []}],[], source_lane, 5,				{probList, [{arrival,[0,0.6,1]},{dispatch, [0, 0.6, 1]}, {transfer, [0.1, 0.5]}]}}
