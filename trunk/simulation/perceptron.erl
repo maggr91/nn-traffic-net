@@ -278,6 +278,9 @@ calculate_sensitivity(_Backprop, Inputs, Sensitivities, _Output, DxValue)
 reply (Pid, Reply) ->
     Pid ! {reply, Reply}.
 
+reply(ReplyKey, Pid, Reply) ->
+    Pid ! {ReplyKey, Reply}.
+
 save_training(LayerId, Weights, Inputs, Sensitivities,Bias,LastOutput, LogData) ->
 	IdAux = atom_to_list(LayerId),
 	[Tmp | _Nothing] = IdAux,

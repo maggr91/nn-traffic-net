@@ -77,6 +77,9 @@ get_random_weights(Beta, File) ->
 	
 reply (Pid, Reply) ->
     Pid ! {reply, Reply}.
+    
+reply(ReplyKey, Pid, Reply) ->
+    Pid ! {ReplyKey, Reply}.
 
 
 %% Generate random obstrucctions on streets

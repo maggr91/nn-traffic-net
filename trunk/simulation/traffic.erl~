@@ -132,7 +132,7 @@ allocate_lanes({[{LaneId,LightController,Dir, Type, ConnectedLanes,
     Obstruction = allocate_obs(Obs, LaneId),
     
     TargetMaxSpeed = find_max_car_move(LaneId, Dir, MaxSpeedMove),
-    io:format("~n~nMAX SPEED FOR ~w is ~w ~n~n",[LaneId, TargetMaxSpeed]),
+    %io:format("~n~nMAX SPEED FOR ~w is ~w ~n~n",[LaneId, TargetMaxSpeed]),
     Pid = lane:start(normal,{LaneId, Type, [], CarsQueque, Capacity, Obstruction, GeoProb, TargetMaxSpeed}),
     {arrival, ProbList} = lists:keyfind(arrival, 1, ProbData),
     ProbRanges = list_to_tuple(ProbList),
@@ -289,18 +289,25 @@ light_final_format(LightsList) ->
     
 
 %%text file initialization of map
+get_lights() ->
+	file:delete("sources/test_lights_OLD.txt"),
+	Sources = filemanager:get_data("/sources/test_lights.txt"),
+	file:rename("sources/test_lights.txt", 
+		"sources/test_lights_OLD.txt"),
+	Sources.
+	
 get_lights([]) ->
-	filemanager:get_data("/sources/prueba2.txt");
+	filemanager:get_data("/sources/test_lights.txt");
 get_lights(SourceFile) ->
 	filemanager:get_data(SourceFile).
 	
 get_lanes([]) ->
-	filemanager:get_data("/sources/prueba.txt");
+	filemanager:get_data("/sources/test_lanes.txt");
 get_lanes(SourceFile) ->
 	filemanager:get_data(SourceFile).
 
 get_obs([]) ->
-	filemanager:get_data("/sources/prueba.txt");
+	filemanager:get_data("/sources/obs.txt");
 get_obs(SourceFile) ->
 	filemanager:get_data(SourceFile).
 
@@ -371,6 +378,7 @@ loop({Intersections, SourceLanes, {LogPath, DataLogPath, CheckPointLog}}, Time) 
 	 	write_result(LogPath, io_lib:format("----------------------------------------------------------",[])),
 	 	loop({Intersections, UpdatedSources, {LogPath, DataLogPath, CheckPointLog}}, Time + 1);    
     {call,Pid, stop} -> 
+    	safe_overwrite_sources(Intersections),
         tabulate_network(Intersections,DataLogPath),        
         reply(Pid, {normal, Time});
     {call, Pid, checkpoint} ->
@@ -570,3 +578,19 @@ safe_restore_lights(Id, List) ->
 safe_delete_files(CheckLogs) ->
 	L = tuple_to_list(CheckLogs),
 	list_to_tuple(lists:map(fun(Log) -> file:delete(Log), {del, Log} end, L)).
+
+safe_overwrite_sources(Intersections) ->
+	Sources = get_lights(),
+	{ok, Cwd} = file:get_cwd(),
+	FileName = Cwd ++ "/sources/lights_temp.txt",
+	FileRename = Cwd ++ "/sources/test_lights.txt",
+	io:format("~n~nFile ~p , Intersections ~w~n~n", [FileName, Intersections]),
+	safe_overwrite_sources_aux(Intersections, Sources, FileName),
+	file:rename(FileName, FileRename).	
+safe_overwrite_sources_aux([], _Sources, _TargetFile) ->
+	io:format("NO MORE INTERSECTIONS TO UPDATE ~n"),
+    [];
+safe_overwrite_sources_aux([{_InterId, InterPid, Sequence, _Sensor}|Intersections], Sources, TargetFile) ->
+	io:format("TRAFFIC - UPDATING INTERSECTIONS SOURCE ~n"),
+    invoke_light(Sequence, overwrite,{InterPid, Sources, TargetFile}),
+    safe_overwrite_sources_aux(Intersections, Sources, TargetFile).

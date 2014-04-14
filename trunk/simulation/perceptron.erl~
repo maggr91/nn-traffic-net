@@ -252,7 +252,7 @@ stimulate_next_layer(_LayerId, [], _Output, _IsTraining) ->
 	%io:format("Stimulating ENDED~n"),
 	[];
 stimulate_next_layer(LayerId, [{_N_id, N_Pid} | N_Tail], Input, IsTraining) ->
-	io:format("Stimulating ~w with ~w~n", [N_Pid, Input]),
+	%io:format("Stimulating ~w with ~w~n", [N_Pid, Input]),
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] Stimulating ~w with ~w", [?MODULE, N_Pid, Input])),
 	N_Pid ! {stimulate, {{LayerId, self()}, Input}, IsTraining},
 	stimulate_next_layer(LayerId, N_Tail, Input, IsTraining).

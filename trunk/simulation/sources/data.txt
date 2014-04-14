@@ -1,0 +1,383 @@
+CALLING PROCESS LOOP.
+Running simulation iteration: 2 continue. Intersections [{light212,<0.77.0>,twoDir,<0.87.0>}]
+Continuing greenred way cycle
+continue moving avenue lanes. Data: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,0},{cycle_time,10},{avenue_time,10},{street_time,5},{go_time,2},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,redred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+-----------------------------------------------
+
+Finishing simulation iteration: 2 continue. Intersections
+----------------------------------------------------------
+
+2> CONTINUING with run.
+CALLING PROCESS LOOP.
+Running simulation iteration: 3 continue. Intersections [{light212,<0.77.0>,twoDir,<0.87.0>}]
+Continuing greenred way cycle
+continue moving avenue lanes. Data: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,0},{cycle_time,10},{avenue_time,10},{street_time,5},{go_time,3},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,redred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+-----------------------------------------------
+
+Finishing simulation iteration: 3 continue. Intersections
+----------------------------------------------------------
+
+2> CONTINUING with run.
+CALLING PROCESS LOOP.
+Running simulation iteration: 4 continue. Intersections [{light212,<0.77.0>,twoDir,<0.87.0>}]
+Continuing greenred way cycle
+continue moving avenue lanes. Data: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,0},{cycle_time,10},{avenue_time,10},{street_time,5},{go_time,4},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,redred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+-----------------------------------------------
+
+Finishing simulation iteration: 4 continue. Intersections
+----------------------------------------------------------
+
+2> CONTINUING with run.
+CALLING PROCESS LOOP.
+Running simulation iteration: 5 continue. Intersections [{light212,<0.77.0>,twoDir,<0.87.0>}]
+Continuing greenred way cycle
+continue moving avenue lanes. Data: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,0},{cycle_time,10},{avenue_time,10},{street_time,5},{go_time,5},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,redred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+-----------------------------------------------
+
+Finishing simulation iteration: 5 continue. Intersections
+----------------------------------------------------------
+
+2> CONTINUING with run.
+CALLING PROCESS LOOP.
+Running simulation iteration: 6 continue. Intersections [{light212,<0.77.0>,twoDir,<0.87.0>}]
+Continuing greenred way cycle
+continue moving avenue lanes. Data: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,0},{cycle_time,10},{avenue_time,10},{street_time,5},{go_time,6},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,redred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+-----------------------------------------------
+
+Finishing simulation iteration: 6 continue. Intersections
+----------------------------------------------------------
+
+2> CONTINUING with run.
+CALLING PROCESS LOOP.
+Running simulation iteration: 7 continue. Intersections [{light212,<0.77.0>,twoDir,<0.87.0>}]
+Continuing greenred way cycle
+continue moving avenue lanes. Data: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,0},{cycle_time,10},{avenue_time,10},{street_time,5},{go_time,7},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,redred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+-----------------------------------------------
+
+Finishing simulation iteration: 7 continue. Intersections
+----------------------------------------------------------
+
+2> CONTINUING with run.
+CALLING PROCESS LOOP.
+Running simulation iteration: 8 continue. Intersections [{light212,<0.77.0>,twoDir,<0.87.0>}]
+Continuing greenred way cycle
+continue moving avenue lanes. Data: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,0},{cycle_time,10},{avenue_time,10},{street_time,5},{go_time,8},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,redred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+-----------------------------------------------
+
+Finishing simulation iteration: 8 continue. Intersections
+----------------------------------------------------------
+
+2> CONTINUING with run.
+CALLING PROCESS LOOP.
+Running simulation iteration: 9 continue. Intersections [{light212,<0.77.0>,twoDir,<0.87.0>}]
+stop moving avenue lanes. Data: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,0},{cycle_time,10},{avenue_time,10},{street_time,5},{go_time,9},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,redred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+-----------------------------------------------
+
+Finishing simulation iteration: 9 continue. Intersections
+----------------------------------------------------------
+
+2> CONTINUING with run.
+CALLING PROCESS LOOP.
+Running simulation iteration: 10 continue. Intersections [{light212,<0.77.0>,twoDir,<0.87.0>}]
+Change Sensor targets 
+Changing for red to green on streets. Start Moving street lanes. Data: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,1},{cycle_time,10},{avenue_time,10},{street_time,5},{go_time,9},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,greenred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+-----------------------------------------------
+
+Finishing simulation iteration: 10 continue. Intersections
+----------------------------------------------------------
+
+2> CONTINUING with run.
+CALLING PROCESS LOOP.
+Running simulation iteration: 11 continue. Intersections [{light212,<0.77.0>,twoDir,<0.87.0>}]
+Continuing redgreen way cycle
+continue moving street lanes. Data: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,0},{cycle_time,5},{avenue_time,10},{street_time,5},{go_time,0},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,greenred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+-----------------------------------------------
+
+Finishing simulation iteration: 11 continue. Intersections
+----------------------------------------------------------
+
+2> CONTINUING with run.
+CALLING PROCESS LOOP.
+Running simulation iteration: 12 continue. Intersections [{light212,<0.77.0>,twoDir,<0.87.0>}]
+Continuing redgreen way cycle
+continue moving street lanes. Data: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,0},{cycle_time,5},{avenue_time,10},{street_time,5},{go_time,1},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,greenred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+-----------------------------------------------
+
+Finishing simulation iteration: 12 continue. Intersections
+----------------------------------------------------------
+
+2> CONTINUING with run.
+CALLING PROCESS LOOP.
+Running simulation iteration: 13 continue. Intersections [{light212,<0.77.0>,twoDir,<0.87.0>}]
+Continuing redgreen way cycle
+continue moving street lanes. Data: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,0},{cycle_time,5},{avenue_time,10},{street_time,5},{go_time,2},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,greenred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+-----------------------------------------------
+
+Finishing simulation iteration: 13 continue. Intersections
+----------------------------------------------------------
+
+2> CONTINUING with run.
+CALLING PROCESS LOOP.
+Running simulation iteration: 14 continue. Intersections [{light212,<0.77.0>,twoDir,<0.87.0>}]
+Continuing redgreen way cycle
+continue moving street lanes. Data: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,0},{cycle_time,5},{avenue_time,10},{street_time,5},{go_time,3},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,greenred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+-----------------------------------------------
+
+Finishing simulation iteration: 14 continue. Intersections
+----------------------------------------------------------
+
+2> CONTINUING with run.
+CALLING PROCESS LOOP.
+Running simulation iteration: 15 continue. Intersections [{light212,<0.77.0>,twoDir,<0.87.0>}]
+   
+EVAL DELAY [{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}] 
+
+   
+EVAL DELAY RESULT [{ca212,[]},{av212,[{bus,{{0,1,1},2,[],[{times,[{wait,7},{delay,6}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}},{bus,{{2,3,1},1,[],[{times,[{wait,2},{delay,2}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}},{car,{{1,1,0},1,[],[{times,[{wait,3},{delay,3}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}},{bus,{{0,1,1},2,[],[{times,[{wait,9},{delay,6}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}},{bus,{{0,1,1},2,[],[{times,[{wait,9},{delay,6}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}},{car,{{3,3,0},1,[],[{times,[{wait,1},{delay,1}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}}]}] 
+
+   
+
+CALLING MANAGE INPUTS UPDATES ON PROCESS {<0.87.0>,[av,ca],[{siblings_data,[]},{net_values,[]},{net_input,[{ca,[{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]},{av,[{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]}]},{sensor_input,[]}],[{av,[]},{ca,[]}]} 
+
+Eval sensorinputs 
+
+ SensorInputs [{real_count,0},{rain,0}]
+ CurrentData: [{siblings_data,[]},{net_values,[]},{net_input,[{ca,[{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]},{av,[{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]}]},{sensor_input,[]}]
+Looking for netval input of av on current data [] 
+Get Net values for DIR av, Result: []   
+
+SAFE sensor input on av with [{real_count,0},{rain,0}]
+
+target sensor_input, UPDATE DATA NN [{siblings_data,[]},{net_values,[]},{net_input,[{ca,[{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]},{av,[{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]}]},{sensor_input,[]}] ... NewVal = [{real_count,0},{rain,0}]
+No record for dir av, UPDATE DATA with {av,[{real_count,0},{rain,0}]}
+ResponseVals when sensor is old: [{cycle_time,-1},{umbral,-1},{delay,-1},{estimate_count,1},{real_count,0},{rain,0}]
+
+Updating av List: []
+Data after broadcast: [{siblings_data,[]},{net_values,[]},{net_input,[{ca,[{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]},{av,[{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]}]},{sensor_input,[{av,[{real_count,0},{rain,0}]}]}]
+Target siblings: []  , ElementsData : []
+FilteredSiblings: []
+Sibling input to merge []
+SiblingsInput [{anomally,0}]Eval sensorinputs 
+
+ SensorInputs [{real_count,0},{rain,0}]
+ CurrentData: [{siblings_data,[]},{net_values,[]},{net_input,[{ca,[{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]},{av,[{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]}]},{sensor_input,[{av,[{real_count,0},{rain,0}]}]}]
+Looking for netval input of ca on current data [] 
+Get Net values for DIR ca, Result: []   
+
+SAFE sensor input on ca with [{real_count,0},{rain,0}]
+
+target sensor_input, UPDATE DATA NN [{siblings_data,[]},{net_values,[]},{net_input,[{ca,[{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]},{av,[{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]}]},{sensor_input,[{av,[{real_count,0},{rain,0}]}]}] ... NewVal = [{real_count,0},{rain,0}]
+No record for dir ca, UPDATE DATA with {ca,[{real_count,0},{rain,0}]}
+ResponseVals when sensor is old: [{cycle_time,-1},{umbral,-1},{delay,-1},{estimate_count,1},{real_count,0},{rain,0}]
+
+Updating ca List: []
+Data after broadcast: [{siblings_data,[]},{net_values,[]},{net_input,[{ca,[{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]},{av,[{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]}]},{sensor_input,[{ca,[{real_count,0},{rain,0}]},{av,[{real_count,0},{rain,0}]}]}]
+Target siblings: []  , ElementsData : []
+FilteredSiblings: []
+Sibling input to merge []
+SiblingsInput [{anomally,0}]   
+
+CALLING FORMAT INPUTS ON PROCESS {[{av,[{sensor,[{real_count,0},{rain,0}]},{siblings,[{anomally,0}]}]},{ca,[{sensor,[{real_count,0},{rain,0}]},{siblings,[{anomally,0}]}]}],[{siblings_data,[]},{net_values,[]},{net_input,[{ca,[{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]},{av,[{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]}]},{sensor_input,[{ca,[{real_count,0},{rain,0}]},{av,[{real_count,0},{rain,0}]}]}]} 
+
+List to append LoadInputs [{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}], SensorInp: [{real_count,0},{rain,0}] , SiblingData [{anomally,0}] 
+List to append LoadInputs [{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}], SensorInp: [{real_count,0},{rain,0}] , SiblingData [{anomally,0}] 
+Inputs Temp [[3,1,5,40,0,0,0,0],[1,1,5,40,0,0,0,0]] Inputs Final [3,1,5,40,0,0,0,0,1,1,5,40,0,0,0,0]
+DirList: [av,ca]
+
+EVALUATING EFFIENCY DIR: av SensorInputs: [{ca,[{real_count,0},{rain,0}]},{av,[{real_count,0},{rain,0}]}], NetValues: []
+
+Getting estimatedcount from NetDirValues: []
+
+Estimatedcount from NetDirValues: 1
+
+EVALUATING EFFIENCY DIR: ca SensorInputs: [{ca,[{real_count,0},{rain,0}]},{av,[{real_count,0},{rain,0}]}], NetValues: []
+
+Getting estimatedcount from NetDirValues: []
+
+Estimatedcount from NetDirValues: 1
+
+get_back_trouble_bit result list: [{av,[{antes,[]},{despues,[]},{effiency,0.0}]},{ca,[{antes,[]},{despues,[]},{effiency,0.0}]}]
+
+   
+
+CHECKING TRAINER INFO
+
+PARENTLANEIds [{av,av212},{ca,ca212}]
+
+NNData {[{av_cycletime,{1,2}},{av_delaytime,{3,1}},{ca_cycletime,{4,2}},{ca_delaytime,{6,1}}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,110,110,47,110,110,95,108,111,103,108,105,103,104,116,50,49,50,46,116,120,116]}
+
+EVALUATING PERFORMANCE {<0.88.0>,[{av,av212},{ca,ca212}],[{ca212,[]},{av212,[{bus,{{0,1,1},2,[],[{times,[{wait,7},{delay,6}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}},{bus,{{2,3,1},1,[],[{times,[{wait,2},{delay,2}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}},{car,{{1,1,0},1,[],[{times,[{wait,3},{delay,3}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}},{bus,{{0,1,1},2,[],[{times,[{wait,9},{delay,6}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}},{bus,{{0,1,1},2,[],[{times,[{wait,9},{delay,6}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}},{car,{{3,3,0},1,[],[{times,[{wait,1},{delay,1}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}}]}],{[{av_cycletime,{1,2}},{av_delaytime,{3,1}},{ca_cycletime,{4,2}},{ca_delaytime,{6,1}}],[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,110,110,47,110,110,95,108,111,103,108,105,103,104,116,50,49,50,46,116,120,116]}}
+
+Evaluate Performance for the intersection
+NewDecisionReg [[{inputs,[1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0]},{outputs,[2,1,1,0]}],[{inputs,[1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0]},{outputs,[0,0,0,0]}]]
+   
+
+Trainer lookup file: "/home/mag/nn-traffic-net/simulation/logs/training/training_rec_av212.txt"
+
+   
+
+Trainer lookup file: "/home/mag/nn-traffic-net/simulation/logs/training/training_rec_ca212.txt"
+
+NO TRAINER Data found. Exception error , Reason {badmatch,{error,enoent}} 
+   
+
+CARSTATS BY LANES ON ANALYZER [{av212,[{wait,3},{delay,1}]},{ca212,[{wait,0},{delay,0}]}]
+
+   
+
+GETTING Needed adjusment for light {[{av,av212},{ca,ca212}],[{av212,[{wait,3},{delay,1}]},{ca212,[{wait,0},{delay,0}]}],[[{inputs,[1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0]},{outputs,[2,1,1,0]}],[{inputs,[1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0]},{outputs,[0,0,0,0]}]],[{avg_delay,14},{back_trouble_bit,true},{effectiveness,0.9}],[{av_cycletime,{1,2}},{av_delaytime,{3,1}},{ca_cycletime,{4,2}},{ca_delaytime,{6,1}}]} 
+   
+
+LAST DECISION [{inputs,[1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0]},{outputs,[0,0,0,0]}] 
+   
+
+Sorted Car stats [{av212,[{wait,3},{delay,1}]},{ca212,[{wait,0},{delay,0}]}] 
+Direction values [{av212,[{cycletime,1},{delaytime,2}]},{ca212,[{cycletime,3},{delaytime,4}]}] 
+   
+CarStatsWithValuePos [{av212,[{val_pos,[{cycletime,1},{delaytime,2}]},{adjust,0.05},{wait,3},{delay,1}]},{ca212,[{val_pos,[{cycletime,3},{delaytime,4}]},{adjust,-0.05},{wait,0},{delay,0}]}] 
+   
+check_criteria_intersection {[{avg_delay,14},{back_trouble_bit,true},{effectiveness,0.9}],{av212,[{val_pos,[{cycletime,1},{delaytime,2}]},{adjust,0.05},{wait,3},{delay,1}]},[{ca212,[{val_pos,[{cycletime,3},{delaytime,4}]},{adjust,-0.05},{wait,0},{delay,0}]}],[{av,[{antes,[]},{despues,[]},{effiency,0.0}]},{ca,[{antes,[]},{despues,[]},{effiency,0.0}]}]} 
+   
+
+ MaxAdjust 0.5  Difference 0.9285714285714286 NewAdjust0.5 
+   
+ListWithCriteriaCheck [{av212,[{val_pos,[{cycletime,1},{delaytime,2}]},{adjust,0.55},{wait,3},{delay,1}]},{ca212,[{val_pos,[{cycletime,3},{delaytime,4}]},{adjust,-0.55},{wait,0},{delay,0}]}] 
+SortedCarStatsDescWithAdj [{av212,[{val_pos,[{cycletime,1},{delaytime,2}]},{adjust,0.55},{wait,3},{delay,1}]},{ca212,[{val_pos,[{cycletime,3},{delaytime,4}]},{adjust,-0.55},{wait,0},{delay,0}]}] 
+CycleTime 0 Adjustment 0.55
+NewCycleTime 0 OldCycleTime 0
+CycleTime 0 Adjustment -0.55
+NewCycleTime 0 OldCycleTime 0
+OutputAdj [0,0,0,0]
+TRAINING FIXES Inputs [1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0] OutputAdj [0,0,0,0]
+
+Evaluate Target RES: [{inputs,[1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0]},{output,[0,0,0,0]}]
+Train network <0.83.0>... Data {train,[{inputs,[1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0]},{output,[0,0,0,0]}]}
+SENDING INPUTS
+
+Sending inputs according mode train . Data [{inputs,[1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0]},{output,[0,0,0,0]}]
+Neuron: i1 pass val: 1Neuron: i2 pass val: 1Neuron: i3 pass val: 1Neuron: i4 pass val: 1Neuron: i5 pass val: 0Neuron: i6 pass val: 1Neuron: i7 pass val: 1FINISH Sending inputs
+
+   
+AFTER TRAINING ANN
+   
+
+AFTER CHECKING TRAINER INFO
+
+GETTING TRAINER INFOTrain network <0.83.0>... Data {normal,[{inputs,[1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0]}]}
+SENDING INPUTS
+
+Sending inputs according mode normal . Data [{inputs,[1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0]}]
+Neuron: i1 pass val: 1Neuron: i2 pass val: 1Neuron: i3 pass val: 1Neuron: i4 pass val: 1Neuron: i5 pass val: 0Neuron: i6 pass val: 1Neuron: i7 pass val: 1   
+
+ OutputLayer: [{o1,<0.106.0>},{o2,<0.107.0>},{o3,<0.108.0>},{o4,<0.109.0>},{o5,<0.110.0>},{o6,<0.111.0>}] OutputsMapping: [{av_cycletime,{1,2}},{av_delaytime,{3,1}},{ca_cycletime,{4,2}},{ca_delaytime,{6,1}}]
+
+   
+ Outneurons bits [0,0,0,0,0,0]
+
+   
+
+ Outneurons [0,0,0,0]
+
+FINISH Sending inputs
+
+Desition {[0,0,0,0],2,[av,ca]}
+SPLITED VALUES [{av,[0,0]},{ca,[0,0]}]
+
+NetValues [{av,[0,0]},{ca,[0,0]}] NetInputs [{ca,[{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]},{av,[{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]}] FixedCarLength 3.6 Dirlist [av,ca] 
+
+NetValues [{av,[0,0]},{ca,[0,0]}] NetInputs [{ca,[{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]},{av,[{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]}] FixedCarLength 3.6 Dir av 
+
+TargetInputs [{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}] 
+
+Calculating promcars {3.6,0}
+Looking for top_speed on [{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}], 
+
+TopSpeed40, 
+
+   
+Un carro va a recorrer max unos 0.0 metros y min 0.0 aprox en 0, 
+
+NetValues [{av,[0,0]},{ca,[0,0]}] NetInputs [{ca,[{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]},{av,[{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]}] FixedCarLength 3.6 Dir ca 
+
+TargetInputs [{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}] 
+
+Calculating promcars {3.6,0}
+Looking for top_speed on [{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}], 
+
+TopSpeed40, 
+
+   
+Un carro va a recorrer max unos 0.0 metros y min 0.0 aprox en 0, 
+
+FinalDesition of NN: [{av,[{cycle_time,0},{delay,0},{estimate_count,0.0}]},{ca,[{cycle_time,0},{delay,0},{estimate_count,0.0}]}]
+target net_values, UPDATE DATA NN [{siblings_data,[]},{net_values,[]},{net_input,[{ca,[{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]},{av,[{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]}]},{sensor_input,[{ca,[{real_count,0},{rain,0}]},{av,[{real_count,0},{rain,0}]}]}] ... NewVal = [{cycle_time,0},{delay,0},{estimate_count,0.0}]
+   
+
+
+
+NewData after moduler call [{av,[{cycle_time,0},{delay,0},{estimate_count,0.0}]},{ca,[{cycle_time,0},{delay,0},{estimate_count,0.0}]}]
+
+
+No record for dir av, UPDATE DATA with {av,[{cycle_time,0},{delay,0},{estimate_count,0.0}]}
+OLD STATE DATA B4 TIMES UPDATE: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,0},{cycle_time,5},{avenue_time,10},{street_time,5},{go_time,4},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,greenred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+
+Data after network update: FinalData .. [{cycle_time,0},{delay,0},{estimate_count,0.0},{real_count,0},{rain,0}]
+CHANGE STATE DATA TIMES [{av,[{cycle_time,0},{delay,0},{estimate_count,0.0}]},{ca,[{cycle_time,0},{delay,0},{estimate_count,0.0}]}]
+
+Sending update to siblings on av. List: []
+
+FILTERED VALS AFTER KEY FIX [{cycle_time,0},{avenue_delay,0}]
+
+Sending update to siblings on ca. List: []
+
+TIMES TO UPDATE[{avenue_time,0},{cycle_time,0},{avenue_delay,0}]
+
+target net_values, UPDATE DATA NN [{siblings_data,[]},{net_values,[{av,[{cycle_time,0},{delay,0},{estimate_count,0.0}]}]},{net_input,[{ca,[{count_type1,1},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]},{av,[{count_type1,3},{count_type2,1},{capacity,5},{top_speed,{40,3}},{count_obs,0}]}]},{sensor_input,[{ca,[{real_count,0},{rain,0}]},{av,[{real_count,0},{rain,0}]}]}] ... NewVal = [{cycle_time,0},{delay,0},{estimate_count,0.0}]
+UPDATED TIMES[{allred_timer,0},{cycle_time,0},{avenue_time,0},{street_time,5},{go_time,4},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]
+
+No record for dir ca, UPDATE DATA with {ca,[{cycle_time,0},{delay,0},{estimate_count,0.0}]}
+CHANGE STATE DATA TIMES [{av,[{cycle_time,0},{delay,0},{estimate_count,0.0}]},{ca,[{cycle_time,0},{delay,0},{estimate_count,0.0}]}]
+
+Data after network update: FinalData .. [{cycle_time,0},{delay,0},{estimate_count,0.0},{real_count,0},{rain,0}]
+FILTERED VALS AFTER KEY FIX [{cycle_time,0},{street_delay,0}]
+
+Sending update to siblings on av. List: []
+
+TIMES TO UPDATE[{street_time,0},{cycle_time,0},{street_delay,0}]
+
+Sending update to siblings on ca. List: []
+
+UPDATED TIMES[{allred_timer,0},{cycle_time,0},{avenue_time,0},{street_time,0},{go_time,4},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]
+
+New STATE DATA AFTER TIMES UPDATE: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,0},{cycle_time,0},{avenue_time,0},{street_time,0},{go_time,4},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,greenred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+
+stop moving street lanes. Data: [{id,light212},{managed_lanes,[{av,[{lane212av4,<0.73.0>},{lane212av3,<0.74.0>},{lane212av2,<0.75.0>},{lane212av1,<0.76.0>}]},{ca,[{lane212ca2,<0.71.0>},{lane212ca1,<0.72.0>}]}]},{siblings,[{ca,[]},{av,[]}]},{times,[{allred_timer,0},{cycle_time,0},{avenue_time,0},{street_time,0},{go_time,4},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,0},{street_delay,0},{avenue_umbral,5},{street_umbral,5}]},{log_data,[47,104,111,109,101,47,109,97,103,47,110,110,45,116,114,97,102,102,105,99,45,110,101,116,47,115,105,109,117,108,97,116,105,111,110,47,108,111,103,115,47,108,105,103,104,116,50,49,50,46,116,120,116]},{old_state,greenred},{ctrl_mod,<0.78.0>},{light_mode,dm}]
+-----------------------------------------------
+
+Finishing simulation iteration: 15 continue. Intersections
+----------------------------------------------------------
+
+2> FINAL SAVING CHECKPOINT.
+CALLING PROCESS LOOP.
+Saving training of layers [{input,[{i1,<0.92.0>},{i2,<0.93.0>},{i3,<0.94.0>},{i4,<0.95.0>},{i5,<0.96.0>},{i6,<0.97.0>},{i7,<0.98.0>}]},{hidden,[{h1,<0.99.0>},{h2,<0.100.0>},{h3,<0.101.0>},{h4,<0.102.0>},{h5,<0.103.0>},{h6,<0.104.0>},{h7,<0.105.0>}]},{output,[{o1,<0.106.0>},{o2,<0.107.0>},{o3,<0.108.0>},{o4,<0.109.0>},{o5,<0.110.0>},{o6,<0.111.0>}]}]
+CHECKPOINT SENSOR file : "/home/mag/nn-traffic-net/simulation/checkpoint/sensors/sensor_light212.txt" 
+Saving Layer input: [{i1,<0.92.0>},{i2,<0.93.0>},{i3,<0.94.0>},{i4,<0.95.0>},{i5,<0.96.0>},{i6,<0.97.0>},{i7,<0.98.0>}] on "/home/mag/nn-traffic-net/simulation/checkpoint/nn_saving/nn_saving_light212.txt"
+2> CALLING PROCESS LOOP.
+No more neurons to save
+Saving Layer hidden: [{h1,<0.99.0>},{h2,<0.100.0>},{h3,<0.101.0>},{h4,<0.102.0>},{h5,<0.103.0>},{h6,<0.104.0>},{h7,<0.105.0>}] on "/home/mag/nn-traffic-net/simulation/checkpoint/nn_saving/nn_saving_light212.txt"
+reply recieve after writedown lane lane212av4.
+reply recieve after writedown lane lane212av3.
+No more neurons to save
+Saving Layer output: [{o1,<0.106.0>},{o2,<0.107.0>},{o3,<0.108.0>},{o4,<0.109.0>},{o5,<0.110.0>},{o6,<0.111.0>}] on "/home/mag/nn-traffic-net/simulation/checkpoint/nn_saving/nn_saving_light212.txt"
+reply recieve after writedown lane lane212av2.
+No more neurons to save
+reply recieve after writedown lane lane212av1.
+reply recieve after writedown lane lane212ca2.
+reply recieve after writedown lane lane212ca1.
+Saving training of layers [{input,[{i1,<0.92.0>},{i2,<0.93.0>},{i3,<0.94.0>},{i4,<0.95.0>},{i5,<0.96.0>},{i6,<0.97.0>},{i7,<0.98.0>}]},{hidden,[{h1,<0.99.0>},{h2,<0.100.0>},{h3,<0.101.0>},{h4,<0.102.0>},{h5,<0.103.0>},{h6,<0.104.0>},{h7,<0.105.0>}]},{output,[{o1,<0.106.0>},{o2,<0.107.0>},{o3,<0.108.0>},{o4,<0.109.0>},{o5,<0.110.0>},{o6,<0.111.0>}]}]
+Saving Layer input: [{i1,<0.92.0>},{i2,<0.93.0>},{i3,<0.94.0>},{i4,<0.95.0>},{i5,<0.96.0>},{i6,<0.97.0>},{i7,<0.98.0>}] on "/home/mag/nn-traffic-net/simulation/checkpoint/nn_saving/nn_saving_light212.txt"
+No more neurons to save
+Saving Layer hidden: [{h1,<0.99.0>},{h2,<0.100.0>},{h3,<0.101.0>},{h4,<0.102.0>},{h5,<0.103.0>},{h6,<0.104.0>},{h7,<0.105.0>}] on "/home/mag/nn-traffic-net/simulation/checkpoint/nn_saving/nn_saving_light212.txt"
+No more neurons to save
+Saving Layer output: [{o1,<0.106.0>},{o2,<0.107.0>},{o3,<0.108.0>},{o4,<0.109.0>},{o5,<0.110.0>},{o6,<0.111.0>}] on "/home/mag/nn-traffic-net/simulation/checkpoint/nn_saving/nn_saving_light212.txt"
+No more neurons to save

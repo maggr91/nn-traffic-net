@@ -1,0 +1,11 @@
+{lane212av1,light212,av, 1, [lane210av1],[]}
+{lane212av2,light212,av, 1, [lane210av2],[]}
+{lane212av3,light212,av, 1, [lane210av3,lane210av4],[]}
+{lane212av4,light212,av, 1, [lane210av4,lane210av5],[]}
+{lane212ca1,light212,ca, 1, [lane212av4],[]}
+{lane212ca2,light212,ca, 2, [],[]}
+{lane210av1,light210,av, 1, [],[]}
+{lane210av2,light210,av, 1, [],[]}
+{lane210av3,light212,av, 1, [],[]}
+{lane210av4,light212,av, 1, [],[]}
+{lane210av5,light212,av, 2, [],[]}

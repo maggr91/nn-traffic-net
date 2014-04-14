@@ -1,12 +1,6 @@
-{lane212ca1,[]}
+{lane212av4,[]}
+{lane212av3,[{bus,{{0,1,1},1,[],[{times,[{wait,10},{delay,10}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}}]}
+{lane212av2,[{bus,{{0,1,1},2,[],[{times,[{wait,13},{delay,12}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}}]}
+{lane212av1,[{car,{{0,0,0},2,[],[{times,[{wait,8},{delay,7}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}}]}
 {lane212ca2,[]}
-{lane212av1,[{bus,{{0,1,1},2,[],[{times,[{wait,6},{delay,5}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}}]}
-{lane212av2,[{bus,{{0,1,1},2,[],[{times,[{wait,13},{delay,12}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}},{bus,{{2,3,1},1,[],[{times,[{wait,3},{delay,3}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}}]}
-{lane212av3,[{bus,{{0,1,1},2,[],[{times,[{wait,9},{delay,7}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}},{bus,{{2,3,1},1,[],[{times,[{wait,4},{delay,4}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}}]}
-{lane212av4,[{car,{{3,3,0},1,[],[{times,[{wait,1},{delay,1}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}}]}
-{lane210av5,[]}
-{lane210av4,[{car,{{0,0,0},2,[],[{times,[{wait,34},{delay,29}]},{top_move,3},{route,[{av212,[{wait,5},{delay,4}]},{outav212,[{wait,0},{delay,0}]}]}]}},{car,{{1,1,0},1,[],[{times,[{wait,21},{delay,18}]},{top_move,3},{route,[{av212,[{wait,6},{delay,6}]},{outav212,[{wait,0},{delay,0}]}]}]}},{bus,{{2,3,1},2,[],[{times,[{wait,16},{delay,14}]},{top_move,3},{route,[{av212,[{wait,9},{delay,7}]},{outav212,[{wait,0},{delay,0}]}]}]}}]}
-{lane210av3,[]}
-{lane210av2,[{car,{{0,0,0},2,[],[{times,[{wait,26},{delay,21}]},{top_move,3},{route,[{av212,[{wait,10},{delay,8}]},{outav212,[{wait,0},{delay,0}]}]}]}},{car,{{1,1,0},2,[],[{times,[{wait,17},{delay,15}]},{top_move,3},{route,[{av212,[{wait,10},{delay,8}]},{outav212,[{wait,0},{delay,0}]}]}]}}]}
-{lane210av1,[{car,{{0,0,0},2,[],[{times,[{wait,40},{delay,37}]},{top_move,3},{route,[{av212,[{wait,8},{delay,8}]},{outav212,[{wait,0},{delay,0}]}]}]}},{bus,{{1,2,1},2,[],[{times,[{wait,24},{delay,20}]},{top_move,3},{route,[{av212,[{wait,9},{delay,7}]},{outav212,[{wait,0},{delay,0}]}]}]}},{bus,{{3,4,1},2,[],[{times,[{wait,15},{delay,13}]},{top_move,3},{route,[{av212,[{wait,8},{delay,6}]},{outav212,[{wait,0},{delay,0}]}]}]}}]}
-{lane210ca1,[{bus,{{0,1,1},1,[],[{times,[{wait,45},{delay,45}]},{top_move,3},{route,[{outca210,[{wait,0},{delay,0}]}]}]}},{bus,{{2,3,1},1,[],[{times,[{wait,30},{delay,30}]},{top_move,3},{route,[{outca210,[{wait,0},{delay,0}]}]}]}},{car,{{4,4,0},1,[],[{times,[{wait,22},{delay,22}]},{top_move,3},{route,[{outca210,[{wait,0},{delay,0}]}]}]}}]}
+{lane212ca1,[]}

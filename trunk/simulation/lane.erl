@@ -22,6 +22,9 @@ init(restore, {LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, 
 
 reply (Pid, Reply) ->
     Pid ! {reply, Reply}.
+    
+reply(ReplyKey, Pid, Reply) ->
+    Pid ! {ReplyKey, Reply}.
 
 lane(LaneId, Type, ConnectedLanes, CarsQueque, OutSideArea, Capacity, Obstruction, ProbData, Stats, TopSpeed) ->
   %% For each lane on every street in the system, 

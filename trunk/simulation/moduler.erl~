@@ -112,9 +112,6 @@ update_dm(NN, NNFile, LightId)->
 	NN ! {update_file, NewNNFile}.
 
 restore_dm(NNFile, Mapping) ->
-	%NewLight = atom_to_list(LightId) ++ ".txt",
-	%NewNNFile = NNFile ++ NewLight,
-	%NewNNFile = format_dm_file(NNFile, LightId),
 	ann:start({NNFile, Mapping}).
 	
 restore_dm(NNFile, Mapping, NNLog) ->
@@ -164,11 +161,10 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 		{response, CallerPid, Dir} ->
 			%%%EVALUAR SI LO QUE RETORNA EL SENSOR ES ACTIVO O IDLE(-1 o numeros negativos) si es malo retornar
 			%%% el que tenga almacenado el modulador, si no dar version reciente			 
-			{reply, SensorInputs} = sensor:get_records(Sensor, Dir),
-			%{SensorRespond, UpdatedData} = eval_sensor_input(SensorInputs, Data,Dir),
+			{reply_records, SensorInputs} = sensor:get_records(Sensor, Dir),
+			io:format("Eval Sensor input on RESPONSE ~n"),
 			{Return, UpdatedData} = eval_sensor_input(SensorInputs, Data, Dir),
 					
-			%Return = lists:append([ResponseData, SensorRespond]),
 			io:format("~n~n Return data from ~w ~w~n", [CallerPid, Return]),	
 			reply(CallerPid, Return),
 			listen(Light, Siblings, NN, UpdatedData, CheckpointLog, Sensor, Trainer, FixedCarLength, Mapping);
@@ -183,7 +179,6 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor, Trainer, FixedCarLength, Mapping);
 		{connect, SiblingData, Dir} ->
 			%%add connection to siblings list but not the data
-			%{Dir, List} = lists:keyfind(Dir, 1, Siblings),
 			ExistDir = lists:keyfind(Dir, 1, Siblings),
 			case ExistDir of
 				false -> NewSiblings = [{Dir, []} | Siblings],
@@ -213,7 +208,6 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 			io:format("~n~nCALLING FORMAT INPUTS ON PROCESS ~w ~n~n",[{Updates, NewData}]),
 			%%Second, format all external data with info from the light
 			FormatedInputs = format_inputs(DirList, NewData, Updates),
-			%FormatedInputs = format_inputs(DirList, NewData,SensorInputs, SiblingsInput),
 			
 			%%EXECUTE
 			FinalDesition = execute(DirList, NN, Stats, Trainer, FormatedInputs, NewData, FixedCarLength, Light, Mapping, Siblings),
@@ -334,6 +328,9 @@ check_dm_performance(TrainerPid, NN, DirList, CarStats, Light, AnomalliesData) -
 
 reply(Pid, Reply) ->
     Pid ! {reply, Reply}.
+    
+reply(ReplyKey, Pid, Reply) ->
+    Pid ! {ReplyKey, Reply}.
 
 %connect(Dir, {SenderId, SenderPid}, {ReceiverId, ReceiverPid}) ->
 %	SenderPid ! {connect, {ReceiverId, ReceiverPid}, Dir},
@@ -342,11 +339,8 @@ connect(Dir, {SenderId, SenderPid, SenderLocation}, {ReceiverId, ReceiverPid, Re
 	SenderPid ! {connect, {ReceiverId, ReceiverPid,ReceiverLocation}, Dir},
 	ReceiverPid ! {connect, {SenderId, SenderPid,SenderLocation}, Dir}.
 	
-%connect(Dir, SenderPid, ReceiverPid) ->
-%	SenderPid ! {connect, ReceiverPid, Dir}.
-
 request_update_from_Siblings([], Data, _TargetDir) ->
-	io:format("Data after broadcast: ~w~n", [Data]),
+	%io:format("Data after broadcast: ~w~n", [Data]),
 	Data;
 request_update_from_Siblings([{Dir, SiblingsList} | Siblings], Data, Dir) ->
 	io:format("Updating ~w List: ~w~n", [Dir, SiblingsList]),
@@ -364,13 +358,7 @@ update_from_Siblings_aux([{Sid, S, _SibLocation} | Siblings], Data, Dir) ->
 		{reply, NewData} ->
 			io:format("Response of data update from ~w NewData ~w~n",[Sid, NewData]),
 			UpdatedData = update_siblings_data(Sid, Data, NewData, Dir),
-			update_from_Siblings_aux(Siblings, UpdatedData, Dir);
-			%Res = lists:keyfind(S,1, Data),
-			%case Res of
-			%	false ->	update_from_Siblings_aux(Siblings, [{S, NewData} | Data]); 	
-			%	_Other -> 	UpdatedData = lists:keyreplace(S,1,Data,{S, NewData}),
-			%				update_from_Siblings_aux(Siblings, UpdatedData)
-			%end;						
+			update_from_Siblings_aux(Siblings, UpdatedData, Dir);									
 		_Other ->
 			{error, badarg}			
 	end.
@@ -405,9 +393,7 @@ update_siblings_data(Sibling, Data, NewData, Dir) ->
 	end,
 	lists:keyreplace(siblings_data, 1, Data, {siblings_data, NewSiblingData}).
 
-update_nn_data(Id, Data, NewVals) ->
-	%{net_values, _Values} = lists:keyfind(net_values, 1, Data),
-	%lists:keyreplace(net_values, 1, Data, {net_values, NewVals}).	
+update_nn_data(Id, Data, NewVals) ->	
 	lists:keyreplace(Id, 1, Data, {Id, NewVals}).
 	
 update_nn_data(Id, Data, NewVals, Dir) ->   
@@ -433,15 +419,6 @@ find_config_data(ConfigData, Key) ->
 get_config() ->
 	filemanager:get_data("/config/config_mod.txt").
 
-%calculate_outputs(NetValues, NetInputs, FixedCarLength, Dir) ->
-%%calculate_outputs(NetValues, _NetInputs, SensorInputs) ->
-%	TargetInputs = find_element(Dir, NetInputs),
-%	PromCars = calculate_promcars(FixedCarLength, TargetInputs, lists:nth(1,NetValues)),
-	%PromCars = random:uniform(5),
-%	ExtraOutputs = [{estimate_count, PromCars}],
-%	NewValues = lists:append([NetValues, ExtraOutputs]),
-%	reformat_net_values([cycle_time,umbral, delay],NewValues,[]).
-
 calculate_outputs(NetValues, NetInputs, FixedCarLength, DirList, OutputKeyMapping) ->
 	io:format("NetValues ~w NetInputs ~w FixedCarLength ~w Dirlist ~w ~n~n", [NetValues, NetInputs, FixedCarLength, DirList]),
 	lists:map(fun(Dir) ->
@@ -450,7 +427,6 @@ calculate_outputs(NetValues, NetInputs, FixedCarLength, DirList, OutputKeyMappin
 			TargetInputs = find_element(Dir, NetInputs),
 			io:format("TargetInputs ~w ~n~n", [TargetInputs]),
 			PromCars = calculate_promcars(FixedCarLength, TargetInputs, lists:nth(1,DirValues)),
-			%ExtraOutputs = [{estimate_count, PromCars}],
 			ExtraOutputs = [{estimate_count, PromCars}],
 			NewValues = lists:append([DirValues, ExtraOutputs]),
 			%reformat all values to a key, value pair
@@ -486,6 +462,11 @@ reformat_net_values([Key | Keys], [Value | Values], Reformated) ->
 	reformat_net_values(Keys, Values, [ {Key, Value} | Reformated]).
 
 
+%%INPUTS: DirList - list of directions managed by the intersection (av, ca, avf)
+%%		  Data - Data handled by the moduler
+%%		  Updates - InputData to be sent to the ANN
+%%OUTPUTS: InputList formated to be used by the ANN
+%%DESC: This method takes 
 format_inputs(DirList, Data, Updates) ->
 	NetInputs = find_element(net_input, Data),
 	
@@ -511,21 +492,10 @@ format_inputs(DirList, Data, Updates) ->
 	io:format("Inputs Temp ~w Inputs Final ~w~n",[Temp, FinalInputs]),
 	convert_inputs(FinalInputs).
 
-%format_inputs(Dir, Data, SensorInputs, SiblingsData) ->
-%	NetInputs = find_element(net_input, Data),
-%	LoadedInputs = find_element(Dir, NetInputs),
-%	
-%	io:format("List to append LoadInputs ~w, SensorInp: ~w , SiblingData ~w ~n",[LoadedInputs, SensorInputs, SiblingsData]),
-%	Merged = lists:append([LoadedInputs, SensorInputs, SiblingsData]),
-%	io:format("Merged List ~w ~n",[Merged]),
-%	%lists:map(fun({Key, Value}) -> if Key == top_speed -> {TopSpeed, _} = Value, TopSpeed; true -> Value end end, Merged).
-%	InputsValues = lists:map(fun({Key, Value}) -> if Key == top_speed -> {TopSpeed, _} = Value, TopSpeed; true -> Value end end, Merged),
-%	convert_inputs(InputsValues).
-
 format_siblings_inputs(Dir, Siblings, Data) ->
 	TargetSiblings = find_element(Dir, Siblings),
 	ElementsData = find_element(siblings_data,Data),
-	io:format("Target siblings: ~w  , ElementsData : ~w~n",[TargetSiblings, ElementsData]),
+	io:format("Siblinngs ~w Target siblings: ~w  , ElementsData : ~w~n",[Siblings, TargetSiblings, ElementsData]),
 	%%Get the info about sibling before this one
 	FilteredSiblings = lists:filter(fun({_SiblingId, _SiblingPid, Location}) -> Location == antes end, TargetSiblings),
 	
@@ -595,15 +565,11 @@ eval_sensor_input(SensorInputs, CurrentData, Dir) ->
 	if 
 		SensorVal < 0 ->			
 			ResponseVals = lists:append([DirNetValues, CacheVals]),
-			%UpdatedSensor = lists:keyreplace(Dir, 1, SensorInput, {Dir, CacheVals}),			
-			%UpdatedData = lists:keyreplace(sensor_input, 1, CurrentData, {sensor_input, UpdatedSensor}),
 			UpdatedData = update_nn_data(sensor_input, CurrentData, CacheVals, Dir),
 			io:format("ResponseVals when sensor -1: ~w~n~n",[ResponseVals]),
 			{ResponseVals,  UpdatedData};
 		true		 ->
 			NewSensorData = lists:keyreplace(real_count,1, CacheVals, {real_count, SensorVal}),			 
-			%UpdatedSensor = lists:keyreplace(Dir, 1, SensorInput, {Dir, NewSensorData}),
-			%UpdatedData = lists:keyreplace(sensor_input, 1, CurrentData, {sensor_input, UpdatedSensor}),
 			UpdatedData = update_nn_data(sensor_input, CurrentData, NewSensorData, Dir),
 			ResponseVals = lists:append([DirNetValues, NewSensorData]),
 			io:format("ResponseVals when sensor is old: ~w~n~n",[ResponseVals]),
@@ -674,8 +640,10 @@ convert_to_binary(Value) ->
 %%%MANAGE ALL INPUTS
 manage_inputs_updates(Sensor, DirList, CurrentData, Siblings) ->
 	lists:mapfoldl(fun(Dir, Data) -> 
-				{reply, SensorInputs} = sensor:get_records(Sensor, Dir),
-				%%sensor:idle(Sensor, Dir),		
+				{reply_records, SensorInputs} = sensor:get_records(Sensor, Dir),
+				timer:sleep(100),
+				%%sensor:idle(Sensor, Dir),
+				io:format("Eval Sensor input on EXECUTE ~n"),	
 				{_Return, FirstData} = eval_sensor_input(SensorInputs, Data, Dir),
 				
 				%io:format("~n~n~n~n PROC DATA SENSOR UPDATE ~w~n~n~n~n",[FirstData]),
@@ -838,7 +806,7 @@ evaluate_effiency(Dir, SensorInputs, NetValues) ->
 	io:format("Getting estimatedcount from NetDirValues: ~w~n~n",[NetDirValues]),
 	EstimatedCount = case NetDirValues of  [] -> 1; 
 						  _Other -> Val = find_element(estimate_count, NetDirValues), 
-									if Val == 0 -> 1; true -> Val  end,
+									if Val == 0 -> 1; true -> Val end  end,
 	
 	io:format("Estimatedcount from NetDirValues: ~w~n~n",[EstimatedCount]),
 	
@@ -1008,7 +976,8 @@ write_checkpoint(NN, Data, CheckpointLog, LightId, Sensor) ->
 	%io:format("moduler file: ~p", [ModulerFile]),
 	filemanager:write_raw(ModulerFile, io_lib:format("~w", [{LightId, FormatedData}])),
 	write_checkpoint_nn(NN),
-	write_checkpoint_sens(Sensor).
+	write_checkpoint_sens(Sensor),
+	timer:sleep(100).
 
 write_checkpoint_nn(NN) ->
 	NN ! {checkpoint, self()}.
@@ -1067,35 +1036,3 @@ find_dm_config_data(Config, Target) ->
 		_Other ->	{_Id, Value} = Element,
 					Value
 	end.
-
-test() ->
-	M1 = moduler:start(),
-	M2 = moduler:start(),
-	M3 = moduler:start(),
-	M4 = moduler:start(),
-	M5 = moduler:start(),
-	M6 = moduler:start(),
-	M7 = moduler:start(),
-	M8 = moduler:start(),
-	M9 = moduler:start(),
-	
-	
-	register(m1,M1),
-	register(m2,M2),
-	register(m3,M3),
-	register(m4,M4),
-	register(m5,M5),
-	register(m6,M6),
-	register(m7,M7),
-	register(m8,M8),
-	register(m9,M9),
-	
-	moduler:connect(av, M1, M3),
-	moduler:connect(av, M3, M5),
-	moduler:connect(av, M5, M7),
-	moduler:connect(av, M7, M9),
-	
-	moduler:connect(ca, M1, M2),
-	moduler:connect(ca, M3, M4),
-	moduler:connect(ca, M5, M6),
-	moduler:connect(ca, M7, M8).

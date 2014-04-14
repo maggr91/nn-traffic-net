@@ -1,0 +1,1 @@
+{light212,twoDir,dm,[{av,[{light210,despues}]},{ca,[{light412,antes}]}],[{cycle_time,3},{avenue_time,3},{street_time,3},{go_time,0},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,1},{street_delay,1},{avenue_umbral,5},{street_umbral,5}]}

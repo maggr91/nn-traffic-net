@@ -239,10 +239,10 @@ network(Layers, NNFile, OutputsMapping, NNLog) ->
 		{checkpoint, CallerPid} ->
 			filelib:ensure_dir("checkpoint/nn_saving/"),
 			save(Layers, NNFile, true),
-			reply(CallerPid, ended),
+			%reply(CallerPid, ended),
 			network(Layers, NNFile, OutputsMapping, NNLog);
 		{get_data, CallerPid} ->
-			reply(CallerPid, {NNFile, OutputsMapping, NNLog}),
+			reply(CallerPid, {OutputsMapping, NNLog}),
 			network(Layers, NNFile, OutputsMapping, NNLog);
 		{update_file, NewNNFile} ->
 			io:format("Updating NNFILe"),
@@ -381,7 +381,7 @@ save_training_aux([{NeuronId, NeuronPid} | NeuronTail], LogPath, IsCheck) ->
 test_run()->
 	true.
 
-reply (Pid, Reply) ->
+reply(Pid, Reply) ->
     Pid ! {reply, Reply}.
     
 %load_structure() ->

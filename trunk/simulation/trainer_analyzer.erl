@@ -32,7 +32,7 @@ train(TrainingData, TrainerReg, DecisionReg, Config) ->
 			DMCriteria = get_safe_element(criteria, Config),
 			{Mapping, DecisionLogFile} = DMData,
 			NewDecisionReg = update_decision_reg(DecisionLogFile, DecisionReg),
-			io:format("NewDecisionReg ~w~n",[NewDecisionReg]),
+			%io:format("NewDecisionReg ~w~n",[NewDecisionReg]),
 			Res = evaluate_target(TargetLane, TrainerReg, CarsState, TrainingData, NewDecisionReg, DMCriteria, Mapping, AnomalliesData),
 			io:format("Evaluate Target RES: ~w~n", [Res]),
 			reply(CallerPid, Res),
@@ -43,7 +43,7 @@ train(TrainingData, TrainerReg, DecisionReg, Config) ->
 			FullCycle = get_safe_element(max_full_cycle, Config),
 			{Mapping, DecisionLogFile} = DMData,
 			NewDecisionReg = update_decision_reg(DecisionLogFile, DecisionReg),
-			io:format("NewDecisionReg ~w~n",[NewDecisionReg]),
+			%io:format("NewDecisionReg ~w~n",[NewDecisionReg]),
 			Res = evaluate_target_intersection(TargetLanes, TrainerReg, CarsStates, TrainingData, NewDecisionReg, DMCriteria, 
 				Mapping, AnomalliesData, FullCycle),
 			io:format("Evaluate Target RES: ~w~n", [Res]),
@@ -163,7 +163,7 @@ evaluate_target(TargetLanes, TrainerReg, CarsStateList, TrainingData, DecisionRe
 %%OUTPUTS: Adjustment for the last decision taken by the DM
 %%DESC: specific method to get the corresponding value
 get_final_adjustment(TargetLanes, CarStatsByLanes, DecisionReg, DMCriteria, DMMapping, AnomalliesData) ->
-	io:format("~n~nGETTING Needed adjusment for light ~w ~n", [{TargetLanes, CarStatsByLanes, DecisionReg, DMCriteria, DMMapping}]),
+	%io:format("~n~nGETTING Needed adjusment for light ~w ~n", [{TargetLanes, CarStatsByLanes, DecisionReg, DMCriteria, DMMapping}]),
 	LastDecision = get_safe_last_reg(DecisionReg),
 	io:format("~n~nLAST DECISION ~w ~n", [LastDecision]),
 	case LastDecision of
@@ -209,7 +209,8 @@ check_criteria_single_dir([{avg_delay, Value} | Tail], DMValuesPos, LastDecision
 			CycleTimeIndex = get_safe_element(cycletime, DMValuesPos),
 			%%get the value using the index
 			CycleTime = lists:nth(CycleTimeIndex, LastDecision),
-			FixedDecision = lists_replace(LastDecision, CycleTimeIndex, CycleTime + 1),
+			FixedDecision = lists_replace(LastDecision, CycleTimeIndex, ceiling(CycleTime + (CycleTime * 0.4))),
+			%FixedDecision = lists_replace(LastDecision, CycleTimeIndex, CycleTime + 1),
 			{FixedDecision, EvalCriteria};
 		true -> %%If it is low let it evaluate other criteria,
 			check_criteria_single_dir(Tail, DMValuesPos, LastDecision,CarStatsForLane, AnomalliesData, [{avg_delay, false} | EvalCriteria])
@@ -306,7 +307,7 @@ evaluate_target_intersection(TargetLanes, TrainerReg, CarsStateList, _TrainingDa
   DMMapping, AnomalliesData, FullCycle) ->
 	CarStatsByLanes = lists:map(fun({_Dir, TargetLane}) ->
 			FinalReg = TrainerReg ++ string:concat(atom_to_list(TargetLane), ".txt"),
-			io:format("~n~nTrainer lookup file: ~p~n~n",[FinalReg]),
+			%io:format("~n~nTrainer lookup file: ~p~n~n",[FinalReg]),
 	
 			%Target = get_safe_element(TargetLane, TrainingData),
 			%io:format("Target lookup: ~w~n~n",[Target]),
@@ -343,7 +344,7 @@ evaluate_target_intersection(TargetLanes, TrainerReg, CarsStateList, _TrainingDa
 %%OUTPUTS: Adjustment for the last decision taken by the DM
 %%DESC: specific method to get the corresponding value
 get_final_adjustment_intersection(TargetLanes, CarStatsByLanes, DecisionReg, DMCriteria, DMMapping, AnomalliesData, RefNormalTimePerLane) ->
-	io:format("~n~nGETTING Needed adjusment for light ~w ~n", [{TargetLanes, CarStatsByLanes, DecisionReg, DMCriteria, DMMapping}]),
+	%io:format("~n~nGETTING Needed adjusment for light ~w ~n", [{TargetLanes, CarStatsByLanes, DecisionReg, DMCriteria, DMMapping}]),
 	LastDecision = get_safe_last_reg(DecisionReg),
 	io:format("~n~nLAST DECISION ~w ~n", [LastDecision]),
 	case LastDecision of
@@ -434,8 +435,10 @@ get_adjustment_combined_values(CarStatsByLanes, DirDmValsPos, DMCriteria, Anomal
 	ListWithCriteriaCheck = 
 		if IsBoostAllowed ->
 			%% if the lights has not yet reached the max ref value for time boost all of them
+			io:format("Boosting TImes ~n~n",[]),
 		   	boost_intersection_times(CarStatsWithValuePos);
 		   true ->
+		   	io:format("Checking criteria TImes without boosting ~n~n",[]),
 		    check_criteria_intersection(DMCriteria, UPDMostAffected, 
 				ListWithOutFirst, AnomalliesData, [])
 		end,
@@ -524,7 +527,7 @@ boost_intersection_times([], UpdatedList) ->
 	lists:reverse(UpdatedList);
 boost_intersection_times([{Dir, Data} | Tail], UpdatedList) ->
 	CycleTime = get_safe_element(cycletime, Data),
-	NewCycleTime = ceiling(CycleTime + (CycleTime * 0.2)),
+	NewCycleTime = ceiling(CycleTime + (CycleTime * 0.9)),
 	NewData = lists:keyreplace(cycletime, 1, Data, {cycletime, NewCycleTime}),
 	boost_intersection_times(Tail, [{Dir, NewData} |  UpdatedList]).
 
@@ -583,6 +586,9 @@ load_training_set() ->
 	
 reply(Pid, Reply) ->
     Pid ! {reply, Reply}.
+
+reply(ReplyKey, Pid, Reply) ->
+    Pid ! {ReplyKey, Reply}.
     
 formated_log(File) ->
 	{ok, Cwd} = file:get_cwd(),
