@@ -306,22 +306,11 @@ move_cars([CarInfo = {CarType,{{BPos, EPos, Length}, NextMove, PrefLanes, Record
         {reply, transfered, Car}   -> 
         				%% RECORD the data in the trainer logs
         				  trainer_server:update(trainerServer, Car, outside, ParentLaneId),
+        				  NewStats = update_sensor_on_transfer(CarInfo, ParentLaneId, Sensor, LaneId, Dir, Stats),
         				  move_cars(Tail, ConnectedLanes, Obs, UpdatedCars, LanCap,NewProbData, LaneId, [Car|NewOutArea], LogData, Stats,-1, CedPos, Sensor);
-        {reply, transfered} when Dir == str ->
+        {reply, transfered} ->
         				  %%update the sensor counter by the amount specified
-        				  trainer_server:update(trainerServer, CarInfo, lane, ParentLaneId),
-        			      timer:apply_after(10, lane, safe_sensor_update, [Sensor, dsp_str, LaneId, 1]),
-        			      {dsp_str, StrCounter} = lists:keyfind(dsp_str, 1, Stats),
-         			      NewStats = lists:keyreplace(dsp_str,1, Stats, {dsp_str, StrCounter + 1}),         			      
-						  %timer:apply_after(100, moduler, update_dm, [NN, NNFile, LightId]),						  
-        			      move_cars(Tail, ConnectedLanes, Obs, UpdatedCars, LanCap,NewProbData, LaneId,NewOutArea, LogData, NewStats,-1, CedPos, Sensor);
-        			      
-        {reply, transfered} when Dir == trn ->
-        				  %%update the sensor counter by the amount specified
-        				  trainer_server:update(trainerServer, CarInfo, lane, ParentLaneId),
-         			      timer:apply_after(10, lane, safe_sensor_update, [Sensor, dsp_trn, LaneId, 1]),
-        			      {dsp_trn, TrnCounter} = lists:keyfind(dsp_trn, 1, Stats),
-         			      NewStats = lists:keyreplace(dsp_trn,1, Stats, {dsp_trn, TrnCounter + 1}),         			      
+        				  NewStats = update_sensor_on_transfer(CarInfo, ParentLaneId, Sensor, LaneId, Dir, Stats),
         			      move_cars(Tail, ConnectedLanes, Obs, UpdatedCars, LanCap,NewProbData, LaneId,NewOutArea, LogData, NewStats,-1, CedPos, Sensor);
         			      
         {reply, error, NewUpdated} -> %io:format("CALL STOP MOVING ~w  position ~w.~n",[NewUpdated, EPos]),
@@ -478,16 +467,23 @@ obstacule_located(_Begin, _End, _CarPos) ->
 
 %%Get the probability that the car goes either straight or turn in the corner
 %%This calls car_dispatch and according to the prob gets the right lane to send the car
+prepare_car_dispatch(Car, ConnectedLanes, CarsQueque,TurnCarNum, {LaneId, ParentLaneId},LogData) when TurnCarNum == -2 ->
+ 	%Special case for lanes that where cars can only turn (left or right)
+ 	%%this is used to keep control of what really happens
+    TargetLane = get_target_lane([main, secondary], ConnectedLanes, [{LaneId, self()}], Car),
+    {siblings, SList} = lists:keyfind(siblings, 1, ConnectedLanes),
+    {{Type, List}, NewCarData} = TargetLane,
+    write_result(LogData, io_lib:format("Prepare dispatch to turn lane on ONLY turnCar: ~w.~n",[{Type, List}])),
+    {Res, _OldTurnCar} = car_dispatch(NewCarData, List, CarsQueque, {LaneId,self(), ParentLaneId},SList, LogData, TurnCarNum),
+    {Res, TurnCarNum, dsp_trn};
 prepare_car_dispatch(Car, ConnectedLanes, CarsQueque,TurnCarNum, {LaneId, ParentLaneId},LogData) when TurnCarNum == -1 ->
-    %{Type, List} = lists:keyfind(main, 1, ConnectedLanes),
-    %%TargetLane = get_enabled_lane([main, secondary], ConnectedLanes, [{LaneId, self()}]),
     TargetLane = get_target_lane([main, secondary], ConnectedLanes, [{LaneId, self()}], Car),
     {siblings, SList} = lists:keyfind(siblings, 1, ConnectedLanes),
     {{Type, List}, NewCarData} = TargetLane,
     %io:format("Prepare dispatch to straigth lane on NO turnCarNum: ~w.~n",[{Type, List}]),
     write_result(LogData, io_lib:format("Prepare dispatch to straigth lane on NO turnCarNum: ~w.~n",[{Type, List}])),
     {Res, _OldTurnCar} = car_dispatch(NewCarData, List, CarsQueque, {LaneId,self(), ParentLaneId},SList, LogData, TurnCarNum),
-    {Res, TurnCarNum, str};
+    {Res, TurnCarNum, dsp_str};
 prepare_car_dispatch(Car, ConnectedLanes, CarsQueque,TurnCarNum, {LaneId, ParentLaneId},LogData) when TurnCarNum > 0 ->
     %%{Type, List} = lists:keyfind(main, 1, ConnectedLanes),
     %%TargetLane = get_enabled_lane([main, secondary], ConnectedLanes, [{LaneId, self()}]),
@@ -502,8 +498,7 @@ prepare_car_dispatch(Car, ConnectedLanes, CarsQueque,TurnCarNum, {LaneId, Parent
     {Res, NewTurnCarNum} = Data,
     %io:format("return after prepare dispatch to straigth lane: ~w . TurnCarNum  ~w ~n",[Res, NewTurnCarNum]),
     write_result(LogData, io_lib:format("return after prepare dispatch to straigth lane: ~w .  ~w ~n",[Res, NewTurnCarNum])),
-    %%{Res, TurnCarNum - 1};
-    {Res, NewTurnCarNum, str};
+    {Res, NewTurnCarNum, dsp_str};
 prepare_car_dispatch({CarType,{Position, _NextMove, PrefLanes, Records}}, ConnectedLanes, CarsQueque, 
   TurnCarNum, {LaneId, ParentLaneId},LogData) when TurnCarNum == 0 ->
     %%{Type, List} = lists:keyfind(secondary, 1, ConnectedLanes),
@@ -523,7 +518,7 @@ prepare_car_dispatch({CarType,{Position, _NextMove, PrefLanes, Records}}, Connec
     %io:format("return after prepare dispatch to alt lane: ~w NewTurnCar ~w ~n",[Res, NewTurnCarNum]),
     write_result(LogData, io_lib:format("return after prepare dispatch to alt lane: ~w NewTurnCar ~w ~n",[Res, NewTurnCarNum])),
     %%{car_dispatch(Car, List, CarsQueque, self(),LaneId), NewTurnCarNum}.
-    {Res, NewTurnCarNum, trn}.
+    {Res, NewTurnCarNum, dsp_trn}.
 
 %%%
 %% INPUT: LanesOrder: LIst of lanes to look for (main, secondary)
@@ -1314,6 +1309,24 @@ update_element({value, Key, Value}, OldRecordList) ->
 	OldValue = find_element(Key, OldRecordList),
 	NewValue = Value + OldValue,
 	lists:keyreplace(Key, 1, OldRecordList, {Key, NewValue}).
+	
+%%%%
+%INPUT: DIR: Direction where the car was transfered
+%		Sensor: PID of the corresponding sensor to be updated
+%		Stats: Old Value of stats handled by the lane
+%		DspDir: direction where the car was dispatched
+%OUTPUT: Newstats: data updated for the lane
+%Description: get the direction where the car went and update the sensor on
+%			  the corresponding count (dsp_str, dsp_trn) not matter if
+%			  it stayed in the area or left it
+
+update_sensor_on_transfer(CarInfo, ParentLaneId, Sensor, LaneId, DspDir, Stats) ->
+%%update the sensor counter by the amount specified
+	trainer_server:update(trainerServer, CarInfo, lane, ParentLaneId),
+	timer:apply_after(10, lane, safe_sensor_update, [Sensor, DspDir, LaneId, 1]),
+	{DspDir, DspDirCounter} = lists:keyfind(DspDir, 1, Stats),
+	lists:keyreplace(DspDir,1, Stats, {DspDir, DspDirCounter + 1}).
+
 %%=================================================================================================================================
 %%=================================================================================================================================
 %%=================================================================================================================================
@@ -1459,8 +1472,9 @@ init_geometric(LanesList) ->
 init_geometric([],LanesUpdated) ->
     %io:format("Geometric ENDED ~n",[]),
     LanesUpdated;
+    
 init_geometric([{LaneId, LC,Dir, Type, ConnectedLanes, 
-                Cars, IsSource, Capacity, ProbData}| Tail], LanesUpdated) when Type == 2 ->
+                Cars, IsSource, Capacity, ProbData}| Tail], LanesUpdated) when Type == 2 ->%%for lanes with both types str and trn
     Turn = {dispatch, data_distribution(geoServer)},
     {siblings, List} = lists:keyfind(siblings, 1, ConnectedLanes),
     %% get the allow pass prob for each sibling
@@ -1470,8 +1484,16 @@ init_geometric([{LaneId, LC,Dir, Type, ConnectedLanes,
                 Cars, IsSource, Capacity, ProbData, [Turn,AllowPass]},
     init_geometric(Tail, [NewLane | LanesUpdated]);
 init_geometric([{LaneId, LC,Dir, Type, ConnectedLanes, 
+                Cars, IsSource, Capacity, ProbData}| Tail], LanesUpdated) when Type == 3 ->
+    Turn = {dispatch, -2}, %%-2 Is equal lane with just turn
+    {siblings, List} = lists:keyfind(siblings, 1, ConnectedLanes),
+    AllowPass = {transfer, allow_pass_siblings(List)},    
+    NewLane = {LaneId, LC,Dir, Type, ConnectedLanes, 
+                Cars, IsSource, Capacity, ProbData, [Turn,AllowPass]},
+    init_geometric(Tail, [NewLane | LanesUpdated]);
+init_geometric([{LaneId, LC,Dir, Type, ConnectedLanes, 
                 Cars, IsSource, Capacity, ProbData}| Tail], LanesUpdated) when Type == 1 ->
-    Turn = {dispatch, -1},
+    Turn = {dispatch, -1},%%-1 Is equal lane with just straight
     {siblings, List} = lists:keyfind(siblings, 1, ConnectedLanes),
     AllowPass = {transfer, allow_pass_siblings(List)},
     %%io:format("Turning Car number ~w, AllowPass: ~w ~n",[Turn, AllowPass]),
