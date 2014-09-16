@@ -1,2 +1,2 @@
-{all, {{7,7,6}, [{av_cycletime, {1,2}}, {av_delaytime, {3,1}}, {ca_cycletime, {4,2}}, {ca_delaytime, {6,1}}], {submap, [{submap_length, 2},{output_keys,[cycle_time,delay]}]}}}
-{light612, {{7,7,1}, [], {submap, [{submap_length, 2},{output_keys,[cycle_time,delay]}]}}}
+{all, {{30,10,12}, [{av_cycletime, {1,6}}, {ca_cycletime, {7,6}}], {submap, [{submap_length, 1},{keys, [{input_keys, [{capacity,8}, {effiency_percent, 1}, {obs, 1}, {exceeds_spdlimit, 1}, {has_turnlanes, 1}, {has_morethan1_turnlanes, 1}, {anomallies_bf4,1}, {has_rain, 1}]}, {output_keys,[{repeat, 2},{cycle_time, 6}]}]}]}}}
+{light612, {{45,14,18}, [], {submap, [{submap_length, 1},{output_keys,[cycle_time]}]}}}

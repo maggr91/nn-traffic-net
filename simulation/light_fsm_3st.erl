@@ -662,6 +662,11 @@ evaluate_state({LightId, LightPid, Time}) ->
 %%		 ARTime =  amount of time for all red lights, CTime = Cycle time (green light time)
 %%OUTPUT: NONE
 %%DESC: Evaluates the state according to times
+evaluate_state(State = allred, allred, _NextTime, _CTime, _ARTime, _ARTimer, LogData, LightPid) ->
+   io:format("Starting move ~w way cycle~n",[State]),
+   write_result(LogData, io_lib:format("Starting move",[])),
+   estimate_after_idle(LightPid, LogData);
+
 evaluate_state(State, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid) when NextTime >= CTime, ARTimer <  ARTime->
    _NextDir = next_state_dir(State),
    io:format("Finishing ~w way cycle moving to idle~n",[State]),
@@ -676,11 +681,6 @@ evaluate_state(_State, redgreenred, NextTime, CTime, ARTime, ARTimer, _LogData, 
    
 evaluate_state(_State, redredgreen, NextTime, CTime, ARTime, ARTimer, _LogData, LightPid) when NextTime >= CTime, ARTimer >=  ARTime->
    move_avenue(LightPid);   
-
-evaluate_state(State = allred, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid) when NextTime < CTime ->
-   io:format("Continuing ~w way cycle~n",[State]),
-   write_result(LogData, io_lib:format("Continuing ~w way cycle",[State])),
-   estimate_after_idle(LightPid, LogData);
 
 evaluate_state(State = greenredred, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid) when NextTime < CTime ->
    io:format("Continuing ~w way cycle~n",[State]),
@@ -703,6 +703,12 @@ evaluate_state(State = redredgreen, _OldState, NextTime, CTime, _ARTime, _ARTime
 
 %%SPECIAL ORIG IS COMMENTED BELOW THIS WILL CALL THE MODULER ONLY IF THE LAST STATE
 %% IS FINISHED
+evaluate_state_dm(State = allred, allred, _NextTime, _CTime, _ARTime, _ARTimer, LogData, LightPid, 
+  _CtrlMod, _Delay, _MaxWait, _ManagedLanes) ->
+    io:format("Starting move ~w way cycle~n",[State]),
+    write_result(LogData, io_lib:format("Starting move",[])),
+    estimate_after_idle(LightPid, LogData);
+
 evaluate_state_dm(State = redgreen, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, 
   CtrlMod, _Delay, _MaxWait, ManagedLanes) when NextTime >= CTime, ARTimer <  ARTime->
   	%io:format("Estimating time results for next state~n", []),
@@ -746,12 +752,6 @@ evaluate_state_dm(_State, redgreen, NextTime, CTime, ARTime, ARTimer, _LogData, 
     Dir = current_state_dir(greenred),
     moduler:reset_sensor(CtrlMod, Dir),
     move_avenue(LightPid);   
-
-evaluate_state_dm(State = redred, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid, 
-  _CtrlMod, _Delay, _MaxWait, _ManagedLanes) when NextTime < CTime ->
-    io:format("Continuing ~w way cycle~n",[State]),
-    write_result(LogData, io_lib:format("Continuing ~w way cycle",[State])),
-    estimate_after_idle(LightPid, LogData);
 
 evaluate_state_dm(State = greenred, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid, 
   CtrlMod, _Delay, MaxWait, _ManagedLanes) when NextTime < CTime ->

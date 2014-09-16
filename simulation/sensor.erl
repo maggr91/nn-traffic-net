@@ -1,6 +1,6 @@
 -module(sensor).
 
--export([start/1, get_records/2, car_pass/4, standby/1, change/2, idle/2, check_standby/2]).
+-export([start/1, get_records/2, car_pass/4, standby/1, change/2, idle/2, check_standby/2, get_records_for_sibling/2]).
 
 -export([init/1]).
 
@@ -22,19 +22,19 @@ init({restore, Args}) ->
 sensor(Lanes, File, StandBy) ->
 	receive 
 		{update, _CallerPid, CallerId, Value, Dir} ->
-			%%io:format("Sensor msg ~w for lane: ~w with data: ~w~n", [self(), CallerId, {Dir, Value}]),
+			%%io:format("[SENSOR] Sensor msg ~w for lane: ~w with data: ~w~n", [self(), CallerId, {Dir, Value}]),
 			NewLanes = update_count(CallerId, Lanes, Lanes, Value, Dir),			
 			sensor(NewLanes, File, 0);
 		{standby, _CallerPid} ->
 			sensor(Lanes, File, StandBy + 1);
 		{change, _CallerPid, Dir} ->
-			%%io:format("Change Sensor targets ~n", []),
+			%%io:format("[SENSOR] Change Sensor targets ~n", []),
 			NewLanes = reset_count(Lanes, Dir,0),			
 			sensor(NewLanes, File, StandBy);
 		{idle, _CallerPid, Dir} ->
-			%%io:format("Idle Sensor targets ~n", []),
+			%%io:format("[SENSOR] Idle Sensor targets ~n", []),
 			NewLanes = reset_count(Lanes, Dir,-100),
-			%%io:format("Sensor new lanes count ~w~n",[NewLanes]),
+			%%io:format("[SENSOR] Sensor new lanes count ~w~n",[NewLanes]),
 			sensor(NewLanes, File, StandBy);
 		{check_standby, CallerPid, Limit} ->
 			Status = evaluate_standby(Limit, StandBy),
@@ -49,6 +49,11 @@ sensor(Lanes, File, StandBy) ->
 		{records, CallerPid, Dir, FlowDir} ->
 			Data = records(Dir, Lanes, FlowDir),
 			reply(reply_records, CallerPid, Data),
+			sensor(Lanes, File, StandBy);
+			
+		{records_for_sibling, CallerPid, SourcesDirList} ->
+			Data = records_for_sibling(SourcesDirList, Lanes),
+			reply(reply_sensor_records, CallerPid, Data),
 			sensor(Lanes, File, StandBy);
 		{stop, _CallerPid} ->
 			%reply(CallerPid, ok),
@@ -129,7 +134,7 @@ evaluate_standby(_Limit, _StandBy) ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Checkpoint
 write_checkpoint(Lanes, File, StandBy)->
-	%%io:format("CHECKPOINT SENSOR file : ~p ~n",[File]),
+	%%io:format("[SENSOR] CHECKPOINT SENSOR file : ~p ~n",[File]),
 	FormatedLanes = format_for_check(Lanes, StandBy),
 	lists:map(fun(Data) -> 
 		filemanager:write_raw(File, io_lib:format("~w", [Data]))
@@ -155,7 +160,7 @@ format_for_check(Lanes, StandBy) ->
 
 
 restore(Lanes, File) ->
-	%io:format("SensorFileName to restore: ~p, lanes: ~w~n~n", [File, Lanes]),
+	%io:format("[SENSOR] SensorFileName to restore: ~p, lanes: ~w~n~n", [File, Lanes]),
 	RestoredLanes = filemanager:get_data(File),
 	[{_DirAux,_LaneIdA, _DataA, RestoredStandBy} | _Rest ] = RestoredLanes,
 	{lists:foldl(
@@ -176,6 +181,7 @@ restore(Lanes, File) ->
 	
 records(Dir, Lanes, FlowDir) ->
 	Targets = find_element(Dir, Lanes),
+	%io:format("[SENSOR] Sensor Lanes to count for ~w ~w ~n~n",[FlowDir, Targets]),
 	case lists:any(fun({_Lane, Data}) -> Rain = find_element(rain, Data), Rain == 1 end, Targets) of
 		true -> IsRaining = 1;
 		false -> IsRaining = 0
@@ -185,23 +191,102 @@ records(Dir, Lanes, FlowDir) ->
 		Counter = find_element(FlowDir, Data),
 		Sum + Counter
 		end, 0, Targets)}, {rain, IsRaining}],
-	io:format("Sensor records ~w~n",[Res]),
+	%io:format("[SENSOR] Sensor records ~w~n",[Res]),
 	Res.
 	
+records_for_sibling(MainDir, Lanes) ->
+	TempData = records_for_sibling(MainDir, Lanes, []),
+	io:format("[SENSOR] Records Data: ~w of Lanes: ~w ~n~n",[TempData, Lanes]),
+	FinalData = 
+		lists:foldl(fun({Key, Value}, Acc) ->
+					{{real_count, RVal}, {rain, Val}} = Acc,
+					NewAcc =
+						case Key of
+							real_count -> {{real_count, RVal + Value}, {rain, Val}};
+							rain	  when Val == 1 -> {{real_count, RVal}, {rain, 1}};
+							_Other -> Acc
+						end,
+					NewAcc
+					end,
+					{{real_count, 0},{rain, 0}},
+					TempData),
+	
+	io:format("[SENSOR] Records FINAL Data: ~w~n",[FinalData]),				
+	FinalData.
+
+records_for_sibling(MainDir, [], []) ->
+	[];
+records_for_sibling(_MainDir, [], Data) ->
+	Data;
+records_for_sibling(MainDir, [{MainDir, Lanes} | Tail], Data) ->
+	Res = records_for_sibling_aux(dsp_str, Lanes),
+	%io:format("[SENSOR] [SENSOR] Result of count for dsp_str ~w~n",[Res]),	
+	RainScoutering = lists:any(fun({_Lane, LaneData}) -> Rain = find_element(rain, LaneData), Rain == 1 end, Lanes),
+	%io:format("[SENSOR] Rain Scoutering ~w ~n",[RainScoutering]),
+	case RainScoutering  of
+		true -> IsRaining = 1;
+		false -> IsRaining = 0
+	end,
+	FinalData = [{rain, IsRaining} | Data],
+	records_for_sibling(MainDir, Tail, [Res | FinalData]);
+records_for_sibling(MainDir, [{Dir, Lanes} | Tail], Data) ->
+	Res = records_for_sibling_aux(dsp_trn, Lanes),
+	%io:format("[SENSOR] Result of count for dsp_trn ~w~n",[Res]),
+	records_for_sibling(MainDir, Tail, [Res | Data]).
+	
+records_for_sibling_aux(FlowDir, Lanes) ->
+	Res = {real_count, lists:foldl(fun({Lane, Data}, Sum) ->
+		%io:format("[SENSOR] Calculating real_count with Data: ~w Current Sum = ~w ~n~n", [{Lane, Data} ,Sum]),
+		Counter = find_element(FlowDir, Data),
+		%io:format("[SENSOR] Getting counter for flowdir: ~w Result = ~w ~n~n", [FlowDir ,Counter]),
+		Sum + Counter
+		end, 0, Lanes)},
+	Res.
+
+%%Check if data exists and update it or add the new value	
+update_siblings_scouting(CurrentData, NewData) ->
+	lists:map(fun({Key, Value}) ->
+		CurrentValue = find_element(Key, CurrentData),
+		if CurrentValue =:= [] ->
+			{Key, Value};
+		   true ->
+		   	update_siblings_scouting_aux(CurrentValue, {Key, Value})
+		end
+	  end,
+	  NewData
+	).
+	
+update_siblings_scouting_aux(CurrentValue, {rain, Value}) when Value == 1 ->
+	{rain, Value};
+update_siblings_scouting_aux(CurrentValue, {Key, Value}) ->
+	{Key, Value + CurrentValue}.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%     CLIENT INTERFACE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 get_records(SensorPid, Dir) -> 
+%%TODO Cambiar esto para que retorne ambos datos dsp_str y dsp_trn o la suma, ver como afecta el cambio de real_count
+%%TODO si se pide para av sacar el count de los dsp_str y sumar el count de los dsp_trn de la otra dir y sumarlo en el real_count
+%%NOTA: 02/06/2014 hacer un método aparte que haga la suma correspondiente
+	
 	SensorPid ! {records, self(), Dir, dsp_str},
 	receive
 		{reply_records, Data} -> {reply_records, Data};
-		Other		  -> io:format("Error returning records for sensor ~w~n", [Other]),
+		Other		  -> io:format("[SENSOR] Error returning records for sensor ~w~n", [Other]),
 						{reply, error}
 	end.
 
+get_records_for_sibling(SensorPid, SourcesDirList) -> 
+	SensorPid ! {records_for_sibling, self(), SourcesDirList},
+	receive
+		{reply_sensor_records, Data} -> {reply_records, Data};
+		Other		-> io:format("[SENSOR] Error returning records for sensor ~w~n", [Other]),
+						{reply, error}
+	end.
+	
 car_pass(SensorPid, LaneId, Count, Dir) ->
-	%io:format("~nSensor call to exec ~w for lane: ~w with data: ~w~n", [SensorPid, LaneId, {Dir, Count}]),	
+	%io:format("[SENSOR] ~nSensor call to exec ~w for lane: ~w with data: ~w~n", [SensorPid, LaneId, {Dir, Count}]),	
 	SensorPid ! {update, self(), LaneId, Count, Dir},
 	{ok, sensor}.
 	

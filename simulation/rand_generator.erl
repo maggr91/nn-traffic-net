@@ -15,15 +15,15 @@ init(_Args) ->
 listen(WeightsQueue, BiasQueue) ->
 	receive
 		{dummy_weight, CallerPid} ->
-			reply(CallerPid, random:uniform()),
+			reply(reply_rand, CallerPid, random:uniform()),
 			listen(WeightsQueue, BiasQueue);
 		{next, weight, CallerPid} ->
 			{NextVal, NewQueue} = get_next(WeightsQueue),			
-			reply(CallerPid, NextVal),
+			reply(reply_rand, CallerPid, NextVal),
 			listen(NewQueue, BiasQueue);
 		{next, bias, CallerPid} ->
 			{NextVal, NewQueue} = get_next(BiasQueue),
-			reply(CallerPid, NextVal),
+			reply(reply_rand, CallerPid, NextVal),
 			listen(WeightsQueue, NewQueue);
 		{gen_bias, Beta, File} ->
 			NewBiasQueue = get_random_weights(Beta, File),
@@ -94,8 +94,8 @@ next_neuron_weight(GeneratorPid) ->
 	io:format("CallerPid next weight ~w ~n", [self()]),
 	GeneratorPid ! {next, weight, self()},
 	receive
-		{reply, Value} -> Value;
-		Other -> io:format("Other: ~w", [Other]),
+		{reply_rand, Value} -> Value;
+		{error_rand, Other} -> io:format("Other: ~w", [Other]),
 					error_Wi
 	end.
 	
@@ -106,8 +106,8 @@ next_neuron_weight(GeneratorPid, CallerPid) ->
 next_bias_weight(GeneratorPid) ->
 	GeneratorPid ! {next, bias, self()},
 	receive
-		{reply, Value} -> Value;
-		_Other -> error_Bi
+		{reply_rand, Value} -> Value;
+		{error_rand, _Other} -> error_Bi
 	end.
 	
 gen_biases(GeneratorPid, Beta) ->
@@ -121,8 +121,8 @@ reset_weights(GeneratorPid, Limit) ->
 get_random_weight(GeneratorPid) ->
 	GeneratorPid ! {dummy_weight, self()},
 	receive
-		{reply, Value} -> Value;
-		_Other -> error
+		{reply_rand, Value} -> Value;
+		{error_rand, _Other} -> error
 	end.
 	
 stop(GeneratorPid) -> 
@@ -132,7 +132,7 @@ stop(GeneratorPid) ->
 			GeneratorPid ! stop
 		catch 		
 			Exception:Reason -> io:format("randGen already stopped, continue. Exception ~p , Reason ~p ~n",[Exception, Reason]),
-								continue
+								{error_rand, stoperror}
     	end;
 		
 	   true ->

@@ -95,8 +95,8 @@ update_connections_aux([{_NeuronId, NeuronPid} | NeuronsTail], LayerInput, Layer
 			NewSensitivities = get_connections_pids(Sensitivities, LayerSensitivities),
 			perceptron:update_connections(NeuronPid, {Weights, NewInputs, NewSensitivities, Bias}),
 			update_connections_aux(NeuronsTail, LayerInput, LayerSensitivities);
-		_Other ->
-			{error, []}			
+		{error, Msg} ->
+			{error, Msg}			
 	end.
 	
 %update_connections_aux([], _LayerA, _LayerB) ->
@@ -225,21 +225,40 @@ init_weights({InputLay, HiddenLay, OutputLay}) ->
 network(Layers, NNFile, OutputsMapping, NNLog) ->	
 	receive
 		{train, CallerPid, Data} ->
-			io:format("SENDING INPUTS~n~n"),
-			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] SENDING INPUTS\n", [?MODULE])),
-			Res = send_input(Layers,Data, OutputsMapping, NNLog),
-			reply(CallerPid, Res),
+			try
+					io:format("SENDING INPUTS~n~n"),
+					logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] SENDING INPUTS\n", [?MODULE])),
+					Res = send_input(Layers,Data, OutputsMapping, NNLog),
+					reply(CallerPid, Res)
+			catch
+					Exception:Reason -> io:format("Error sending training data Exception ~p , Reason ~p ~n",[Exception, Reason]),
+										logger:debug_ann(loggerId, io_lib:format("[ERROR][~w] SENDING INPUTS ~p\n", [?MODULE, Reason])),
+										reply(errorNet, CallerPid, "A neuron failed to receive the data")
+			end,			
 			network(Layers, NNFile, OutputsMapping, NNLog);
-		{stop, _CallerPid} ->			
+		{stop, _CallerPid} ->
 			filelib:ensure_dir("checkpoint/nn_saving/"),
-			save(Layers, NNFile, false),
-			%reply(CallerPid, ended),
-			stop_helpers(),
+			try					
+					save(Layers, NNFile, false),
+					%reply(CallerPid, ended),
+					stop_helpers(),
+					kill_neurons(Layers)
+			catch
+					Exception:Reason -> io:format("Error stopping training data Exception ~p , Reason ~p ~n",[Exception, Reason]),
+										logger:debug_ann(loggerId, io_lib:format("[ERROR][~w] SENDING INPUTS ~p\n", [?MODULE, Reason]))
+										%reply(errorNet, CallerPid, Reason)
+			end,
 			{normal, ok};
 		{checkpoint, CallerPid} ->
 			filelib:ensure_dir("checkpoint/nn_saving/"),
-			save(Layers, NNFile, true),
-			%reply(CallerPid, ended),
+			try
+					save(Layers, NNFile, true)
+					%reply(CallerPid, ended),
+			catch
+					Exception:Reason -> io:format("Error saving training data Exception ~p , Reason ~p ~n",[Exception, Reason]),
+										logger:debug_ann(loggerId, io_lib:format("[ERROR][~w] SENDING INPUTS ~p\n", [?MODULE, Reason]))
+										%reply(errorNet, CallerPid, Reason)
+			end,
 			network(Layers, NNFile, OutputsMapping, NNLog);
 		{get_data, CallerPid} ->
 			reply(CallerPid, {OutputsMapping, NNLog}),
@@ -320,8 +339,8 @@ get_neurons_outputs(OutputLayer, OutputsMapping) ->
 	L = lists:map(fun({_NeuronId, NeuronPid}) ->
 						perceptron:get_output(NeuronPid, self()),
 						receive
-							{reply, Value} 	-> round(Value);
-							_Other			-> error
+							{replyNeuron, Value} -> round(Value);
+							{errorNeuron, _Msg}   -> error
 						end
 					end,
 					OutputLayer
@@ -338,7 +357,7 @@ get_output_mapping(List, OutputsMapping) ->
 	).
 
 save(Layers, NNFile, IsCheck) ->
-	io:format("Saving training of layers ~w~n", [Layers]),
+	%io:format("Saving training of layers ~w~n", [Layers]),
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] Saving training of layers ~w~n", [?MODULE, Layers])),
 	file:delete(NNFile),
 	%io:format("Old file deleted~n"),			
@@ -347,7 +366,7 @@ save(Layers, NNFile, IsCheck) ->
 save_training([], _LogPath, _IsCheck) ->
 	{ok,saved};
 save_training([{Type, Layer} | LayersTail], LogPath, IsCheck) ->
-	io:format("Saving Layer ~w: ~w on ~p~n", [Type, Layer, LogPath]),
+	%io:format("Saving Layer ~w: ~w on ~p~n", [Type, Layer, LogPath]),
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] Saving Layer ~w: ~w on ~p~n", [?MODULE, Type, Layer, LogPath])),
 	save_training_aux(Layer, LogPath, IsCheck),
 	save_training(LayersTail, LogPath, IsCheck).
@@ -359,7 +378,7 @@ save_training([{Type, Layer} | LayersTail], LogPath, IsCheck) ->
 %%	{ok, saved}.
 
 save_training_aux([], _LogPath, _IsCheck) ->
-	io:format("No more neurons to save~n"),
+	%io:format("No more neurons to save~n"),
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] No more neurons to save", [?MODULE])),
 	{ok, []};
 save_training_aux([{NeuronId, NeuronPid} | NeuronTail], LogPath, IsCheck) ->
@@ -372,9 +391,9 @@ save_training_aux([{NeuronId, NeuronPid} | NeuronTail], LogPath, IsCheck) ->
 		{ok, saved} ->
 			%io:format("Reply save succesful, continue~n"),
 			save_training_aux(NeuronTail, LogPath, IsCheck);
-		_Other ->
+		{error, Msg} ->
 			io:format("ERROR!!!!!!~n"),
-			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] ERROR!!!!!!", [?MODULE])),
+			logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] ERROR!!!!!! ~p", [?MODULE, Msg])),
 			{error, "bad save"}
 	end.
 	
@@ -382,7 +401,7 @@ test_run()->
 	true.
 
 reply(Pid, Reply) ->
-    Pid ! {reply, Reply}.
+    Pid ! {replyNet, Reply}.
     
 reply(ReplyKey, Pid, Reply) ->
     Pid ! {ReplyKey, Reply}.
@@ -511,6 +530,10 @@ default_log_name() ->
 	Temp = tuple_to_list(calendar:local_time()),
 	DTL = lists:foldl(fun(Item, Acc) -> ItemList = tuple_to_list(Item), lists:append(Acc, ItemList) end, [], Temp),
 	lists:foldl(fun(Item, Acc) -> Str = Acc ++ "_", Str ++ lists:flatten(io_lib:format("~p", [Item])) end, "", DTL).
+	
+	
+kill_neurons(Layers) ->
+	true.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%client interface functions%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -520,14 +543,14 @@ input_set(NetworkPid, InputSet) ->
 	logger:debug_ann(loggerId, io_lib:format("[DEBUG][~w] Train network ~w... Data ~w~n", [?MODULE, NetworkPid, InputSet])),
 	NetworkPid ! {train, self(), InputSet},
 	receive
-		{reply, Res} -> {reply, Res};
-		_Error		-> {fail, []}
+		{replyNet, Res} -> {reply, Res};
+		{errorNet, Msg}		-> {fail, Msg}
 	end.
 	
 stop(NetworkPid) ->
 	NetworkPid ! {stop, self()},
 	receive
-		{reply, ended} ->			
+		{replyNet, ended} ->			
 			{ok, []};
 		_Other ->
 			{error, []}
@@ -536,6 +559,6 @@ stop(NetworkPid) ->
 get_data(NetworkPid) ->
 	NetworkPid ! {get_data, self()},
 	receive 
-		{reply, Data} -> Data;
-		_Errors -> 	{error, no_data}
+		{replyNet, Data} -> Data;
+		{errorNet, _Msg} -> 	{error, no_data}
 	end.
