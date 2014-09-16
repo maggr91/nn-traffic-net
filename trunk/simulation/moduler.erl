@@ -83,11 +83,11 @@ create_dm(Config, NNFile, Light)->
 	NNConfig = find_dm_config_data(Config, Light),
 	{{Input, Hidden, Output}, Mapping, {_, SubMappingData}} = NNConfig,
 	if	Exist =:= false ->
-			io:format("~n~n MISSING LEARNING FILE creating new network~n~n"),
+			io:format("[MODULER]  MISSING LEARNING FILE creating new network~n~n"),
 			%NNConfig = find_config_data(Config, nn_config),
 			{ann:start(Input, Hidden, Output, NNFile, Mapping), SubMappingData};
 		true ->
-			io:format("~n~nLEARNING FILE ENCOUNTER ~p  restoring network~n~n",[NNFile]),
+			io:format("[MODULER] LEARNING FILE ENCOUNTER ~p  restoring network~n~n",[NNFile]),
 			{restore_dm(NNFile, Mapping), SubMappingData}
 	end.
 	
@@ -99,11 +99,11 @@ create_dm(Config, NNFile,NNLog, Light)->
 	NNConfig = find_dm_config_data(Config, Light),
 	{{Input, Hidden, Output}, Mapping, {_, SubMappingData}} = NNConfig,
 	if	Exist =:= false ->
-			io:format("~n~n MISSING LEARNING FILE creating new network~n~n"),
+			io:format("[MODULER]  MISSING LEARNING FILE creating new network~n~n"),
 			%NNConfig = find_config_data(Config, nn_config),
 			{ann:start(Input, Hidden, Output, NNFile, Mapping, NNLog), SubMappingData};
 		true ->
-			io:format("~n~nLEARNING FILE ENCOUNTER ~p  restoring network~n~n",[NNFile]),
+			io:format("[MODULER] LEARNING FILE ENCOUNTER ~p  restoring network~n~n",[NNFile]),
 			{restore_dm(NNFile, Mapping, NNLog), SubMappingData}
 	end.
 
@@ -129,7 +129,7 @@ restore_sens(SensorFile,Lanes, LightId) ->
 	Pid = sensor:start({restore, {Lanes, NewSensFile}}),
 	
 	FinalSensFile = format_dm_file(SensorFile, LightId),
-	io:format("Updating sensor file ~p", [FinalSensFile]),
+	io:format("[MODULER] Updating sensor file ~p", [FinalSensFile]),
 	Pid ! {update_file, FinalSensFile},
 	Pid.
 
@@ -151,22 +151,22 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 	receive
 		%%call siblings
 		{broadcast_request, _CallerPid, Dir} -> %%Ask siblings to send an update
-			io:format("Data before broadcast: ~w", [Data]),
+			io:format("[MODULER] Data before broadcast: ~w", [Data]),
 			NewData = request_update_from_Siblings(Siblings, Data, Dir),
 			listen(Light, Siblings, NN, NewData, CheckpointLog, Sensor, Trainer, FixedCarLength, Mapping);
 		{broadcast_update, CallerPid, NewData, Dir} -> %%Send siblings to an update
-			io:format("Update triggered by siblings ~w Light: ~w... NewData", [CallerPid,Light]),
+			io:format("[MODULER] Update triggered by siblings ~w Light: ~w... NewData", [CallerPid,Light]),
 			UpdateData = update_siblings_data(CallerPid, Data, NewData, Dir),
 			listen(Light, Siblings, NN, UpdateData, CheckpointLog, Sensor, Trainer, FixedCarLength, Mapping);
 		{response, CallerPid, Dir} ->
 			%%%EVALUAR SI LO QUE RETORNA EL SENSOR ES ACTIVO O IDLE(-1 o numeros negativos) si es malo retornar
 			%%% el que tenga almacenado el modulador, si no dar version reciente			 
-			{reply_records, SensorInputs} = sensor:get_records(Sensor, Dir),
-			io:format("Eval Sensor input on RESPONSE ~n"),
+			{reply_records, SensorInputs} = sensor:get_records_for_sibling(Sensor, Dir),
+			io:format("[MODULER] Eval Sensor input on RESPONSE ~n"),
 			{Return, UpdatedData} = eval_sensor_input(SensorInputs, Data, Dir),
 					
-			io:format("~n~n Return data from ~w ~w~n", [CallerPid, Return]),	
-			reply(CallerPid, Return),
+			io:format("[MODULER]  Return data from ~w ~w~n", [CallerPid, Return]),	
+			reply(reply_sibling_upd, CallerPid, Return),
 			listen(Light, Siblings, NN, UpdatedData, CheckpointLog, Sensor, Trainer, FixedCarLength, Mapping);
 			%% send info to caller
 		{update_nn, CallerPid, NewVals, Dir} ->
@@ -202,12 +202,12 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 			DirList = lists:append([Dir]),
 			
 			%%First, get data from related sensorupdates(s)
-			io:format("~n~nCALLING MANAGE INPUTS UPDATES ON PROCESS ~w ~n~n",[{Sensor, DirList, Data, Siblings}]),
+			io:format("[MODULER] CALLING MANAGE INPUTS UPDATES ON PROCESS ~w ~n~n",[{Sensor, DirList, Data, Siblings}]),
 			{Updates, NewData} = manage_inputs_updates(Sensor, DirList, Data, Siblings),
 			
-			io:format("~n~nCALLING FORMAT INPUTS ON PROCESS ~w ~n~n",[{Updates, NewData}]),
+			io:format("[MODULER] CALLING FORMAT INPUTS ON PROCESS ~w ~n~n",[{Updates, NewData}]),
 			%%Second, format all external data with info from the light
-			FormatedInputs = format_inputs(DirList, NewData, Updates),
+			FormatedInputs = format_inputs(DirList, NewData, Updates, Mapping),
 			
 			%%EXECUTE
 			FinalDesition = execute(DirList, NN, Stats, Trainer, FormatedInputs, NewData, FixedCarLength, Light, Mapping, Siblings),
@@ -224,7 +224,7 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 			listen(Light, Siblings, NN, FinalData, CheckpointLog, Sensor, Trainer, FixedCarLength, Mapping);
 		
 		{performance, CallerPid, Dir, Stats} ->
-			check_dm_performance(Trainer, NN, Dir, Stats, Light, []),
+			check_dm_performance(Trainer, NN, Dir, Stats, Light, [], []),
 			reply(CallerPid, ok),
 			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength, Mapping);
 		{stop, _CallerPid} ->
@@ -246,7 +246,7 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 			reply(CallerPid, Res),
 			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength, Mapping);
 		{status, _CallerPid} ->
-			io:format("Status of moduler ~w ~n Siblings: ~w~n Data: ~w~n~n",[{Light,self()}, Siblings, Data]),
+			io:format("[MODULER] Status of moduler ~w ~n Siblings: ~w~n Data: ~w~n~n",[{Light,self()}, Siblings, Data]),
 			listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength, Mapping);
 		{update_mode, NewMode, CallerPid} ->
 			{TrainerPid, _OldMode} = Trainer,
@@ -271,23 +271,23 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 %%		  AnomalliesData: for each Dir in DirList indicates if theres a problem on lights located before (antes) current light
 %%OUTPUTS: Desition: Decision taken by NN
 %%DESC:   Get all data from current state an asked the NN for a decision
-get_decision(FormatedInputs, _DirList, _Light, NN, _CarStats, {_TrainerPid, train}, _AnomalliesData) ->
+get_decision(FormatedInputs, _DirList, _Light, NN, _CarStats, {_TrainerPid, train}, _AnomalliesData, _OutputKeys) ->
 	%%Call trainer prior calling the NN to get a waitedResult
 	%%call nn with the new inputs
 	get_dm_decision(NN, {train, [{inputs, FormatedInputs}]});
 	
-get_decision(FormatedInputs, DirList, Light, NN, CarStats, {TrainerPid, train_performance}, AnomalliesData) ->
+get_decision(FormatedInputs, DirList, Light, NN, CarStats, {TrainerPid, train_performance}, AnomalliesData, OutputKeys) ->
 	%%Call trainer prior calling the NN to get a waitedResult
 	%%call nn with the new inputs
 	%%First do a evaluation of performance
-	io:format("~n~nCHECKING TRAINER INFO~n~n", []),	
-	check_dm_performance(TrainerPid, NN, DirList, CarStats, Light, AnomalliesData),
+	io:format("[MODULER] CHECKING TRAINER INFO~n~n", []),	
+	check_dm_performance(TrainerPid, NN, DirList, CarStats, Light, AnomalliesData, OutputKeys),
 	timer:sleep(100),
-	io:format("~n~nAFTER CHECKING TRAINER INFO~n~n", []),	
+	io:format("[MODULER] AFTER CHECKING TRAINER INFO~n~n", []),	
 	%%After that get a de
 	get_dm_decision(NN, {normal, [{inputs, FormatedInputs}]});
 
-get_decision(FormatedInputs, _DirList, _Light, NN, _CarStats, {_TrainerPid, normal}, _AnomalliesData) ->
+get_decision(FormatedInputs, _DirList, _Light, NN, _CarStats, {_TrainerPid, normal}, _AnomalliesData, _OutputKeys) ->
 	%%Call trainer prior calling the NN to get a waitedResult
 	%%call nn with the new inputs
 	get_dm_decision(NN, {normal, [{inputs, FormatedInputs}]}).
@@ -295,7 +295,7 @@ get_decision(FormatedInputs, _DirList, _Light, NN, _CarStats, {_TrainerPid, norm
 
 %%HELPER FUNCTION TO CALL NN WITH ARGS
 get_dm_decision(NN, Args) ->
-	io:format("GETTING TRAINER INFO", []),	
+	io:format("[MODULER] GETTING TRAINER INFO", []),	
 	Res = ann:input_set(NN, Args),
 	case Res of
 				{reply, Value} ->	
@@ -303,7 +303,7 @@ get_dm_decision(NN, Args) ->
 				Other -> {error, Other}
 	end.
 
-check_dm_performance(TrainerPid, NN, DirList, CarStats, Light, AnomalliesData) ->
+check_dm_performance(TrainerPid, NN, DirList, CarStats, Light, AnomalliesData, OutputKeys) ->
 	ParentLaneIds = 
 		lists:map(fun(Dir) ->
 			S = atom_to_list(Light),
@@ -313,15 +313,15 @@ check_dm_performance(TrainerPid, NN, DirList, CarStats, Light, AnomalliesData) -
     		end,
     		DirList),
     %%{OutputsMapping, NNLog}
-    io:format("PARENTLANEIds ~w~n~n",[ParentLaneIds]),
+    io:format("[MODULER] PARENTLANEIds ~w~n~n",[ParentLaneIds]),
     NNData = ann:get_data(NN),
-    io:format("NNData ~w~n~n",[NNData]),
-	Adjustment = trainer_analyzer:evaluate(TrainerPid, ParentLaneIds, CarStats, NNData, AnomalliesData),
+    io:format("[MODULER] NNData ~w~n~n",[NNData]),
+	Adjustment = trainer_analyzer:evaluate(TrainerPid, ParentLaneIds, CarStats, NNData, AnomalliesData, OutputKeys),
 	case Adjustment of
 		null	-> skip;
 		_Other	-> ann:input_set(NN, {train, Adjustment})
 	end,
-	io:format("~nAFTER TRAINING ANN~n", []),	
+	io:format("[MODULER] AFTER TRAINING ANN~n", []),	
 	ok.
 
 
@@ -332,18 +332,20 @@ reply(Pid, Reply) ->
 reply(ReplyKey, Pid, Reply) ->
     Pid ! {ReplyKey, Reply}.
 
-%connect(Dir, {SenderId, SenderPid}, {ReceiverId, ReceiverPid}) ->
-%	SenderPid ! {connect, {ReceiverId, ReceiverPid}, Dir},
-%	ReceiverPid ! {connect, {SenderId, SenderPid}, Dir}.
 connect(Dir, {SenderId, SenderPid, SenderLocation}, {ReceiverId, ReceiverPid, ReceiverLocation}) ->
 	SenderPid ! {connect, {ReceiverId, ReceiverPid,ReceiverLocation}, Dir},
 	ReceiverPid ! {connect, {SenderId, SenderPid,SenderLocation}, Dir}.
-	
+
+%%INPUT: Siblings list separated by direction,
+%%		 Data: moduler current data
+%%		 Dir: direction where the sibling is located
+%%OUTPUT: Updated moduler data
+%%DESC: Gets updates from ALL siblings on any direction and updates the data info
 request_update_from_Siblings([], Data, _TargetDir) ->
-	%io:format("Data after broadcast: ~w~n", [Data]),
+	%io:format("[MODULER] Data after broadcast: ~w~n", [Data]),
 	Data;
 request_update_from_Siblings([{Dir, SiblingsList} | Siblings], Data, Dir) ->
-	io:format("Updating ~w List: ~w~n", [Dir, SiblingsList]),
+	io:format("[MODULER] Updating ~w List: ~w~n", [Dir, SiblingsList]),
 	NewData = update_from_Siblings_aux(SiblingsList, Data, Dir),
 	request_update_from_Siblings(Siblings, NewData, Dir);
 request_update_from_Siblings([_OtherDir | Siblings], Data, TargetDir) ->	
@@ -352,22 +354,22 @@ request_update_from_Siblings([_OtherDir | Siblings], Data, TargetDir) ->
 update_from_Siblings_aux([], Data, _Dir) ->
 	Data;
 update_from_Siblings_aux([{Sid, S, _SibLocation} | Siblings], Data, Dir) ->
-	io:format("~nAsking for update from ~w~n~n",[Sid]),
+	%io:format("[MODULER] Asking for update from ~w~n~n",[Sid]),
 	S ! {response, self(), Dir},
 	receive
-		{reply, NewData} ->
-			io:format("Response of data update from ~w NewData ~w~n",[Sid, NewData]),
+		{reply_sibling_upd, NewData} ->
+			io:format("[MODULER] Response of data update from ~w NewData ~w~n",[Sid, NewData]),
 			UpdatedData = update_siblings_data(Sid, Data, NewData, Dir),
 			update_from_Siblings_aux(Siblings, UpdatedData, Dir);									
-		_Other ->
-			{error, badarg}			
+		Other		-> io:format("[MODULER] Error returning records for moduler ~w~n", [Other]),
+						{reply, error}			
 	end.
 
 
 send_update_to_Siblings(Id, Siblings, Data, TargetDir) ->
 	lists:map(
 		fun({Dir, SiblingsList}) ->
-			io:format("Sending update to siblings on ~w. List: ~w~n~n", [Dir, SiblingsList]),
+			io:format("[MODULER] Sending update to siblings on ~w. List: ~w~n~n", [Dir, SiblingsList]),
 			lists:map(
 				fun({_SiblingId, SiblingPid, _SiblingLocation}) ->
 					SiblingPid ! {broadcast_update, Id, Data, TargetDir}
@@ -380,14 +382,15 @@ send_update_to_Siblings(Id, Siblings, Data, TargetDir) ->
 
 
 update_siblings_data(Sibling, Data, NewData, Dir) ->
+	io:format("[MODULER] Updating sibling data for ~w with data: ~w on ~w dir ~w~n",[Sibling,Data, NewData, Dir]),
 	{_Key, SiblingList} = lists:keyfind(siblings_data,1, Data),
 	Item = lists:keyfind(Sibling,1, SiblingList),
 	case Item of
 		false ->
-			io:format("No data founded, adding info for sibling"),
+			io:format("[MODULER] No data founded, adding info for sibling ~n"),
 			NewSiblingData = [{Sibling,[{Dir, NewData}]} | SiblingList];
 		{Sibling, Value} ->
-			io:format("Previous data founded, updating for sibling"),			
+			io:format("[MODULER] Previous data founded, updating for sibling~n"),			
 			UpdatedData = safe_data_update(Dir, NewData, Value),
 			NewSiblingData = lists:keyreplace(Sibling, 1, SiblingList, {Sibling, UpdatedData})
 	end,
@@ -397,11 +400,11 @@ update_nn_data(Id, Data, NewVals) ->
 	lists:keyreplace(Id, 1, Data, {Id, NewVals}).
 	
 update_nn_data(Id, Data, NewVals, Dir) ->   
-	io:format("target ~w, UPDATE DATA NN ~w ... NewVal = ~w~n",[Id, Data, NewVals]),
+	%io:format("[MODULER] target ~w, UPDATE DATA NN ~w ... NewVal = ~w~n",[Id, Data, NewVals]),
 	{Id, Values} = lists:keyfind(Id, 1, Data),
 	DirData = lists:keyfind(Dir, 1, Values),
 	case DirData of
-		false 	   -> io:format("No record for dir ~w, UPDATE DATA with ~w~n",[Dir, {Dir, NewVals}]),					  
+		false 	   -> io:format("[MODULER] No record for dir ~w, UPDATE DATA with ~w~n",[Dir, {Dir, NewVals}]),					  
 					  lists:keyreplace(Id, 1, Data, {Id, [{Dir, NewVals} | Values]});
 		_Other 	   -> NewValues = lists:keyreplace(Dir, 1, Values, {Dir, NewVals}),
 					  lists:keyreplace(Id, 1, Data, {Id, NewValues})
@@ -420,33 +423,36 @@ get_config() ->
 	filemanager:get_data("/config/config_mod.txt").
 
 calculate_outputs(NetValues, NetInputs, FixedCarLength, DirList, OutputKeyMapping) ->
-	io:format("NetValues ~w NetInputs ~w FixedCarLength ~w Dirlist ~w ~n~n", [NetValues, NetInputs, FixedCarLength, DirList]),
+	[_Junk | OutputKeyMap] = OutputKeyMapping,
+	io:format("[MODULER] NetValues ~w NetInputs ~w FixedCarLength ~w Dirlist ~w ~n~n", [NetValues, NetInputs, FixedCarLength, DirList]),
 	lists:map(fun(Dir) ->
-			io:format("NetValues ~w NetInputs ~w FixedCarLength ~w Dir ~w ~n~n", [NetValues, NetInputs, FixedCarLength, Dir]),
+			io:format("[MODULER] NetValues ~w NetInputs ~w FixedCarLength ~w Dir ~w ~n~n", [NetValues, NetInputs, FixedCarLength, Dir]),
 			DirValues = find_element(Dir, NetValues),
 			TargetInputs = find_element(Dir, NetInputs),
-			io:format("TargetInputs ~w ~n~n", [TargetInputs]),
+			io:format("[MODULER] TargetInputs ~w ~n~n", [TargetInputs]),
 			PromCars = calculate_promcars(FixedCarLength, TargetInputs, lists:nth(1,DirValues)),
 			ExtraOutputs = [{estimate_count, PromCars}],
 			NewValues = lists:append([DirValues, ExtraOutputs]),
 			%reformat all values to a key, value pair
-			Final = reformat_net_values(OutputKeyMapping,NewValues,[]),
+			io:format("[MODULER] Prereformat values ~w with Output keys ~w~n",[NewValues, OutputKeyMap]),
+			Final = reformat_net_values(OutputKeyMap,NewValues,[]),
+			io:format("[MODULER] Postreformat values ~w with Output keys ~w~n",[Final, OutputKeyMap]),
 			%Final = reformat_net_values([cycle_time,umbral],NewValues,[]),
 			{Dir, Final}
 			end,
 			DirList).
 
 calculate_promcars(FixedCarLength, NetInputs, CycleTime) ->
-	io:format("Calculating promcars ~w~n", [{FixedCarLength, CycleTime}]),
+	io:format("[MODULER] Calculating promcars ~w~n", [{FixedCarLength, CycleTime}]),
 	%BCapacity = find_element(capacity, NetInputs),
 	
-	io:format("Looking for top_speed on ~w, ~n~n", [NetInputs]),
+	io:format("[MODULER] Looking for top_speed on ~w, ~n~n", [NetInputs]),
 	{BTopSpeed, _BTopMove} = find_element(top_speed, NetInputs),
-	io:format("TopSpeed~w, ~n~n", [BTopSpeed]),
+	io:format("[MODULER] TopSpeed~w, ~n~n", [BTopSpeed]),
 	XmtsTop = (BTopSpeed * 1000 * CycleTime) / 3600,
 	XmtsHalf = XmtsTop / 2,
 	
-	io:format("~nUn carro va a recorrer max unos ~w metros y min ~w aprox en ~w, ~n~n", [XmtsTop, XmtsHalf, CycleTime]),
+	io:format("[MODULER] Un carro va a recorrer max unos ~w metros y min ~w aprox en ~w, ~n~n", [XmtsTop, XmtsHalf, CycleTime]),
 	CarsTop = XmtsTop / FixedCarLength,%%calcular carros a pasar desde cada extremo
 	CarsHalf = XmtsHalf / FixedCarLength,%%calcular carros a pasar desde cada extremo
 	%random:uniform(5)
@@ -454,11 +460,11 @@ calculate_promcars(FixedCarLength, NetInputs, CycleTime) ->
 
 reformat_net_values([], [], Reformated) ->
 	lists:reverse(Reformated);
-reformat_net_values([_Value | _Values], [], Reformated) ->
+reformat_net_values([_Key | _Values], [], Reformated) ->
 	lists:reverse(Reformated);
 reformat_net_values([], [Value | Values], Reformated) ->
 	reformat_net_values([], Values, [ Value | Reformated]);
-reformat_net_values([Key | Keys], [Value | Values], Reformated) ->
+reformat_net_values([{Key, _Bits} | Keys], [Value | Values], Reformated) ->
 	reformat_net_values(Keys, Values, [ {Key, Value} | Reformated]).
 
 
@@ -467,39 +473,111 @@ reformat_net_values([Key | Keys], [Value | Values], Reformated) ->
 %%		  Updates - InputData to be sent to the ANN
 %%OUTPUTS: InputList formated to be used by the ANN
 %%DESC: This method takes 
-format_inputs(DirList, Data, Updates) ->
+format_inputs(DirList, Data, Updates, Mapping) ->
 	NetInputs = find_element(net_input, Data),
-	
-	Temp = lists:reverse(
-	 lists:foldl(
-		fun(Dir, R) -> 
+	InputKeys = find_child_element([keys, input_keys], Mapping),
+		
+	FinalInputs = 
+	 lists:map(
+		fun(Dir) -> 
 			LoadedInputs = find_element(Dir, NetInputs),
 			DirValues = find_element(Dir, Updates),
 			
 			SensorInputs = find_element(sensor, DirValues),
 			SiblingsData = find_element(siblings, DirValues),
 			
-			io:format("List to append LoadInputs ~w, SensorInp: ~w , SiblingData ~w ~n",[LoadedInputs, SensorInputs, SiblingsData]),
-			Merged = lists:append([LoadedInputs, SensorInputs, SiblingsData]),
-			InputsValues = lists:map(fun({Key, Value}) -> if Key == top_speed -> {TopSpeed, _} = Value, TopSpeed; true -> Value end end, Merged),
-			[InputsValues | R]
+			%%InputsValues
+			custom_arrange(LoadedInputs, SensorInputs, SiblingsData, InputKeys, Data, Dir)			
 		end,
-		[],
 		DirList
-	)),
+	),
+		
+	io:format("[MODULER] Inputs Final ~w~n",[FinalInputs]),
+	lists:append(FinalInputs).
+	%convert_inputs(FinalInputs).
+
+custom_arrange(LoadedInputs, SensorInputs, SiblingsData, InputKeys, Data, Dir) ->
+	io:format("[MODULER] List to append LoadInputs ~w, SensorInp: ~w , SiblingData ~w ~n",[LoadedInputs, SensorInputs, SiblingsData]),
+	InputsValues = lists:map(fun({Key, KeyLength}) ->
+		Value = custom_arrange_aux(Key, LoadedInputs, SensorInputs, SiblingsData, Dir, Data),
+		convert_to_fixed_binary(Value, KeyLength)		
+		end,
+		InputKeys),
 	
-	FinalInputs = lists:append(Temp),
-	io:format("Inputs Temp ~w Inputs Final ~w~n",[Temp, FinalInputs]),
-	convert_inputs(FinalInputs).
+	lists:append(InputsValues).
+	
+%%For each key select the proper option to do something and position it in the right place inside
+%% the list to be sent
+%{capacity,8}, {effiency_percent, 1}, {obs, 1}, {exceeds_spdlimit, 1}, {has_turnlanes, 1}, {has_morethan1_turnlanes, 1}, {anomallies_bf4,1}, {has_rain, 1}]}
+custom_arrange_aux(capacity, LoadedInputs, _SensorInputs, _SiblingsData, _Dir, _Data) ->
+	find_element(capacity, LoadedInputs);
+custom_arrange_aux(effiency_percent, _LoadedInputs, _SensorInputs, _SiblingsData, Dir, Data) ->
+	calc_effiency(Dir, Data);
+custom_arrange_aux(obs, LoadedInputs, _SensorInputs, _SiblingsData, _Dir, _Data) ->
+	find_element(count_obs, LoadedInputs);
+custom_arrange_aux(exceeds_spdlimit, LoadedInputs, _SensorInputs, _SiblingsData, _Dir, _Data) ->
+	Value = find_element(top_speed, LoadedInputs),
+	{TopSpeed, _} = Value,
+	if TopSpeed > 40 ->
+			1;
+		true ->
+			0
+	end;
+	
+custom_arrange_aux(has_turnlanes, LoadedInputs, _SensorInputs, _SiblingsData, _Dir, _Data) ->
+	Value = find_element(lanes_two_way, LoadedInputs),
+	if 	Value > 0 ->
+			1;
+		true ->
+			0
+	end;
+	
+custom_arrange_aux(has_morethan1_turnlanes, LoadedInputs, _SensorInputs, _SiblingsData, _Dir, _Data) -> 
+	Value = find_element(lanes_two_way, LoadedInputs),
+	if 	Value > 1 ->
+			1;
+		true ->
+			0
+	end;
+
+custom_arrange_aux(anomallies_bf4, _LoadedInputs, _SensorInputs, SiblingsData, _Dir, _Data) ->
+	find_element(anomally, SiblingsData);
+
+custom_arrange_aux(has_rain, _LoadedInputs, SensorInputs, _SiblingsData, _Dir, _Data) ->
+	find_element(rain, SensorInputs);
+	
+custom_arrange_aux(Other, _LoadedInputs, _SensorInputs, SiblingsData, _Dir, _Data) ->
+	find_element(Other, SiblingsData).
+
+calc_load_capacity(Dir, SensorInputs, LoadedInputs) ->
+	io:format("[MODULER] Calculating road load~w~n~n",[{Dir, SensorInputs, LoadedInputs}]),
+	Capacity = find_element(capacity, LoadedInputs),
+	true.
+	%%TODO sacar la info de siblings data, donde indiquen la cantidad de carros que siguieron hacia esta ruta
+	%%		filtrar el semáforo usando la ubicacion before
+	%%		cambiar el sensor para que retorne cuantos fueron directo, y cuantos doblaron
+	
+
+calc_effiency(Dir, Data) -> 
+	SensorInput = find_element (sensor_input, Data),
+	NetValues = find_element (net_values, Data),
+		
+	Res = evaluate_effiency(Dir, SensorInput, NetValues),
+	io:format("[MODULER] Calculating DIR EFFIENCY RES : ~w SensorInput :~w net_values: ~w~n~n",[Res, SensorInput, NetValues]),
+	if Res < 90 ->
+			0;
+		true ->
+			1
+	end.
 
 format_siblings_inputs(Dir, Siblings, Data) ->
 	TargetSiblings = find_element(Dir, Siblings),
 	ElementsData = find_element(siblings_data,Data),
-	io:format("Siblinngs ~w Target siblings: ~w  , ElementsData : ~w~n",[Siblings, TargetSiblings, ElementsData]),
+	io:format("[MODULER] Siblinngs ~w Target siblings: ~w  , ElementsData : ~w~n",[Siblings, TargetSiblings, ElementsData]),
 	%%Get the info about sibling before this one
 	FilteredSiblings = lists:filter(fun({_SiblingId, _SiblingPid, Location}) -> Location == antes end, TargetSiblings),
 	
-	io:format("FilteredSiblings: ~w~n",[FilteredSiblings]),
+	io:format("[MODULER] FilteredSiblings: ~w~n",[FilteredSiblings]),
 	FilteredItems = filter_elements([real_count, estimate_count], ElementsData, FilteredSiblings),
 	
 	Diff = lists:map(fun({SiblingId, _SiblingPid, _SiblingIdLocation}) ->
@@ -507,7 +585,7 @@ format_siblings_inputs(Dir, Siblings, Data) ->
 		CarCount = find_element(real_count, Element),
 		Estimate = find_element(estimate_count, Element),
 		
-		io:format("Element: ~w~n CarCount: ~w~n Estimate: ~w~n",[Element,CarCount,Estimate]),
+		io:format("[MODULER] Element: ~w~n CarCount: ~w~n Estimate: ~w~n",[Element,CarCount,Estimate]),
 		if CarCount =/= [], Estimate =/= [] -> CarCount - Estimate;
 			true  -> 0
 			
@@ -515,7 +593,7 @@ format_siblings_inputs(Dir, Siblings, Data) ->
 		end,
 		TargetSiblings
 	),
-	io:format("Sibling input to merge ~w~n",[FilteredItems]),
+	io:format("[MODULER] Sibling input to merge ~w~n",[FilteredItems]),
 	CaseAnomally = lists:any(fun(Value) -> Value < 0 end, Diff),
 	Anomally = if  CaseAnomally == false ->	0;
 					true -> 1
@@ -530,9 +608,9 @@ format_siblings_inputs(Dir, Siblings, Data) ->
 
 filter_elements(Filters, ElementsData, FilteredSiblings) ->
 	lists:append(lists:map(fun({SiblingId, _SiblingPid, _SiblingIdLocation}) ->
-		io:format("Looking data for ~w in ~w~n",[SiblingId, ElementsData]),
+		io:format("[MODULER] Looking data for ~w in ~w~n",[SiblingId, ElementsData]),
 		Data = find_element(SiblingId, ElementsData),
-		io:format("FIlters: ~w   Data found data for ~w~n",[Filters, Data]),
+		io:format("[MODULER] FIlters: ~w   Data found data for ~w~n",[Filters, Data]),
 		filter_elements_aux(Filters, Data, [])
 		end,
 		FilteredSiblings
@@ -550,7 +628,7 @@ filter_elements_aux([Item | List], Data, Result) ->
 
 
 eval_sensor_input(SensorInputs, CurrentData, Dir) ->	
-	io:format("Eval sensorinputs ~n~n SensorInputs ~w~n CurrentData: ~w~n",[SensorInputs, CurrentData]),
+	io:format("[MODULER] Eval sensorinputs ~n~n SensorInputs ~w~n CurrentData: ~w~n",[SensorInputs, CurrentData]),
 	SensorVal = find_element(real_count, SensorInputs),
 	Rain = find_element(rain, SensorInputs),
 		
@@ -559,29 +637,29 @@ eval_sensor_input(SensorInputs, CurrentData, Dir) ->
 	DirNetValues = get_safe_net_values(CurrentData, Dir),
 	TempDirCache = get_safe_sensor_inputs(Dir, SensorInput),
 	
-	io:format("~n~nSAFE sensor input on ~w with ~w~n~n", [Dir, TempDirCache]),
+	io:format("[MODULER] SAFE sensor input on ~w with ~w~n~n", [Dir, TempDirCache]),
 	CacheVals = lists:keyreplace(rain, 1, TempDirCache, {rain, Rain}),
 	
 	if 
 		SensorVal < 0 ->			
 			ResponseVals = lists:append([DirNetValues, CacheVals]),
 			UpdatedData = update_nn_data(sensor_input, CurrentData, CacheVals, Dir),
-			io:format("ResponseVals when sensor -1: ~w~n~n",[ResponseVals]),
+			%io:format("[MODULER] ResponseVals when sensor -1: ~w~n~n",[ResponseVals]),
 			{ResponseVals,  UpdatedData};
 		true		 ->
 			NewSensorData = lists:keyreplace(real_count,1, CacheVals, {real_count, SensorVal}),			 
 			UpdatedData = update_nn_data(sensor_input, CurrentData, NewSensorData, Dir),
 			ResponseVals = lists:append([DirNetValues, NewSensorData]),
-			io:format("ResponseVals when sensor is old: ~w~n~n",[ResponseVals]),
+			%io:format("[MODULER] ResponseVals when sensor is old: ~w~n~n",[ResponseVals]),
 			{ResponseVals, UpdatedData}
 	end.
 
 %eval_sensor_input(SensorInputs, CurrentData, Dir) ->	
-%	io:format("Eval sensorinputs ~n~n SensorInputs ~w~n CurrentData: ~w~n",[SensorInputs, CurrentData]),
+%	io:format("[MODULER] Eval sensorinputs ~n~n SensorInputs ~w~n CurrentData: ~w~n",[SensorInputs, CurrentData]),
 %	SensorVal = find_element(real_count, SensorInputs),
 %	Rain = find_element(rain, SensorInputs),
 %	
-%	io:format("Looking for sensor input on current data ~n"),
+%	io:format("[MODULER] Looking for sensor input on current data ~n"),
 %	SensorInput = find_element(sensor_input, CurrentData),	
 	%
 %	DirNetValues = get_safe_net_values(CurrentData, Dir),
@@ -604,9 +682,9 @@ eval_sensor_input(SensorInputs, CurrentData, Dir) ->
 
 get_safe_net_values(CurrentData, Dir) ->
 	NetValues = find_element(net_values, CurrentData),
-	io:format("Looking for netval input of ~w on current data ~w ~n",[Dir, NetValues]),
+	%io:format("[MODULER] Looking for netval input of ~w on current data ~w ~n",[Dir, NetValues]),
 	DirNetValues = find_element(Dir, NetValues),
-	io:format("Get Net values for DIR ~w, Result: ~w",[Dir, DirNetValues]),
+	%io:format("[MODULER] Get Net values for DIR ~w, Result: ~w",[Dir, DirNetValues]),
 	if 
 		DirNetValues == []; DirNetValues == false ->
 			[{cycle_time,-1},{umbral,-1},{delay,-1},{estimate_count,1}];
@@ -629,24 +707,39 @@ get_safe_sensor_inputs(Dir, SensorData) ->
 %%DESC: Gets a sequence of numbers in a list, convert each one to binary and return a list in order 
 %%		where a group of 1 and 0 represents the first number, the next group the second number and so on
 convert_inputs(List) ->
-	T = lists:reverse(lists:foldl(fun(E, Res) -> Bin = convert_to_binary(E), [Bin | Res] end, [], List)),
+	io:format("[MODULER] Converting List: ~w to binary ~n", [List]),
+	T = lists:map(fun(E) -> Bin = convert_to_binary(E), Bin end, List),
+	%T = lists:reverse(lists:foldl(fun(E, Res) -> Bin = convert_to_binary(E), [Bin | Res] end, [], List)),
 	lists:append(T).
 		
 convert_to_binary(Value) ->
 	L = integer_to_list(Value, 2),
 	lists:map(fun(Item) -> list_to_integer([Item]) end, L).
-	
+
+convert_to_fixed_binary(Value, Length) ->
+	BinaryValue = convert_to_binary(Value),
+	ExtraPrefix = create_dummy_binary_list(Length - length(BinaryValue)),
+	lists:append(ExtraPrefix, BinaryValue).
+
+create_dummy_binary_list(N) ->
+	create_dummy_binary_list_helper(N, []).
+
+create_dummy_binary_list_helper(N, Acc) when N > 0 ->
+	create_dummy_binary_list_helper(N - 1, [0 | Acc]);
+create_dummy_binary_list_helper(_N, Acc) ->
+	Acc.
 	
 %%%MANAGE ALL INPUTS
 manage_inputs_updates(Sensor, DirList, CurrentData, Siblings) ->
 	lists:mapfoldl(fun(Dir, Data) -> 
+				%{reply_records, SensorInputs} = sensor:get_records(Sensor, Dir),
 				{reply_records, SensorInputs} = sensor:get_records(Sensor, Dir),
 				timer:sleep(100),
 				%%sensor:idle(Sensor, Dir),
-				io:format("Eval Sensor input on EXECUTE ~n"),	
+				io:format("[MODULER] Eval Sensor input on EXECUTE ~n"),	
 				{_Return, FirstData} = eval_sensor_input(SensorInputs, Data, Dir),
 				
-				%io:format("~n~n~n~n PROC DATA SENSOR UPDATE ~w~n~n~n~n",[FirstData]),
+				%io:format("[MODULER] ~n~n PROC DATA SENSOR UPDATE ~w~n~n~n~n",[FirstData]),
 				
 				%%second update data from siblings
 				NewData = request_update_from_Siblings(Siblings, FirstData, Dir),
@@ -654,7 +747,7 @@ manage_inputs_updates(Sensor, DirList, CurrentData, Siblings) ->
 				%%Third format all reladted inputs from siblings				
 				SiblingsInput = format_siblings_inputs(Dir, Siblings, NewData),
 								
-				io:format("SiblingsInput ~w",[SiblingsInput]),
+				io:format("[MODULER] SiblingsInput ~w",[SiblingsInput]),
 				
 				{{Dir, [{sensor, SensorInputs}, {siblings, SiblingsInput}]}, NewData}
 								
@@ -673,20 +766,21 @@ manage_inputs_updates(Sensor, DirList, CurrentData, Siblings) ->
 %%OUTPUTS: FinalDesition: Decision taken by NN
 %%DESC:   Get all data from current state an asked the NN for a decision
 execute(DirList, NN, Stats, Trainer, FormatedInputs, CurrentData, FixedCarLength, Light, Mapping, Siblings) ->
-	AnomalliesData = get_back_trouble_bit(DirList, CurrentData, Siblings),
-	Desition = get_decision(FormatedInputs,DirList, Light, NN, Stats, Trainer, AnomalliesData),
 	%%Get the length and OutputKeys of each dir (it reapetes the same)
 	MappingDivLength = find_element(submap_length, Mapping),
-	MappingDivKeys = find_element(output_keys, Mapping),
-	io:format("Desition ~w~n",[{Desition, MappingDivLength, DirList}]),
+	OutputKeys = find_child_element([keys, output_keys], Mapping),
+	AnomalliesData = get_back_trouble_bit(DirList, CurrentData, Siblings),
+	
+	Desition = get_decision(FormatedInputs,DirList, Light, NN, Stats, Trainer, AnomalliesData, OutputKeys),		
+	io:format("[MODULER] Desition ~w~n",[{Desition, MappingDivLength, DirList}]),
 	DesitionFormated = split(Desition, MappingDivLength, DirList),
-	io:format("SPLITED VALUES ~w~n~n", [DesitionFormated]),
+	io:format("[MODULER] SPLITED VALUES ~w~n~n", [DesitionFormated]),
 	NetInputs = find_element(net_input, CurrentData),
 	%%Calculate extra outputs according to nn decision and the input data
-	FinalDesition = calculate_outputs(DesitionFormated, NetInputs, FixedCarLength, DirList, MappingDivKeys),
+	FinalDesition = calculate_outputs(DesitionFormated, NetInputs, FixedCarLength, DirList, OutputKeys),
 	%FinalDesition = calculate_outputs(DesitionFormated, NetInputs, FixedCarLength, DirList),
 			
-	io:format("FinalDesition of NN: ~w~n",[FinalDesition]),
+	io:format("[MODULER] FinalDesition of NN: ~w~n",[FinalDesition]),
 	FinalDesition.
 			  
 manage_data_updates(Light, Siblings, DirList, CurrentData, FinalDesition, Updates) ->
@@ -698,7 +792,7 @@ manage_data_updates(Light, Siblings, DirList, CurrentData, FinalDesition, Update
 				SensorInputs = find_element(sensor, DirValues),
 				
 				SiblingUpdateData = lists:append(FinalDesitionForDir, SensorInputs),
-				io:format("Data after network update: FinalData .. ~w~n",[SiblingUpdateData]),
+				io:format("[MODULER] Data after network update: FinalData .. ~w~n",[SiblingUpdateData]),
 				
 				send_update_to_Siblings(Light, Siblings, SiblingUpdateData, Dir),
 				
@@ -724,7 +818,7 @@ split(List, Cs, KeyList, Acc) ->
 %%%OJO
 
 get_back_trouble_bit(DirList, Data, SiblingsList) ->
-	io:format("DirList: ~w~n~n",[DirList]),
+	io:format("[MODULER] DirList: ~w~n~n",[DirList]),
 	SensorInput = find_element (sensor_input, Data),
 	NetValues = find_element (net_values, Data),
 	Res = lists:map(
@@ -748,7 +842,7 @@ get_back_trouble_bit(DirList, Data, SiblingsList) ->
 		end,
 		DirList
 	),
-	io:format("get_back_trouble_bit result list: ~w~n~n",[Res]),
+	io:format("[MODULER] get_back_trouble_bit result list: ~w~n~n",[Res]),
 	Res.
 	%%lists:map(fun(Dir) ->
 	%%		DirValues = find_element(Dir, Data),
@@ -775,7 +869,7 @@ evaluate_anomally_by_sibling(TargetSiblings, ElementsData) ->
 		CarCount = find_element(real_count, Element),
 		Estimate = find_element(estimate_count, Element),
 		
-		io:format("Element: ~w~n CarCount: ~w~n Estimate: ~w~n",[Element,CarCount,Estimate]),
+		io:format("[MODULER] Element: ~w~n CarCount: ~w~n Estimate: ~w~n",[Element,CarCount,Estimate]),
 		Diff = if CarCount =/= [], Estimate =/= [] -> CarCount - Estimate;
 			true  -> 0
 			
@@ -797,18 +891,18 @@ evaluate_anomally_by_sibling(TargetSiblings, ElementsData) ->
 %%OUTPUTS: effiency % for the current light on the indicated dir
 %%DESC: Evaluate the realcount and the estimated_count for the current lane and get the effiency %
 evaluate_effiency(Dir, SensorInputs, NetValues) ->
-	io:format("EVALUATING EFFIENCY DIR: ~w SensorInputs: ~w, NetValues: ~w~n~n",[Dir, SensorInputs, NetValues]),
+	io:format("[MODULER] EVALUATING EFFIENCY DIR: ~w SensorInputs: ~w, NetValues: ~w~n~n",[Dir, SensorInputs, NetValues]),
 	SensorDirData = find_element(Dir, SensorInputs),
 	NetDirValues = find_element(Dir, NetValues),
 	
 	%%Get the target elements real_count (sensor) and estimate_count (net)
 	RealCount = find_element(real_count, SensorDirData),
-	io:format("Getting estimatedcount from NetDirValues: ~w~n~n",[NetDirValues]),
+	io:format("[MODULER] Getting estimatedcount from NetDirValues: ~w~n~n",[NetDirValues]),
 	EstimatedCount = case NetDirValues of  [] -> 1; 
 						  _Other -> Val = find_element(estimate_count, NetDirValues), 
 									if Val == 0 -> 1; true -> Val end  end,
 	
-	io:format("Estimatedcount from NetDirValues: ~w~n~n",[EstimatedCount]),
+	io:format("[MODULER] Estimatedcount from NetDirValues: ~w~n~n",[EstimatedCount]),
 	
 	(RealCount / EstimatedCount) * 100.
 	
@@ -841,12 +935,12 @@ evaluate_effiency(Dir, SensorInputs, NetValues) ->
 %		end,
 %		DirList),
 		
-%	io:format("Formated Result ~w~n~n",[Res]),
+%	io:format("[MODULER] Formated Result ~w~n~n",[Res]),
 %	FinalDesition.
 	
 
 %get_dir_dm_vals(Dir, MappList) ->
-%	io:format("Dir ~w, MappList ~w~n~n", [Dir, MappList]),
+%	io:format("[MODULER] Dir ~w, MappList ~w~n~n", [Dir, MappList]),
 %	{Positions, _LastPos} = lists:mapfoldl(fun(Item, AccPos) ->
 %			{Key, _Value} = Item,
 %			{R, Attribute} = break_key(Key),
@@ -876,7 +970,7 @@ evaluate_effiency(Dir, SensorInputs, NetValues) ->
 %	lists:nth(Index, List).
 %	
 %get_dir_desitions(DirMappingValues, FinalDesition) ->
-%	io:format("Getting desition values Index ~w FinalDesition ~w~n~n",[DirMappingValues, FinalDesition]),
+%	io:format("[MODULER] Getting desition values Index ~w FinalDesition ~w~n~n",[DirMappingValues, FinalDesition]),
 %	lists:map(fun(Index) ->
 %			Element = get_list_item_by_index(Index, FinalDesition),
 %			Element
@@ -894,7 +988,7 @@ update_from_nn(ModulerPid, Values, Dir) ->
 		{reply, ok} ->
 			{ok, udpated};
 		_Other ->
-			io:format("error"),
+			io:format("[MODULER] error"),
 			{error, []}
 	end.
 	
@@ -973,14 +1067,15 @@ write_checkpoint(NN, Data, CheckpointLog, LightId, Sensor) ->
 	FormatedSiblings = format_siblings(Data),
 	FormatedData = lists:keyreplace(siblings_data,1,Data, {siblings_data, FormatedSiblings}),
 	{ModulerFile, _NNFile, _SensorLight, _NNLog} = CheckpointLog,
-	%io:format("moduler file: ~p", [ModulerFile]),
+	%io:format("[MODULER] moduler file: ~p", [ModulerFile]),
 	filemanager:write_raw(ModulerFile, io_lib:format("~w", [{LightId, FormatedData}])),
-	write_checkpoint_nn(NN),
+	write_checkpoint_nn(LightId, NN),
 	write_checkpoint_sens(Sensor),
 	timer:sleep(100).
 
-write_checkpoint_nn(NN) ->
-	NN ! {checkpoint, self()}.
+write_checkpoint_nn(LightId, NN) ->
+	NN ! {checkpoint, self()},
+	io:format("[MODULER] Finished Saving NN for ~w ~n", [LightId]).
 
 write_checkpoint_sens(Sensor) ->
 	Sensor ! {checkpoint, self()}.
@@ -997,13 +1092,32 @@ restore(File, LightId) ->
 
 find_element(_Id, []) ->
 	[];
-find_element(Id, Data) ->
+find_element(Id, Data) when is_list(Data) ->
 	Element = lists:keyfind(Id, 1, Data),
 	case Element of
 		false ->	[];
 		_Other ->	{Id, Value} = Element,
 					Value
+	end;
+find_element(_Id, _Data) ->
+	[].
+
+find_child_element([], []) ->
+	false;
+find_child_element(_, []) ->
+	false;
+find_child_element([], _) ->
+	false;
+find_child_element([Parent | Hierachy], List) ->
+	io:format("[MODULER] Looking for element ~w in ~w ~n",[Parent, List]),
+	Element = find_element(Parent, List),
+	io:format("[MODULER] Element found ~w rest of hierachy ~w~n",[Element, Hierachy]),
+	case Element of
+		[] -> false;
+		_Other when Hierachy == [] -> Element;
+		_Other -> find_child_element(Hierachy, Element)
 	end.
+	
 
 force_stop(NN, Sensor) ->
 	NN ! {stop, self()},

@@ -478,8 +478,10 @@ test() ->
 %%OUTPUT: None
 %%Desc: CLIENT interface function to put each light to evaluate its state
 evaluate_state({LightId, LightPid, Time}) ->
-    %io:format("Evaluating state ~w~n",[LightPid]),
+   io:format("Evaluating state ~w~n",[LightPid]),
    {State, Times, _Siblings, LogData, OldState, CtrlMod, LightMode, ManagedLanes} = get_state(LightPid),
+   
+   io:format("Times: ~w~n",[Times]),
    
    {cycle_time, CTime} = lists:keyfind(cycle_time, 1, Times),
    {go_time, GTime} = lists:keyfind(go_time, 1, Times),
@@ -487,13 +489,14 @@ evaluate_state({LightId, LightPid, Time}) ->
    {allred_timer, ARTimer} = lists:keyfind(allred_timer, 1, Times),
    Delay = find_element(delay, Times),
    MaxWait = find_element(umbral, Times),
-					
+
    write_result(LogData, 
        io_lib:format("Running simulation iteration: ~w continue",[Time])),
    write_result(LogData, io_lib:format("Evaluating state for light_fsm: ~w continue",[LightId])),
 
+   io:format("GTime Data: ~w~n",[GTime]),
    NextTime = GTime + 1,
-   %io:format("LightMode: ~w~n",[LightMode]),
+   
    case LightMode of
 		default ->  evaluate_state(State, OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid);
 		dm		->  evaluate_state_dm(State, OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, CtrlMod, Delay, MaxWait, ManagedLanes);
@@ -506,6 +509,12 @@ evaluate_state({LightId, LightPid, Time}) ->
 %%		 ARTime =  amount of time for all red lights, CTime = Cycle time (green light time)
 %%OUTPUT: NONE
 %%DESC: Evaluates the state according to times
+evaluate_state(State = redred, redred, _NextTime, _CTime, _ARTime, _ARTimer, LogData, LightPid) ->
+   %io:format("Continuing ~w way cycle~n",[State]),
+   io:format("Starting move ~w way cycle~n",[State]),
+   write_result(LogData, io_lib:format("Starting move",[])),
+   estimate_after_idle(LightPid, LogData);
+
 evaluate_state(State, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid) when NextTime >= CTime, ARTimer <  ARTime->
    _NextDir = next_state_dir(State),
    %io:format("Finishing ~w way cycle moving to idle~n",[State]),
@@ -517,11 +526,6 @@ evaluate_state(_State, greenred, NextTime, CTime, ARTime, ARTimer, _LogData, Lig
    
 evaluate_state(_State, redgreen, NextTime, CTime, ARTime, ARTimer, _LogData, LightPid) when NextTime >= CTime, ARTimer >=  ARTime->
    move_avenue(LightPid);   
-
-evaluate_state(State = redred, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid) when NextTime < CTime ->
-   %io:format("Continuing ~w way cycle~n",[State]),
-   write_result(LogData, io_lib:format("Continuing ~w way cycle",[State])),
-   estimate_after_idle(LightPid, LogData);
 
 evaluate_state(State = greenred, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid) when NextTime < CTime ->
    %io:format("Continuing ~w way cycle~n",[State]),
@@ -539,6 +543,14 @@ evaluate_state(State = redgreen, _OldState, NextTime, CTime, _ARTime, _ARTimer, 
 
 %%SPECIAL ORIG IS COMMENTED BELOW THIS WILL CALL THE MODULER ONLY IF THE LAST STATE
 %% IS FINISHED
+evaluate_state_dm(State = redred, redred, _NextTime, _CTime, _ARTime, _ARTimer, LogData, LightPid, 
+  _CtrlMod, _Delay, _MaxWait, _ManagedLanes) ->
+%evaluate_state_dm(State = redred, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid, 
+%  _CtrlMod, _Delay, _MaxWait, _ManagedLanes) when NextTime < CTime ->
+    io:format("Starting move ~w way cycle~n",[State]),
+    write_result(LogData, io_lib:format("Starting move",[])),
+    estimate_after_idle(LightPid, LogData);
+
 evaluate_state_dm(State = redgreen, _OldState, NextTime, CTime, ARTime, ARTimer, LogData, LightPid, 
   CtrlMod, _Delay, _MaxWait, ManagedLanes) when NextTime >= CTime, ARTimer <  ARTime->
   	%io:format("Estimating time results for next state~n", []),
@@ -546,9 +558,9 @@ evaluate_state_dm(State = redgreen, _OldState, NextTime, CTime, ARTime, ARTimer,
   	%CarStats = [],
 	DirList = next_state_dir(State),
    	{reply, NewData} = moduler:estimation_proc(CtrlMod, DirList,CarStats),
-   	io:format("~n~n~n~nNewData after moduler call ~w~n~n~n",[NewData]),
+   	io:format("NewData after moduler call ~w~n~n~n",[NewData]),
    	change_times({LightPid, NewData, DirList}),
-   	%io:format("Finishing ~w way cycle moving to idle~n",[State]),
+   	io:format("Finishing ~w way cycle moving to idle~n",[State]),
    	write_result(LogData, io_lib:format("Finishing ~w way cycle moving to idle",[State])),   
 	idle(LightPid);
 
@@ -582,12 +594,6 @@ evaluate_state_dm(_State, redgreen, NextTime, CTime, ARTime, ARTimer, _LogData, 
     Dir = current_state_dir(greenred),
     moduler:reset_sensor(CtrlMod, Dir),
     move_avenue(LightPid);   
-
-evaluate_state_dm(State = redred, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid, 
-  _CtrlMod, _Delay, _MaxWait, _ManagedLanes) when NextTime < CTime ->
-    io:format("Continuing ~w way cycle~n",[State]),
-    write_result(LogData, io_lib:format("Continuing ~w way cycle",[State])),
-    estimate_after_idle(LightPid, LogData);
 
 evaluate_state_dm(State = greenred, _OldState, NextTime, CTime, _ARTime, _ARTimer, LogData, LightPid, 
   CtrlMod, _Delay, MaxWait, _ManagedLanes) when NextTime < CTime ->
@@ -720,7 +726,8 @@ write_final_data_aux([{LaneId,LanePid}|Tail], Path) ->
     LanePid ! {write_down, self(), Path,LaneId},
     receive
         {reply, _Reply} -> 
-            io:format("reply recieve after writedown lane ~w.~n",[LaneId])            
+            %io:format("reply recieve after writedown lane ~w.~n",[LaneId]) 
+           	ok
     end,
     write_final_data_aux(Tail, Path).
 
@@ -779,6 +786,9 @@ update_state_data([{ElementId, NewValue} | UpdateTail], OldStateData) ->
 	NewStateData = lists:keyreplace(ElementId,1, OldStateData, {ElementId, NewValue}),
 	update_state_data(UpdateTail, NewStateData).
 
+update_list_data(ToUpdate, OldList) ->
+	update_state_data(ToUpdate, OldList).
+
 process_state(idle, StateData, OnActive, OnIdle, FromState, Dir) ->
 	ManagedLanes = find_element(managed_lanes, StateData),
 	Times = find_element(times, StateData),    
@@ -789,7 +799,8 @@ process_state(idle, StateData, OnActive, OnIdle, FromState, Dir) ->
 	write_result(LogData, io_lib:format("continue moving ~w lanes. Data: ~w",[Dir, StateData])),
     update_lanes(ManagedLanes, OnActive, OnIdle, CTime, 0, LogData, null),
 
-    NewTimes = lists:keyreplace(allred_timer,1, Times, {allred_timer, ARTimer + 1}),
+	%NewTimes = lists:keyreplace(allred_timer,1, Times, {allred_timer, ARTimer + 1}),
+    NewTimes = update_list_data([{allred_timer, ARTimer + 1}, {go_time, CTime}], Times),
     update_state_data([{times, NewTimes}, {old_state, FromState}], StateData);
     
 process_state(move, StateData, OnActive, OnIdle, _FromState, Dir) ->
@@ -806,7 +817,8 @@ process_state(move, StateData, OnActive, OnIdle, _FromState, Dir) ->
     write_result(LogData, io_lib:format("continue moving ~w lanes. Data: ~w",[Dir, StateData])),
     update_lanes(ManagedLanes, OnActive, OnIdle,CTime, GTime, LogData, Sensor),    
     
-    NewTimes = lists:keyreplace(go_time,1, Times, {go_time, GTime + 1}),
+    %NewTimes = lists:keyreplace(go_time,1, Times, {go_time, GTime + 1}),
+    NewTimes = update_list_data([{go_time, GTime + 1}], Times),
     update_state_data([{times, NewTimes}], StateData);
 
 process_state(allred_move, StateData, OnActive, OnIdle, _FromState, Dir) ->
@@ -833,7 +845,8 @@ process_state(allred_idle, StateData, OnActive, OnIdle, _FromState, _Dir) ->
     
     write_result(LogData, io_lib:format("All Red time. Data: ~w~n",[StateData])),
     update_lanes(ManagedLanes, OnActive, OnIdle, CTime, 0, LogData, null),    
-    NewTimes = lists:keyreplace(allred_timer,1, Times, {allred_timer, ARTimer + 1}),
+    %NewTimes = lists:keyreplace(allred_timer,1, Times, {allred_timer, ARTimer + 1}),
+    NewTimes = update_list_data([{allred_timer, ARTimer + 1}], Times),
     
     update_state_data([{times, NewTimes}], StateData).
 
@@ -919,7 +932,7 @@ process_scans(InfoList) ->
 									   end,
 									   InfoList)),
 	%{CountType1, CountType2, BCapacity, BTopSpeed, CountObStops}.
-	[{count_type1, CountType1},{count_type2, CountType2}, {capacity, BCapacity}, {top_speed, BTopSpeed}, {count_obs, CountObStops}].
+	[{capacity, BCapacity}, {lanes_one_way, CountType1},{lanes_two_way, CountType2}, {top_speed, BTopSpeed}, {count_obs, CountObStops}].
 
 
 get_safe_sensor(CtrlMod) ->

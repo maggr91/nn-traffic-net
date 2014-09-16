@@ -23,6 +23,9 @@ init({Distribution, ProbData}) ->
 
 reply (Pid, Reply) ->
     Pid ! {reply, Reply}.
+	
+reply (ReplyKey, Pid, Reply) ->
+    Pid ! {ReplyKey, Reply}.
 
 
 poisson(X, Lambda) when X > -1 ->
@@ -99,7 +102,7 @@ serverTabla(TablaAcum)->
 		    reply(Cliente, encuentraValorTabla(TablaAcum, random:uniform())),
 		    serverTabla(TablaAcum);
 		{valor, ClientPID, ClientID} ->
-			reply(ClientPID, encuentraValorTablaExt(TablaAcum, random:uniform(), ClientID)),
+			reply(replyProb, ClientPID, encuentraValorTablaExt(TablaAcum, random:uniform(), ClientID)),
 			serverTabla(TablaAcum);
 		killyou -> 
 		    %%io:format("Saliendo... mi tabla era: ~p~n",[TablaAcum]);
