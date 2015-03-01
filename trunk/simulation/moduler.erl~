@@ -163,6 +163,10 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 			%%% el que tenga almacenado el modulador, si no dar version reciente			 
 			{reply_records, SensorInputs} = sensor:get_records_for_sibling(Sensor, Dir),
 			io:format("[MODULER] Eval Sensor input on RESPONSE ~n"),
+			
+			%%%TODO 16/9/14 VER SI ESTA PARTE DEBE CAMBIARSE DADO QUE LA LINEA ANTERIOR TRAE LOS
+			%% CONTEOS DE CARROS QUE VAN HACIA LA SIGUIENTE LINEA Y NO HACIA LA ACTUAL Y NO DEBERIAN AFECTAR
+			%% VER SI DEBERIAN DE TENERSE DOS DATOS POR SEPARADO
 			{Return, UpdatedData} = eval_sensor_input(SensorInputs, Data, Dir),
 					
 			io:format("[MODULER]  Return data from ~w ~w~n", [CallerPid, Return]),	
@@ -338,26 +342,18 @@ connect(Dir, {SenderId, SenderPid, SenderLocation}, {ReceiverId, ReceiverPid, Re
 
 %%INPUT: Siblings list separated by direction,
 %%		 Data: moduler current data
+%%		 Dir: direction where the sibling is located
 %%OUTPUT: Updated moduler data
 %%DESC: Gets updates from ALL siblings on any direction and updates the data info
 request_update_from_Siblings([], Data, _TargetDir) ->
+	%io:format("[MODULER] Data after broadcast: ~w~n", [Data]),
 	Data;
-request_update_from_Siblings([{Dir, SiblingsList} | Siblings], Data) ->
+request_update_from_Siblings([{Dir, SiblingsList} | Siblings], Data, Dir) ->
 	io:format("[MODULER] Updating ~w List: ~w~n", [Dir, SiblingsList]),
 	NewData = update_from_Siblings_aux(SiblingsList, Data, Dir),
-	request_update_from_Siblings(Siblings, NewData, Dir).
-
-%%%CAMBIAR PARA QUE ACTUALICE TODOS LOS SIBLINGS DEL SEMAFORO EN TODAS LAS DIRECCIONES
-%%OLD DEPRECATED
-%request_update_from_Siblings([], Data, _TargetDir) ->
-	%io:format("[MODULER] Data after broadcast: ~w~n", [Data]),
-%	Data;
-%request_update_from_Siblings([{Dir, SiblingsList} | Siblings], Data, Dir) ->
-%	io:format("[MODULER] Updating ~w List: ~w~n", [Dir, SiblingsList]),
-%	NewData = update_from_Siblings_aux(SiblingsList, Data, Dir),
-%	request_update_from_Siblings(Siblings, NewData, Dir);
-%request_update_from_Siblings([_OtherDir | Siblings], Data, TargetDir) ->	
-%	request_update_from_Siblings(Siblings, Data, TargetDir).
+	request_update_from_Siblings(Siblings, NewData, Dir);
+request_update_from_Siblings([_OtherDir | Siblings], Data, TargetDir) ->	
+	request_update_from_Siblings(Siblings, Data, TargetDir).
 	
 update_from_Siblings_aux([], Data, _Dir) ->
 	Data;
@@ -749,7 +745,7 @@ manage_inputs_updates(Sensor, DirList, CurrentData, Siblings) ->
 				
 				%io:format("[MODULER] ~n~n PROC DATA SENSOR UPDATE ~w~n~n~n~n",[FirstData]),
 				
-				%%second update data from siblings %%change removed dir
+				%%second update data from siblings
 				NewData = request_update_from_Siblings(Siblings, FirstData, Dir),
 				
 				%%Third format all reladted inputs from siblings				
@@ -1017,19 +1013,19 @@ stop(ModulerPid) ->
 	{normal, moduler}.
 
 %%INPUT: ModulerPid related to the traffic light, 
-%%		 Dir direction where to look for info
+%%		 DirList direction list where to look for info (could be one or more) [ca, av], [av, ca]
 %%		 Stats, list of cars in the current lane
 %%OUTPUT: returns the new data to use by the light (mostly times)
 %%DESC: Called from Lights, in order to ask the DM (nn) what would be the next cycle
-estimation_proc(ModulerPid, Dir, Stats) ->
+estimation_proc(ModulerPid, DirList, Stats) ->
 	
-	%ModulerPid ! {performance, self(), Dir, Stats},
+	%ModulerPid ! {performance, self(), DirList, Stats},
 	%receive
 	%	{reply, ok} -> {reply, ok};
 	%	_OtherPerformance ->	{error, moduler}		
 	%end,
 	
-	ModulerPid ! {proc, self(), Dir, Stats},
+	ModulerPid ! {proc, self(), DirList, Stats},
 	receive
 		{reply, NewDesition} -> {reply, NewDesition};
 		_OtherProc ->	{error, moduler}		
