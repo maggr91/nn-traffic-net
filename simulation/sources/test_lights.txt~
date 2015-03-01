@@ -1,0 +1,2 @@
+{light212,twoDir,dm,[{av,[{light210,despues}]},{ca,[{light412,antes}]}],[{cycle_time,0},{avenue_time,30},{street_time,30},{go_time,0},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,5},{street_delay,2},{avenue_umbral,5},{street_umbral,5}]}
+{light210,twoDir,dm,[{av,[{light212,antes},{light208,despues}]},{ca,[{light410,despues}]}],[{cycle_time,0},{avenue_time,30},{street_time,30},{go_time,0},{allred_time,1},{delay,2},{umbral,2},{avenue_delay,4},{street_delay,4},{avenue_umbral,5},{street_umbral,5}]}
