@@ -75,6 +75,10 @@ init(Args) ->
     	{times, NewTimes}, {log_data, LogData}, {old_state, redred}, {ctrl_mod, CtrlMod}, {light_mode, LightMode},
     	{log_changes,  LogChanges}],
     
+    %ensure that there's at least one register of the light data
+    %this is needed to avoid system problems
+    write_changes_log(StateData),
+    
     case Mode of
     	normal -> scan_lanes(StateData);
     	_Other -> continue
@@ -1121,8 +1125,9 @@ override_sources(StateData, SourceData, TargetFile) ->
 	io:format("[LIGHT_FSM]override_sources start ~n", []),
 	LightId = find_element(id, StateData),
 	Log = find_element(log_changes, StateData),
+	io:format("[LIGHT_FSM]Log file for LightID ~w is: ~p ~n", [LightId, Log]),
 	ChangesLogs = filemanager:get_data_by_fullpath(Log),
-	
+	io:format("[LIGHT_FSM]Looking for LightID ~w old data in : ~w ~n", [LightId, SourceData]),
 	Item = lists:keyfind(LightId, 1, SourceData),
 	LastItem = last(ChangesLogs),
 	case Item of
