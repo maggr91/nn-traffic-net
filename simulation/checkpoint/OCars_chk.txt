@@ -1,6 +1,12 @@
-{lane212av4,[{car,{{0,0,0},1,[],[{times,[{wait,10},{delay,8}]},{top_move,3},{route,[{av212,[{wait,10},{delay,8}]},{outav212,[{wait,0},{delay,0}]}]}]}}]}
-{lane212av3,[]}
-{lane212av2,[]}
-{lane212av1,[]}
-{lane212ca2,[]}
 {lane212ca1,[]}
+{lane212ca2,[]}
+{lane212av1,[]}
+{lane212av2,[]}
+{lane212av3,[]}
+{lane212av4,[]}
+{lane210av5,[{car,{{0,0,0},2,[],[{times,[{wait,6},{delay,0}]},{top_move,3},{route,[{av210,[{wait,6},{delay,0}]},{av212,[{wait,3},{delay,0}]},{outav212,[{wait,0},{delay,0}]}]}]}}]}
+{lane210av4,[{car,{{0,0,0},2,[],[{times,[{wait,6},{delay,0}]},{top_move,3},{route,[{av210,[{wait,6},{delay,0}]},{av212,[{wait,3},{delay,0}]},{outav212,[{wait,0},{delay,0}]}]}]}},{bus,{{0,1,1},2,[],[{times,[{wait,5},{delay,0}]},{top_move,3},{route,[{av210,[{wait,5},{delay,0}]},{av212,[{wait,3},{delay,0}]},{outav212,[{wait,0},{delay,0}]}]}]}}]}
+{lane210av3,[]}
+{lane210av2,[{bus,{{0,1,1},2,[],[{times,[{wait,5},{delay,0}]},{top_move,3},{route,[{av210,[{wait,5},{delay,0}]},{av212,[{wait,3},{delay,0}]},{outav212,[{wait,0},{delay,0}]}]}]}},{bus,{{0,1,1},2,[],[{times,[{wait,5},{delay,0}]},{top_move,3},{route,[{av210,[{wait,5},{delay,0}]},{av212,[{wait,3},{delay,0}]},{outav212,[{wait,0},{delay,0}]}]}]}}]}
+{lane210av1,[{bus,{{0,1,1},1,[],[{times,[{wait,5},{delay,0}]},{top_move,3},{route,[{av210,[{wait,5},{delay,0}]},{av212,[{wait,3},{delay,0}]},{outav212,[{wait,0},{delay,0}]}]}]}},{bus,{{0,1,1},2,[],[{times,[{wait,5},{delay,0}]},{top_move,3},{route,[{av210,[{wait,5},{delay,0}]},{av212,[{wait,3},{delay,0}]},{outav212,[{wait,0},{delay,0}]}]}]}}]}
+{lane210ca1,[]}

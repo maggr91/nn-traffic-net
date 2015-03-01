@@ -163,6 +163,10 @@ listen(Light, Siblings, NN, Data, CheckpointLog, Sensor, Trainer, FixedCarLength
 			%%% el que tenga almacenado el modulador, si no dar version reciente			 
 			{reply_records, SensorInputs} = sensor:get_records_for_sibling(Sensor, Dir),
 			io:format("[MODULER] Eval Sensor input on RESPONSE ~n"),
+			
+			%%%TODO 16/9/14 VER SI ESTA PARTE DEBE CAMBIARSE DADO QUE LA LINEA ANTERIOR TRAE LOS
+			%% CONTEOS DE CARROS QUE VAN HACIA LA SIGUIENTE LINEA Y NO HACIA LA ACTUAL Y NO DEBERIAN AFECTAR
+			%% VER SI DEBERIAN DE TENERSE DOS DATOS POR SEPARADO (PROBABLEMENTE SI)
 			{Return, UpdatedData} = eval_sensor_input(SensorInputs, Data, Dir),
 					
 			io:format("[MODULER]  Return data from ~w ~w~n", [CallerPid, Return]),	
@@ -1009,19 +1013,19 @@ stop(ModulerPid) ->
 	{normal, moduler}.
 
 %%INPUT: ModulerPid related to the traffic light, 
-%%		 Dir direction where to look for info
+%%		 DirList direction list where to look for info (could be one or more) [ca, av], [av, ca]
 %%		 Stats, list of cars in the current lane
 %%OUTPUT: returns the new data to use by the light (mostly times)
 %%DESC: Called from Lights, in order to ask the DM (nn) what would be the next cycle
-estimation_proc(ModulerPid, Dir, Stats) ->
+estimation_proc(ModulerPid, DirList, Stats) ->
 	
-	%ModulerPid ! {performance, self(), Dir, Stats},
+	%ModulerPid ! {performance, self(), DirList, Stats},
 	%receive
 	%	{reply, ok} -> {reply, ok};
 	%	_OtherPerformance ->	{error, moduler}		
 	%end,
 	
-	ModulerPid ! {proc, self(), Dir, Stats},
+	ModulerPid ! {proc, self(), DirList, Stats},
 	receive
 		{reply, NewDesition} -> {reply, NewDesition};
 		_OtherProc ->	{error, moduler}		

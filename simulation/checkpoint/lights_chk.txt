@@ -1,1 +1,2 @@
-{light212,[{allred_timer,0},{cycle_time,3},{avenue_time,3},{street_time,3},{go_time,0},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,1},{street_delay,1},{avenue_umbral,5},{street_umbral,5}],redgreen,greenred}
+{light212,[{allred_timer,0},{cycle_time,30},{avenue_time,30},{street_time,30},{go_time,20},{allred_time,1},{delay,0},{umbral,2},{avenue_delay,5},{street_delay,2},{avenue_umbral,5},{street_umbral,5}],greenred,redred}
+{light210,[{allred_timer,0},{cycle_time,30},{avenue_time,30},{street_time,30},{go_time,20},{allred_time,1},{delay,2},{umbral,2},{avenue_delay,4},{street_delay,4},{avenue_umbral,5},{street_umbral,5}],greenred,redred}

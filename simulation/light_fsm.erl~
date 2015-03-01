@@ -1118,6 +1118,7 @@ update_next_cycle_on_allred(Dir, Times, StateData) ->
 
 %%Update source file using a temp file to write new light data to be used later
 override_sources(StateData, SourceData, TargetFile) ->
+	io:format("[LIGHT_FSM]override_sources start ~n", [Times, LightId]),
 	LightId = find_element(id, StateData),
 	Log = find_element(log_changes, StateData),
 	ChangesLogs = filemanager:get_data_by_fullpath(Log),

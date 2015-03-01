@@ -2,7 +2,10 @@
 
 -export([start/2, run_simulation/1, restore/0, call/1]).
 
-
+%%Parameters
+%%	Lapse number of cycles for the simulation
+%%  MaxSpeed list of tuple to define the maxspeed for specific lanes: simulation:start(10,[])
+%%		to specify a max speed for USE THE CORRESPONDING LANEID on the config files.
 start(Lapse, MaxSpeed) ->
     %%MaxSpeed = 50, 
     [Config | _Junk] = get_config(),

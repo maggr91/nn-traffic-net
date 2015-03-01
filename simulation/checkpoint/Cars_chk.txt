@@ -1,6 +1,12 @@
-{lane212av4,[]}
-{lane212av3,[{bus,{{0,1,1},1,[],[{times,[{wait,10},{delay,10}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}}]}
-{lane212av2,[{bus,{{0,1,1},2,[],[{times,[{wait,13},{delay,12}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}}]}
-{lane212av1,[{car,{{0,0,0},2,[],[{times,[{wait,8},{delay,7}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}}]}
-{lane212ca2,[]}
 {lane212ca1,[]}
+{lane212ca2,[]}
+{lane212av1,[]}
+{lane212av2,[{car,{{0,0,0},2,[],[{times,[{wait,3},{delay,0}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}}]}
+{lane212av3,[]}
+{lane212av4,[{car,{{3,3,0},2,[],[{times,[{wait,1},{delay,0}]},{top_move,3},{route,[{outav212,[{wait,0},{delay,0}]}]}]}}]}
+{lane210av5,[]}
+{lane210av4,[]}
+{lane210av3,[]}
+{lane210av2,[]}
+{lane210av1,[]}
+{lane210ca1,[{bus,{{0,1,1},1,[],[{times,[{wait,10},{delay,10}]},{top_move,3},{route,[{outca210,[{wait,0},{delay,0}]}]}]}},{bus,{{2,3,1},1,[],[{times,[{wait,3},{delay,3}]},{top_move,3},{route,[{outca210,[{wait,0},{delay,0}]}]}]}}]}
