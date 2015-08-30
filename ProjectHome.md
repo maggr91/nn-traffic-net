@@ -1,0 +1,1 @@
+This project is to develop a neural network which would reduce the time taken for vehicles to drive through intersections with traffic lights in cities.
